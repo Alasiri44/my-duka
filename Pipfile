@@ -9,6 +9,9 @@ flask-session = "*"
 flask-cors = "*"
 flask-migrate = "*"
 psycopg2 = "*"
+sqlalchemy-serializer = "*"
+python-dotenv = "*"
+flask-restful = "*"
 
 [dev-packages]
 
