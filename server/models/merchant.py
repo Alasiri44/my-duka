@@ -11,7 +11,8 @@ class Merchant(db.Model, SerializerMixin):
     password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     
-    businesses = db.relationship('Business', back_populates='merchant')
+    businesses = db.relationship('Business', back_populates='merchant', cascade='all, delete-orphan')
+    serialize_rules = ('-businesses.merchant',)
     
     def __repr__(self):
         return f'<Merchant {self.id}: {self.first_name} {self.last_name} using {self.email}>'

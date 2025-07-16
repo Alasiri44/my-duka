@@ -1,7 +1,9 @@
 from . import create_app
 from flask import make_response
+from .controllers.merchant_controller import merchant_bp
 
 app = create_app()
+app.register_blueprint(merchant_bp)
 
 @app.route('/')
 def index():
