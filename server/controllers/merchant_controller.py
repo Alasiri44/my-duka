@@ -12,7 +12,7 @@ class Merchants(Resource):
         return make_response(response_dict, 200)
     def post(self):
         from ..app import bcrypt
-        data = request.form
+        data = request.get_json()
         new_merchant = Merchant(
             first_name = data.get('first_name'),
             last_name = data.get('last_name'),
@@ -56,8 +56,8 @@ api.add_resource(Merchant_By_ID, '/merchant/<id>')
 class Merchant_Login(Resource):
     def post(self):
         from ..app import bcrypt
-        email = request.form.get('email')
-        password = request.form.get('password')
+        email = request.get_json.get('email')
+        password = request.get_json.get('password')
         user = Merchant.query.filter(Merchant.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):

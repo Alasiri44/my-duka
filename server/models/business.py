@@ -15,7 +15,7 @@ class Business(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, default=datetime.now)
     
     merchant = db.relationship('Merchant', back_populates='businesses')
-    serialize_rules = ('-merchant.businesses',)
+    serialize_rules = ('-merchant.businesses', '-merchant.password_hash')
     
     def __repr__(self):
         return f'<Business {self.id}: {self.name} at {self.address} >'
