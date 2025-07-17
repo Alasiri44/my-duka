@@ -36,7 +36,7 @@ const MerchantDashboard = () => {
       const [
         businessList,
         storeList,
-        // userList,
+        userList,
         stockEntries,
         productList,
         supplierList
