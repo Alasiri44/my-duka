@@ -6,6 +6,7 @@ from .controllers.store_controller import store_bp
 from .controllers.user_controller import user_bp
 from .controllers.category_controller import category_bp
 from .controllers.product_controller import product_bp
+from .controllers.supplier_controller import supplier_bp
 from flask_bcrypt import Bcrypt
 
 app = create_app()
@@ -16,6 +17,7 @@ app.register_blueprint(store_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(category_bp)
 app.register_blueprint(product_bp)
+app.register_blueprint(supplier_bp)
 
 @app.route('/')
 def index():

@@ -10,6 +10,7 @@ from .models.user import User
 from .models.category import Category
 from .models.product import Product
 from .models.business_setting import Business_Setting
+from .models.supplier import Supplier
 
 def create_app():
     app = Flask(__name__)
