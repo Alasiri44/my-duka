@@ -1,11 +1,34 @@
-// /components/business/Sidebar.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaBars, FaArrowLeft, FaStore, FaUser, FaBoxes, FaTruck, FaMoneyBill, FaChartBar, FaCog, FaBuilding } from "react-icons/fa";
+import {
+  FaBars,
+  FaArrowLeft,
+  FaStore,
+  FaUser,
+  FaBoxes,
+  FaTruck,
+  FaMoneyBill,
+  FaChartBar,
+  FaCog,
+  FaBuilding,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Sidebar = ({ businesses, currentId }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) setCollapsed(true);
+  }, [isMobile]);
 
   const linkClass = (isActive) =>
     `flex items-center gap-2 px-4 py-2 rounded hover:bg-[#e0dedc] transition text-sm ${
@@ -13,10 +36,10 @@ const Sidebar = ({ businesses, currentId }) => {
     }`;
 
   return (
-    <aside
-      className={`bg-[#f2f0ed] border-r border-[#d7d0c8] transition-all duration-300 ${
-        collapsed ? "w-16" : "w-64"
-      } h-full flex flex-col`}
+    <motion.aside
+      animate={{ width: collapsed ? 64 : 256 }}
+      transition={{ type: "spring", stiffness: 260, damping: 24 }}
+      className="bg-[#f2f0ed] border-r border-[#d7d0c8] h-full flex flex-col fixed md:relative z-50 overflow-hidden shadow-xl/50"
     >
       <div className="p-4 flex justify-between items-center">
         {!collapsed && (
@@ -59,12 +82,11 @@ const Sidebar = ({ businesses, currentId }) => {
       <div className="border-t border-[#d7d0c8] p-2 space-y-1">
         <button
           onClick={() => navigate("/merchant/dashboard")}
-          className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#011638] hover:bg-[#e0dedc] rounded"
+          className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#011638] hover:bg-[#ec4e20] rounded"
         >
           <FaArrowLeft /> {!collapsed && "Back to Dashboard"}
         </button>
 
-        {/* Optional: switch business */}
         {!collapsed &&
           businesses
             .filter((b) => b.id !== currentId)
@@ -78,7 +100,7 @@ const Sidebar = ({ businesses, currentId }) => {
               </button>
             ))}
       </div>
-    </aside>
+    </motion.aside>
   );
 };
 
