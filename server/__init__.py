@@ -7,6 +7,7 @@ from .models.merchant import Merchant
 from .models.business import Business
 from .models.store import Store
 from .models.user import User
+from .models.category import Category
 
 def create_app():
     app = Flask(__name__)
