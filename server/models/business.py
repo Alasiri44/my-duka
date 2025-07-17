@@ -18,7 +18,8 @@ class Business(db.Model, SerializerMixin):
     merchant = db.relationship('Merchant', back_populates='businesses')
     stores = db.relationship('Store', back_populates='business', cascade='all, delete-orphan')
     categories = db.relationship('Category', back_populates='business', cascade='all, delete-orphan')
-    serialize_rules = ('-merchant.businesses', '-merchant.password_hash', '-stores.business', '-stores.users.store.business')
+    business_setting = db.relationship('Business_Setting', back_populates='business')
+    serialize_rules = ('-merchant.businesses', '-merchant.password_hash', '-stores.business', '-stores.users.store.business', '-business_setting.business', )
     
     def __repr__(self):
         return f'<Business {self.id}: {self.name} at {self.address} >'
