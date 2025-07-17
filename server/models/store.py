@@ -18,4 +18,4 @@ class Store(db.Model, SerializerMixin):
     serialize_rules = ('-business.stores',)
     
     def __repr__(self):
-        return f'<Merchant {self.id}: {self.name} {self.last_name} using {self.email}>'
+        return f'<Merchant {self.id}: {self.name} at {self.county}>'
