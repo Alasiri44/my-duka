@@ -12,25 +12,41 @@ class Merchants(Resource):
         return make_response(response_dict, 200)
     def post(self):
         new_merchant = Merchant(
-            first_name = request.get_json('first_name'),
-            last_name = request.get_json('last_name'),
-            email = request.get_json('email'),
-            password_hash = request.get_json('password')
+            first_name = request.get_json.get('first_name'),
+            last_name = request.get_json.get('last_name'),
+            email = request.get_json.get('email'),
+            phone_number = request.get_json.get('phone_number'),
+            gender = request.get_json.get('gender'),
+            password_hash = request.get_json.get('password')
         )
         db.session.add(new_merchant)
         db.session.commit()
-        return make_response(new_merchant, 200)
+        return make_response(new_merchant, 201)
 api.add_resource(Merchants, '/merchant')
 
 class Merchant_By_ID(Resource):
     def get(self, id):
-        response_dict = Merchant.query.filter(Merchant.id == id).first().to_dict()
-        return make_response(response_dict, 200)
-    def delete(self):
-        merchant = Merchant.query.first()
-        db.session.delete(merchant)
-        db.session.commit()
-        return make_response('', 204)
-    def patch():
-        pass
+        response = Merchant.query.filter(Merchant.id == id).first()
+        if(response):
+            return make_response(response.to_dict, 200)
+        else:
+            return make_response({"message": "The user does not exist in the database"}, 404)
+    def delete(self, id):
+        merchant = Merchant.query.filter(Merchant.id == id).first()
+        if(merchant):
+            db.session.delete(merchant)
+            db.session.commit()
+            return make_response('', 204)
+        else:
+            return make_response({"message": "The user does not exist in the database"}, 404)
+    def patch(self, id):
+        merchant = Merchant.query.filter(Merchant.id == id).first()
+        if(merchant):
+            for attr in request.form:
+                setattr(merchant, attr, request.form.get(attr))
+            db.session.add(merchant)
+            db.session.commit()
+            return make_response(merchant.to_dict(), 200)
+        else:
+            return make_response({"message": "The user does not exist in the database"}, 404)
 api.add_resource(Merchant_By_ID, '/merchant/<id>')
