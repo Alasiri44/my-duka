@@ -11,7 +11,8 @@ class Category(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, default=datetime.now)
     
     business = db.relationship('Business', back_populates='categories')
-    serialize_rules = ('-business.category',)
+    clerks = db.relationship('User', back_populates='clerk_category', cascade='all, delete-orphan')
+    serialize_only = ('id', 'business_id', 'name', 'description', 'business.name')
     
     def __repr__(self):
         return f'<category {self.id}: {self.name} {self.description}>'
