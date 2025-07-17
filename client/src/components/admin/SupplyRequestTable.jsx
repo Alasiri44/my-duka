@@ -34,7 +34,7 @@ const SupplyRequestTable = () => {
           </tr>
         </thead>
         <tbody>
-          {requests.map((req) => (
+          {[].map((req) => (
             <tr key={req.id}>
               <td>{req.product_name}</td>
               <td>{req.quantity_requested}</td>
