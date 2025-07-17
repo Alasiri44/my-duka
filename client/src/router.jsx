@@ -6,11 +6,11 @@ import BusinessOverview from "./pages/dashboards/merchant/Overview";
 import Stores from "./pages/dashboards/merchant/Stores";
 
 export const routes = [
-    {
-        path: '/',
-        element: < App/>
-    },
-      {
+  {
+    path: '/',
+    element: < App />
+  },
+  {
     path: "/merchant/dashboard",
     element: <MerchantDashboard />,
   },
@@ -24,7 +24,7 @@ export const routes = [
       },
       {
         path: "stores",
-        element: <Stores /> ,
+        element: <Stores />,
       },
       {
         path: "staff",
@@ -51,5 +51,8 @@ export const routes = [
         element: <div>Settings Page</div>,
       },
     ],
-}
+  },
+  {
+    
+  }
 ]
