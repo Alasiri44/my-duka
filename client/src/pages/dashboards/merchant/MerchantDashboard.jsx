@@ -175,9 +175,6 @@ const MerchantDashboard = () => {
           <h1 className="text-2xl font-bold text-[#011638]">Merchant Dashboard</h1>
           <p className="text-sm text-[#5e574d]">Manage your businesses and inventory</p>
         </div>
-        <button className="bg-[#011638] text-white px-5 py-2 rounded text-sm hover:bg-[#000f2a] transition">
-          + New Business
-        </button>
       </div>
 
       <SummaryCards summary={summary} />

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
 const BusinessTable = ({ businesses }) => {
+    const navigate = useNavigate();
+
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-[#f2f0ed]">
       <div className="flex justify-between items-center mb-4">
@@ -16,9 +19,10 @@ const BusinessTable = ({ businesses }) => {
       <div className="space-y-4">
         {businesses.map((biz) => (
           <div
-            key={biz.id}
-            className="bg-[#f9f9f9] border border-[#f2f0ed] rounded-lg px-5 py-4 flex justify-between items-center hover:shadow transition"
-          >
+  key={biz.id}
+  onClick={() => navigate(`/merchant/businesses/${biz.id}`)}
+  className="cursor-pointer bg-[#f9f9f9] border border-[#f2f0ed] rounded-lg px-5 py-4 flex justify-between items-center hover:shadow transition"
+>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-[#011638]">{biz.name}</h3>
@@ -37,12 +41,6 @@ const BusinessTable = ({ businesses }) => {
             </div>
 
             <div className="flex gap-2">
-              <button className="text-[#011638] font-medium text-sm px-4 py-1.5 border border-[#011638] rounded hover:bg-[#011638] hover:text-white transition">
-                View
-              </button>
-              <button className="text-[#5e574d] font-medium text-sm px-4 py-1.5 border border-[#5e574d] rounded hover:bg-[#ec4e20] hover:text-white transition">
-                Edit
-              </button>
             </div>
           </div>
         ))}
