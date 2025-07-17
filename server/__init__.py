@@ -5,6 +5,7 @@ from .config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS
 from .models import db
 from .models.merchant import Merchant
 from .models.business import Business
+from .models.store import Store
 
 def create_app():
     app = Flask(__name__)
