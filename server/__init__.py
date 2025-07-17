@@ -8,6 +8,7 @@ from .models.business import Business
 from .models.store import Store
 from .models.user import User
 from .models.category import Category
+from .models.product import Product
 
 def create_app():
     app = Flask(__name__)

@@ -12,6 +12,7 @@ class Category(db.Model, SerializerMixin):
     
     business = db.relationship('Business', back_populates='categories')
     clerks = db.relationship('User', back_populates='clerk_category', cascade='all, delete-orphan')
+    products = db.relationship('Product', back_populates='category', cascade='all, delete-orphan')
     serialize_only = ('id', 'business_id', 'name', 'description', 'business.name')
     
     def __repr__(self):
