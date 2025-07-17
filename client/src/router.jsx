@@ -1,14 +1,22 @@
 import React from "react";
 import App from "./App";
+
+// Merchant Imports
 import MerchantDashboard from "./pages/dashboards/merchant/MerchantDashboard";
 import BusinessLayout from "./pages/dashboards/merchant/BusinessLayout";
 import BusinessOverview from "./pages/dashboards/merchant/Overview";
 import Stores from "./pages/dashboards/merchant/Stores";
 
+// Clerk Imports
+import Dashboard from './pages/dashboards/clerk/ClerkDash';
+import Inventory from './pages/dashboards/clerk/Inventory';
+import ProductDetail from './pages/dashboards/clerk/ProductDetail';
+import AddProduct from './pages/dashboards/clerk/AddProduct';
+
 export const routes = [
   {
     path: '/',
-    element: < App />
+    element: <App />
   },
   {
     path: "/merchant/dashboard",
@@ -52,7 +60,22 @@ export const routes = [
       },
     ],
   },
+  
+  // Clerk Routes (Only the paths fixed)
   {
-    
-  }
-]
+    path: "/clerk/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/clerk/inventory",
+    element: <Inventory />,
+  },
+  {
+    path: "/clerk/inventory/:productId",
+    element: <ProductDetail />,
+  },
+  {
+    path: "/clerk/add-product",
+    element: <AddProduct />,
+  },
+];
