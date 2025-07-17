@@ -16,7 +16,7 @@ class User(db.Model, SerializerMixin):
     password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     
-    store = db.relationship('Store', back_populates='user')
+    store = db.relationship('Store', back_populates='users')
     serialize_rules = ('-store.users',)
     
     def __repr__(self):

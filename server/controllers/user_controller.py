@@ -12,7 +12,7 @@ class Users(Resource):
         return make_response(response_dict, 200)
     def post(self):
         from ..app import bcrypt
-        data = request.get_json()
+        data = request.form
         new_user = User(
             first_name = data.get('first_name'),
             store_id = data.get('store_id'),
@@ -50,8 +50,8 @@ class User_By_ID(Resource):
     def patch(self, id):
         user = User.query.filter(User.id == id).first()
         if(user):
-            for attr in request.get_json:
-                setattr(user, attr, request.get_json.get(attr))
+            for attr in request.form:
+                setattr(user, attr, request.form.get(attr))
             db.session.add(user)
             db.session.commit()
             return make_response(user.to_dict(), 200)
@@ -62,8 +62,8 @@ api.add_resource(User_By_ID, '/user/<id>')
 class User_Login(Resource):
     def post(self):
         from ..app import bcrypt
-        email = request.get_json.get('email')
-        password = request.get_json.get('password')
+        email = request.form.get('email')
+        password = request.form.get('password')
         user = User.query.filter(User.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
@@ -101,7 +101,7 @@ class Clerks(Resource):
 api.add_resource(Clerks, '/user/clerks')
 
 class Clerks_By_StoreID(Resource):
-    def get(self):
+    def get(self, id):
         response_dict = [user.to_dict() for user in User.query.filter(User.role == 'clerk' and User.store_id == id).all()]
         return make_response(response_dict, 200)
-api.add_resource(Clerks_By_StoreID, '/user/store/clerks/<id>')
+api.add_resource(Clerks_By_StoreID, '/user/clerks/store/<id>')
