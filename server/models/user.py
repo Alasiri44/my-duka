@@ -19,6 +19,7 @@ class User(db.Model, SerializerMixin):
     
     store = db.relationship('Store', back_populates='users')
     clerk_category = db.relationship('Category', back_populates='clerks')
+    supply_requests = db.relationship('Supply_Request', back_populates='reviewer')
     serialize_rules = ('-store.users', '-clerk_category.clerks', )
     
     def __repr__(self):

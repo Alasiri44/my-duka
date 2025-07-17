@@ -16,6 +16,7 @@ class Product(db.Model, SerializerMixin):
     
     store = db.relationship('Store', back_populates='products')
     category = db.relationship('Category', back_populates='products')
+    supply_requests = db.relationship('Supply_Request', back_populates='product',)
     serialize_only = ('id', 'store_id', 'category_id', 'name', 'description', 'quantity', 'selling_price', 'created_at', 'updated_at', 'store.name', 'category.name')
     
     def __repr__(self):
