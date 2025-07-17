@@ -8,8 +8,8 @@ class Merchant(db.Model, SerializerMixin):
     first_name= db.Column(db.String)
     last_name = db.Column(db.String)
     email = db.Column(db.String)
-    phone_number = db.Column(db.String)
-    gender = db.Column(db.String)
+    phone_number = db.Column(db.String, nullable=True)
+    gender = db.Column(db.String, nullable=True)
     password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     

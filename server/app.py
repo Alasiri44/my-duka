@@ -2,8 +2,10 @@ from . import create_app
 from flask import make_response
 from .controllers.merchant_controller import merchant_bp
 from .controllers.business_controller import business_bp
+from flask_bcrypt import Bcrypt
 
 app = create_app()
+bcrypt = Bcrypt(app)
 app.register_blueprint(merchant_bp)
 app.register_blueprint(business_bp)
 
