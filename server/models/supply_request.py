@@ -17,7 +17,7 @@ class Supply_Request(db.Model, SerializerMixin):
     product = db.relationship('Product', back_populates='supply_requests')
     supplier = db.relationship('Supplier', back_populates='supply_requests')
     reviewer = db.relationship('User', back_populates='supply_requests')
-    serialize_rules = ('-business.supply_requests', '-supplier.supply_requests', )
+    serialize_rules = ('-business.supply_requests', '-supplier.supply_requests')
     
     def __repr__(self):
         return f'<supply_request {self.id}: {self.name }, {self.contact_name} using {self.email}>'
