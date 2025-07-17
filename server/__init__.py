@@ -6,6 +6,7 @@ from .models import db
 from .models.merchant import Merchant
 from .models.business import Business
 from .models.store import Store
+from .models.user import User
 
 def create_app():
     app = Flask(__name__)
