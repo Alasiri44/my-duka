@@ -21,9 +21,12 @@ class Merchants(Resource):
             gender = data.get('gender'),
             password_hash = bcrypt.generate_password_hash(data.get('password')).decode('utf-8')
         )
-        db.session.add(new_merchant)
-        db.session.commit()
-        return make_response(new_merchant.to_dict(), 201)
+        if(new_merchant):
+            db.session.add(new_merchant)
+            db.session.commit()
+            return make_response(new_merchant.to_dict(), 201)
+        else:
+            return make_response({"message": "Failed to create a new merchant"}, 404)
 api.add_resource(Merchants, '/merchant')
 
 class Merchant_By_ID(Resource):
