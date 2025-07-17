@@ -19,7 +19,8 @@ class Businesses(Resource):
             merchant_id = data.get('merchant_id'),
             po_box = data.get('po_box'),
             postal_code = data.get('postal_code'),
-            county = data.get('county')
+            county = data.get('county'),
+            location = data.get('location')
         )
         if(new_business):
             db.session.add(new_business)

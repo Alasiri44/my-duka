@@ -11,6 +11,7 @@ class Business(db.Model, SerializerMixin):
     po_box = db.Column(db.String, nullable=True)
     postal_code = db.Column(db.String, nullable=True)
     county = db.Column(db.String, nullable=True)
+    location = db.Column(db.String, nullable=True)
     industry = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     
