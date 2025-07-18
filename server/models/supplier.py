@@ -20,7 +20,8 @@ class Supplier(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, default=datetime.now)
     
     business = db.relationship('Business', back_populates='suppliers')
-    supply_requests = db.relationship('Supply_Request', back_populates='supplier',)
+    supply_requests = db.relationship('Supply_Request', back_populates='supplier')
+    stock_entries = db.relationship('Stock_Entry', back_populates='supplier' )
     serialize_rules = ('-business.suppliers', '-business.categories', '-business.stores', '-business.merchant')
     
     def __repr__(self):

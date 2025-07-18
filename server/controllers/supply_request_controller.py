@@ -14,11 +14,10 @@ class Supply_Requests(Resource):
         data = request.form
         new_supply_request = Supply_Request(
             product_id = data.get('product_id'),
-            supplier_id = data.get('business_id'),
+            supplier_id = data.get('supplier_id'),
             requester_id = data.get('requester_id'),
-            reviewer_id = data.get('reviewer_id'),
             quantity = data.get('quantity'),
-            status = data.get('status'),
+            status = data.get('status') or 'waiting',
         )
         if(new_supply_request):
             db.session.add(new_supply_request)
@@ -37,7 +36,7 @@ class Supply_Request_By_ID(Resource):
         else:
             return make_response({"message": "The supply_request does not exist"}, 404)
     def patch(self, id):
-        supply_request = supply_request.query.filter(supply_request.id == id).first()
+        supply_request = Supply_Request.query.filter(Supply_Request.id == id).first()
         if(supply_request):
             for attr in request.form:
                 setattr(supply_request, attr, request.form.get(attr))
