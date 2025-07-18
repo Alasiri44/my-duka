@@ -19,7 +19,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(category_bp)
 app.register_blueprint(product_bp)
 app.register_blueprint(supplier_bp)
-app.register_blueprnt(supply_request_bp)
+app.register_blueprint(supply_request_bp)
 
 @app.route('/')
 def index():

@@ -13,18 +13,12 @@ class Supply_Requests(Resource):
     def post(self):
         data = request.form
         new_supply_request = Supply_Request(
-            name = data.get('name'),
-            business_id = data.get('business_id'),
-            contact_name = data.get('contact_name'),
-            email = data.get('email'),
-            phone_number = data.get('phone_number'),
-            paybill_number = data.get('paybill_number'),
-            till_number = data.get('till_number'),
-            location = data.get('location'),
-            country = data.get('country'),
-            county = data.get('county'),
-            po_box = data.get('location'),
-            postal_code = data.get('postal_code'),
+            product_id = data.get('product_id'),
+            supplier_id = data.get('business_id'),
+            requester_id = data.get('requester_id'),
+            reviewer_id = data.get('reviewer_id'),
+            quantity = data.get('quantity'),
+            status = data.get('status'),
         )
         if(new_supply_request):
             db.session.add(new_supply_request)
