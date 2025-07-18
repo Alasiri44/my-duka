@@ -12,6 +12,7 @@ import Dashboard from './pages/dashboards/clerk/ClerkDash';
 import Inventory from './pages/dashboards/clerk/Inventory';
 import ProductDetail from './pages/dashboards/clerk/ProductDetail';
 import AddProduct from './pages/dashboards/clerk/AddProduct';
+import CategoryPage from "./pages/dashboards/clerk/CategoryPage";
 
 export const routes = [
   {
@@ -71,7 +72,11 @@ export const routes = [
     element: <Inventory />,
   },
   {
-    path: "/clerk/inventory/:productId",
+    path: "/clerk/inventory/category/:categoryId",
+    element: <CategoryPage/>,
+  },
+  {
+    path: "/clerk/inventory/products/:productId",
     element: <ProductDetail />,
   },
   {
