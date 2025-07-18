@@ -22,6 +22,7 @@ class User(db.Model, SerializerMixin):
     requests_made = db.relationship('Supply_Request', back_populates='requester', foreign_keys='Supply_Request.requester_id')
     requests_reviewed = db.relationship('Supply_Request', back_populates='reviewer', foreign_keys='Supply_Request.reviewer_id')
     stock_entries = db.relationship('Stock_Entry', back_populates='clerk')
+    batches = db.relationship('Batch', back_populates='creator')
     serialize_rules = ('-store.users', '-clerk_category.clerks', )
     
     def __repr__(self):
