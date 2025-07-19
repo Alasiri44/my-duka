@@ -1,9 +1,7 @@
 import React from "react";
-import App from "./App";
-import MerchantDashboard from "./pages/dashboards/merchant/MerchantDashboard";
-import BusinessLayout from "./pages/dashboards/merchant/BusinessLayout";
-import BusinessOverview from "./pages/dashboards/merchant/Overview";
-import Stores from "./pages/dashboards/merchant/Stores";
+import BusinessLayout from "../pages/dashboards/merchant/BusinessLayout";
+import BusinessOverview from "../pages/dashboards/merchant/Overview";
+import Stores from "../pages/dashboards/merchant/Stores";
 
 export const routes = [
   {
@@ -48,3 +46,5 @@ export const routes = [
     
   }
 ]
+
+export default routes
