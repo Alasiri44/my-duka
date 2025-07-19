@@ -1,16 +1,9 @@
 import React from "react";
 import AdminLayout from "../components/admin";
 import SupplyRequestTable from "../components/admin/SupplyRequestTable";
+import Reports from '../components/admin/Reports'
 
 const adminRoutes = [
-  // {
-  //   path: '/',
-  //   element: < App />
-  // },
-  // {
-  //   path: "/merchant/dashboard",
-  //   element: <MerchantDashboard />,
-  // },
   {
     path: "/",
     element: <AdminLayout />, // layout with sidebar
@@ -35,7 +28,7 @@ const adminRoutes = [
       },
       {
         path: "reports",
-        element: <div>Admin Reports Page or Layout</div>,
+        element: <Reports />,
       },
       {
         path: "clerks",
