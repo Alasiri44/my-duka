@@ -1,39 +1,24 @@
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import SupplyRequestTable from './components/admin/SupplyRequestTable';
-import ClerkManager from './pages/dashboards/admin';
-import AdminHome from './pages/dashboards/admin';
+import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import merchantRoutes from "./routes/merchant";
+import adminRouts from "./routes/admin";
+import clerkRoutes from "./routes/clerk";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 
-// import ReportsChart from './components/admin/ReportsChart';
+const merchantRouter = createBrowserRouter(merchantRoutes);
+const adminRouter = createBrowserRouter(adminRouts);
+const clerkRouter = createBrowserRouter(clerkRoutes);
 
-function App() {
-  const user = {
-    name: "Test",
-    role: "admin"
-  }
+
+export default function App() {
+  const { user, store } = useSelector((state) => state.auth);
+  
   return (
-    <div className="App">
-      <h1>My Duka Dashboard</h1>
-
-      {/* Navigation */}
-      <nav style={{ marginBottom: '20px' }}>
-        <Link to="/admin/requests">Supply Requests</Link> |{' '}
-        <Link to="/admin/clerks">Clerk Manager</Link> |{' '}
-        <Link to="/admin/reports">Reports</Link>
-      </nav>
-
-      {/* Routes  */}
-      <Routes >
-        <Route path="/" element={<p>Welcome to the My Duka 👋</p>} />
-        <Route path="/admin" element={<AdminHome />} />
-        <Route path="/admin/suplly_requeuets" element={<AdminHome />} />
-        <Route path="/admin/requests" element={<SupplyRequestTable />} />
-        <Route path="/admin/clerks" element={<ClerkManager />} />
-        {/* <Route path="/admin/reports" element={<ReportsChart />} /> */}
-      </Routes>
+    <div>
+      {user.role === "merchant" && <RouterProvider router={merchantRouter} />}
+      {user.role === "admin" && <RouterProvider router={adminRouter} />}
+      {user.role === "clerk" && <RouterProvider router={clerkRouter} />}
     </div>
   );
 }
-
-export default App;
