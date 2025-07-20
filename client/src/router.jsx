@@ -8,6 +8,7 @@ import StoreLayout from "./pages/dashboards/merchant/StoreLayout";
 import StoreOverview from "./pages/dashboards/merchant/stores/StoreOverview";
 import StaffView from "./components/merchant/staff/StaffView";
 import StoreInventory from "./pages/dashboards/merchant/stores/inventory/StoreInventory";
+import StockEntries from "./pages/dashboards/merchant/stores/inventory/StockEntries"
 
 export const routes = [
   {
@@ -66,7 +67,7 @@ export const routes = [
     { index: true, element: <StoreOverview /> },
     { path: "staff", element: <StaffView /> },
     { path: "inventory", element: <StoreInventory /> },
-    // { path: "entries", element: <Entries /> },
+    { path: "entries", element: <StockEntries /> },
     // { path: "exits", element: <Exits /> },
     // { path: "reports", element: <Reports /> },
     // { path: "settings", element: <Settings /> },
