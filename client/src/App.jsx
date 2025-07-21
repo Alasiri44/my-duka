@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import merchantRoutes from "./routes/merchant";
 import adminRouts from "./routes/admin";
 import clerkRoutes from "./routes/clerk";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { setUser } from './store/authReducerSlice';
+import Login from "./pages/authentication/login";
 
 const merchantRouter = createBrowserRouter(merchantRoutes);
 const adminRouter = createBrowserRouter(adminRouts);
@@ -18,13 +19,20 @@ export default function App() {
 
   if (!user)
     return (
-      <div>
-        Login Please.
-        <br />
-        <button onClick={() => dispatch(setUser({name: "Test", role: "merchant"}))}> I am Merchant </button> <br />
-        <button onClick={() => dispatch(setUser({name: "Test", role: "admin"}))}> I am Admin </button> <br />
-        <button onClick={() => dispatch(setUser({name: "Test", role: "clerk"}))} > I am Clerk </button> <br />
-      </div>
+      <>
+        < Login/>
+        < Outlet/>
+        
+      </>
+      
+      // <div>
+      //   Login Please.
+      //   <br />
+      //   <button onClick={() => dispatch(setUser({name: "Test", role: "merchant"}))}> I am Merchant </button> <br />
+      //   <button onClick={() => dispatch(setUser({name: "Test", role: "admin"}))}> I am Admin </button> <br />
+      //   <button onClick={() => dispatch(setUser({name: "Test", role: "clerk"}))} > I am Clerk </button> <br />
+      // </div>
+      
     );
 
   return (

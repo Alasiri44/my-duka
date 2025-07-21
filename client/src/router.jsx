@@ -6,6 +6,9 @@ import MerchantDashboard from "./pages/dashboards/merchant/MerchantDashboard";
 import BusinessLayout from "./pages/dashboards/merchant/BusinessLayout";
 import BusinessOverview from "./pages/dashboards/merchant/Overview";
 import Stores from "./pages/dashboards/merchant/Stores";
+import StoreLayout from "./pages/dashboards/merchant/StoreLayout";
+import StoreOverview from "./pages/dashboards/merchant/stores/StoreOverview";
+
 
 // Clerk Imports
 import Dashboard from './pages/dashboards/clerk/ClerkDash';
@@ -13,11 +16,16 @@ import Inventory from './pages/dashboards/clerk/Inventory';
 import ProductDetail from './pages/dashboards/clerk/ProductDetail';
 import AddProduct from './pages/dashboards/clerk/AddProduct';
 import CategoryPage from "./pages/dashboards/clerk/CategoryPage";
+import Login from "./pages/authentication/login";
 
 export const routes = [
   {
     path: '/',
     element: <App />
+  },
+  {
+    path: '/login',
+    element: < Login/>
   },
   {
     path: "/merchant/dashboard",
@@ -69,9 +77,9 @@ export const routes = [
   element: <StoreLayout />,
   children: [
     { index: true, element: <StoreOverview /> },
-    { path: "staff", element: <StaffView /> },
-    { path: "inventory", element: <StoreInventory /> },
-    { path: "entries", element: <StockEntries /> },
+    // { path: "staff", element: <StaffView /> },
+    // { path: "inventory", element: <StoreInventory /> },
+    // { path: "entries", element: <StockEntries /> },
     // { path: "exits", element: <Exits /> },
     // { path: "reports", element: <Reports /> },
     // { path: "settings", element: <Settings /> },
