@@ -45,7 +45,7 @@ const ProductDetail = () => {
     fetchData();
   }, [productId]);
 
-  if (!product) return <p className="p-4">Loading...</p>;
+  if (!product) return <p className="p-6 text-lg">Loading product details...</p>;
 
   const chartData = [
     { name: 'Buys', quantity: entries.reduce((sum, e) => sum + e.quantity_received, 0) },
@@ -86,8 +86,8 @@ const ProductDetail = () => {
             <AreaChart data={chartData}>
               <defs>
                 <linearGradient id="colorQty" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="name" />
@@ -115,74 +115,101 @@ const ProductDetail = () => {
     }
   };
 
+  const InfoCard = ({ title, children }) => (
+    <div className="bg-white p-4 rounded shadow-md">
+      <h3 className="text-lg font-semibold mb-3 text-gray-800">{title}</h3>
+      <div className="space-y-1 text-sm text-gray-700">{children}</div>
+    </div>
+  );
+
   return (
-    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-50 min-h-screen">
       <div className="md:col-span-2 space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold">{product.name}</h2>
+        <div className="bg-white p-6 rounded shadow">
+          <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
           <p className="text-gray-600">{product.description}</p>
-          <p className="text-gray-800 font-semibold mt-2">KES {product.selling_price?.toFixed(2)}</p>
+          <p className="text-gray-900 font-semibold mt-2 text-lg">KES {product.selling_price?.toFixed(2)}</p>
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Stock Entries (Buys)</h3>
-          <ul className="space-y-1">
-            {entries.map(entry => (
-              <li key={entry.id} className="text-sm text-gray-700 border-b py-1">
-                {entry.quantity_received} units at KES {entry.buying_price} - {entry.payment_status}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <InfoCard title="Stock Entries (Buys)">
+          <div className="grid grid-cols-6 gap-2 font-semibold text-gray-700 mb-2 text-sm">
+            <div>Quantity</div>
+            <div>Buying Price</div>
+            <div>Supplier</div>
+            <div>Status</div>
+            <div>Date</div>
+            <div>MPESA Code</div>
+          </div>
+          {entries.map(entry => {
+            const tx = mpesa.find(tx => tx.stock_entry_id === entry.id);
+            return (
+              <div
+                key={entry.id}
+                className="grid grid-cols-6 gap-2 border-b py-1 text-sm text-gray-800"
+              >
+                <div>{entry.quantity_received}</div>
+                <div>KES {entry.buying_price}</div>
+                <div>{entry.party || '—'}</div>
+                <div className={entry.payment_status === 'paid' ? 'text-green-600' : 'text-red-600'}>
+                  {entry.payment_status}
+                </div>
+                <div>{entry.date || '—'}</div>
+                <div>{tx?.transaction_code || '—'}</div>
+              </div>
+            );
+          })}
+        </InfoCard>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Stock Exits (Sales)</h3>
-          <ul className="space-y-1">
-            {exits.map(exit => (
-              <li key={exit.id} className="text-sm text-gray-700 border-b py-1">
-                {exit.quantity} units at KES {exit.selling_price}
-              </li>
-            ))}
-          </ul>
+       <InfoCard title="Stock Exits (Sales)">
+        <div className="grid grid-cols-4 gap-2 font-semibold text-gray-700 mb-2 text-sm">
+          <div>Quantity</div>
+          <div>Selling Price</div>
+          <div>Buyer</div>
+          <div>Date</div>
         </div>
+        {exits.map(exit => (
+          <div
+            key={exit.id}
+            className="grid grid-cols-4 gap-2 border-b py-1 text-sm text-gray-800"
+          >
+            <div>{exit.quantity}</div>
+            <div>KES {exit.selling_price}</div>
+            <div>{exit.party || '—'}</div>
+            <div>{exit.date || '—'}</div>
+          </div>
+        ))}
+      </InfoCard>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Batches</h3>
-          <ul className="space-y-1">
-            {batches.map(batch => (
-              <li key={batch.id} className="text-sm text-gray-700 border-b py-1">
-                {batch.party} - {batch.direction}
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-2">MPESA Transactions</h3>
-          <ul className="space-y-1">
-            {mpesa.map(tx => (
-              <li key={tx.id} className={`text-sm border-b py-1 ${tx.status === 'paid' ? 'text-green-600' : 'text-red-600'}`}>
-                {tx.transaction_code} - {tx.status.toUpperCase()} (KES {tx.amount})
-              </li>
-            ))}
-          </ul>
-        </div>
+        <InfoCard title="Batches">
+          {batches.map(batch => (
+            <div key={batch.id} className="border-b py-1">
+              {batch.party} - {batch.direction}
+            </div>
+          ))}
+        </InfoCard>
+
+        <InfoCard title="MPESA Transactions">
+          {mpesa.map(tx => (
+            <div key={tx.id} className={`border-b py-1 font-medium ${tx.status === 'paid' ? 'text-green-600' : 'text-red-600'}`}>
+              {tx.transaction_code} - {tx.status.toUpperCase()} (KES {tx.amount})
+            </div>
+          ))}
+        </InfoCard>
       </div>
 
       <div className="bg-white rounded-md shadow-md p-4">
-        <div className="mb-4">
-          <label className="block text-sm text-gray-600 font-medium mb-1">Chart Type</label>
-          <select
-            value={chartType}
-            onChange={(e) => setChartType(e.target.value)}
-            className="border rounded px-2 py-1 w-full"
-          >
-            <option value="line">Line Chart</option>
-            <option value="bar">Bar Chart</option>
-            <option value="area">Area Chart</option>
-            <option value="pie">Pie Chart</option>
-          </select>
-        </div>
+        <label className="block text-sm text-gray-600 font-medium mb-1">Chart Type</label>
+        <select
+          value={chartType}
+          onChange={(e) => setChartType(e.target.value)}
+          className="border rounded px-2 py-1 w-full mb-4"
+        >
+          <option value="line">Line Chart</option>
+          <option value="bar">Bar Chart</option>
+          <option value="area">Area Chart</option>
+          <option value="pie">Pie Chart</option>
+        </select>
         <div className="w-full h-[250px]">
           {renderChart()}
         </div>

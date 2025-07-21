@@ -1,7 +1,7 @@
 {
   "merchants": [
     {
-      "id": 1,
+      "id": "1",
       "first_name": "Stephen",
       "last_name": "Njenga",
       "email": "stephen@myduka.co.ke",
@@ -9,7 +9,7 @@
       "created_at": "2025-07-10T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "first_name": "Mercy",
       "last_name": "Wambui",
       "email": "mercy@myduka.co.ke",
@@ -19,7 +19,7 @@
   ],
   "businesses": [
     {
-      "id": 1,
+      "id": "1",
       "merchant_id": 1,
       "name": "Kwa Mwaura Wholesalers",
       "industry": "Retail",
@@ -28,7 +28,7 @@
   ],
   "business_settings": [
     {
-      "id": 1,
+      "id": "1",
       "business_id": 1,
       "use_daraja": true,
       "daraja_short_code": "601234",
@@ -45,21 +45,21 @@
   ],
   "stores": [
     {
-      "id": 1,
+      "id": "1",
       "business_id": 1,
       "name": "CBD Branch",
       "location": "1641 Nicholas Points",
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "business_id": 1,
       "name": "Kawangware Branch",
       "location": "0225 Miles Estates Apt. 619",
       "created_at": "2025-07-12T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "business_id": 1,
       "name": "Gikambura Branch",
       "location": "05710 Elizabeth Crossroad Apt. 469",
@@ -68,7 +68,7 @@
   ],
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "store_id": 1,
       "first_name": "Thomas",
       "last_name": "Harrison",
@@ -79,7 +79,7 @@
       "created_at": "2025-05-09T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "store_id": 1,
       "first_name": "Raymond",
       "last_name": "Hammond",
@@ -90,7 +90,7 @@
       "created_at": "2025-05-06T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "store_id": 1,
       "first_name": "William",
       "last_name": "Boone",
@@ -101,7 +101,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "store_id": 1,
       "first_name": "Nicole",
       "last_name": "Sharp",
@@ -112,7 +112,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "store_id": 2,
       "first_name": "Michael",
       "last_name": "Kemp",
@@ -123,7 +123,7 @@
       "created_at": "2025-07-10T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "store_id": 2,
       "first_name": "Amy",
       "last_name": "Hooper",
@@ -134,7 +134,7 @@
       "created_at": "2025-06-26T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "store_id": 2,
       "first_name": "Andrew",
       "last_name": "Lindsey",
@@ -145,7 +145,7 @@
       "created_at": "2025-06-29T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "store_id": 2,
       "first_name": "Christina",
       "last_name": "Dixon",
@@ -156,7 +156,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "store_id": 3,
       "first_name": "Tricia",
       "last_name": "Baker",
@@ -167,7 +167,7 @@
       "created_at": "2025-05-06T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "store_id": 3,
       "first_name": "Andrew",
       "last_name": "Fields",
@@ -178,7 +178,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "store_id": 3,
       "first_name": "Mallory",
       "last_name": "Burton",
@@ -189,7 +189,7 @@
       "created_at": "2025-04-18T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "store_id": 3,
       "first_name": "David",
       "last_name": "Proctor",
@@ -202,7 +202,7 @@
   ],
   "suppliers": [
     {
-      "id": 1,
+      "id": "1",
       "business_id": 1,
       "name": "Cole-Rodgers",
       "contact_name": "Michelle Hayes",
@@ -214,7 +214,7 @@
       "created_at": "2025-07-16T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "business_id": 1,
       "name": "Nelson PLC",
       "contact_name": "Stephen Baker",
@@ -226,7 +226,7 @@
       "created_at": "2025-07-05T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "business_id": 1,
       "name": "Cross-Waters",
       "contact_name": "Ross Lane",
@@ -238,7 +238,7 @@
       "created_at": "2025-05-29T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "business_id": 1,
       "name": "Cooper-Molina",
       "contact_name": "Catherine Rowland",
@@ -250,7 +250,7 @@
       "created_at": "2025-07-16T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "business_id": 1,
       "name": "Owens Ltd",
       "contact_name": "Matthew Adams",
@@ -264,70 +264,70 @@
   ],
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "business_id": 1,
       "name": "Electronics",
       "description": "Items under Electronics",
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "business_id": 1,
       "name": "Toiletries",
       "description": "Items under Toiletries",
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "business_id": 1,
       "name": "Beverages",
       "description": "Items under Beverages",
       "created_at": "2025-07-05T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "business_id": 1,
       "name": "Groceries",
       "description": "Items under Groceries",
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "business_id": 1,
       "name": "Cleaning Supplies",
       "description": "Items under Cleaning Supplies",
       "created_at": "2025-06-28T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "business_id": 1,
       "name": "Personal Care",
       "description": "Items under Personal Care",
       "created_at": "2025-06-30T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "business_id": 1,
       "name": "Snacks",
       "description": "Items under Snacks",
       "created_at": "2025-07-14T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "business_id": 1,
       "name": "Baby Products",
       "description": "Items under Baby Products",
       "created_at": "2025-06-09T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "business_id": 1,
       "name": "Stationery",
       "description": "Items under Stationery",
       "created_at": "2025-05-22T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "business_id": 1,
       "name": "Household Items",
       "description": "Items under Household Items",
@@ -336,7 +336,7 @@
   ],
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "store_id": 1,
       "category_id": 9,
       "name": "Exercise Book",
@@ -345,7 +345,7 @@
       "created_at": "2025-04-26T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "store_id": 1,
       "category_id": 9,
       "name": "Biro Pen",
@@ -354,7 +354,7 @@
       "created_at": "2025-05-26T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "store_id": 1,
       "category_id": 9,
       "name": "Glue Stick",
@@ -363,7 +363,7 @@
       "created_at": "2025-07-05T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "store_id": 1,
       "category_id": 8,
       "name": "Baby Wipes",
@@ -372,7 +372,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "store_id": 1,
       "category_id": 8,
       "name": "Baby Powder",
@@ -381,7 +381,7 @@
       "created_at": "2025-05-05T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "store_id": 1,
       "category_id": 8,
       "name": "Pampers Diapers",
@@ -390,7 +390,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "store_id": 1,
       "category_id": 4,
       "name": "Sugar 1kg",
@@ -399,7 +399,7 @@
       "created_at": "2025-05-13T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "store_id": 1,
       "category_id": 4,
       "name": "Maize Flour",
@@ -408,7 +408,7 @@
       "created_at": "2025-05-08T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "store_id": 1,
       "category_id": 7,
       "name": "Potato Crisps",
@@ -417,7 +417,7 @@
       "created_at": "2025-04-29T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "store_id": 1,
       "category_id": 7,
       "name": "Chocolate Bar",
@@ -426,7 +426,7 @@
       "created_at": "2025-06-15T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "store_id": 1,
       "category_id": 7,
       "name": "Biscuit Pack",
@@ -435,7 +435,7 @@
       "created_at": "2025-06-10T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "store_id": 2,
       "category_id": 7,
       "name": "Chocolate Bar",
@@ -444,7 +444,7 @@
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 13,
+      "id": "13",
       "store_id": 2,
       "category_id": 7,
       "name": "Potato Crisps",
@@ -453,7 +453,7 @@
       "created_at": "2025-05-24T14:35:58.175228"
     },
     {
-      "id": 14,
+      "id": "14",
       "store_id": 2,
       "category_id": 1,
       "name": "Extension Cable",
@@ -462,7 +462,7 @@
       "created_at": "2025-07-13T14:35:58.175228"
     },
     {
-      "id": 15,
+      "id": "15",
       "store_id": 2,
       "category_id": 1,
       "name": "AA Batteries",
@@ -471,7 +471,7 @@
       "created_at": "2025-07-02T14:35:58.175228"
     },
     {
-      "id": 16,
+      "id": "16",
       "store_id": 2,
       "category_id": 9,
       "name": "Biro Pen",
@@ -480,7 +480,7 @@
       "created_at": "2025-04-23T14:35:58.175228"
     },
     {
-      "id": 17,
+      "id": "17",
       "store_id": 2,
       "category_id": 9,
       "name": "Glue Stick",
@@ -489,7 +489,7 @@
       "created_at": "2025-07-07T14:35:58.175228"
     },
     {
-      "id": 18,
+      "id": "18",
       "store_id": 2,
       "category_id": 2,
       "name": "Bath Soap",
@@ -498,7 +498,7 @@
       "created_at": "2025-06-23T14:35:58.175228"
     },
     {
-      "id": 19,
+      "id": "19",
       "store_id": 2,
       "category_id": 2,
       "name": "Toilet Paper",
@@ -507,7 +507,7 @@
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 20,
+      "id": "20",
       "store_id": 2,
       "category_id": 2,
       "name": "Toothpaste",
@@ -516,16 +516,16 @@
       "created_at": "2025-06-24T14:35:58.175228"
     },
     {
-      "id": 21,
+      "id": "21",
       "store_id": 3,
       "category_id": 9,
       "name": "Exercise Book",
       "description": "Exercise Book under Stationery",
-      "selling_price": 107.0,
+      "selling_price": 107,
       "created_at": "2025-05-20T14:35:58.175228"
     },
     {
-      "id": 22,
+      "id": "22",
       "store_id": 3,
       "category_id": 9,
       "name": "Glue Stick",
@@ -534,7 +534,7 @@
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 23,
+      "id": "23",
       "store_id": 3,
       "category_id": 8,
       "name": "Baby Wipes",
@@ -543,7 +543,7 @@
       "created_at": "2025-07-12T14:35:58.175228"
     },
     {
-      "id": 24,
+      "id": "24",
       "store_id": 3,
       "category_id": 8,
       "name": "Baby Powder",
@@ -552,7 +552,7 @@
       "created_at": "2025-06-09T14:35:58.175228"
     },
     {
-      "id": 25,
+      "id": "25",
       "store_id": 3,
       "category_id": 6,
       "name": "Nivea Lotion",
@@ -561,7 +561,7 @@
       "created_at": "2025-06-26T14:35:58.175228"
     },
     {
-      "id": 26,
+      "id": "26",
       "store_id": 3,
       "category_id": 6,
       "name": "Vaseline Jelly",
@@ -570,7 +570,7 @@
       "created_at": "2025-07-06T14:35:58.175228"
     },
     {
-      "id": 27,
+      "id": "27",
       "store_id": 3,
       "category_id": 10,
       "name": "Dustpan",
@@ -579,7 +579,7 @@
       "created_at": "2025-06-08T14:35:58.175228"
     },
     {
-      "id": 28,
+      "id": "28",
       "store_id": 3,
       "category_id": 10,
       "name": "Bucket",
@@ -590,7 +590,7 @@
   ],
   "batches": [
     {
-      "id": 1,
+      "id": "1",
       "store_id": 1,
       "direction": "in",
       "party": "Bolton-Thomas",
@@ -598,7 +598,7 @@
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "store_id": 1,
       "direction": "in",
       "party": "Snow-Walker",
@@ -606,7 +606,7 @@
       "created_at": "2025-06-13T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "store_id": 1,
       "direction": "out",
       "party": "Julie Lam",
@@ -614,7 +614,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "store_id": 1,
       "direction": "out",
       "party": "Patricia Roberts",
@@ -622,7 +622,7 @@
       "created_at": "2025-04-27T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "store_id": 1,
       "direction": "in",
       "party": "Santana, Smith and Blair",
@@ -630,7 +630,7 @@
       "created_at": "2025-05-08T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "store_id": 1,
       "direction": "in",
       "party": "Watts Inc",
@@ -638,7 +638,7 @@
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "store_id": 1,
       "direction": "out",
       "party": "Dominique Cowan",
@@ -646,7 +646,7 @@
       "created_at": "2025-06-12T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "store_id": 1,
       "direction": "out",
       "party": "Andrew Smith",
@@ -654,7 +654,7 @@
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "store_id": 1,
       "direction": "in",
       "party": "Martin, Williams and Warren",
@@ -662,7 +662,7 @@
       "created_at": "2025-05-08T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "store_id": 1,
       "direction": "in",
       "party": "Mcintosh, Franco and Turner",
@@ -670,7 +670,7 @@
       "created_at": "2025-07-12T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "store_id": 1,
       "direction": "out",
       "party": "Julie Campbell",
@@ -678,7 +678,7 @@
       "created_at": "2025-06-16T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "store_id": 1,
       "direction": "out",
       "party": "Jeremy Gardner",
@@ -686,7 +686,7 @@
       "created_at": "2025-05-28T14:35:58.175228"
     },
     {
-      "id": 13,
+      "id": "13",
       "store_id": 1,
       "direction": "in",
       "party": "Aguirre-Meyer",
@@ -694,7 +694,7 @@
       "created_at": "2025-07-09T14:35:58.175228"
     },
     {
-      "id": 14,
+      "id": "14",
       "store_id": 1,
       "direction": "in",
       "party": "Reid Group",
@@ -702,7 +702,7 @@
       "created_at": "2025-05-20T14:35:58.175228"
     },
     {
-      "id": 15,
+      "id": "15",
       "store_id": 1,
       "direction": "out",
       "party": "Rick Rodriguez",
@@ -710,7 +710,7 @@
       "created_at": "2025-05-12T14:35:58.175228"
     },
     {
-      "id": 16,
+      "id": "16",
       "store_id": 1,
       "direction": "out",
       "party": "Pamela Graham",
@@ -718,7 +718,7 @@
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 17,
+      "id": "17",
       "store_id": 1,
       "direction": "in",
       "party": "Moore-Taylor",
@@ -726,7 +726,7 @@
       "created_at": "2025-06-12T14:35:58.175228"
     },
     {
-      "id": 18,
+      "id": "18",
       "store_id": 1,
       "direction": "in",
       "party": "Davila Inc",
@@ -734,7 +734,7 @@
       "created_at": "2025-05-05T14:35:58.175228"
     },
     {
-      "id": 19,
+      "id": "19",
       "store_id": 1,
       "direction": "out",
       "party": "Daniel Powell",
@@ -742,7 +742,7 @@
       "created_at": "2025-06-29T14:35:58.175228"
     },
     {
-      "id": 20,
+      "id": "20",
       "store_id": 1,
       "direction": "out",
       "party": "Jason Morris",
@@ -750,7 +750,7 @@
       "created_at": "2025-05-27T14:35:58.175228"
     },
     {
-      "id": 21,
+      "id": "21",
       "store_id": 1,
       "direction": "in",
       "party": "Williams and Sons",
@@ -758,7 +758,7 @@
       "created_at": "2025-05-13T14:35:58.175228"
     },
     {
-      "id": 22,
+      "id": "22",
       "store_id": 1,
       "direction": "in",
       "party": "Tanner, Farrell and Hale",
@@ -766,7 +766,7 @@
       "created_at": "2025-07-01T14:35:58.175228"
     },
     {
-      "id": 23,
+      "id": "23",
       "store_id": 1,
       "direction": "out",
       "party": "Elizabeth Campbell",
@@ -774,7 +774,7 @@
       "created_at": "2025-07-09T14:35:58.175228"
     },
     {
-      "id": 24,
+      "id": "24",
       "store_id": 1,
       "direction": "out",
       "party": "Erika Robertson",
@@ -782,7 +782,7 @@
       "created_at": "2025-06-24T14:35:58.175228"
     },
     {
-      "id": 25,
+      "id": "25",
       "store_id": 1,
       "direction": "in",
       "party": "Ward, Hernandez and Walker",
@@ -790,7 +790,7 @@
       "created_at": "2025-05-29T14:35:58.175228"
     },
     {
-      "id": 26,
+      "id": "26",
       "store_id": 1,
       "direction": "in",
       "party": "Dixon Group",
@@ -798,7 +798,7 @@
       "created_at": "2025-06-05T14:35:58.175228"
     },
     {
-      "id": 27,
+      "id": "27",
       "store_id": 1,
       "direction": "out",
       "party": "Colin Jones",
@@ -806,7 +806,7 @@
       "created_at": "2025-06-23T14:35:58.175228"
     },
     {
-      "id": 28,
+      "id": "28",
       "store_id": 1,
       "direction": "out",
       "party": "Sheena Mitchell",
@@ -814,7 +814,7 @@
       "created_at": "2025-05-14T14:35:58.175228"
     },
     {
-      "id": 29,
+      "id": "29",
       "store_id": 1,
       "direction": "in",
       "party": "Simon-Gaines",
@@ -822,7 +822,7 @@
       "created_at": "2025-05-18T14:35:58.175228"
     },
     {
-      "id": 30,
+      "id": "30",
       "store_id": 1,
       "direction": "in",
       "party": "Martinez LLC",
@@ -830,7 +830,7 @@
       "created_at": "2025-06-17T14:35:58.175228"
     },
     {
-      "id": 31,
+      "id": "31",
       "store_id": 1,
       "direction": "out",
       "party": "Alicia Meyer",
@@ -838,7 +838,7 @@
       "created_at": "2025-06-21T14:35:58.175228"
     },
     {
-      "id": 32,
+      "id": "32",
       "store_id": 1,
       "direction": "out",
       "party": "Daniel Zuniga",
@@ -846,7 +846,7 @@
       "created_at": "2025-05-10T14:35:58.175228"
     },
     {
-      "id": 33,
+      "id": "33",
       "store_id": 1,
       "direction": "in",
       "party": "Romero Inc",
@@ -854,7 +854,7 @@
       "created_at": "2025-05-11T14:35:58.175228"
     },
     {
-      "id": 34,
+      "id": "34",
       "store_id": 1,
       "direction": "in",
       "party": "Beck, Fitzgerald and Deleon",
@@ -862,7 +862,7 @@
       "created_at": "2025-06-27T14:35:58.175228"
     },
     {
-      "id": 35,
+      "id": "35",
       "store_id": 1,
       "direction": "out",
       "party": "James Barnes",
@@ -870,7 +870,7 @@
       "created_at": "2025-07-07T14:35:58.175228"
     },
     {
-      "id": 36,
+      "id": "36",
       "store_id": 1,
       "direction": "out",
       "party": "Brenda Roy",
@@ -878,7 +878,7 @@
       "created_at": "2025-04-24T14:35:58.175228"
     },
     {
-      "id": 37,
+      "id": "37",
       "store_id": 1,
       "direction": "in",
       "party": "Mccormick Inc",
@@ -886,7 +886,7 @@
       "created_at": "2025-06-09T14:35:58.175228"
     },
     {
-      "id": 38,
+      "id": "38",
       "store_id": 1,
       "direction": "in",
       "party": "Johnson-Thomas",
@@ -894,7 +894,7 @@
       "created_at": "2025-06-18T14:35:58.175228"
     },
     {
-      "id": 39,
+      "id": "39",
       "store_id": 1,
       "direction": "out",
       "party": "Timothy Stanley",
@@ -902,7 +902,7 @@
       "created_at": "2025-07-03T14:35:58.175228"
     },
     {
-      "id": 40,
+      "id": "40",
       "store_id": 1,
       "direction": "out",
       "party": "Christian Murray",
@@ -910,7 +910,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 41,
+      "id": "41",
       "store_id": 1,
       "direction": "in",
       "party": "Taylor Inc",
@@ -918,7 +918,7 @@
       "created_at": "2025-05-28T14:35:58.175228"
     },
     {
-      "id": 42,
+      "id": "42",
       "store_id": 1,
       "direction": "in",
       "party": "Gonzales-Burnett",
@@ -926,7 +926,7 @@
       "created_at": "2025-05-28T14:35:58.175228"
     },
     {
-      "id": 43,
+      "id": "43",
       "store_id": 1,
       "direction": "out",
       "party": "David Glover",
@@ -934,7 +934,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 44,
+      "id": "44",
       "store_id": 1,
       "direction": "out",
       "party": "Charles Leonard",
@@ -942,7 +942,7 @@
       "created_at": "2025-05-19T14:35:58.175228"
     },
     {
-      "id": 45,
+      "id": "45",
       "store_id": 2,
       "direction": "in",
       "party": "Murphy-Morales",
@@ -950,7 +950,7 @@
       "created_at": "2025-06-20T14:35:58.175228"
     },
     {
-      "id": 46,
+      "id": "46",
       "store_id": 2,
       "direction": "in",
       "party": "Briggs Inc",
@@ -958,7 +958,7 @@
       "created_at": "2025-07-09T14:35:58.175228"
     },
     {
-      "id": 47,
+      "id": "47",
       "store_id": 2,
       "direction": "out",
       "party": "Ashley Wright",
@@ -966,7 +966,7 @@
       "created_at": "2025-07-16T14:35:58.175228"
     },
     {
-      "id": 48,
+      "id": "48",
       "store_id": 2,
       "direction": "out",
       "party": "Justin Smith",
@@ -974,7 +974,7 @@
       "created_at": "2025-05-24T14:35:58.175228"
     },
     {
-      "id": 49,
+      "id": "49",
       "store_id": 2,
       "direction": "in",
       "party": "Kline, Davidson and Rich",
@@ -982,7 +982,7 @@
       "created_at": "2025-07-16T14:35:58.175228"
     },
     {
-      "id": 50,
+      "id": "50",
       "store_id": 2,
       "direction": "in",
       "party": "Baker, Fisher and Joyce",
@@ -990,7 +990,7 @@
       "created_at": "2025-06-23T14:35:58.175228"
     },
     {
-      "id": 51,
+      "id": "51",
       "store_id": 2,
       "direction": "out",
       "party": "Mark Bradford",
@@ -998,7 +998,7 @@
       "created_at": "2025-07-07T14:35:58.175228"
     },
     {
-      "id": 52,
+      "id": "52",
       "store_id": 2,
       "direction": "out",
       "party": "Lindsey Bailey",
@@ -1006,7 +1006,7 @@
       "created_at": "2025-05-16T14:35:58.175228"
     },
     {
-      "id": 53,
+      "id": "53",
       "store_id": 2,
       "direction": "in",
       "party": "Skinner, Mcbride and Hunter",
@@ -1014,7 +1014,7 @@
       "created_at": "2025-04-30T14:35:58.175228"
     },
     {
-      "id": 54,
+      "id": "54",
       "store_id": 2,
       "direction": "in",
       "party": "Lucas Inc",
@@ -1022,7 +1022,7 @@
       "created_at": "2025-05-31T14:35:58.175228"
     },
     {
-      "id": 55,
+      "id": "55",
       "store_id": 2,
       "direction": "out",
       "party": "Clifford Nguyen",
@@ -1030,7 +1030,7 @@
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 56,
+      "id": "56",
       "store_id": 2,
       "direction": "out",
       "party": "Morgan Frye",
@@ -1038,7 +1038,7 @@
       "created_at": "2025-04-26T14:35:58.175228"
     },
     {
-      "id": 57,
+      "id": "57",
       "store_id": 2,
       "direction": "in",
       "party": "Gonzalez, Reid and Jones",
@@ -1046,7 +1046,7 @@
       "created_at": "2025-06-30T14:35:58.175228"
     },
     {
-      "id": 58,
+      "id": "58",
       "store_id": 2,
       "direction": "in",
       "party": "Bowen Group",
@@ -1054,7 +1054,7 @@
       "created_at": "2025-06-30T14:35:58.175228"
     },
     {
-      "id": 59,
+      "id": "59",
       "store_id": 2,
       "direction": "out",
       "party": "Diane Zamora",
@@ -1062,7 +1062,7 @@
       "created_at": "2025-06-07T14:35:58.175228"
     },
     {
-      "id": 60,
+      "id": "60",
       "store_id": 2,
       "direction": "out",
       "party": "Mrs. Alyssa Chandler",
@@ -1070,7 +1070,7 @@
       "created_at": "2025-05-27T14:35:58.175228"
     },
     {
-      "id": 61,
+      "id": "61",
       "store_id": 2,
       "direction": "in",
       "party": "Chambers, Deleon and Diaz",
@@ -1078,7 +1078,7 @@
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 62,
+      "id": "62",
       "store_id": 2,
       "direction": "in",
       "party": "Taylor Ltd",
@@ -1086,7 +1086,7 @@
       "created_at": "2025-05-23T14:35:58.175228"
     },
     {
-      "id": 63,
+      "id": "63",
       "store_id": 2,
       "direction": "out",
       "party": "Debra Orozco",
@@ -1094,7 +1094,7 @@
       "created_at": "2025-07-08T14:35:58.175228"
     },
     {
-      "id": 64,
+      "id": "64",
       "store_id": 2,
       "direction": "out",
       "party": "Anthony Scott",
@@ -1102,7 +1102,7 @@
       "created_at": "2025-05-05T14:35:58.175228"
     },
     {
-      "id": 65,
+      "id": "65",
       "store_id": 2,
       "direction": "in",
       "party": "King Inc",
@@ -1110,7 +1110,7 @@
       "created_at": "2025-04-18T14:35:58.175228"
     },
     {
-      "id": 66,
+      "id": "66",
       "store_id": 2,
       "direction": "in",
       "party": "Green, Sparks and Shields",
@@ -1118,7 +1118,7 @@
       "created_at": "2025-07-10T14:35:58.175228"
     },
     {
-      "id": 67,
+      "id": "67",
       "store_id": 2,
       "direction": "out",
       "party": "Barbara Hendricks",
@@ -1126,7 +1126,7 @@
       "created_at": "2025-06-19T14:35:58.175228"
     },
     {
-      "id": 68,
+      "id": "68",
       "store_id": 2,
       "direction": "out",
       "party": "Robert Delacruz",
@@ -1134,7 +1134,7 @@
       "created_at": "2025-04-17T14:35:58.175228"
     },
     {
-      "id": 69,
+      "id": "69",
       "store_id": 2,
       "direction": "in",
       "party": "Parker, Frye and Smith",
@@ -1142,7 +1142,7 @@
       "created_at": "2025-05-11T14:35:58.175228"
     },
     {
-      "id": 70,
+      "id": "70",
       "store_id": 2,
       "direction": "in",
       "party": "Harvey Group",
@@ -1150,7 +1150,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 71,
+      "id": "71",
       "store_id": 2,
       "direction": "out",
       "party": "Sabrina Dyer",
@@ -1158,7 +1158,7 @@
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 72,
+      "id": "72",
       "store_id": 2,
       "direction": "out",
       "party": "Michael Wilkins",
@@ -1166,7 +1166,7 @@
       "created_at": "2025-05-15T14:35:58.175228"
     },
     {
-      "id": 73,
+      "id": "73",
       "store_id": 2,
       "direction": "in",
       "party": "Hughes Group",
@@ -1174,7 +1174,7 @@
       "created_at": "2025-04-21T14:35:58.175228"
     },
     {
-      "id": 74,
+      "id": "74",
       "store_id": 2,
       "direction": "in",
       "party": "Allen Inc",
@@ -1182,7 +1182,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 75,
+      "id": "75",
       "store_id": 2,
       "direction": "out",
       "party": "Beverly Boone",
@@ -1190,7 +1190,7 @@
       "created_at": "2025-06-28T14:35:58.175228"
     },
     {
-      "id": 76,
+      "id": "76",
       "store_id": 2,
       "direction": "out",
       "party": "Derek Jackson",
@@ -1198,7 +1198,7 @@
       "created_at": "2025-04-24T14:35:58.175228"
     },
     {
-      "id": 77,
+      "id": "77",
       "store_id": 2,
       "direction": "in",
       "party": "Clayton-Brown",
@@ -1206,7 +1206,7 @@
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 78,
+      "id": "78",
       "store_id": 2,
       "direction": "in",
       "party": "Martinez PLC",
@@ -1214,7 +1214,7 @@
       "created_at": "2025-06-06T14:35:58.175228"
     },
     {
-      "id": 79,
+      "id": "79",
       "store_id": 2,
       "direction": "out",
       "party": "Keith Little",
@@ -1222,7 +1222,7 @@
       "created_at": "2025-07-15T14:35:58.175228"
     },
     {
-      "id": 80,
+      "id": "80",
       "store_id": 2,
       "direction": "out",
       "party": "Chelsea Collins",
@@ -1230,7 +1230,7 @@
       "created_at": "2025-06-05T14:35:58.175228"
     },
     {
-      "id": 81,
+      "id": "81",
       "store_id": 3,
       "direction": "in",
       "party": "Kelley, Stanley and Kaiser",
@@ -1238,7 +1238,7 @@
       "created_at": "2025-06-02T14:35:58.175228"
     },
     {
-      "id": 82,
+      "id": "82",
       "store_id": 3,
       "direction": "in",
       "party": "Thomas, Mitchell and Woodward",
@@ -1246,7 +1246,7 @@
       "created_at": "2025-06-30T14:35:58.175228"
     },
     {
-      "id": 83,
+      "id": "83",
       "store_id": 3,
       "direction": "out",
       "party": "Jonathan Henderson",
@@ -1254,7 +1254,7 @@
       "created_at": "2025-04-18T14:35:58.175228"
     },
     {
-      "id": 84,
+      "id": "84",
       "store_id": 3,
       "direction": "out",
       "party": "Rebecca Moore",
@@ -1262,7 +1262,7 @@
       "created_at": "2025-05-27T14:35:58.175228"
     },
     {
-      "id": 85,
+      "id": "85",
       "store_id": 3,
       "direction": "in",
       "party": "Williams, Walker and Calderon",
@@ -1270,7 +1270,7 @@
       "created_at": "2025-06-24T14:35:58.175228"
     },
     {
-      "id": 86,
+      "id": "86",
       "store_id": 3,
       "direction": "in",
       "party": "Lane-Lee",
@@ -1278,7 +1278,7 @@
       "created_at": "2025-05-20T14:35:58.175228"
     },
     {
-      "id": 87,
+      "id": "87",
       "store_id": 3,
       "direction": "out",
       "party": "Ruth Hamilton",
@@ -1286,7 +1286,7 @@
       "created_at": "2025-05-29T14:35:58.175228"
     },
     {
-      "id": 88,
+      "id": "88",
       "store_id": 3,
       "direction": "out",
       "party": "Holly Duffy",
@@ -1294,7 +1294,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 89,
+      "id": "89",
       "store_id": 3,
       "direction": "in",
       "party": "Davis Inc",
@@ -1302,7 +1302,7 @@
       "created_at": "2025-06-06T14:35:58.175228"
     },
     {
-      "id": 90,
+      "id": "90",
       "store_id": 3,
       "direction": "in",
       "party": "Frost, Miles and Clark",
@@ -1310,7 +1310,7 @@
       "created_at": "2025-06-27T14:35:58.175228"
     },
     {
-      "id": 91,
+      "id": "91",
       "store_id": 3,
       "direction": "out",
       "party": "Scott Fox",
@@ -1318,7 +1318,7 @@
       "created_at": "2025-05-18T14:35:58.175228"
     },
     {
-      "id": 92,
+      "id": "92",
       "store_id": 3,
       "direction": "out",
       "party": "Amber Jenkins",
@@ -1326,7 +1326,7 @@
       "created_at": "2025-05-20T14:35:58.175228"
     },
     {
-      "id": 93,
+      "id": "93",
       "store_id": 3,
       "direction": "in",
       "party": "Andrade, Gilbert and Cook",
@@ -1334,7 +1334,7 @@
       "created_at": "2025-06-05T14:35:58.175228"
     },
     {
-      "id": 94,
+      "id": "94",
       "store_id": 3,
       "direction": "in",
       "party": "Day Group",
@@ -1342,7 +1342,7 @@
       "created_at": "2025-04-18T14:35:58.175228"
     },
     {
-      "id": 95,
+      "id": "95",
       "store_id": 3,
       "direction": "out",
       "party": "Mary Garcia",
@@ -1350,7 +1350,7 @@
       "created_at": "2025-05-28T14:35:58.175228"
     },
     {
-      "id": 96,
+      "id": "96",
       "store_id": 3,
       "direction": "out",
       "party": "Christian Pratt",
@@ -1358,7 +1358,7 @@
       "created_at": "2025-04-19T14:35:58.175228"
     },
     {
-      "id": 97,
+      "id": "97",
       "store_id": 3,
       "direction": "in",
       "party": "Casey Ltd",
@@ -1366,7 +1366,7 @@
       "created_at": "2025-04-29T14:35:58.175228"
     },
     {
-      "id": 98,
+      "id": "98",
       "store_id": 3,
       "direction": "in",
       "party": "Turner, Dixon and Mccarthy",
@@ -1374,7 +1374,7 @@
       "created_at": "2025-07-10T14:35:58.175228"
     },
     {
-      "id": 99,
+      "id": "99",
       "store_id": 3,
       "direction": "out",
       "party": "Ryan Ferguson",
@@ -1382,7 +1382,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 100,
+      "id": "100",
       "store_id": 3,
       "direction": "out",
       "party": "Tammy Davis",
@@ -1390,7 +1390,7 @@
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 101,
+      "id": "101",
       "store_id": 3,
       "direction": "in",
       "party": "Zamora PLC",
@@ -1398,7 +1398,7 @@
       "created_at": "2025-05-10T14:35:58.175228"
     },
     {
-      "id": 102,
+      "id": "102",
       "store_id": 3,
       "direction": "in",
       "party": "Thomas, Blake and Harding",
@@ -1406,7 +1406,7 @@
       "created_at": "2025-06-16T14:35:58.175228"
     },
     {
-      "id": 103,
+      "id": "103",
       "store_id": 3,
       "direction": "out",
       "party": "Jordan Rios",
@@ -1414,7 +1414,7 @@
       "created_at": "2025-05-26T14:35:58.175228"
     },
     {
-      "id": 104,
+      "id": "104",
       "store_id": 3,
       "direction": "out",
       "party": "Samantha Mendoza",
@@ -1422,7 +1422,7 @@
       "created_at": "2025-05-22T14:35:58.175228"
     },
     {
-      "id": 105,
+      "id": "105",
       "store_id": 3,
       "direction": "in",
       "party": "Phillips-Mullins",
@@ -1430,7 +1430,7 @@
       "created_at": "2025-06-28T14:35:58.175228"
     },
     {
-      "id": 106,
+      "id": "106",
       "store_id": 3,
       "direction": "in",
       "party": "Wong-Mitchell",
@@ -1438,7 +1438,7 @@
       "created_at": "2025-05-14T14:35:58.175228"
     },
     {
-      "id": 107,
+      "id": "107",
       "store_id": 3,
       "direction": "out",
       "party": "Kristine Willis",
@@ -1446,7 +1446,7 @@
       "created_at": "2025-04-27T14:35:58.175228"
     },
     {
-      "id": 108,
+      "id": "108",
       "store_id": 3,
       "direction": "out",
       "party": "Gina Jackson",
@@ -1454,7 +1454,7 @@
       "created_at": "2025-06-17T14:35:58.175228"
     },
     {
-      "id": 109,
+      "id": "109",
       "store_id": 3,
       "direction": "in",
       "party": "Williams-Davis",
@@ -1462,7 +1462,7 @@
       "created_at": "2025-06-16T14:35:58.175228"
     },
     {
-      "id": 110,
+      "id": "110",
       "store_id": 3,
       "direction": "in",
       "party": "Webster-Alvarado",
@@ -1470,7 +1470,7 @@
       "created_at": "2025-06-08T14:35:58.175228"
     },
     {
-      "id": 111,
+      "id": "111",
       "store_id": 3,
       "direction": "out",
       "party": "Vanessa Williamson",
@@ -1478,7 +1478,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 112,
+      "id": "112",
       "store_id": 3,
       "direction": "out",
       "party": "James Taylor",
@@ -1488,7 +1488,7 @@
   ],
   "stock_entries": [
     {
-      "id": 1,
+      "id": "1",
       "product_id": 1,
       "clerk_id": 4,
       "batch_id": 1,
@@ -1501,7 +1501,7 @@
       "created_at": "2025-05-15T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "product_id": 1,
       "clerk_id": 4,
       "batch_id": 2,
@@ -1514,7 +1514,7 @@
       "created_at": "2025-05-28T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "product_id": 2,
       "clerk_id": 4,
       "batch_id": 5,
@@ -1527,7 +1527,7 @@
       "created_at": "2025-05-18T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "product_id": 2,
       "clerk_id": 4,
       "batch_id": 6,
@@ -1540,7 +1540,7 @@
       "created_at": "2025-06-01T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "product_id": 3,
       "clerk_id": 3,
       "batch_id": 9,
@@ -1553,7 +1553,7 @@
       "created_at": "2025-05-17T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "product_id": 3,
       "clerk_id": 3,
       "batch_id": 10,
@@ -1566,7 +1566,7 @@
       "created_at": "2025-04-26T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "product_id": 4,
       "clerk_id": 4,
       "batch_id": 13,
@@ -1579,7 +1579,7 @@
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "product_id": 4,
       "clerk_id": 4,
       "batch_id": 14,
@@ -1592,20 +1592,20 @@
       "created_at": "2025-06-05T14:35:58.175228"
     },
     {
-     "id": 57,
-     "product_id": 5,
-     "clerk_id": 3,
-     "batch_id": 5,
-     "supplier_id": 4,
-     "supply_request_id": 3,
-     "quantity_received": 16,
-     "buying_price": 132.50,
-     "payment_status": "unpaid",
-     "payment_method": "MPesa",
-     "created_at": "2025-07-20T10:15:00.000000"
+      "id": "57",
+      "product_id": 5,
+      "clerk_id": 3,
+      "batch_id": 5,
+      "supplier_id": 4,
+      "supply_request_id": 3,
+      "quantity_received": 16,
+      "buying_price": 132.5,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-07-20T10:15:00.000000"
     },
     {
-      "id": 9,
+      "id": "9",
       "product_id": 5,
       "clerk_id": 2,
       "batch_id": 17,
@@ -1618,7 +1618,7 @@
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "product_id": 5,
       "clerk_id": 3,
       "batch_id": 18,
@@ -1631,7 +1631,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "product_id": 6,
       "clerk_id": 2,
       "batch_id": 21,
@@ -1644,7 +1644,7 @@
       "created_at": "2025-04-18T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "product_id": 6,
       "clerk_id": 4,
       "batch_id": 22,
@@ -1657,7 +1657,7 @@
       "created_at": "2025-06-06T14:35:58.175228"
     },
     {
-      "id": 13,
+      "id": "13",
       "product_id": 7,
       "clerk_id": 2,
       "batch_id": 25,
@@ -1670,7 +1670,7 @@
       "created_at": "2025-05-04T14:35:58.175228"
     },
     {
-      "id": 14,
+      "id": "14",
       "product_id": 7,
       "clerk_id": 4,
       "batch_id": 26,
@@ -1683,7 +1683,7 @@
       "created_at": "2025-05-04T14:35:58.175228"
     },
     {
-      "id": 15,
+      "id": "15",
       "product_id": 8,
       "clerk_id": 3,
       "batch_id": 29,
@@ -1696,7 +1696,7 @@
       "created_at": "2025-05-28T14:35:58.175228"
     },
     {
-      "id": 16,
+      "id": "16",
       "product_id": 8,
       "clerk_id": 3,
       "batch_id": 30,
@@ -1709,7 +1709,7 @@
       "created_at": "2025-05-24T14:35:58.175228"
     },
     {
-      "id": 17,
+      "id": "17",
       "product_id": 9,
       "clerk_id": 2,
       "batch_id": 33,
@@ -1722,7 +1722,7 @@
       "created_at": "2025-07-02T14:35:58.175228"
     },
     {
-      "id": 18,
+      "id": "18",
       "product_id": 9,
       "clerk_id": 3,
       "batch_id": 34,
@@ -1735,7 +1735,7 @@
       "created_at": "2025-06-15T14:35:58.175228"
     },
     {
-      "id": 19,
+      "id": "19",
       "product_id": 10,
       "clerk_id": 4,
       "batch_id": 37,
@@ -1748,7 +1748,7 @@
       "created_at": "2025-05-12T14:35:58.175228"
     },
     {
-      "id": 20,
+      "id": "20",
       "product_id": 10,
       "clerk_id": 3,
       "batch_id": 38,
@@ -1761,7 +1761,7 @@
       "created_at": "2025-06-22T14:35:58.175228"
     },
     {
-      "id": 21,
+      "id": "21",
       "product_id": 11,
       "clerk_id": 2,
       "batch_id": 41,
@@ -1774,7 +1774,7 @@
       "created_at": "2025-04-22T14:35:58.175228"
     },
     {
-      "id": 22,
+      "id": "22",
       "product_id": 11,
       "clerk_id": 2,
       "batch_id": 42,
@@ -1787,7 +1787,7 @@
       "created_at": "2025-06-26T14:35:58.175228"
     },
     {
-      "id": 23,
+      "id": "23",
       "product_id": 12,
       "clerk_id": 7,
       "batch_id": 45,
@@ -1800,7 +1800,7 @@
       "created_at": "2025-07-05T14:35:58.175228"
     },
     {
-      "id": 24,
+      "id": "24",
       "product_id": 12,
       "clerk_id": 6,
       "batch_id": 46,
@@ -1813,7 +1813,7 @@
       "created_at": "2025-06-30T14:35:58.175228"
     },
     {
-      "id": 25,
+      "id": "25",
       "product_id": 13,
       "clerk_id": 8,
       "batch_id": 49,
@@ -1826,7 +1826,7 @@
       "created_at": "2025-05-29T14:35:58.175228"
     },
     {
-      "id": 26,
+      "id": "26",
       "product_id": 13,
       "clerk_id": 8,
       "batch_id": 50,
@@ -1839,7 +1839,7 @@
       "created_at": "2025-04-26T14:35:58.175228"
     },
     {
-      "id": 27,
+      "id": "27",
       "product_id": 14,
       "clerk_id": 6,
       "batch_id": 53,
@@ -1852,7 +1852,7 @@
       "created_at": "2025-06-14T14:35:58.175228"
     },
     {
-      "id": 28,
+      "id": "28",
       "product_id": 14,
       "clerk_id": 6,
       "batch_id": 54,
@@ -1865,7 +1865,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 29,
+      "id": "29",
       "product_id": 15,
       "clerk_id": 7,
       "batch_id": 57,
@@ -1878,7 +1878,7 @@
       "created_at": "2025-05-24T14:35:58.175228"
     },
     {
-      "id": 30,
+      "id": "30",
       "product_id": 15,
       "clerk_id": 7,
       "batch_id": 58,
@@ -1891,7 +1891,7 @@
       "created_at": "2025-06-25T14:35:58.175228"
     },
     {
-      "id": 31,
+      "id": "31",
       "product_id": 16,
       "clerk_id": 6,
       "batch_id": 61,
@@ -1904,7 +1904,7 @@
       "created_at": "2025-05-14T14:35:58.175228"
     },
     {
-      "id": 32,
+      "id": "32",
       "product_id": 16,
       "clerk_id": 6,
       "batch_id": 62,
@@ -1917,7 +1917,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 33,
+      "id": "33",
       "product_id": 17,
       "clerk_id": 6,
       "batch_id": 65,
@@ -1930,7 +1930,7 @@
       "created_at": "2025-07-04T14:35:58.175228"
     },
     {
-      "id": 34,
+      "id": "34",
       "product_id": 17,
       "clerk_id": 6,
       "batch_id": 66,
@@ -1943,7 +1943,7 @@
       "created_at": "2025-04-23T14:35:58.175228"
     },
     {
-      "id": 35,
+      "id": "35",
       "product_id": 18,
       "clerk_id": 6,
       "batch_id": 69,
@@ -1956,7 +1956,7 @@
       "created_at": "2025-04-27T14:35:58.175228"
     },
     {
-      "id": 36,
+      "id": "36",
       "product_id": 18,
       "clerk_id": 6,
       "batch_id": 70,
@@ -1969,7 +1969,7 @@
       "created_at": "2025-04-25T14:35:58.175228"
     },
     {
-      "id": 37,
+      "id": "37",
       "product_id": 19,
       "clerk_id": 6,
       "batch_id": 73,
@@ -1982,7 +1982,7 @@
       "created_at": "2025-05-14T14:35:58.175228"
     },
     {
-      "id": 38,
+      "id": "38",
       "product_id": 19,
       "clerk_id": 6,
       "batch_id": 74,
@@ -1995,7 +1995,7 @@
       "created_at": "2025-04-21T14:35:58.175228"
     },
     {
-      "id": 39,
+      "id": "39",
       "product_id": 20,
       "clerk_id": 8,
       "batch_id": 77,
@@ -2008,7 +2008,7 @@
       "created_at": "2025-04-26T14:35:58.175228"
     },
     {
-      "id": 40,
+      "id": "40",
       "product_id": 20,
       "clerk_id": 8,
       "batch_id": 78,
@@ -2021,7 +2021,7 @@
       "created_at": "2025-05-21T14:35:58.175228"
     },
     {
-      "id": 41,
+      "id": "41",
       "product_id": 21,
       "clerk_id": 12,
       "batch_id": 81,
@@ -2034,7 +2034,7 @@
       "created_at": "2025-06-07T14:35:58.175228"
     },
     {
-      "id": 42,
+      "id": "42",
       "product_id": 21,
       "clerk_id": 12,
       "batch_id": 82,
@@ -2047,7 +2047,7 @@
       "created_at": "2025-04-17T14:35:58.175228"
     },
     {
-      "id": 43,
+      "id": "43",
       "product_id": 22,
       "clerk_id": 11,
       "batch_id": 85,
@@ -2060,7 +2060,7 @@
       "created_at": "2025-05-22T14:35:58.175228"
     },
     {
-      "id": 44,
+      "id": "44",
       "product_id": 22,
       "clerk_id": 11,
       "batch_id": 86,
@@ -2073,7 +2073,7 @@
       "created_at": "2025-05-13T14:35:58.175228"
     },
     {
-      "id": 45,
+      "id": "45",
       "product_id": 23,
       "clerk_id": 11,
       "batch_id": 89,
@@ -2086,7 +2086,7 @@
       "created_at": "2025-05-17T14:35:58.175228"
     },
     {
-      "id": 46,
+      "id": "46",
       "product_id": 23,
       "clerk_id": 11,
       "batch_id": 90,
@@ -2099,7 +2099,7 @@
       "created_at": "2025-06-26T14:35:58.175228"
     },
     {
-      "id": 47,
+      "id": "47",
       "product_id": 24,
       "clerk_id": 12,
       "batch_id": 93,
@@ -2112,7 +2112,7 @@
       "created_at": "2025-06-26T14:35:58.175228"
     },
     {
-      "id": 48,
+      "id": "48",
       "product_id": 24,
       "clerk_id": 12,
       "batch_id": 94,
@@ -2125,7 +2125,7 @@
       "created_at": "2025-06-16T14:35:58.175228"
     },
     {
-      "id": 49,
+      "id": "49",
       "product_id": 25,
       "clerk_id": 11,
       "batch_id": 97,
@@ -2138,7 +2138,7 @@
       "created_at": "2025-05-02T14:35:58.175228"
     },
     {
-      "id": 50,
+      "id": "50",
       "product_id": 25,
       "clerk_id": 12,
       "batch_id": 98,
@@ -2151,7 +2151,7 @@
       "created_at": "2025-06-23T14:35:58.175228"
     },
     {
-      "id": 51,
+      "id": "51",
       "product_id": 26,
       "clerk_id": 11,
       "batch_id": 101,
@@ -2164,7 +2164,7 @@
       "created_at": "2025-06-27T14:35:58.175228"
     },
     {
-      "id": 52,
+      "id": "52",
       "product_id": 26,
       "clerk_id": 11,
       "batch_id": 102,
@@ -2177,7 +2177,7 @@
       "created_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 53,
+      "id": "53",
       "product_id": 27,
       "clerk_id": 12,
       "batch_id": 105,
@@ -2190,7 +2190,7 @@
       "created_at": "2025-06-25T14:35:58.175228"
     },
     {
-      "id": 54,
+      "id": "54",
       "product_id": 27,
       "clerk_id": 10,
       "batch_id": 106,
@@ -2203,7 +2203,7 @@
       "created_at": "2025-05-14T14:35:58.175228"
     },
     {
-      "id": 55,
+      "id": "55",
       "product_id": 28,
       "clerk_id": 11,
       "batch_id": 109,
@@ -2216,7 +2216,7 @@
       "created_at": "2025-05-25T14:35:58.175228"
     },
     {
-      "id": 56,
+      "id": "56",
       "product_id": 28,
       "clerk_id": 12,
       "batch_id": 110,
@@ -2227,11 +2227,21 @@
       "payment_status": "unpaid",
       "payment_method": "MPesa",
       "created_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "3449",
+      "product_id": "1",
+      "quantity_received": 5,
+      "buying_price": 65,
+      "spoilt": 4,
+      "payment_status": "paid",
+      "store_id": 1,
+      "created_at": "2025-07-21T12:21:03.059Z"
     }
   ],
   "stock_exits": [
     {
-      "id": 1,
+      "id": "1",
       "product_id": 1,
       "recorded_by": 4,
       "batch_id": 3,
@@ -2241,7 +2251,7 @@
       "created_at": "2025-05-02T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "product_id": 1,
       "recorded_by": 2,
       "batch_id": 4,
@@ -2251,7 +2261,7 @@
       "created_at": "2025-06-01T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "product_id": 2,
       "recorded_by": 4,
       "batch_id": 7,
@@ -2261,7 +2271,7 @@
       "created_at": "2025-05-24T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "product_id": 2,
       "recorded_by": 2,
       "batch_id": 8,
@@ -2271,7 +2281,7 @@
       "created_at": "2025-05-12T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "product_id": 3,
       "recorded_by": 4,
       "batch_id": 11,
@@ -2281,7 +2291,7 @@
       "created_at": "2025-07-09T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "product_id": 3,
       "recorded_by": 4,
       "batch_id": 12,
@@ -2291,7 +2301,7 @@
       "created_at": "2025-06-28T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "product_id": 4,
       "recorded_by": 4,
       "batch_id": 15,
@@ -2301,7 +2311,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "product_id": 4,
       "recorded_by": 4,
       "batch_id": 16,
@@ -2311,7 +2321,7 @@
       "created_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "product_id": 5,
       "recorded_by": 4,
       "batch_id": 19,
@@ -2321,7 +2331,7 @@
       "created_at": "2025-05-16T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "product_id": 5,
       "recorded_by": 3,
       "batch_id": 20,
@@ -2331,7 +2341,7 @@
       "created_at": "2025-05-04T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "product_id": 6,
       "recorded_by": 3,
       "batch_id": 23,
@@ -2341,7 +2351,7 @@
       "created_at": "2025-05-13T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "product_id": 6,
       "recorded_by": 3,
       "batch_id": 24,
@@ -2351,7 +2361,7 @@
       "created_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 13,
+      "id": "13",
       "product_id": 7,
       "recorded_by": 2,
       "batch_id": 27,
@@ -2361,7 +2371,7 @@
       "created_at": "2025-05-23T14:35:58.175228"
     },
     {
-      "id": 14,
+      "id": "14",
       "product_id": 7,
       "recorded_by": 4,
       "batch_id": 28,
@@ -2371,7 +2381,7 @@
       "created_at": "2025-05-09T14:35:58.175228"
     },
     {
-      "id": 15,
+      "id": "15",
       "product_id": 8,
       "recorded_by": 2,
       "batch_id": 31,
@@ -2381,7 +2391,7 @@
       "created_at": "2025-05-10T14:35:58.175228"
     },
     {
-      "id": 16,
+      "id": "16",
       "product_id": 8,
       "recorded_by": 2,
       "batch_id": 32,
@@ -2391,7 +2401,7 @@
       "created_at": "2025-05-14T14:35:58.175228"
     },
     {
-      "id": 17,
+      "id": "17",
       "product_id": 9,
       "recorded_by": 2,
       "batch_id": 35,
@@ -2401,7 +2411,7 @@
       "created_at": "2025-07-15T14:35:58.175228"
     },
     {
-      "id": 18,
+      "id": "18",
       "product_id": 9,
       "recorded_by": 3,
       "batch_id": 36,
@@ -2411,7 +2421,7 @@
       "created_at": "2025-07-13T14:35:58.175228"
     },
     {
-      "id": 19,
+      "id": "19",
       "product_id": 10,
       "recorded_by": 4,
       "batch_id": 39,
@@ -2421,7 +2431,7 @@
       "created_at": "2025-05-19T14:35:58.175228"
     },
     {
-      "id": 20,
+      "id": "20",
       "product_id": 10,
       "recorded_by": 3,
       "batch_id": 40,
@@ -2431,7 +2441,7 @@
       "created_at": "2025-05-21T14:35:58.175228"
     },
     {
-      "id": 21,
+      "id": "21",
       "product_id": 11,
       "recorded_by": 2,
       "batch_id": 43,
@@ -2441,7 +2451,7 @@
       "created_at": "2025-06-28T14:35:58.175228"
     },
     {
-      "id": 22,
+      "id": "22",
       "product_id": 11,
       "recorded_by": 2,
       "batch_id": 44,
@@ -2451,7 +2461,7 @@
       "created_at": "2025-04-23T14:35:58.175228"
     },
     {
-      "id": 23,
+      "id": "23",
       "product_id": 12,
       "recorded_by": 8,
       "batch_id": 47,
@@ -2461,7 +2471,7 @@
       "created_at": "2025-05-08T14:35:58.175228"
     },
     {
-      "id": 24,
+      "id": "24",
       "product_id": 12,
       "recorded_by": 7,
       "batch_id": 48,
@@ -2471,7 +2481,7 @@
       "created_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 25,
+      "id": "25",
       "product_id": 13,
       "recorded_by": 8,
       "batch_id": 51,
@@ -2481,7 +2491,7 @@
       "created_at": "2025-06-01T14:35:58.175228"
     },
     {
-      "id": 26,
+      "id": "26",
       "product_id": 13,
       "recorded_by": 7,
       "batch_id": 52,
@@ -2491,7 +2501,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 27,
+      "id": "27",
       "product_id": 14,
       "recorded_by": 6,
       "batch_id": 55,
@@ -2501,7 +2511,7 @@
       "created_at": "2025-06-04T14:35:58.175228"
     },
     {
-      "id": 28,
+      "id": "28",
       "product_id": 14,
       "recorded_by": 7,
       "batch_id": 56,
@@ -2511,7 +2521,7 @@
       "created_at": "2025-06-16T14:35:58.175228"
     },
     {
-      "id": 29,
+      "id": "29",
       "product_id": 15,
       "recorded_by": 7,
       "batch_id": 59,
@@ -2521,7 +2531,7 @@
       "created_at": "2025-07-01T14:35:58.175228"
     },
     {
-      "id": 30,
+      "id": "30",
       "product_id": 15,
       "recorded_by": 8,
       "batch_id": 60,
@@ -2531,7 +2541,7 @@
       "created_at": "2025-07-10T14:35:58.175228"
     },
     {
-      "id": 31,
+      "id": "31",
       "product_id": 16,
       "recorded_by": 6,
       "batch_id": 63,
@@ -2541,7 +2551,7 @@
       "created_at": "2025-06-22T14:35:58.175228"
     },
     {
-      "id": 32,
+      "id": "32",
       "product_id": 16,
       "recorded_by": 7,
       "batch_id": 64,
@@ -2551,7 +2561,7 @@
       "created_at": "2025-05-09T14:35:58.175228"
     },
     {
-      "id": 33,
+      "id": "33",
       "product_id": 17,
       "recorded_by": 6,
       "batch_id": 67,
@@ -2561,7 +2571,7 @@
       "created_at": "2025-04-25T14:35:58.175228"
     },
     {
-      "id": 34,
+      "id": "34",
       "product_id": 17,
       "recorded_by": 6,
       "batch_id": 68,
@@ -2571,7 +2581,7 @@
       "created_at": "2025-05-31T14:35:58.175228"
     },
     {
-      "id": 35,
+      "id": "35",
       "product_id": 18,
       "recorded_by": 6,
       "batch_id": 71,
@@ -2581,7 +2591,7 @@
       "created_at": "2025-05-03T14:35:58.175228"
     },
     {
-      "id": 36,
+      "id": "36",
       "product_id": 18,
       "recorded_by": 6,
       "batch_id": 72,
@@ -2591,7 +2601,7 @@
       "created_at": "2025-04-23T14:35:58.175228"
     },
     {
-      "id": 37,
+      "id": "37",
       "product_id": 19,
       "recorded_by": 8,
       "batch_id": 75,
@@ -2601,7 +2611,7 @@
       "created_at": "2025-06-29T14:35:58.175228"
     },
     {
-      "id": 38,
+      "id": "38",
       "product_id": 19,
       "recorded_by": 6,
       "batch_id": 76,
@@ -2611,7 +2621,7 @@
       "created_at": "2025-04-20T14:35:58.175228"
     },
     {
-      "id": 39,
+      "id": "39",
       "product_id": 20,
       "recorded_by": 7,
       "batch_id": 79,
@@ -2621,7 +2631,7 @@
       "created_at": "2025-06-01T14:35:58.175228"
     },
     {
-      "id": 40,
+      "id": "40",
       "product_id": 20,
       "recorded_by": 7,
       "batch_id": 80,
@@ -2631,27 +2641,27 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 41,
+      "id": "41",
       "product_id": 21,
       "recorded_by": 11,
       "batch_id": 83,
       "quantity": 7,
-      "selling_price": 107.0,
+      "selling_price": 107,
       "reason": "damaged",
       "created_at": "2025-05-15T14:35:58.175228"
     },
     {
-      "id": 42,
+      "id": "42",
       "product_id": 21,
       "recorded_by": 10,
       "batch_id": 84,
       "quantity": 2,
-      "selling_price": 107.0,
+      "selling_price": 107,
       "reason": "expired",
       "created_at": "2025-05-12T14:35:58.175228"
     },
     {
-      "id": 43,
+      "id": "43",
       "product_id": 22,
       "recorded_by": 11,
       "batch_id": 87,
@@ -2661,7 +2671,7 @@
       "created_at": "2025-06-02T14:35:58.175228"
     },
     {
-      "id": 44,
+      "id": "44",
       "product_id": 22,
       "recorded_by": 10,
       "batch_id": 88,
@@ -2671,7 +2681,7 @@
       "created_at": "2025-07-01T14:35:58.175228"
     },
     {
-      "id": 45,
+      "id": "45",
       "product_id": 23,
       "recorded_by": 10,
       "batch_id": 91,
@@ -2681,7 +2691,7 @@
       "created_at": "2025-05-17T14:35:58.175228"
     },
     {
-      "id": 46,
+      "id": "46",
       "product_id": 23,
       "recorded_by": 12,
       "batch_id": 92,
@@ -2691,7 +2701,7 @@
       "created_at": "2025-05-22T14:35:58.175228"
     },
     {
-      "id": 47,
+      "id": "47",
       "product_id": 24,
       "recorded_by": 12,
       "batch_id": 95,
@@ -2701,7 +2711,7 @@
       "created_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 48,
+      "id": "48",
       "product_id": 24,
       "recorded_by": 11,
       "batch_id": 96,
@@ -2711,7 +2721,7 @@
       "created_at": "2025-06-02T14:35:58.175228"
     },
     {
-      "id": 49,
+      "id": "49",
       "product_id": 25,
       "recorded_by": 10,
       "batch_id": 99,
@@ -2721,7 +2731,7 @@
       "created_at": "2025-06-26T14:35:58.175228"
     },
     {
-      "id": 50,
+      "id": "50",
       "product_id": 25,
       "recorded_by": 11,
       "batch_id": 100,
@@ -2731,7 +2741,7 @@
       "created_at": "2025-07-11T14:35:58.175228"
     },
     {
-      "id": 51,
+      "id": "51",
       "product_id": 26,
       "recorded_by": 12,
       "batch_id": 103,
@@ -2741,7 +2751,7 @@
       "created_at": "2025-05-15T14:35:58.175228"
     },
     {
-      "id": 52,
+      "id": "52",
       "product_id": 26,
       "recorded_by": 11,
       "batch_id": 104,
@@ -2751,7 +2761,7 @@
       "created_at": "2025-05-01T14:35:58.175228"
     },
     {
-      "id": 53,
+      "id": "53",
       "product_id": 27,
       "recorded_by": 12,
       "batch_id": 107,
@@ -2761,7 +2771,7 @@
       "created_at": "2025-05-07T14:35:58.175228"
     },
     {
-      "id": 54,
+      "id": "54",
       "product_id": 27,
       "recorded_by": 12,
       "batch_id": 108,
@@ -2771,7 +2781,7 @@
       "created_at": "2025-07-07T14:35:58.175228"
     },
     {
-      "id": 55,
+      "id": "55",
       "product_id": 28,
       "recorded_by": 11,
       "batch_id": 111,
@@ -2781,7 +2791,7 @@
       "created_at": "2025-05-18T14:35:58.175228"
     },
     {
-      "id": 56,
+      "id": "56",
       "product_id": 28,
       "recorded_by": 11,
       "batch_id": 112,
@@ -2793,7 +2803,7 @@
   ],
   "supply_requests": [
     {
-      "id": 1,
+      "id": "1",
       "product_id": 2,
       "requested_by": 4,
       "quantity": 73,
@@ -2803,7 +2813,7 @@
       "reviewed_at": "2025-06-17T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "product_id": 3,
       "requested_by": 3,
       "quantity": 78,
@@ -2813,7 +2823,7 @@
       "reviewed_at": "2025-07-07T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "product_id": 4,
       "requested_by": 4,
       "quantity": 85,
@@ -2823,7 +2833,7 @@
       "reviewed_at": "2025-05-22T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "product_id": 8,
       "requested_by": 3,
       "quantity": 38,
@@ -2833,7 +2843,7 @@
       "reviewed_at": "2025-07-12T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "product_id": 13,
       "requested_by": 8,
       "quantity": 54,
@@ -2843,7 +2853,7 @@
       "reviewed_at": "2025-04-19T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "product_id": 14,
       "requested_by": 6,
       "quantity": 33,
@@ -2853,7 +2863,7 @@
       "reviewed_at": "2025-06-29T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "product_id": 15,
       "requested_by": 7,
       "quantity": 55,
@@ -2863,7 +2873,7 @@
       "reviewed_at": "2025-06-23T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "product_id": 17,
       "requested_by": 6,
       "quantity": 15,
@@ -2873,7 +2883,7 @@
       "reviewed_at": "2025-06-07T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "product_id": 18,
       "requested_by": 6,
       "quantity": 87,
@@ -2883,7 +2893,7 @@
       "reviewed_at": "2025-06-28T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "product_id": 19,
       "requested_by": 6,
       "quantity": 59,
@@ -2893,7 +2903,7 @@
       "reviewed_at": "2025-05-13T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "product_id": 20,
       "requested_by": 8,
       "quantity": 33,
@@ -2903,7 +2913,7 @@
       "reviewed_at": "2025-05-13T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "product_id": 21,
       "requested_by": 12,
       "quantity": 64,
@@ -2913,7 +2923,7 @@
       "reviewed_at": "2025-07-15T14:35:58.175228"
     },
     {
-      "id": 13,
+      "id": "13",
       "product_id": 22,
       "requested_by": 11,
       "quantity": 98,
@@ -2923,7 +2933,7 @@
       "reviewed_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 14,
+      "id": "14",
       "product_id": 23,
       "requested_by": 11,
       "quantity": 99,
@@ -2933,7 +2943,7 @@
       "reviewed_at": "2025-06-27T14:35:58.175228"
     },
     {
-      "id": 15,
+      "id": "15",
       "product_id": 24,
       "requested_by": 12,
       "quantity": 69,
@@ -2943,7 +2953,7 @@
       "reviewed_at": "2025-04-29T14:35:58.175228"
     },
     {
-      "id": 16,
+      "id": "16",
       "product_id": 26,
       "requested_by": 11,
       "quantity": 32,
@@ -2955,7 +2965,7 @@
   ],
   "mpesa_transactions": [
     {
-      "id": 1,
+      "id": "1",
       "business_id": 1,
       "stock_entry_id": 6,
       "phone_number": "0795373738",
@@ -2970,7 +2980,7 @@
       "created_at": "2025-05-30T14:35:58.175228"
     },
     {
-      "id": 2,
+      "id": "2",
       "business_id": 1,
       "stock_entry_id": 9,
       "phone_number": "0777182329",
@@ -2985,7 +2995,7 @@
       "created_at": "2025-06-22T14:35:58.175228"
     },
     {
-      "id": 3,
+      "id": "3",
       "business_id": 1,
       "stock_entry_id": 12,
       "phone_number": "0758139947",
@@ -3000,7 +3010,7 @@
       "created_at": "2025-06-23T14:35:58.175228"
     },
     {
-      "id": 4,
+      "id": "4",
       "business_id": 1,
       "stock_entry_id": 14,
       "phone_number": "0756178062",
@@ -3015,7 +3025,7 @@
       "created_at": "2025-06-03T14:35:58.175228"
     },
     {
-      "id": 5,
+      "id": "5",
       "business_id": 1,
       "stock_entry_id": 16,
       "phone_number": "0757999706",
@@ -3030,7 +3040,7 @@
       "created_at": "2025-04-21T14:35:58.175228"
     },
     {
-      "id": 6,
+      "id": "6",
       "business_id": 1,
       "stock_entry_id": 17,
       "phone_number": "0718073451",
@@ -3045,7 +3055,7 @@
       "created_at": "2025-05-11T14:35:58.175228"
     },
     {
-      "id": 7,
+      "id": "7",
       "business_id": 1,
       "stock_entry_id": 19,
       "phone_number": "0713485136",
@@ -3060,7 +3070,7 @@
       "created_at": "2025-06-18T14:35:58.175228"
     },
     {
-      "id": 8,
+      "id": "8",
       "business_id": 1,
       "stock_entry_id": 20,
       "phone_number": "0762356567",
@@ -3075,7 +3085,7 @@
       "created_at": "2025-05-17T14:35:58.175228"
     },
     {
-      "id": 9,
+      "id": "9",
       "business_id": 1,
       "stock_entry_id": 23,
       "phone_number": "0711280634",
@@ -3090,7 +3100,7 @@
       "created_at": "2025-06-17T14:35:58.175228"
     },
     {
-      "id": 10,
+      "id": "10",
       "business_id": 1,
       "stock_entry_id": 34,
       "phone_number": "0734486736",
@@ -3105,13 +3115,13 @@
       "created_at": "2025-07-05T14:35:58.175228"
     },
     {
-      "id": 11,
+      "id": "11",
       "business_id": 1,
       "stock_entry_id": 36,
       "phone_number": "0748146908",
       "till_number": "510953",
       "paybill_number": "600651",
-      "amount": 759.0,
+      "amount": 759,
       "type": "B2B",
       "transaction_code": "MP900686",
       "status": "failed",
@@ -3120,13 +3130,13 @@
       "created_at": "2025-06-21T14:35:58.175228"
     },
     {
-      "id": 12,
+      "id": "12",
       "business_id": 1,
       "stock_entry_id": 38,
       "phone_number": "0774543746",
       "till_number": "510280",
       "paybill_number": "600340",
-      "amount": 4248.0,
+      "amount": 4248,
       "type": "B2B",
       "transaction_code": "MP207074",
       "status": "failed",
@@ -3135,7 +3145,7 @@
       "created_at": "2025-04-19T14:35:58.175228"
     },
     {
-      "id": 13,
+      "id": "13",
       "business_id": 1,
       "stock_entry_id": 39,
       "phone_number": "0768890229",
@@ -3150,7 +3160,7 @@
       "created_at": "2025-05-27T14:35:58.175228"
     },
     {
-      "id": 14,
+      "id": "14",
       "business_id": 1,
       "stock_entry_id": 41,
       "phone_number": "0719595657",
@@ -3165,7 +3175,7 @@
       "created_at": "2025-05-06T14:35:58.175228"
     },
     {
-      "id": 15,
+      "id": "15",
       "business_id": 1,
       "stock_entry_id": 42,
       "phone_number": "0777049428",
@@ -3180,7 +3190,7 @@
       "created_at": "2025-06-17T14:35:58.175228"
     },
     {
-      "id": 16,
+      "id": "16",
       "business_id": 1,
       "stock_entry_id": 48,
       "phone_number": "0748999555",
@@ -3195,7 +3205,7 @@
       "created_at": "2025-07-06T14:35:58.175228"
     },
     {
-      "id": 17,
+      "id": "17",
       "business_id": 1,
       "stock_entry_id": 56,
       "phone_number": "0768527462",

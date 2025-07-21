@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext} from "react-router-dom";
 
 const StoreInventory = () => {
   const { store } = useOutletContext();

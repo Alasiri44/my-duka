@@ -1,18 +1,21 @@
 import React from "react";
 import { RouteObject } from "react-router-dom";
-import ClerkLayout from "../components/clerk"; 
-import Dashboard from "../pages/dashboards/clerk/ClerkDash";
-import Inventory from "../pages/dashboards/clerk/Inventory";
+import ClerkLayout from "../components/clerk/index";
+import ClerkDash from "../pages/dashboards/clerk/ClerkDash";
+import Inventory from "../pages/dashboards/clerk/Inventory"; // renamed for clarity
 import CategoryPage from "../pages/dashboards/clerk/CategoryPage";
 import ProductDetail from "../pages/dashboards/clerk/ProductDetail";
 import AddProduct from "../pages/dashboards/clerk/AddProduct";
 
 const clerkRoutes: RouteObject[] = [
   {
-    path: "/",
-    element: < Dashboard />,
+    path: "/", // :id refers to the business/store ID
+    element: <ClerkLayout />,
     children: [
-      
+      {
+        index: true,
+        element: <ClerkDash />,
+      },
       {
         path: "inventory",
         element: <Inventory />,

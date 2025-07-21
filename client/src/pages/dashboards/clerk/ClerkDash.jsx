@@ -5,6 +5,7 @@ import {
   FaMoneyBill, FaThLarge
 } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const API_URL = 'http://localhost:3001';
 
@@ -33,6 +34,7 @@ const ClerkDash = () => {
   });
 
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -97,6 +99,7 @@ const ClerkDash = () => {
             const product = productsRes.data.find(p => String(p.id) === String(entry.product_id));
             return {
               id: entry.id,
+              product_id: entry.product_id,
               name: product?.name || 'Unknown Product',
               stock: entry.quantity_received,
               value: entry.quantity_received * entry.buying_price,
@@ -150,10 +153,35 @@ const ClerkDash = () => {
     }
   };
 
+  // Handler for navigating to product detail page
+  const handleGoToProductDetail = (productId) => {
+    navigate(`/inventory/products/${productId}`);
+  };
+
+  // Handler for the top button (go to first product detail)
+  const handleGoToFirstProductDetail = () => {
+    if (products.length > 0) {
+      navigate(`/inventory/products/${products[0].id}`);
+    }
+  };
+
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold mb-1">Clerk Dashboard</h1>
-      <p className="text-gray-400">Manage your Inventory and Track your Stock Records</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-1">Clerk Dashboard</h1>
+          <p className="text-gray-400">Manage your Inventory and Track your Stock Records</p>
+        </div>
+        <button
+          onClick={handleGoToFirstProductDetail}
+          disabled={products.length === 0}
+          className={`bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition ${
+            products.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          Go to First Product Detail
+        </button>
+      </div>
 
       {clerk && store && (
         <div className="mb-4 text-sm text-gray-600">
@@ -272,6 +300,12 @@ const ClerkDash = () => {
                     {item.status || 'unpaid'}
                   </span>
                   <span className="text-[10px] text-gray-400">{item.created_at?.split('T')[0]}</span>
+                  <button
+                    onClick={() => handleGoToProductDetail(item.product_id)}
+                    className="mt-2 bg-indigo-600 text-white px-3 py-1 rounded text-xs hover:bg-indigo-700"
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             ))}
@@ -283,4 +317,3 @@ const ClerkDash = () => {
 };
 
 export default ClerkDash;
-
