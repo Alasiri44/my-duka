@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchClerks,
-  deactivateClerk,
-  deleteClerk,
-  addClerk
-} from '../../store/clerksSlice';
+import { fetchClerks, deactivateClerk, deleteClerk , addClerk} from '../../store/clerksSlice';
 import axios from 'axios';
 
 const Clerks = () => {
