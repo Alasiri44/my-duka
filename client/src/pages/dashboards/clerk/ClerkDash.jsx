@@ -22,11 +22,32 @@ const ClerkDash = () => {
   });
 
   const [recentProducts, setRecentProducts] = useState([]);
-  const [recentExits, setRecentExits] = useState([]);
+  const [clerk, setClerk] = useState(null);
+  const [store, setStore] = useState(null);
+  const [form, setForm] = useState({
+    product_id: '',
+    quantity_received: '',
+    buying_price: '',
+    spoilt: '',
+    payment_status: 'unpaid',
+  });
+
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
+        const clerkId = 2; // Hardcoded clerk
+        const userRes = await axios.get(`${API_URL}/users/${clerkId}`);
+        const user = userRes.data;
+        setClerk(user);
+
+        const storeRes = await axios.get(`${API_URL}/stores/${user.store_id}`);
+        const store = storeRes.data;
+        setStore(store);
+
+        const storeId = user.store_id;
+
         const [
           categoriesRes,
           productsRes,
@@ -35,13 +56,15 @@ const ClerkDash = () => {
           batchesRes,
           mpesaRes
         ] = await Promise.all([
-          axios.get(`${API_URL}/categories`),
-          axios.get(`${API_URL}/products`),
-          axios.get(`${API_URL}/stock_entries`),
-          axios.get(`${API_URL}/stock_exits`),
-          axios.get(`${API_URL}/batches`),
-          axios.get(`${API_URL}/mpesa_transactions`)
+          axios.get(`${API_URL}/categories?store_id=${storeId}`),
+          axios.get(`${API_URL}/products?store_id=${storeId}`),
+          axios.get(`${API_URL}/stock_entries?store_id=${storeId}`),
+          axios.get(`${API_URL}/stock_exits?store_id=${storeId}`),
+          axios.get(`${API_URL}/batches?store_id=${storeId}`),
+          axios.get(`${API_URL}/mpesa_transactions?store_id=${storeId}`)
         ]);
+
+        setProducts(productsRes.data);
 
         const inventoryValue = stockEntriesRes.data.reduce((total, entry) => {
           return total + (entry.quantity_received * entry.buying_price);
@@ -68,10 +91,10 @@ const ClerkDash = () => {
         });
 
         const recentEntries = stockEntriesRes.data
-          .slice(-10) // get latest 10 in case some products repeat
+          .slice(-10)
           .reverse()
           .map(entry => {
-            const product = productsRes.data.find(p => p.id === entry.product_id);
+            const product = productsRes.data.find(p => String(p.id) === String(entry.product_id));
             return {
               id: entry.id,
               name: product?.name || 'Unknown Product',
@@ -82,11 +105,9 @@ const ClerkDash = () => {
               created_at: entry.created_at,
             };
           })
-          .slice(0, 4); // only show the latest 4 items
-
+          .slice(0, 4);
 
         setRecentProducts(recentEntries);
-        setRecentExits(stockExitsRes.data.slice(-5).reverse());
 
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -96,10 +117,49 @@ const ClerkDash = () => {
     fetchDashboardData();
   }, []);
 
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const payload = {
+        ...form,
+        store_id: clerk?.store_id,
+        quantity_received: Number(form.quantity_received),
+        buying_price: Number(form.buying_price),
+        spoilt: Number(form.spoilt),
+        created_at: new Date().toISOString(),
+      };
+
+      await axios.post(`${API_URL}/stock_entries`, payload);
+      alert("Stock entry recorded successfully");
+      setForm({
+        product_id: '',
+        quantity_received: '',
+        buying_price: '',
+        spoilt: '',
+        payment_status: 'unpaid',
+      });
+    } catch (err) {
+      console.error('Error submitting stock entry:', err);
+      alert("Failed to submit stock entry");
+    }
+  };
+
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold mb-4">Clerk Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-1">Clerk Dashboard</h1>
       <p className="text-gray-400">Manage your Inventory and Track your Stock Records</p>
+
+      {clerk && store && (
+        <div className="mb-4 text-sm text-gray-600">
+          <span className="font-medium">Welcome {clerk.first_name} {clerk.last_name}</span> &mdash; working at <span className="font-semibold text-indigo-600">{store.name}</span>
+        </div>
+      )}
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -108,62 +168,92 @@ const ClerkDash = () => {
         <StatCard title="Spoilt Items" value={stats.spoiltItems} icon={<FaExclamationTriangle />} desc="damaged/ expired items" bg="bg-white-100" text="text-rose-900" />
         <StatCard title="Pending Txns" value={stats.pendingTxns} icon={<FaMoneyBill />} desc="transactions that haven't been cleared" bg="bg-white-100" text="text-orange-900" />
       </div>
+
       {/* Record Form & Recent Inventory */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        {/* Record New Items Form */}
+        {/* Record New Stock Entry Form */}
         <div className="bg-white border border-gray-300 rounded-xl p-4 shadow">
-          <h2 className="text-lg font-semibold mb-1">Record New Items</h2>
-          <p className="text-xs text-gray-500 mb-2">Enter details for newly received inventory items</p>
-
-          <form className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <h2 className="text-lg font-semibold mb-2 text-black">Record New Stock</h2>
+          <form className="space-y-3 text-sm" onSubmit={handleFormSubmit}>
             <div>
-              <label className="block text-xs font-medium text-gray-700">Product Name *</label>
-              <input type="text" className="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm" placeholder="Enter product name" />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-gray-700">Items Received *</label>
-              <input type="number" className="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm" defaultValue={0} />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-gray-700">Spoilt Items</label>
-              <input type="number" className="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm" defaultValue={0} />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-gray-700">Payment Status *</label>
-              <select className="mt-1 w-full border border-gray-300 rounded-md p-1.5 text-sm">
-                <option>Unpaid</option>
-                <option>Paid</option>
+              <label className="block mb-1 text-gray-600">Product</label>
+              <select
+                name="product_id"
+                value={form.product_id}
+                onChange={handleFormChange}
+                required
+                className="w-full border border-gray-300 p-2 rounded"
+              >
+                <option value="">-- Select Product --</option>
+                {products.map(product => (
+                  <option key={product.id} value={product.id}>{product.name}</option>
+                ))}
               </select>
             </div>
-
-            <div>
-              <label className="block text-xs font-medium text-gray-700">Buying Price ($)</label>
-              <input type="number" className="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm" step="0.01" defaultValue={0.00} />
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block mb-1 text-gray-600">Qty Received</label>
+                <input
+                  type="number"
+                  name="quantity_received"
+                  value={form.quantity_received}
+                  onChange={handleFormChange}
+                  required
+                  className="w-full border border-gray-300 p-2 rounded"
+                />
+              </div>
+              <div>
+                <label className="block mb-1 text-gray-600">Buying Price</label>
+                <input
+                  type="number"
+                  name="buying_price"
+                  value={form.buying_price}
+                  onChange={handleFormChange}
+                  required
+                  className="w-full border border-gray-300 p-2 rounded"
+                />
+              </div>
             </div>
-
-            <div>
-              <label className="block text-xs font-medium text-gray-700">Selling Price ($)</label>
-              <input type="number" className="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm" step="0.01" defaultValue={0.00} />
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block mb-1 text-gray-600">Spoilt</label>
+                <input
+                  type="number"
+                  name="spoilt"
+                  value={form.spoilt}
+                  onChange={handleFormChange}
+                  className="w-full border border-gray-300 p-2 rounded"
+                />
+              </div>
+              <div>
+                <label className="block mb-1 text-gray-600">Payment Status</label>
+                <select
+                  name="payment_status"
+                  value={form.payment_status}
+                  onChange={handleFormChange}
+                  className="w-full border border-gray-300 p-2 rounded"
+                >
+                  <option value="unpaid">Unpaid</option>
+                  <option value="paid">Paid</option>
+                </select>
+              </div>
             </div>
-
-            <div className="col-span-full">
-              <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 rounded-md mt-1 text-sm">
-                Record Item
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Record Stock
+            </button>
           </form>
         </div>
 
-        {/* Recent Inventory Display */}
+        {/* Recent Inventory Section */}
         <div className="bg-white border border-gray-300 rounded-xl p-4 shadow">
           <h2 className="text-lg font-semibold mb-1 text-black">Recent Inventory</h2>
           <p className="text-xs text-gray-500 mb-2">Latest items added to inventory</p>
 
           <div className="space-y-3">
-            {recentProducts.slice(0, 4).map(item => (
+            {recentProducts.map(item => (
               <div key={item.id} className="border border-gray-300 rounded-md p-3 flex justify-between items-start bg-white">
                 <div>
                   <h3 className="font-semibold text-base text-black">{item.name}</h3>
@@ -188,7 +278,6 @@ const ClerkDash = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

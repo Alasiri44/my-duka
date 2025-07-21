@@ -1,37 +1,36 @@
 import React from "react";
-import ClerkLayout from "../components/clerk";
+import { RouteObject } from "react-router-dom";
+import ClerkLayout from "../components/clerk"; // Ensure this is an `index.tsx` or `index.jsx`
+import Dashboard from "../pages/dashboards/clerk/ClerkDash";
+import Inventory from "../pages/dashboards/clerk/Inventory";
+import CategoryPage from "../pages/dashboards/clerk/CategoryPage";
+import ProductDetail from "../pages/dashboards/clerk/ProductDetail";
+import AddProduct from "../pages/dashboards/clerk/AddProduct";
 
-const clerkRoutes = [
-  // {
-  //   path: '/',
-  //   element: < App />
-  // },
-  // {
-  //   path: "/merchant/dashboard",
-  //   element: <MerchantDashboard />,
-  // },
+const clerkRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <ClerkLayout />, // layout with sidebar
+    element: < Dashboard />,
     children: [
+      
       {
-        path: "suppliers",
-        element: <div>clerk Suppliers Page or Layout</div>,
+        path: "inventory",
+        element: <Inventory />,
       },
       {
-        path: "payments",
-        element: <div>clerk Payments Page or Layout</div>,
+        path: "inventory/category/:categoryId",
+        element: <CategoryPage />,
       },
       {
-        path: "reports",
-        element: <div>clerk Reports Page or Layout</div>,
+        path: "inventory/products/:productId",
+        element: <ProductDetail />,
       },
       {
-        path: "clerks",
-        element: <div>Clerks Page</div>,
+        path: "add-product",
+        element: <AddProduct />,
       },
     ],
   },
 ];
 
-export default clerkRoutes
+export default clerkRoutes;
