@@ -9,7 +9,7 @@ const MerchantDashboard = () => {
   const [recentActivity, setRecentActivity] = useState([]);
   const [summary, setSummary] = useState(null);
 
-  const merchantId = 1;
+  const merchantId =1;
 
   useEffect(() => {
     loadDashboardData();
