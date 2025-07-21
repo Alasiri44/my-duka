@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteObject } from "react-router-dom";
-import ClerkLayout from "../components/clerk"; // Ensure this is an `index.tsx` or `index.jsx`
+import ClerkLayout from "../components/clerk"; 
 import Dashboard from "../pages/dashboards/clerk/ClerkDash";
 import Inventory from "../pages/dashboards/clerk/Inventory";
 import CategoryPage from "../pages/dashboards/clerk/CategoryPage";
