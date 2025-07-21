@@ -1,0 +1,85 @@
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  FaBars,
+  FaArrowLeft,
+  FaStore,
+  FaUser,
+  FaBoxes,
+  FaTruck,
+  FaMoneyBill,
+  FaChartBar,
+  FaCog,
+  FaBuilding,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
+
+const Sidebar = ({ businesses, currentId, user, store }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) setCollapsed(true);
+  }, [isMobile]);
+
+  const linkClass = (isActive) =>
+    `flex items-center gap-2 px-4 py-2 rounded hover:bg-[#e0dedc] transition text-sm ${
+      isActive ? "bg-[#d7d0c8] font-semibold" : "text-[#011638]"
+    }`;
+
+  return (
+    <motion.aside
+      animate={{ width: collapsed ? 64 : 256 }}
+      transition={{ type: "spring", stiffness: 260, damping: 24 }}
+      className="bg-[#f2f0ed] border-r border-[#d7d0c8] h-full flex flex-col fixed md:relative z-50 overflow-hidden shadow-xl/50"
+    >
+      <div className="p-4 flex justify-between items-center">
+        {!collapsed && (
+          <h2 className="text-lg font-bold text-[#011638] truncate">
+            {businesses.find((b) => b.id === currentId)?.name}
+          </h2>
+        )}
+        <button onClick={() => setCollapsed(!collapsed)}>
+          <FaBars />
+        </button>
+      </div>
+
+      <nav className="flex-1 space-y-1 px-2">
+        <NavLink to="admin" className={({ isActive }) => linkClass(isActive)}>
+          <h3> Admin Section</h3>
+        </NavLink>
+        <NavLink to="reports" className={({ isActive }) => linkClass(isActive)}>
+          <FaCog /> {!collapsed && "Reports"}
+        </NavLink>
+
+        <NavLink
+          to="supply-requests"
+          className={({ isActive }) => linkClass(isActive)}
+        >
+          <FaCog /> {!collapsed && "Supply Requests"}
+        </NavLink>
+
+        <NavLink
+          to="payments"
+          className={({ isActive }) => linkClass(isActive)}
+        >
+          <FaCog /> {!collapsed && "Supplier Payments"}
+        </NavLink>
+
+        <NavLink to="clerks" className={({ isActive }) => linkClass(isActive)}>
+          <FaCog /> {!collapsed && "Manage Clerks"}
+        </NavLink>
+      </nav>
+    </motion.aside>
+  );
+};
+
+export default Sidebar;
