@@ -1,11 +1,24 @@
 import React from "react";
+// import MerchantDashboard from "../pages/dashboards/merchant/MerchantDashboard";
 import BusinessLayout from "../pages/dashboards/merchant/BusinessLayout";
 import BusinessOverview from "../pages/dashboards/merchant/Overview";
 import Stores from "../pages/dashboards/merchant/Stores";
+import StoreLayout from "../pages/dashboards/merchant/StoreLayout";
+import StoreOverview from "../pages/dashboards/merchant/stores/StoreOverview";
+import StaffView from "../components/merchant/staff/StaffView";
+import StoreInventory from "../pages/dashboards/merchant/stores/inventory/StoreInventory";
+import StockEntries from "../pages/dashboards/merchant/stores/inventory/StockEntries";
+
+import MerchantDashboard from "../pages/dashboards/merchant/MerchantDashboard";
 
 export const routes = [
+
   {
     path: "/",
+    element: <MerchantDashboard />,
+  },
+  {
+    path: "/merchant/businesses/:id",
     element: <BusinessLayout />, // layout with sidebar
     children: [
       {
@@ -40,11 +53,27 @@ export const routes = [
         path: "settings",
         element: <div>Settings Page</div>,
       },
+      {
+        path: "stores/:storeId",
+        element: <StoreLayout />,
+      },
+
+        {
+  path: "stores/:storeId",
+  element: <StoreLayout />,
+  children: [
+    { index: true, element: <StoreOverview /> },
+    { path: "staff", element: <StaffView /> },
+    { path: "inventory", element: <StoreInventory /> },
+    { path: "entries", element: <StockEntries /> },
+    // { path: "exits", element: <Exits /> },
+    // { path: "reports", element: <Reports /> },
+    // { path: "settings", element: <Settings /> },
+  ],
+},
     ],
   },
-  {
-    
-  }
-]
+  
+];
 
 export default routes

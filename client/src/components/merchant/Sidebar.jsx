@@ -113,7 +113,7 @@ const Sidebar = ({ businesses, currentId }) => {
         {/* Footer */}
         <div className="border-t border-[#d7d0c8] p-2 space-y-1">
           <button
-            onClick={() => navigate("/merchant/dashboard")}
+            onClick={() => navigate("/")}
             className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#011638] hover:bg-[#ec4e20] rounded"
           >
             <FaArrowLeft /> {!collapsed && "Back to Dashboard"}
