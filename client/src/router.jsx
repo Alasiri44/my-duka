@@ -1,19 +1,23 @@
 import React from "react";
 import App from "./App";
+
+// Merchant Imports
 import MerchantDashboard from "./pages/dashboards/merchant/MerchantDashboard";
 import BusinessLayout from "./pages/dashboards/merchant/BusinessLayout";
 import BusinessOverview from "./pages/dashboards/merchant/Overview";
 import Stores from "./pages/dashboards/merchant/Stores";
-import StoreLayout from "./pages/dashboards/merchant/StoreLayout";
-import StoreOverview from "./pages/dashboards/merchant/stores/StoreOverview";
-import StaffView from "./components/merchant/staff/StaffView";
-import StoreInventory from "./pages/dashboards/merchant/stores/inventory/StoreInventory";
-import StockEntries from "./pages/dashboards/merchant/stores/inventory/StockEntries"
+
+// Clerk Imports
+import Dashboard from './pages/dashboards/clerk/ClerkDash';
+import Inventory from './pages/dashboards/clerk/Inventory';
+import ProductDetail from './pages/dashboards/clerk/ProductDetail';
+import AddProduct from './pages/dashboards/clerk/AddProduct';
+import CategoryPage from "./pages/dashboards/clerk/CategoryPage";
 
 export const routes = [
   {
     path: '/',
-    element: < App />
+    element: <App />
   },
   {
     path: "/merchant/dashboard",
@@ -75,5 +79,26 @@ export const routes = [
 },
     ],
   },
-
-]
+  
+  // Clerk Routes (Only the paths fixed)
+  {
+    path: "/clerk/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/clerk/inventory",
+    element: <Inventory />,
+  },
+  {
+    path: "/clerk/inventory/category/:categoryId",
+    element: <CategoryPage/>,
+  },
+  {
+    path: "/clerk/inventory/products/:productId",
+    element: <ProductDetail />,
+  },
+  {
+    path: "/clerk/add-product",
+    element: <AddProduct />,
+  },
+];
