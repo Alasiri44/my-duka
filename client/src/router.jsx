@@ -59,6 +59,24 @@ export const routes = [
         path: "settings",
         element: <div>Settings Page</div>,
       },
+      {
+        path: "stores/:storeId",
+        element: <StoreLayout />,
+      },
+
+        {
+  path: "stores/:storeId",
+  element: <StoreLayout />,
+  children: [
+    { index: true, element: <StoreOverview /> },
+    { path: "staff", element: <StaffView /> },
+    { path: "inventory", element: <StoreInventory /> },
+    { path: "entries", element: <StockEntries /> },
+    // { path: "exits", element: <Exits /> },
+    // { path: "reports", element: <Reports /> },
+    // { path: "settings", element: <Settings /> },
+  ],
+},
     ],
   },
   

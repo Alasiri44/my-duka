@@ -103,7 +103,7 @@ const Stores = () => {
               return (
                 <li
                   key={store.id}
-                  onClick={() => navigate(`/merchant/dashboard/stores/${store.id}`)}
+                  onClick={() => navigate(`/merchant/businesses/${store.business_id}/stores/${store.id}`)}
                   className="border border-[#d7d0c8] border-t-4 border-t-[#ec4e20] rounded p-4 hover:shadow-md cursor-pointer transition bg-white"
                 >
                   <div className="flex items-center gap-2 text-[#011638] mb-1">
