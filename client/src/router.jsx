@@ -17,6 +17,8 @@ import ProductDetail from './pages/dashboards/clerk/ProductDetail';
 import AddProduct from './pages/dashboards/clerk/AddProduct';
 import CategoryPage from "./pages/dashboards/clerk/CategoryPage";
 import Login from "./pages/authentication/login";
+import LandingPage from "./pages/landingPage";
+import Signup from "./pages/authentication/signup";
 
 export const routes = [
   {
@@ -26,6 +28,14 @@ export const routes = [
   {
     path: '/login',
     element: < Login/>
+  },
+  {
+    path: '/signup',
+    element: <  Signup/>
+  },
+  {
+    path: '/landing_page',
+    element: < LandingPage/>
   },
   {
     path: "/merchant/dashboard",

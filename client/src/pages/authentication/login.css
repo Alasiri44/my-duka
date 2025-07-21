@@ -1,6 +1,9 @@
+
+
 form{
     width: 300px;
     margin: 10px auto;
+    padding: 10px;
 }
 
 input, select{
@@ -11,13 +14,32 @@ input, select{
     margin: 10px;
     color: black;
     border-radius: 10px;
+    outline: none;
 }
 
-div{
-    background-image: url('https://www.pinterest.com/pin/4362930883396399/');
+.mydiv{
     background-color: aqua;
     margin: 200px auto;
     text-align: center;
-    width: 400px;
+    width: 600px;
     border-radius: 10px;
+    background-image: url('https://i.pinimg.com/1200x/73/02/72/730272546ca18f555c940e276c7bab8b.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+
+button{
+    background-color: green;
+    width: 90%;
+    height: 3rem;
+    border: 1px solid black;
+    color: black;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    margin: 1px ;
+    margin-left: 29px;
 }
