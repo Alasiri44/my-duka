@@ -1,39 +1,67 @@
-
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import merchantRoutes from "./routes/merchant";
-import adminRouts from "./routes/admin";
+import adminRoutes from "./routes/admin";
 import clerkRoutes from "./routes/clerk";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
-import { setUser } from './store/authReducerSlice';
+import { setUser } from './redux/slices/authSlice'; // Adjusted path for redux
 
 const merchantRouter = createBrowserRouter(merchantRoutes);
-const adminRouter = createBrowserRouter(adminRouts);
+const adminRouter = createBrowserRouter(adminRoutes);
 const clerkRouter = createBrowserRouter(clerkRoutes);
 
-export default function App() {
-  const { user, store } = useSelector((state) => state.auth);
-   const dispatch = useDispatch();
+const testUsers = [
+  {
+    id: 1,
+    first_name: "Mary",
+    last_name: "Merchant",
+    email: "mary@duka.com",
+    role: "merchant",
+  },
+  {
+    id: 2,
+    store_id: 1,
+    first_name: "Andy",
+    last_name: "Admin",
+    email: "andy@duka.com",
+    role: "admin",
+  },
+  {
+    id: 3,
+    store_id: 1,
+    first_name: "Clara",
+    last_name: "Clerk",
+    email: "clara@duka.com",
+    role: "clerk",
+  },
+];
 
-  if (!user)
+export default function App() {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  if (!user) {
     return (
-      <div>
-        Login Please.
-        <br />
-        <button onClick={() => dispatch(setUser({name: "Test", role: "merchant"}))}> I am Merchant </button> <br />
-        <button onClick={() => dispatch(setUser({name: "Test", role: "admin"}))}> I am Admin </button> <br />
-        <button onClick={() => dispatch(setUser({name: "Test", role: "clerk"}))} > I am Clerk </button> <br />
+      <div className="min-h-screen bg-[#fdfdfd] flex flex-col items-center justify-center space-y-4">
+        <h1 className="text-2xl font-bold text-[#011638]">Login as a Test User</h1>
+        {testUsers.map((u) => (
+          <button
+            key={u.id}
+            className="bg-[#011638] text-white px-6 py-2 rounded hover:bg-[#000f2a] transition"
+            onClick={() => dispatch(setUser(u))}
+          >
+            {u.first_name} ({u.role})
+          </button>
+        ))}
       </div>
     );
+  }
 
   return (
-    <div>
+    <>
       {user.role === "merchant" && <RouterProvider router={merchantRouter} />}
       {user.role === "admin" && <RouterProvider router={adminRouter} />}
       {user.role === "clerk" && <RouterProvider router={clerkRouter} />}
-    </div>
+    </>
   );
-
 }
-

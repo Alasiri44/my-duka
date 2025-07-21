@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Outlet, useParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  useParams,
+  useNavigate,
+  useLocation,
+  useOutletContext,
+} from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+
 const StoreLayout = () => {
   const { storeId } = useParams();
+  const { role = "merchant" } = useOutletContext() || {};
   const navigate = useNavigate();
   const location = useLocation();
   const [store, setStore] = useState(null);
@@ -20,21 +29,24 @@ const StoreLayout = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const tabs = [
-    { label: "Overview", path: "" },
-    { label: "Staff", path: "staff" },
-    { label: "Inventory", path: "inventory" },
-    { label: "Entries", path: "entries" },
-    { label: "Exits", path: "exits" },
-    { label: "Reports", path: "reports" },
-    { label: "Settings", path: "settings" },
+  const allTabs = [
+    { label: "Overview", path: "", roles: ["merchant", "admin", "clerk"] },
+    { label: "Staff", path: "staff", roles: ["merchant", "admin"] },
+    { label: "Inventory", path: "inventory", roles: ["merchant", "admin", "clerk"] },
+    { label: "Entries", path: "entries", roles: ["merchant", "admin", "clerk"] },
+    { label: "Exits", path: "exits", roles: ["merchant", "admin", "clerk"] },
+    { label: "Reports", path: "reports", roles: ["merchant", "admin"] },
+    { label: "Settings", path: "settings", roles: ["merchant", "admin"] },
   ];
 
-  const currentTab = tabs.find(
-    (tab) =>
-      location.pathname.endsWith(`/${tab.path}`) ||
-      (tab.path === "" && location.pathname.endsWith(`/stores/${storeId}`))
-  ) || tabs[0];
+  const tabs = allTabs.filter((tab) => tab.roles.includes(role));
+
+  const currentTab =
+    tabs.find(
+      (tab) =>
+        location.pathname.endsWith(`/${tab.path}`) ||
+        (tab.path === "" && location.pathname.endsWith(`/stores/${storeId}`))
+    ) || tabs[0];
 
   if (!store) {
     return <div className="p-6 text-[#5e574d] text-sm">Loading store...</div>;
@@ -85,17 +97,17 @@ const StoreLayout = () => {
 
       {/* Tab Content */}
       <AnimatePresence mode="wait">
-<motion.div
-  key={location.pathname}
-  initial={{ scale: 0.95, opacity: 0 }}
-  animate={{ scale: 1, opacity: 1 }}
-  exit={{ scale: 0.95, opacity: 0 }}
-  transition={{ duration: 0.25 }}
-  className="bg-white p-4 rounded-xl shadow-sm border border-[#f2f0ed]"
->
-    <Outlet context={{ storeId: Number(storeId), store }} />
-  </motion.div>
-</AnimatePresence>
+        <motion.div
+          key={location.pathname}
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.95, opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="bg-white p-4 rounded-xl shadow-sm border border-[#f2f0ed]"
+        >
+          <Outlet context={{ storeId: Number(storeId), store, role}} />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
