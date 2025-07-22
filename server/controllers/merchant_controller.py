@@ -12,7 +12,7 @@ class Merchants(Resource):
         return make_response(response_dict, 200)
     def post(self):
         from ..app import bcrypt
-        data = request.get_json()()
+        data = request.get_json()
         new_merchant = Merchant(
             first_name = data.get('first_name'),
             last_name = data.get('last_name'),

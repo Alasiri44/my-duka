@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './login.css'
 import { Link, useNavigate } from "react-router-dom";
+import Alert from "../../components/alert";
 
 function Login() {
     const [email, setEmail] = useState('')
@@ -10,6 +11,7 @@ function Login() {
     const [error, setError] = useState('')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const navigate = useNavigate()
+    const [showSuccess, setShowSuccess] = useState(false);
 
     function handleChange(event) {
         event.preventDefault();
@@ -26,11 +28,11 @@ function Login() {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if(data.message){
-                        setError(data.message)
-                    }else{
-                        setIsLoggedIn(true)
-                    }
+                if (data.message) {
+                    setError(data.message)
+                } else {
+                    setIsLoggedIn(true)
+                }
             })
             .catch(err => {
                 console.error(err);
@@ -38,16 +40,28 @@ function Login() {
             })
     }
 
-    
+    useEffect(() => {
+        if (isLoggedIn) {
+            setShowSuccess(true);
+            const timer = setTimeout(() => {
+                setShowSuccess(false);
+                navigate('/landing_page');
+            }, 2000); // wait for 2 seconds
+
+            return () => clearTimeout(timer);
+        }
+    }, [isLoggedIn, navigate]);
+
     return <>
+
         <div className="mydiv" >
-            {isLoggedIn && navigate('/landing_page')}
+            {showSuccess && < Alert message='login successful' /> }
             <header>
                 <h1 className="text-5xl p-px">MyDuka</h1>
                 <hr />
                 <h2 className="text-xl">Welcome back to MyDuka</h2>
             </header>
-            
+
             <form onSubmit={handleChange}>
                 {error && <p className="text-red-600">{error}</p>}
                 <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /> <br />
@@ -65,7 +79,7 @@ function Login() {
                     <option value="client">Client</option>
                 </select>
 
-                <button>Login</button>
+                <button type="submit">Login</button>
             </form>
             <Link className="text-blue-950"><p>Forgot Password?</p></Link>
             <p>Don't have an account? <Link className="text-blue-950" to='/signup'><span>Sign in</span></Link></p>
