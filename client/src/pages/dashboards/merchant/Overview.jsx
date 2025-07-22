@@ -1,9 +1,11 @@
 // /pages/business/Overview.jsx
-import React from "react";
 import { useOutletContext } from "react-router-dom";
 
 const BusinessOverview = () => {
   const { currentBusiness } = useOutletContext();
+
+
+
 
   return (
     <div>

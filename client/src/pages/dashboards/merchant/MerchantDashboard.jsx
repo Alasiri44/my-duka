@@ -4,12 +4,29 @@ import BusinessTable from "../../../components/merchant/BusinessTable";
 import RecentActivity from "../../../components/merchant/RecentActivity";
 import QuickActions from "../../../components/merchant/QuickActions";
 
+import { useSelector } from "react-redux";
+
+
+
+
 const MerchantDashboard = () => {
   const [businesses, setBusinesses] = useState([]);
   const [recentActivity, setRecentActivity] = useState([]);
   const [summary, setSummary] = useState(null);
 
-  const merchantId =1;
+const { user } = useSelector((state) => state.auth);
+
+  const merchantId =user.id;
+
+  
+useEffect(() => {
+  document.title = `Welcome, ${user?.first_name || "Merchant"}!`;
+}, [user]);
+
+
+
+
+
 
   useEffect(() => {
     loadDashboardData();
@@ -170,11 +187,17 @@ const MerchantDashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#fdfdfd] px-6 py-8 space-y-8">
+
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-[#011638]">Merchant Dashboard</h1>
-          <p className="text-sm text-[#5e574d]">Manage your businesses and inventory</p>
-        </div>
+      <div>
+        <h1 className="text-2xl font-bold text-[#011638]">
+          Welcome back, {user?.first_name || "Merchant"}!
+        </h1>
+        <p className="text-sm text-[#5e574d]">
+          Manage your businesses and inventory
+        </p>
+      </div>
+
       </div>
 
       <SummaryCards summary={summary} />

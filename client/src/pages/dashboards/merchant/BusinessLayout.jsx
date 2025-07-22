@@ -5,9 +5,11 @@ import Sidebar from "../../../components/merchant/Sidebar";
 
 const BusinessLayout = () => {
   const { id } = useParams();
-  const { user } = useSelector((state) => state.auth); // ✅ pull role from Redux
+  const { user } = useSelector((state) => state.auth); // pull role from Redux
   const [businesses, setBusinesses] = useState([]);
   const [currentBusiness, setCurrentBusiness] = useState(null);
+
+
 
   useEffect(() => {
     fetch("http://localhost:3000/businesses")
@@ -19,6 +21,8 @@ const BusinessLayout = () => {
         setCurrentBusiness(found);
       });
   }, [id]);
+
+
 
   if (!currentBusiness) {
     return (

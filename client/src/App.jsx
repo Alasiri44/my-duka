@@ -13,9 +13,9 @@ const clerkRouter = createBrowserRouter(clerkRoutes);
 const testUsers = [
   {
     id: 1,
-    first_name: "Mary",
-    last_name: "Merchant",
-    email: "mary@duka.com",
+    first_name: "Stephen",
+    last_name: "Njenga",
+    email: "stephen@myduka.co.ke",
     role: "merchant",
   },
   {
