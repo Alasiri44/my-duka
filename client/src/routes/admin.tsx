@@ -19,6 +19,10 @@ const adminRoutes = [
         element: <SupplyRequestTable />,
       },
       {
+        path: "supply-requests",
+        element: <SupplyRequestTable />,
+      },
+      {
         path: "suppliers",
         element: <div>Admin Suppliers Page or Layout</div>,
       },
