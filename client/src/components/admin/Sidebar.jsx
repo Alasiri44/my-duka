@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaBars, FaUserCircle, FaBoxes, FaChartBar, FaCog, FaUsers, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaUserCircle, FaBoxes, FaChartBar, FaCog, FaUsers, FaSignOutAlt,FaTruckLoading } from "react-icons/fa";
+import {LuPackagePlus} from "react-icons/lu"
+import { TbPackageExport } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 // import { logout } from "../../redux/slices/authSlice"; // Adjust path as needed
@@ -32,8 +34,8 @@ const Sidebar = ({ businesses, currentId }) => {
     { label: "Overview", path: "", icon: FaChartBar, roles: ["merchant", "admin", "clerk"] },
     { label: "Staff", path: "staff", icon: FaUsers, roles: ["merchant", "admin"] },
     { label: "Inventory", path: "inventory", icon: FaBoxes, roles: ["merchant", "admin", "clerk"] },
-    { label: "Entries", path: "entries", icon: FaBoxes, roles: ["merchant", "admin", "clerk"] },
-    { label: "Exits", path: "exits", icon: FaBoxes, roles: ["merchant", "admin", "clerk"] },
+    { label: "Stock Entries", path: "entries", icon: LuPackagePlus, roles: ["merchant", "admin", "clerk"] },
+    { label: "Stock Exits", path: "exits", icon: TbPackageExport, roles: ["merchant", "admin", "clerk"] },
     { label: "Reports", path: "reports", icon: FaChartBar, roles: ["merchant", "admin"] },
     { label: "Settings", path: "settings", icon: FaCog, roles: ["merchant", "admin"] },
   ];
@@ -53,18 +55,20 @@ const Sidebar = ({ businesses, currentId }) => {
       className="bg-[#f2f0ed] border-r border-[#d7d0c8] h-screen flex flex-col fixed md:relative z-50 overflow-hidden shadow-xl/50"
     >
       {/* Top Section */}
-      <div className="p-4 flex items-center gap-2">
-        <FaUserCircle className="text-2xl text-[#011638]" />
-        {!collapsed && (
-          <div>
-            <p className="text-sm font-semibold text-[#011638]">{user?.first_name} {user?.last_name}</p>
-            <p className="text-xs text-[#5e574d] capitalize">{role}</p>
-          </div>
-        )}
-        <button onClick={() => setCollapsed(!collapsed)} className="ml-auto text-[#011638]">
-          <FaBars />
-        </button>
-      </div>
+       <div className="px-4 pt-4 pb-2 border-b border-[#d7d0c8] flex items-center gap-2 transition-all">
+  <FaUserCircle className="text-3xl text-[#011638]" />
+  {!collapsed && (
+    <div className="flex-1">
+      <p className="text-sm font-semibold text-[#011638] leading-tight truncate">
+        {user?.first_name} {user?.last_name}
+      </p>
+      <p className="text-xs text-[#5e574d] capitalize">{role}</p>
+    </div>
+  )}
+  <button onClick={() => setCollapsed(!collapsed)} className="ml-auto text-[#011638]">
+    <FaBars />
+  </button>
+</div>
 
       {/* Business Name */}
       {!collapsed && (
