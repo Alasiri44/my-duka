@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteObject } from "react-router-dom";
+import { } from "react-router-dom";
 import ClerkLayout from "../components/clerk"; 
 import Dashboard from "../pages/dashboards/clerk/ClerkDash";
 import Inventory from "../pages/dashboards/clerk/Inventory";
@@ -7,7 +7,7 @@ import CategoryPage from "../pages/dashboards/clerk/CategoryPage";
 import ProductDetail from "../pages/dashboards/clerk/ProductDetail";
 import AddProduct from "../pages/dashboards/clerk/AddProduct";
 
-const clerkRoutes: RouteObject[] = [
+const clerkRoutes = [
   {
     path: "/",
     element: < Dashboard />,
