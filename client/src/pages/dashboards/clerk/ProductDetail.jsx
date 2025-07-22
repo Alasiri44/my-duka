@@ -21,7 +21,7 @@ const formatDate = (dateString) => {
 const InfoCard = ({ title, children }) => (
   <div className="bg-white p-4 rounded shadow-md border border-gray-200">
     <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
-    <div className="space-y-2 text-sm text-gray-700">{children}</div>
+    <div className="text-sm text-gray-700">{children}</div>
   </div>
 );
 
@@ -60,21 +60,21 @@ const ProductDetail = () => {
   }, [productId]);
 
   const batchMap = useMemo(() => Object.fromEntries(batches.map(b => [b.id, b])), [batches]);
-  const clerkMap = useMemo(() => Object.fromEntries(clerks.map(c => [c.id, c.name])), [clerks]);
+  const clerkMap = useMemo(() => Object.fromEntries(clerks.map(c => [c.id, c.name || `${c.first_name} ${c.last_name}`])), [clerks]);
 
-  const filteredEntries = entries.filter(entry => {
+  const filteredEntries = useMemo(() => entries.filter(entry => {
     const batch = batchMap[entry.batch_id];
     if (viewMode === 'clerk') return entry.clerk_id === loggedInClerkId;
     if (viewMode === 'store') return batch?.store_id === storeId;
     return true;
-  });
+  }), [entries, viewMode, batchMap]);
 
-  const filteredExits = exits.filter(exit => {
+  const filteredExits = useMemo(() => exits.filter(exit => {
     const batch = batchMap[exit.batch_id];
     if (viewMode === 'clerk') return exit.recorded_by === loggedInClerkId;
     if (viewMode === 'store') return batch?.store_id === storeId;
     return true;
-  });
+  }), [exits, viewMode, batchMap]);
 
   const chartDataByDate = useMemo(() => {
     const dateMap = {};
@@ -202,46 +202,71 @@ const ProductDetail = () => {
         </button>
       </div>
 
+      {/* Stock Entries */}
       <InfoCard title="Stock Entries">
-        <div className="grid grid-cols-7 gap-2 font-semibold text-gray-700 mb-2 text-sm">
-          <div>Qty</div><div>Buy Price</div><div>Clerk</div><div>MPESA</div><div>Batch</div><div>Payment</div><div>Date</div>
-        </div>
-        {filteredEntries.map(entry => {
-          const tx = mpesa.find(tx => Number(tx.stock_entry_id) === entry.id);
-          const batch = batchMap[entry.batch_id] || {};
-          const clerk = clerkMap[entry.clerk_id] || '—';
-          return (
-            <div key={entry.id} className="grid grid-cols-7 gap-2 text-sm border-b py-1">
-              <div>{entry.quantity_received}</div>
-              <div>KES {entry.buying_price}</div>
-              <div>{clerk}</div>
-              <div>{tx?.transaction_code || '—'}</div>
-              <div>{batch.party || '—'}</div>
-              <div>{entry.payment_status}</div>
-              <div>{formatDate(entry.created_at)}</div>
-            </div>
-          );
-        })}
+        <table className="w-full text-sm border-separate border-spacing-0">
+          <thead className="sticky top-0 bg-[#f2f0ed] text-[#011638] shadow-sm z-10">
+            <tr>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Qty</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Buy Price</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Clerk</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">MPESA</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Batch</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Payment</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredEntries.map(entry => {
+              const tx = mpesa.find(tx => Number(tx.stock_entry_id) === entry.id);
+              const batch = batchMap[entry.batch_id] || {};
+              const clerk = clerkMap[entry.clerk_id] || '—';
+              return (
+                <tr key={entry.id} className="border-b">
+                  <td className="px-3 py-2">{entry.quantity_received}</td>
+                  <td className="px-3 py-2">KES {entry.buying_price}</td>
+                  <td className="px-3 py-2">{clerk}</td>
+                  <td className="px-3 py-2">{tx?.transaction_code || '—'}</td>
+                  <td className="px-3 py-2">{batch.party || '—'}</td>
+                  <td className="px-3 py-2">{entry.payment_status}</td>
+                  <td className="px-3 py-2">{formatDate(entry.created_at)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </InfoCard>
 
+      {/* Stock Exits */}
       <InfoCard title="Stock Exits">
-        <div className="grid grid-cols-6 gap-2 font-semibold text-gray-700 mb-2 text-sm">
-          <div>Qty</div><div>Sell Price</div><div>Clerk</div><div>Reason</div><div>Batch</div><div>Date</div>
-        </div>
-        {filteredExits.map(exit => {
-          const batch = batchMap[exit.batch_id] || {};
-          const clerk = clerkMap[exit.recorded_by] || '—';
-          return (
-            <div key={exit.id} className="grid grid-cols-6 gap-2 text-sm border-b py-1">
-              <div>{exit.quantity}</div>
-              <div>KES {exit.selling_price}</div>
-              <div>{clerk}</div>
-              <div>{exit.reason}</div>
-              <div>{batch.party || '—'}</div>
-              <div>{formatDate(exit.created_at)}</div>
-            </div>
-          );
-        })}
+        <table className="w-full text-sm border-separate border-spacing-0">
+          <thead className="sticky top-0 bg-[#f2f0ed] text-[#011638] shadow-sm z-10">
+            <tr>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Qty</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Sell Price</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Clerk</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Reason</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Batch</th>
+              <th className="text-left px-3 py-2 border-b border-[#d7d0c8]">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredExits.map(exit => {
+              const batch = batchMap[exit.batch_id] || {};
+              const clerk = clerkMap[exit.recorded_by] || '—';
+              return (
+                <tr key={exit.id}>
+                  <td className="px-3 py-2">{exit.quantity}</td>
+                  <td className="px-3 py-2">KES {exit.selling_price}</td>
+                  <td className="px-3 py-2">{clerk}</td>
+                  <td className="px-3 py-2">{exit.reason}</td>
+                  <td className="px-3 py-2">{batch.party || '—'}</td>
+                  <td className="px-3 py-2">{formatDate(exit.created_at)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </InfoCard>
 
       <InfoCard title="Sales vs Buys">
@@ -258,4 +283,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-

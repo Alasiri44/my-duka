@@ -64,6 +64,12 @@ const Sidebar = ({ user, store }) => {
         >
           <FaPlus /> {!collapsed && "Add Product"}
         </NavLink>
+        <NavLink
+          to="stock-entries"
+          className={({ isActive }) => linkClass(isActive)}
+        >
+          <FaPlus /> {!collapsed && "Store Entries"}
+        </NavLink>
       </nav>
     </motion.aside>
   );
