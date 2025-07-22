@@ -1,15 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import merchantRoutes from "./routes/merchant";
 import adminRoutes from "./routes/admin";
 import clerkRoutes from "./routes/clerk";
-import { Routes, Route } from "react-router-dom";
-import { setUser } from './redux/slices/authSlice'; // Adjusted path for redux
-import Login from "./pages/authentication/login";
-
-// const merchantRouter = createBrowserRouter(merchantRoutes);
-// const adminRouter = createBrowserRouter(adminRoutes);
-// const clerkRouter = createBrowserRouter(clerkRoutes);
+import merchantRoutes from "./routes/merchant";
+import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
+import { setUser } from "./redux/slices/authSlice";
 
 const testUsers = [
   {
@@ -21,9 +16,9 @@ const testUsers = [
   },
   {
     id: 2,
-    store_id: 1,
-    first_name: "Andy",
-    last_name: "Admin",
+    store_id: 2,
+    first_name: "Thomas",
+    last_name: "Harison",
     email: "andy@duka.com",
     role: "admin",
   },
@@ -38,31 +33,46 @@ const testUsers = [
 ];
 
 export default function App() {
-  const user  = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(user)
+
   if (!user) {
     return (
-      < Login/>
+      <div className="min-h-screen bg-[#fdfdfd] flex flex-col items-center justify-center space-y-4">
+        <h1 className="text-2xl font-bold text-[#011638]">Login as a Test User</h1>
+        {testUsers.map((u) => (
+          <button
+            key={u.id}
+            className="bg-[#011638] text-white px-6 py-2 rounded hover:bg-[#000f2a] transition"
+            onClick={() => dispatch(setUser(u))}
+          >
+            {u.first_name} ({u.role})
+          </button>
+        ))}
+      </div>
     );
   }
 
-    const getRoutesByRole = (role) => {
-    if (role === "") return merchantRoutes;
-    if (role === "admin") return adminRoutes;
-    if (role === "clerk") return clerkRoutes;
-    return [];
-  };
+  // Decide which routes to expose based on role
+  let roleRoutes = [];
+  if (user.role === "admin") roleRoutes = adminRoutes;
+  else if (user.role === "clerk") roleRoutes = clerkRoutes;
+  else if (user.role === "merchant") roleRoutes = merchantRoutes;
 
-  const roleRoutes = getRoutesByRole(user.role);
+  const redirectPath = localStorage.getItem("redirectAfterLogin");
+  localStorage.removeItem("redirectAfterLogin");
 
-  return (
-    <>
- <Routes>
-      {roleRoutes.map(({ path, element }, idx) => (
-        <Route key={idx} path={path} element={element} />
-      ))}
-    </Routes>
-    </>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Navigate to={redirectPath || `/${user.role}`} replace />,
+    },
+    ...roleRoutes,
+    {
+      path: "*",
+      element: <div className="p-10 text-center text-red-600 text-lg">404: Page not found</div>,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
