@@ -21,6 +21,9 @@ class Merchants(Resource):
             gender = data.get('gender'),
             password_hash = bcrypt.generate_password_hash(data.get('password')).decode('utf-8')
         )
+        response = Merchant.query.filter(Merchant.email == data.get('email')).first()
+        if(response):
+            return make_response({"message": "The user already exists in the database"}, 404)
         if(new_merchant):
             db.session.add(new_merchant)
             db.session.commit()
