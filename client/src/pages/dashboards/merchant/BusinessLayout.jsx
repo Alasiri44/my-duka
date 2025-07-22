@@ -1,11 +1,11 @@
-// /pages/business/BusinessLayout.jsx
 import React, { useEffect, useState } from "react";
-import { Outlet, useParams, useNavigate } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Sidebar from "../../../components/merchant/Sidebar";
-
 
 const BusinessLayout = () => {
   const { id } = useParams();
+  const { user } = useSelector((state) => state.auth); // ✅ pull role from Redux
   const [businesses, setBusinesses] = useState([]);
   const [currentBusiness, setCurrentBusiness] = useState(null);
 
@@ -30,7 +30,7 @@ const BusinessLayout = () => {
     <div className="flex h-screen overflow-hidden">
       <Sidebar businesses={businesses} currentId={Number(id)} />
       <main className="flex-1 bg-[#fdfdfd] p-6 overflow-y-auto">
-        <Outlet context={{ currentBusiness }} />
+        <Outlet context={{ currentBusiness, role: user?.role }} /> {/*role passed to StoreLayout */}
       </main>
     </div>
   );

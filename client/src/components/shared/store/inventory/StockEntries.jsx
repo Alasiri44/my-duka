@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import BatchList from "../../../../../components/merchant/store/BatchList";
-import BatchDetailPanel from "../../../../../components/merchant/store/BatchDetailPanel";
-import StockEntryTable from "../../../../../components/merchant/store/StockEntryTable";
-import StockEntriesFilters from "../../../../../components/merchant/store/StockEntriesFilters";
+import BatchList from "../BatchList";
+import BatchDetailPanel from "../BatchDetailPanel";
+import StockEntryTable from "../../../../components/shared/store/StockEntryTable";
+import StockEntriesFilters from "../../../../components/shared/store/StockEntriesFilters";
 
 const StockEntries = () => {
   const { store } = useOutletContext();

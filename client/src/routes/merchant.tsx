@@ -3,11 +3,11 @@ import React from "react";
 import BusinessLayout from "../pages/dashboards/merchant/BusinessLayout";
 import BusinessOverview from "../pages/dashboards/merchant/Overview";
 import Stores from "../pages/dashboards/merchant/Stores";
-import StoreLayout from "../pages/dashboards/merchant/StoreLayout";
-import StoreOverview from "../pages/dashboards/merchant/stores/StoreOverview";
+import StoreLayout from "../components/shared/store/StoreLayout";
+import StoreOverview from "../components/shared/store/StoreOverview";
 import StaffView from "../components/merchant/staff/StaffView";
-import StoreInventory from "../pages/dashboards/merchant/stores/inventory/StoreInventory";
-import StockEntries from "../pages/dashboards/merchant/stores/inventory/StockEntries";
+import StoreInventory from "../components/shared/store/inventory/StoreInventory";
+import StockEntries from "../components/shared/store/inventory/StockEntries";
 
 import MerchantDashboard from "../pages/dashboards/merchant/MerchantDashboard";
 
