@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import './login.css'
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../../components/alert";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/authReducerSlice";
 
 function Login() {
     const [email, setEmail] = useState('')
@@ -10,8 +12,9 @@ function Login() {
     const [hiddenPassword, setHiddenPassword] = useState(true)
     const [error, setError] = useState('')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
     const [showSuccess, setShowSuccess] = useState(false);
+    const navigate = useNavigate();
 
     function handleChange(event) {
         event.preventDefault();
@@ -32,6 +35,7 @@ function Login() {
                     setError(data.message)
                 } else {
                     setIsLoggedIn(true)
+                    dispatch(setUser(data))
                 }
             })
             .catch(err => {

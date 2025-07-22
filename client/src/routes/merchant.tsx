@@ -53,11 +53,6 @@ export const routes = [
         path: "settings",
         element: <div>Settings Page</div>,
       },
-      {
-        path: "stores/:storeId",
-        element: <StoreLayout />,
-      },
-
         {
   path: "stores/:storeId",
   element: <StoreLayout />,
