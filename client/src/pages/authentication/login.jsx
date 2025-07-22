@@ -79,7 +79,7 @@ function Login() {
                     <option value="client">Client</option>
                 </select>
 
-                <button type="submit">Login</button>
+                <button type="submit">{isLoggedIn ? 'Logging in... ' : 'Log in'}</button>
             </form>
             <Link className="text-blue-950"><p>Forgot Password?</p></Link>
             <p>Don't have an account? <Link className="text-blue-950" to='/signup'><span>Sign in</span></Link></p>

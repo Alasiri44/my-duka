@@ -48,7 +48,7 @@ function Signup() {
                 setError(err)
             })
         }else{
-            setError('Wrong password confirmation')
+            setError('Passwords do not match! Please try again')
         }
         
     }
@@ -104,7 +104,7 @@ function Signup() {
                     </span>
                 </div>
 
-                <button type="submit">Create account</button>
+                <button type="submit">{isSignedUp ? 'Creating account... ' : 'Create account'}</button>
             </form>
             <p>Already have an account? <Link className="text-blue-950" to='/login'><span>Log in</span></Link></p>
             <p>By creating an account, you agree to our <Link className="text-blue-950">Terms of Service</Link> and <Link className="text-blue-950">Privacy Policy</Link></p>
