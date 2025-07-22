@@ -16,7 +16,7 @@ const testUsers = [
   },
   {
     id: 2,
-    store_id: 2,
+    store_id: 1,
     first_name: "Thomas",
     last_name: "Harison",
     email: "andy@duka.com",

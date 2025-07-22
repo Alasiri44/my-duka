@@ -3,7 +3,7 @@ import AdminLayout from "../components/admin/AdminLayout";
 import StoreOverview from "../components/shared/store/StoreOverview";
 import SupplyRequestTable from "../components/admin/SupplyRequestTable";
 import Reports from "../components/admin/Reports";
-import AddClerk from "../pages/dashboards/admin/AddClerk";
+import AddClerk from "../pages/dashboards/admin/addClerk";
 import ProtectedRoute from "./ProtectedRoute";
 
 const adminRoutes = [
