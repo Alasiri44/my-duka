@@ -48,7 +48,7 @@ export default function App() {
   }
 
     const getRoutesByRole = (role) => {
-    if (role === "") return merchantRoutes;
+    if (!role) return merchantRoutes;
     if (role === "admin") return adminRoutes;
     if (role === "clerk") return clerkRoutes;
     return [];
