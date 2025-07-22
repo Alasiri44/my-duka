@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import merchantRoutes from "./routes/merchant";
 import adminRoutes from "./routes/admin";
-import clerkRoutes from "./routes/clerk";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { setUser } from './redux/slices/authSlice'; // Adjusted path for redux
-
-const merchantRouter = createBrowserRouter(merchantRoutes);
-const adminRouter = createBrowserRouter(adminRoutes);
-const clerkRouter = createBrowserRouter(clerkRoutes);
+import clerkRoutes from "./routes/clerks";
+import merchantRoutes from "./routes/merchant";
+import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
+import { setUser } from "./redux/slices/authSlice";
 
 const testUsers = [
   {
@@ -20,9 +16,9 @@ const testUsers = [
   },
   {
     id: 2,
-    store_id: 1,
-    first_name: "Andy",
-    last_name: "Admin",
+    store_id: 2,
+    first_name: "Thomas",
+    last_name: "Harison",
     email: "andy@duka.com",
     role: "admin",
   },
@@ -57,11 +53,26 @@ export default function App() {
     );
   }
 
-  return (
-    <>
-      {user.role === "merchant" && <RouterProvider router={merchantRouter} />}
-      {user.role === "admin" && <RouterProvider router={adminRouter} />}
-      {user.role === "clerk" && <RouterProvider router={clerkRouter} />}
-    </>
-  );
+  // Decide which routes to expose based on role
+  let roleRoutes = [];
+  if (user.role === "admin") roleRoutes = adminRoutes;
+  else if (user.role === "clerk") roleRoutes = clerkRoutes;
+  else if (user.role === "merchant") roleRoutes = merchantRoutes;
+
+  const redirectPath = localStorage.getItem("redirectAfterLogin");
+  localStorage.removeItem("redirectAfterLogin");
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Navigate to={redirectPath || `/${user.role}`} replace />,
+    },
+    ...roleRoutes,
+    {
+      path: "*",
+      element: <div className="p-10 text-center text-red-600 text-lg">404: Page not found</div>,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }

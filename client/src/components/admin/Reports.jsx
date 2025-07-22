@@ -6,13 +6,13 @@ const Reports = () => {
 
         <div className='grid grid-cols-2'>
        
-        <SalesChart />
-        <SalesChart />
+        <SalesChart storeId={1}/>
+        {/* <SalesChart /> */}
     </div>
      <div className='grid grid-cols-2'>
        
-        <SalesChart />
-        <SalesChart />
+        {/* <SalesChart />
+        <SalesChart /> */}
     </div>
     </div>
 }

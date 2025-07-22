@@ -7,7 +7,7 @@ class Merchant(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True )
     first_name= db.Column(db.String)
     last_name = db.Column(db.String)
-    email = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
     phone_number = db.Column(db.String, nullable=True)
     gender = db.Column(db.String, nullable=True)
     password_hash = db.Column(db.String)
