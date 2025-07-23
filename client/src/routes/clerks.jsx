@@ -12,7 +12,7 @@ import StockExits from "../pages/dashboards/clerk/StockExits";
 const clerkRoutes = [
   {
     path: "/clerk",
-    element: < Dashboard />,
+    element: < ClerkLayout />,
     children: [
       {
         index: true,
@@ -27,7 +27,7 @@ const clerkRoutes = [
         element: <CategoryPage />,
       },
       {
-        path: "inventory/products/:productId",
+        path: "/clerk/inventory/products/:productId",
         element: <ProductDetail />,
       },
       {

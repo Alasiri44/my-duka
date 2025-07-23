@@ -202,7 +202,7 @@ const StoreInventory = () => {
                   >
                     <td className="px-3 py-2">
                       <Link
-                        to={`/inventory/products/${product.id}`}
+                        to={`/clerk/inventory/products/${product.id}`}
                         className="text-[#011638] hover:underline"
                       >
                         {product.name}

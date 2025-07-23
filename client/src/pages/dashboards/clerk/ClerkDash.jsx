@@ -155,13 +155,13 @@ const ClerkDash = () => {
 
   // Handler for navigating to product detail page
   const handleGoToProductDetail = (productId) => {
-    navigate(`/inventory/products/${productId}`);
+    navigate(`/clerk/inventory/products/${productId}`);
   };
 
   // Handler for the top button (go to first product detail)
   const handleGoToFirstProductDetail = () => {
     if (products.length > 0) {
-      navigate(`/inventory/products/${products[0].id}`);
+      navigate(`/clerk/inventory/products/${products[0].id}`);
     }
   };
 
