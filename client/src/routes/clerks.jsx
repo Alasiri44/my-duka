@@ -7,6 +7,7 @@ import CategoryPage from "../pages/dashboards/clerk/CategoryPage";
 import ProductDetail from "../pages/dashboards/clerk/ProductDetail";
 import AddProduct from "../pages/dashboards/clerk/AddProduct";
 import ClerkStockEntries from "../pages/dashboards/clerk/ClerkStockEntries";
+import StockExits from "../pages/dashboards/clerk/StockExits";
 
 const clerkRoutes = [
   {
@@ -34,7 +35,12 @@ const clerkRoutes = [
         element: <AddProduct />,
       },
       { path: "stock-entries",
-        element: <ClerkStockEntries /> },
+        element: <ClerkStockEntries /> 
+      },
+      {
+        path: "stock-exits",
+        element: <StockExits />
+      }
     ],
   },
 ];
