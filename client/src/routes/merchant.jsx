@@ -12,6 +12,8 @@ import StoreOverview from "../components/shared/store/StoreOverview";
 import StaffView from "../components/merchant/staff/StaffView";
 import StoreInventory from "../components/shared/store/inventory/StoreInventory";
 import StockEntries from "../components/shared/store/inventory/StockEntries";
+import StockExits from "../components/shared/store/inventory/exits/StockExits";
+import BusinessStaffView from "../components/merchant/business/BusinessStaffView";
 
 const merchantRoutes = [
   {
@@ -28,7 +30,7 @@ const merchantRoutes = [
         children: [
           { index: true, element: <BusinessOverview /> },
           { path: "stores", element: <Stores /> },
-          { path: "staff", element: <div>Staff Page</div> },
+          { path: "staff", element: <BusinessStaffView /> },
           { path: "inventory", element: <div>Inventory Page</div> },
           { path: "suppliers", element: <div>Suppliers Page</div> },
           { path: "payments", element: <div>Payments Page</div> },
@@ -42,8 +44,7 @@ const merchantRoutes = [
               { path: "staff", element: <StaffView /> },
               { path: "inventory", element: <StoreInventory /> },
               { path: "entries", element: <StockEntries /> },
-              // You can uncomment and add more tabs here:
-              // { path: "exits", element: <Exits /> },
+              { path: "exits", element: <StockExits /> },
               // { path: "reports", element: <Reports /> },
               // { path: "settings", element: <Settings /> },
             ],
