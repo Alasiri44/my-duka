@@ -11,8 +11,8 @@ import StockExits from "../pages/dashboards/clerk/StockExits";
 
 const clerkRoutes = [
   {
-    path: "/",
-    element: <ClerkLayout />,
+    path: "/clerk",
+    element: < Dashboard />,
     children: [
       {
         index: true,
