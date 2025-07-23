@@ -21,6 +21,9 @@ class Merchants(Resource):
             gender = data.get('gender'),
             password_hash = bcrypt.generate_password_hash(data.get('password')).decode('utf-8')
         )
+        response = Merchant.query.filter(Merchant.email == data.get('email')).first()
+        if(response):
+            return make_response({"message": "The user already exists in the database"}, 404)
         if(new_merchant):
             db.session.add(new_merchant)
             db.session.commit()
@@ -47,8 +50,8 @@ class Merchant_By_ID(Resource):
     def patch(self, id):
         merchant = Merchant.query.filter(Merchant.id == id).first()
         if(merchant):
-            for attr in request.get_json:
-                setattr(merchant, attr, request.get_json.get(attr))
+            for attr in request.get_json():
+                setattr(merchant, attr, request.get_json().get(attr))
             db.session.add(merchant)
             db.session.commit()
             return make_response(merchant.to_dict(), 200)
@@ -59,8 +62,8 @@ api.add_resource(Merchant_By_ID, '/merchant/<id>')
 class Merchant_Login(Resource):
     def post(self):
         from ..app import bcrypt
-        email = request.get_json.get('email')
-        password = request.get_json.get('password')
+        email = request.get_json().get('email')
+        password = request.get_json().get('password')
         user = Merchant.query.filter(Merchant.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
