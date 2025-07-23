@@ -14,6 +14,10 @@ import StoreInventory from "../components/shared/store/inventory/StoreInventory"
 import StockEntries from "../components/shared/store/inventory/StockEntries";
 import StockExits from "../components/shared/store/inventory/exits/StockExits";
 import BusinessStaffView from "../components/merchant/business/BusinessStaffView";
+import BusinessInventoryView from "../components/merchant/business/BusinessInventoryView";
+import BusinessSuppliersView from "../components/merchant/business/BusinessSuppliersView";
+import BusinessPaymentsView from "../components/merchant/business/BusinessPaymentsView";
+import BusinessSettingsView from "../components/merchant/business/BusinessSettingsView";
 
 const merchantRoutes = [
   {
@@ -22,7 +26,7 @@ const merchantRoutes = [
     children: [
       {
         index: true,
-        element: <MerchantDashboard />, // or dynamic if needed
+        element: <MerchantDashboard />, 
       },
       {
         path: "businesses/:id",
@@ -31,11 +35,11 @@ const merchantRoutes = [
           { index: true, element: <BusinessOverview /> },
           { path: "stores", element: <Stores /> },
           { path: "staff", element: <BusinessStaffView /> },
-          { path: "inventory", element: <div>Inventory Page</div> },
-          { path: "suppliers", element: <div>Suppliers Page</div> },
-          { path: "payments", element: <div>Payments Page</div> },
+          { path: "inventory", element: <BusinessInventoryView /> },
+          { path: "suppliers", element: <BusinessSuppliersView /> },
+          { path: "payments", element: <BusinessPaymentsView />},
           { path: "reports", element: <div>Reports Page</div> },
-          { path: "settings", element: <div>Settings Page</div> },
+          { path: "settings", element: <BusinessSettingsView/> },
           {
             path: "stores/:storeId",
             element: <StoreLayout />,
