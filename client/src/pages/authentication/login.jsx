@@ -3,7 +3,8 @@ import './login.css'
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../../components/alert";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/authReducerSlice";
+import { setUser } from "../../redux/slices/authSlice";
+import merchantRoutes from "../../routes/merchant";
 
 function Login() {
     const [email, setEmail] = useState('')
@@ -18,7 +19,13 @@ function Login() {
 
     function handleChange(event) {
         event.preventDefault();
-        fetch('http://127.0.0.1:5000/merchant/login', {
+        let apiRole;
+        if (role != 'merchant') {
+            apiRole = 'user'
+        } else {
+            apiRole = role;
+        }
+        fetch(`http://127.0.0.1:5000/${apiRole}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,17 +37,23 @@ function Login() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.message) {
                     setError(data.message)
                 } else {
                     setIsLoggedIn(true)
-                    dispatch(setUser(data))
+                    data.role = role
+                    const timer = setTimeout(() => {
+                        navigate(`/${data.role}`, { replace: true });
+                        dispatch(setUser(data))
+                    }, 2000);
+                    
+                    
+
                 }
             })
             .catch(err => {
                 console.error(err);
-                setError(err)
+                setError(err.message || "Something went wrong. Please try again.")
             })
     }
 
@@ -49,17 +62,16 @@ function Login() {
             setShowSuccess(true);
             const timer = setTimeout(() => {
                 setShowSuccess(false);
-                navigate('/landing_page');
             }, 2000); // wait for 2 seconds
 
             return () => clearTimeout(timer);
         }
-    }, [isLoggedIn, navigate]);
+    }, [isLoggedIn]);
 
     return <>
 
         <div className="mydiv" >
-            {showSuccess && < Alert message='login successful' /> }
+            {showSuccess && < Alert message='login successful' />}
             <header>
                 <h1 className="text-5xl p-px">MyDuka</h1>
                 <hr />
@@ -80,7 +92,7 @@ function Login() {
                     <option value="">Choose your role</option>
                     <option value="merchant">Merchant</option>
                     <option value="admin">Admin</option>
-                    <option value="client">Client</option>
+                    <option value="clerk">Clerk</option>
                 </select>
 
                 <button type="submit">{isLoggedIn ? 'Logging in... ' : 'Log in'}</button>
