@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addClerk } from '../store/clerksSlice';
+// import { addClerk } from '../store/clerksSlice';
 import axios from 'axios';
+
+
 
 const AddClerk = ({ onClerkAdded }) => {
   const dispatch = useDispatch();
