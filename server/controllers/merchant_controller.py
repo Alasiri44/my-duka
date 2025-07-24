@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, request
+from flask import Blueprint, make_response, request, session
 from flask_restful import Api, Resource
 from ..models.merchant import Merchant
 from ..models import db
@@ -67,6 +67,8 @@ class Merchant_Login(Resource):
         user = Merchant.query.filter(Merchant.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
+                session['email'] = user.email
+                session['role'] = 'merchant'
                 return make_response(user.to_dict(), 200)
             else:
                 return make_response({"message": "Wrong password"}, 404)

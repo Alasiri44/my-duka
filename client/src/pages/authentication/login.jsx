@@ -27,6 +27,7 @@ function Login() {
         }
         fetch(`http://127.0.0.1:5000/${apiRole}/login`, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

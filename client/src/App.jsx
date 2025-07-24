@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import adminRoutes from "./routes/admin";
 import clerkRoutes from "./routes/clerk";
@@ -8,6 +8,7 @@ import { setUser } from "./redux/slices/authSlice";
 import Login from "./pages/authentication/login";
 import Signup from "./pages/authentication/signup";
 import LandingPage from "./pages/landingPage";
+import CheckSession from "./utils/session";
 
 const testUsers = [
   {
@@ -38,7 +39,12 @@ const testUsers = [
 export default function App() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  
   console.log(user)
+
+  useEffect(() => {
+    CheckSession(dispatch)
+  }, [dispatch])
 
   if (!user) {
     const router = createBrowserRouter([
