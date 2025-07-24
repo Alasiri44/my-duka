@@ -4,7 +4,7 @@ import StoreOverview from "../components/shared/store/StoreOverview";
 import SupplyRequestTable from "../components/admin/SupplyRequestTable";
 import Reports from "../components/admin/Reports";
 import ProtectedRoute from "./ProtectedRoute";
-import ClerksPage from "../pages/dashboards/admin/ ClerksPage";
+import ClerksPage from "../pages/dashboards/admin/ ClerksPage.jsx";
 
 const adminRoutes = [
   {

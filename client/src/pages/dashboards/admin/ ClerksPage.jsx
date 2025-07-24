@@ -6,6 +6,7 @@ import axios from 'axios';
 const ClerksPage = () => {
   const dispatch = useDispatch();
   const { list: clerks, status } = useSelector((state) => state.clerks);
+  console.log("Fetched Clerks:", clerks);
   const [storeMap, setStoreMap] = useState({});
   const [formData, setFormData] = useState({
     first_name: '',

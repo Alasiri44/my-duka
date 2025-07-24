@@ -59,7 +59,7 @@ const StoreLayout = () => {
         <p className="text-sm text-[#5e574d]">{store.location}</p>
       </div>
 
-      {/* Secondary Nav */}
+      
       {isMobile ? (
         <div className="mb-4">
           <select
