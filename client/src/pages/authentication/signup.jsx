@@ -12,6 +12,7 @@ function Signup() {
     const [gender, setGender] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [hiddenPassword, setHiddenPassword] = useState(true)
+    const [hiddenConfirmPassword, setHiddenConfirmPassword] = useState(true)
     const [error, setError] = useState('')
     const [isSignedUp, setisSignedUp] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false);
@@ -66,7 +67,7 @@ function Signup() {
 
 
     return <>
-        <div className="mydiv" >
+        <div className="mydiv mx-auto my-[20px]" >
             {showSuccess && < Alert message='Sign up successful'/>}
             <header>
                 <h3 className="text-5xl p-px">Create merchant account</h3>
@@ -92,15 +93,15 @@ function Signup() {
 
                 <div className="relative">
                     <input type={hiddenPassword ? "password" : 'text'} placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/> <br />
-                    <span className="absolute bottom-5 left-70" onClick={() => setHiddenPassword(!hiddenPassword)}>
+                    <span className="absolute bottom-5 right-29" onClick={() => setHiddenPassword(!hiddenPassword)}>
                         <i className={`fa-solid ${hiddenPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
                     </span>
                 </div>
 
                 <div className="relative">
-                    <input type={hiddenPassword ? "password" : 'text'} placeholder="Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required/> <br />
-                    <span className="absolute bottom-5 left-70" onClick={() => setHiddenPassword(!hiddenPassword)}>
-                        <i className={`fa-solid ${hiddenPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+                    <input type={hiddenConfirmPassword ? "password" : 'text'} placeholder="Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required/> <br />
+                    <span className="absolute bottom-5 right-29" onClick={() => setHiddenConfirmPassword(!hiddenConfirmPassword)}>
+                        <i className={`fa-solid ${hiddenConfirmPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
                     </span>
                 </div>
 

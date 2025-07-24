@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, request
+from flask import Blueprint, make_response, request, session
 from flask_restful import Api, Resource
 from ..models.user import User
 from ..models import db
@@ -68,6 +68,9 @@ class User_Login(Resource):
         user = User.query.filter(User.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
+                # session.permanent = True
+                session['email'] = user.email
+                session['role'] = user.role
                 return make_response(user.to_dict(), 200)
             else:
                 return make_response({"message": "Wrong password"}, 404)

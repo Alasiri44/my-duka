@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: null,       // e.g., { name: "Jane", role: "clerk" }
+  user: null,       // e.g., { email: "jane@gmail.com", role: "clerk" }
   store: null,      // current store object (optional)
 };
 
