@@ -76,6 +76,12 @@ const Sidebar = ({ user, store }) => {
         >
           <FaArrowUp /> {!collapsed && "Store Exits"}
         </NavLink>
+        <NavLink
+          to="record-exits"
+          className={({ isActive }) => linkClass(isActive)}
+        >
+          <FaArrowDown /> {!collapsed && "Batch Out"}
+        </NavLink>
       </nav>
     </motion.aside>
   );

@@ -15,13 +15,13 @@ const QuickActions = () => {
   const actions = [
     {
       icon: <FaPlusSquare className={iconClass} />,
-      label: "Stock Entry",
+      label: "Record Entry",
       path: "/clerk/add-product"
     },
     {
       icon: <FaMinusSquare className={iconClass} />,
-      label: "Stock Exit",
-      path: "/clerk/stock-exits"
+      label: "Record Exits",
+      path: "/clerk/record-exits"
     },
     {
       icon: <FaBoxes className={iconClass} />,

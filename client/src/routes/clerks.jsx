@@ -8,6 +8,7 @@ import ProductDetail from "../pages/dashboards/clerk/ProductDetail";
 import AddProduct from "../pages/dashboards/clerk/AddProduct";
 import ClerkStockEntries from "../pages/dashboards/clerk/ClerkStockEntries";
 import StockExits from "../pages/dashboards/clerk/StockExits";
+import BatchOut from "../pages/dashboards/clerk/BatchOut";
 
 const clerkRoutes = [
   {
@@ -40,6 +41,10 @@ const clerkRoutes = [
       {
         path: "stock-exits",
         element: <StockExits />
+      },
+      {
+        path: "record-exits",
+        element: <BatchOut />
       }
     ],
   },
