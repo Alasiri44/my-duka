@@ -83,7 +83,7 @@ function Login() {
                 <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /> <br />
                 <div className="relative">
                     <input type={hiddenPassword ? "password" : 'text'} placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} /> <br />
-                    <span className="absolute bottom-5 left-70" onClick={() => setHiddenPassword(!hiddenPassword)}>
+                    <span className="absolute bottom-5 right-30" onClick={() => setHiddenPassword(!hiddenPassword)}>
                         <i className={`fa-solid ${hiddenPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
                     </span>
                 </div>

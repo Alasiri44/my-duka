@@ -4,7 +4,8 @@ import LandingNavBar from "../components/landing_navbar";
 function LandingPage() {
     return (
         <>
-            < LandingNavBar />
+            <div className="landingpage-div">
+                < LandingNavBar />
             <div >
                 <h1 class="text-9x1">Smart Inventory Management for Modern Retailers</h1>
                 <p>Streamline procurement, manage suppliers and optimize stock levels across multiple stores with automated M-pesa payments and real-time analytics.</p>
@@ -55,6 +56,7 @@ function LandingPage() {
                 </div>
 
             </section>
+            </div>
         </>
     )
 }
