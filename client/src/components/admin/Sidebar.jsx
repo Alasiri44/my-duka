@@ -5,7 +5,7 @@ import {LuPackagePlus} from "react-icons/lu"
 import { TbPackageExport } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-// import { logout } from "../../redux/slices/authSlice"; // Adjust path as needed
+
 
 const Sidebar = ({ businesses, currentId }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -38,13 +38,15 @@ const Sidebar = ({ businesses, currentId }) => {
     { label: "Stock Exits", path: "exits", icon: TbPackageExport, roles: ["merchant", "admin", "clerk"] },
     { label: "Reports", path: "reports", icon: FaChartBar, roles: ["merchant", "admin"] },
     { label: "Settings", path: "settings", icon: FaCog, roles: ["merchant", "admin"] },
+    { label: "Clerks", path: "clerks", icon: FaCog, roles: ["merchant", "admin"] },
+    { label: "Suppliers", path: "suppliers", icon: FaCog, roles: ["merchant", "admin"] },
   ];
 
   const role = user?.role || "clerk";
   const tabs = allTabs.filter((tab) => tab.roles.includes(role));
 
   const handleLogout = () => {
-    // dispatch(logout());
+   
     navigate("/login");
   };
 
@@ -54,7 +56,7 @@ const Sidebar = ({ businesses, currentId }) => {
       transition={{ type: "spring", stiffness: 260, damping: 24 }}
       className="bg-[#f2f0ed] border-r border-[#d7d0c8] h-screen flex flex-col fixed md:relative z-50 overflow-hidden shadow-xl/50"
     >
-      {/* Top Section */}
+      
        <div className="px-4 pt-4 pb-2 border-b border-[#d7d0c8] flex items-center gap-2 transition-all">
   <FaUserCircle className="text-3xl text-[#011638]" />
   {!collapsed && (
@@ -70,7 +72,7 @@ const Sidebar = ({ businesses, currentId }) => {
   </button>
 </div>
 
-      {/* Business Name */}
+      
       {!collapsed && (
         <div className="px-4 pb-2">
           <h2 className="text-base font-bold truncate text-[#ec4e20]">
@@ -79,7 +81,7 @@ const Sidebar = ({ businesses, currentId }) => {
         </div>
       )}
 
-      {/* Navigation */}
+      
       <nav className="flex-1 space-y-1 px-2">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -96,7 +98,7 @@ const Sidebar = ({ businesses, currentId }) => {
         })}
       </nav>
 
-      {/* Logout */}
+     
       <div className="p-2 border-t border-[#d7d0c8]">
         <button
           onClick={handleLogout}
