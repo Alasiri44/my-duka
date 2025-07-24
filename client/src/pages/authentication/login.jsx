@@ -20,9 +20,9 @@ function Login() {
     function handleChange(event) {
         event.preventDefault();
         let apiRole;
-        if(role != 'merchant'){
+        if (role != 'merchant') {
             apiRole = 'user'
-        }else{
+        } else {
             apiRole = role;
         }
         fetch(`http://127.0.0.1:5000/${apiRole}/login`, {
@@ -41,8 +41,13 @@ function Login() {
                     setError(data.message)
                 } else {
                     setIsLoggedIn(true)
-                    data.role = 'merchant'
-                    dispatch(setUser(data))
+                    data.role = role
+                    const timer = setTimeout(() => {
+                        navigate(`/${data.role}`, { replace: true });
+                        dispatch(setUser(data))
+                    }, 2000);
+                    
+                    
 
                 }
             })
@@ -66,7 +71,7 @@ function Login() {
     return <>
 
         <div className="mydiv" >
-            {showSuccess && < Alert message='login successful' /> }
+            {showSuccess && < Alert message='login successful' />}
             <header>
                 <h1 className="text-5xl p-px">MyDuka</h1>
                 <hr />
