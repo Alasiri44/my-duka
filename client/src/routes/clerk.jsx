@@ -9,7 +9,7 @@ import AddProduct from "../pages/dashboards/clerk/AddProduct";
 
 const clerkRoutes = [
   {
-    path: "/",
+    path: "/clerk",
     element: < Dashboard />,
     children: [
       

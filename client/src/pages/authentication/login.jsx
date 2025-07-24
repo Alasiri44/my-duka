@@ -53,7 +53,7 @@ function Login() {
             })
             .catch(err => {
                 console.error(err);
-                setError(err)
+                setError(err.message || "Something went wrong. Please try again.")
             })
     }
 
