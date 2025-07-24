@@ -15,9 +15,10 @@ from flask_cors import CORS
 
 app = create_app()
 bcrypt = Bcrypt(app)
-CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
+CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5173"])
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SESSION_COOKIE_DOMAIN"] = "127.0.0.1"
 Session(app)
 app.register_blueprint(merchant_bp)
 app.register_blueprint(business_bp)
