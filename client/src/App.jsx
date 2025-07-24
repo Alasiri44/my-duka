@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter, Navigate, BrowserRouter } from "re
 import { setUser } from "./redux/slices/authSlice";
 import Login from "./pages/authentication/login";
 import Signup from "./pages/authentication/signup";
+import LandingPage from "./pages/landingPage";
 
 const testUsers = [
   {
@@ -46,8 +47,16 @@ export default function App() {
       element: < Signup/>
     },
       {
-        path: "*",
+        path: "/login",
         element: <Login />,
+      },
+      {
+        path: '/',
+        element: < LandingPage/>
+      },
+       {
+        path: "*",
+        element: < Navigate to='/'/>,
       },
     ]);
 

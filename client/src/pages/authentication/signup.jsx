@@ -67,7 +67,7 @@ function Signup() {
 
 
     return <>
-        <div className="mydiv" >
+        <div className="mydiv mx-auto my-[20px]" >
             {showSuccess && < Alert message='Sign up successful'/>}
             <header>
                 <h3 className="text-5xl p-px">Create merchant account</h3>

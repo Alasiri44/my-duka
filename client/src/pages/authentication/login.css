@@ -12,13 +12,13 @@
 
 .mydiv{
     background-color: #f2f2f2;
-    margin: 200px auto;
     text-align: center;
     max-width: 500px;
     border-radius: 10px;
-    background-image: url('https://i.pinimg.com/1200x/73/02/72/730272546ca18f555c940e276c7bab8b.jpg');
+    background-image: url('https://i.pinimg.com/736x/be/04/b5/be04b59c7ef79ab59ebd6c362217ebee.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     background-attachment: fixed;
     position: relative;
 }

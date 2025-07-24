@@ -70,7 +70,7 @@ function Login() {
 
     return <>
 
-        <div className="mydiv" >
+        <div className="mydiv mx-auto my-[200px]" >
             {showSuccess && < Alert message='login successful' />}
             <header>
                 <h1 className="text-5xl p-px">MyDuka</h1>
