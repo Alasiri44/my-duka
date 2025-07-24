@@ -39,80 +39,60 @@ const testUsers = [
 export default function App() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  
-  console.log(user)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    CheckSession(dispatch)
-  }, [dispatch])
+    const check = async () => {
+      await CheckSession(dispatch);
+      setLoading(false);
+    };
+    check();
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 "><i className="fa fa-spinner fa-spin bg-blue-500 w-[60px]"></i>Loading...</p>
+      </div>
+    );
+  }
 
   if (!user) {
     const router = createBrowserRouter([
       {
-      path: '/signup',
-      element: < Signup/>
-    },
+        path: '/signup',
+        element: < Signup />
+      },
       {
         path: "/login",
         element: <Login />,
       },
       {
         path: '/',
-        element: < LandingPage/>
+        element: < LandingPage />
       },
-       {
+      {
         path: "*",
-        element: < Navigate to='/'/>,
+        element: < Navigate to='/' />,
       },
     ]);
 
     return <RouterProvider router={router} />;
   }
 
-  // if (!user) {
-  //   return (
-  //     <div className="min-h-screen bg-[#fdfdfd] flex flex-col items-center justify-center space-y-4">
-  //       <h1 className="text-2xl font-bold text-[#011638]">Login as a Test User</h1>
-  //       < BrowserRouter>
-  //         < Login />
-  //         dispatch(setUser(user))
-  //       </BrowserRouter>
-
-  //       {/* {testUsers.map((u) => (
-  //         <button
-  //           key={u.id}
-  //           className="bg-[#011638] text-white px-6 py-2 rounded hover:bg-[#000f2a] transition"
-  //           onClick={() => dispatch(setUser(u))}
-  //         >
-  //           {u.first_name} ({u.role})
-  //         </button>
-  //       ))} */}
-  //     </div>
-  //   );
-  // }
-
   // Decide which routes to expose based on role
   let roleRoutes = [];
-
   if (user?.role === "admin") roleRoutes = adminRoutes;
   else if (user?.role === "clerk") roleRoutes = clerkRoutes;
-  else{
-    roleRoutes = merchantRoutes
-  }
+  else if (user?.role === "merchant") roleRoutes = merchantRoutes;
 
   const redirectPath = localStorage.getItem("redirectAfterLogin");
   localStorage.removeItem("redirectAfterLogin");
-  
+
 
   const router = createBrowserRouter([
-    {
-      path: '/login',
-      element: <Login/>
-    },
-    {
-      path: '/signup',
-      element: < Signup/>
-    },
+    { path: '/login', element: <Login /> },
+    {path: '/signup',element: < Signup /> },
     {
       path: "/",
       element: <Navigate to={redirectPath || `/${user.role}`} replace />,

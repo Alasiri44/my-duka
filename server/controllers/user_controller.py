@@ -68,6 +68,7 @@ class User_Login(Resource):
         user = User.query.filter(User.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
+                # session.permanent = True
                 session['email'] = user.email
                 session['role'] = user.role
                 return make_response(user.to_dict(), 200)

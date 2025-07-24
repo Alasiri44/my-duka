@@ -12,6 +12,7 @@ from .controllers.supply_request_controller import supply_request_bp
 from .controllers.auth import auth_bp
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from datetime import timedelta
 
 app = create_app()
 bcrypt = Bcrypt(app)
@@ -19,6 +20,8 @@ CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5173"])
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config["SESSION_COOKIE_DOMAIN"] = "127.0.0.1"
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+# app.config["SESSION_COOKIE_SECURE"] = True
 Session(app)
 app.register_blueprint(merchant_bp)
 app.register_blueprint(business_bp)

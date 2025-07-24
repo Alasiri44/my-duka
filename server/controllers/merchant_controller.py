@@ -67,6 +67,7 @@ class Merchant_Login(Resource):
         user = Merchant.query.filter(Merchant.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
+                # session.permanent = True
                 session['email'] = user.email
                 session['role'] = 'merchant'
                 return make_response(user.to_dict(), 200)
