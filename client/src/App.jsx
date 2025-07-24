@@ -53,7 +53,7 @@ export default function App() {
     );
   }
 
-  // Decide which routes to expose based on role
+  
   let roleRoutes = [];
   if (user.role === "admin") roleRoutes = adminRoutes;
   else if (user.role === "clerk") roleRoutes = clerkRoutes;
