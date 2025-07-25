@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
-  FaBars, FaBoxes, FaPlus, FaChartBar, FaArrowDown, FaArrowUp
+  FaBars, FaBoxes, FaPlus, FaChartBar, FaArrowDown, FaArrowUp, FaSignOutAlt, FaDolly
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
@@ -65,6 +65,12 @@ const Sidebar = ({ user, store }) => {
           <FaPlus /> {!collapsed && "Add Product"}
         </NavLink>
         <NavLink
+          to="record-exits"
+          className={({ isActive }) => linkClass(isActive)}
+        >
+          <FaSignOutAlt /> {!collapsed && "Release Batch"}
+        </NavLink>
+        <NavLink
           to="stock-entries"
           className={({ isActive }) => linkClass(isActive)}
         >
@@ -77,10 +83,10 @@ const Sidebar = ({ user, store }) => {
           <FaArrowUp /> {!collapsed && "Store Exits"}
         </NavLink>
         <NavLink
-          to="record-exits"
+          to="supply-requests"
           className={({ isActive }) => linkClass(isActive)}
         >
-          <FaArrowDown /> {!collapsed && "Batch Out"}
+          <FaDolly /> {!collapsed && "Supply Request"}
         </NavLink>
       </nav>
     </motion.aside>

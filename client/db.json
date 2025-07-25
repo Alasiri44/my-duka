@@ -260,6 +260,11 @@
       "till_number": "510005",
       "address": "0210 Keller Street Apt. 780",
       "created_at": "2025-05-20T14:35:58.175228"
+    },
+    {
+      "id": "94b2",
+      "name": "Mumias Sugars",
+      "store_id": 1
     }
   ],
   "categories": [
@@ -1502,6 +1507,22 @@
       "party": "Martha Njogu",
       "direction": "out",
       "created_at": "2025-07-24"
+    },
+    {
+      "id": "2662",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Pauline Kahinga",
+      "created_by": 2,
+      "created_at": "2025-07-24T00:00:00.000Z"
+    },
+    {
+      "id": "cf01",
+      "store_id": 1,
+      "direction": "out",
+      "party": "MARTIN Korir",
+      "created_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
     }
   ],
   "stock_entries": [
@@ -2285,6 +2306,36 @@
       "transaction_code": null,
       "store_id": 1,
       "created_at": "2025-07-24T03:49:05.840Z"
+    },
+    {
+      "id": "d8f6",
+      "product_id": 7,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": null,
+      "quantity_received": 10,
+      "buying_price": 126.45,
+      "spoilt": 0,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "transaction_code": null,
+      "store_id": 1,
+      "created_at": "2025-07-24T22:20:24.939Z"
+    },
+    {
+      "id": "f4d4",
+      "product_id": 7,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": null,
+      "quantity_received": 12,
+      "buying_price": 188.76,
+      "spoilt": 0,
+      "payment_status": "paid",
+      "payment_method": "Mpesa",
+      "transaction_code": "TGO6CUIFEC",
+      "store_id": 1,
+      "created_at": "2025-07-24T22:29:58.286Z"
     }
   ],
   "stock_exits": [
@@ -2856,6 +2907,36 @@
       "reason": "sold",
       "batch_id": "4092",
       "created_at": "2025-07-24"
+    },
+    {
+      "id": "57a7",
+      "product_id": 7,
+      "quantity": 15,
+      "selling_price": 458.56,
+      "reason": "sold",
+      "batch_id": "2662",
+      "recorded_by": 2,
+      "created_at": "2025-07-24T00:00:00.000Z"
+    },
+    {
+      "id": "d64e",
+      "product_id": 9,
+      "quantity": 10,
+      "selling_price": 98.23,
+      "reason": "sold",
+      "batch_id": "2662",
+      "recorded_by": 2,
+      "created_at": "2025-07-24T00:00:00.000Z"
+    },
+    {
+      "id": "c480",
+      "product_id": 7,
+      "quantity": 12,
+      "selling_price": 458.78,
+      "reason": "sold",
+      "batch_id": "cf01",
+      "recorded_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
     }
   ],
   "supply_requests": [
@@ -3029,6 +3110,17 @@
       "reviewed_at": null,
       "note": "",
       "supplier_id": 1
+    },
+    {
+      "id": "a8c6",
+      "product_id": "2",
+      "quantity": 10,
+      "status": "pending",
+      "reviewed_by": null,
+      "created_at": "2025-07-24T00:00:00.000Z",
+      "reviewed_at": null,
+      "note": "new red pens needed",
+      "supplier_id": 3
     }
   ],
   "mpesa_transactions": [

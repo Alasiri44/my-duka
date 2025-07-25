@@ -9,6 +9,7 @@ import AddProduct from "../pages/dashboards/clerk/AddProduct";
 import ClerkStockEntries from "../pages/dashboards/clerk/ClerkStockEntries";
 import StockExits from "../pages/dashboards/clerk/StockExits";
 import BatchOut from "../pages/dashboards/clerk/BatchOut";
+import SupplyRequests from "../pages/dashboards/clerk/SupplyRequest"
 
 const clerkRoutes = [
   {
@@ -45,7 +46,10 @@ const clerkRoutes = [
       {
         path: "record-exits",
         element: <BatchOut />
-      }
+      },
+      { path: "supply-requests", 
+        element:<SupplyRequests  />
+      } 
     ],
   },
 ];

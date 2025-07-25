@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { 
   FaPlusSquare,       // Stock Entry
   FaMinusSquare,      // Stock Exit
-  FaBoxes             // Inventory
+  FaBoxes,
+  FaDolly            // Inventory
 } from "react-icons/fa";
 
 const QuickActions = () => {
@@ -27,13 +28,18 @@ const QuickActions = () => {
       icon: <FaBoxes className={iconClass} />,
       label: "Inventory",
       path: "/clerk/inventory"
+    },
+    {
+      icon: <FaDolly className={iconClass} />,
+      label: "Requests",
+      path: "/clerk/supply-requests"
     }
   ];
 
   return (
     <div className="bg-[#f2f0ed] border border-[#f2f0ed] rounded-xl p-6 mt-6">
       <h2 className="text-lg font-semibold text-[#011638] mb-4">Quick Actions</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {actions.map((action, i) => (
           <Link to={action.path} key={i}>
             <button className={buttonClass}>
