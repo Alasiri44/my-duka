@@ -22,8 +22,19 @@ function Login() {
 
         fetch(`http://127.0.0.1:5000/${apiRole}/login`, {
             method: 'POST',
+<<<<<<< HEAD
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
+=======
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+>>>>>>> origin
         })
             .then(res => res.json())
             .then(data => {
@@ -63,6 +74,7 @@ function Login() {
                 <h1 className="text-4xl font-bold text-center text-blue-900 mb-2">MyDuka</h1>
                 <h2 className="text-center text-gray-500 mb-6">Welcome back</h2>
 
+<<<<<<< HEAD
                 {showSuccess && <Alert message="Login successful" />}
                 {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
 
@@ -121,6 +133,24 @@ function Login() {
                         Don't have an account?{" "}
                         <Link to="/signup" className="text-blue-900 hover:underline">Sign up</Link>
                     </p>
+=======
+        <div className="mydiv mx-auto my-[200px]" >
+            {showSuccess && < Alert message='login successful' />}
+            <header>
+                <h1 className="text-5xl p-px">MyDuka</h1>
+                <hr />
+                <h2 className="text-xl">Welcome back to MyDuka</h2>
+            </header>
+
+            <form onSubmit={handleChange}>
+                {error && <p className="text-red-600">{error}</p>}
+                <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /> <br />
+                <div className="relative">
+                    <input type={hiddenPassword ? "password" : 'text'} placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} /> <br />
+                    <span className="absolute bottom-5 right-30" onClick={() => setHiddenPassword(!hiddenPassword)}>
+                        <i className={`fa-solid ${hiddenPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+                    </span>
+>>>>>>> origin
                 </div>
             </motion.div>
         </div>

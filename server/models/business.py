@@ -15,12 +15,16 @@ class Business(db.Model, SerializerMixin):
     industry = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     
+    products = db.relationship("Product", back_populates="business", cascade="all, delete-orphan")
     merchant = db.relationship('Merchant', back_populates='businesses')
     stores = db.relationship('Store', back_populates='business', cascade='all, delete-orphan')
     categories = db.relationship('Category', back_populates='business', cascade='all, delete-orphan')
     business_setting = db.relationship('Business_Setting', back_populates='business')
     suppliers = db.relationship('Supplier', back_populates='business', cascade= 'all, delete-orphan')
-    serialize_rules = ('-merchant.businesses', '-merchant.password_hash', '-stores.business', '-stores.users.store.business', '-business_setting.business', '-suppliers.business')
+    serialize_only = (
+        'id', 'merchant_id', 'name', 'country', 'po_box', 'postal_code',
+        'county', 'location', 'industry', 'created_at'
+    )
     
     def __repr__(self):
-        return f'<Business {self.id}: {self.name} at {self.address} >'
+        return f'<Business {self.id}: {self.name} at {self.location} >'
