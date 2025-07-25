@@ -16,7 +16,6 @@ class Store(db.Model, SerializerMixin):
     
     business = db.relationship('Business', back_populates='stores')
     users = db.relationship('User', back_populates='store', cascade='all, delete-orphan')
-    products = db.relationship('Product', back_populates='store', cascade='all, delete-orphan')
     batches = db.relationship('Batch', back_populates='store')
     serialize_rules = ('-business.stores', '-users.store', '-products.store', '-batches.store')
     

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: null,       
-  store: null,     
+  user: null,       // e.g., { email: "jane@gmail.com", role: "clerk" }
+  store: null,      // current store object (optional)
 };
 
 const authSlice = createSlice({

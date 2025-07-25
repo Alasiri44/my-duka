@@ -12,6 +12,8 @@ import {
   FaCog,
   FaBuilding,
 } from "react-icons/fa";
+import { IoIosArrowDroprightCircle, IoIosArrowDropdownCircle } from "react-icons/io";
+
 import { motion } from "framer-motion";
 import Logo from "../../assets/logo.svg";
 
@@ -19,6 +21,17 @@ const Sidebar = ({ businesses, currentId }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
+  const [storesOpen, setStoresOpen] = useState(false);
+  const [stores, setStores] = useState([]);
+
+
+
+  useEffect(() => {
+  if (!currentId) return;
+  fetch(`http://localhost:3000/stores?business_id=${currentId}`)
+    .then((res) => res.json())
+    .then((data) => setStores(data));
+}, [currentId]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -87,9 +100,52 @@ const Sidebar = ({ businesses, currentId }) => {
           <NavLink to="" end className={({ isActive }) => linkClass(isActive)}>
             <FaStore /> {!collapsed && "Overview"}
           </NavLink>
-          <NavLink to="stores" className={({ isActive }) => linkClass(isActive)}>
+
+        
+          {/* <NavLink to="stores" className={({ isActive }) => linkClass(isActive)}>
             <FaBuilding /> {!collapsed && "Stores"}
+          </NavLink> */}
+
+         <div className="relative">
+  <div className="flex items-center justify-between pr-2">
+    <NavLink to="stores" className={({ isActive }) => linkClass(isActive) + " flex-1"}>
+      <FaBuilding /> {!collapsed && "Stores"}
+    </NavLink>
+
+    {!collapsed && (
+      <button
+        onClick={() => setStoresOpen(!storesOpen)}
+        className="text-[#011638] text-xs px-1 hover:text-[#ec4e20] transition"
+        title={storesOpen ? "Collapse" : "Expand"}
+      >
+        {storesOpen ? <IoIosArrowDropdownCircle size={25}/> : <IoIosArrowDroprightCircle size={25}/>
+}
+      </button>
+    )}
+  </div>
+
+  {storesOpen && !collapsed && stores.length > 0 && (
+    <ul className="ml-6 mt-1 space-y-1">
+      {stores.map((s) => (
+        <li key={s.id}>
+          <NavLink
+            to={`stores/${s.id}`}
+            className={({ isActive }) =>
+              `block px-3 py-1 rounded text-sm ${
+                isActive ? "bg-[#d7d0c8] font-semibold" : "text-[#5e574d]"
+              } hover:bg-[#e0dedc]`
+            }
+          >
+            {s.name}
           </NavLink>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+
+
           <NavLink to="staff" className={({ isActive }) => linkClass(isActive)}>
             <FaUser /> {!collapsed && "Staff"}
           </NavLink>

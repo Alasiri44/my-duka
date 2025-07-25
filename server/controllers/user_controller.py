@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, request
+from flask import Blueprint, make_response, request, session
 from flask_restful import Api, Resource
 from ..models.user import User
 from ..models import db
@@ -68,6 +68,9 @@ class User_Login(Resource):
         user = User.query.filter(User.email == email).first()
         if(user):
             if(bcrypt.check_password_hash(user.password_hash, password)):
+                # session.permanent = True
+                session['email'] = user.email
+                session['role'] = user.role
                 return make_response(user.to_dict(), 200)
             else:
                 return make_response({"message": "Wrong password"}, 404)
@@ -87,7 +90,7 @@ class Users_By_StoreID(Resource):
             return make_response('', 204)
         else:
             return make_response({"message": "The user does not exist in the database"}, 404)
-api.add_resource(Users_By_StoreID, '/user/store/<id>')
+api.add_resource(Users_By_StoreID, '/user/store/<int:id>')
 
 class Admins(Resource):
     def get(self):
@@ -105,4 +108,4 @@ class Clerks_By_StoreID(Resource):
     def get(self, id):
         response_dict = [user.to_dict() for user in User.query.filter(User.role == 'clerk' and User.store_id == id).all()]
         return make_response(response_dict, 200)
-api.add_resource(Clerks_By_StoreID, '/user/clerks/store/<id>')
+api.add_resource(Clerks_By_StoreID, '/user/clerks/store/<int:id>')

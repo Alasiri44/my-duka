@@ -27,6 +27,7 @@ function Login() {
         }
         fetch(`http://127.0.0.1:5000/${apiRole}/login`, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -70,7 +71,7 @@ function Login() {
 
     return <>
 
-        <div className="mydiv" >
+        <div className="mydiv mx-auto my-[200px]" >
             {showSuccess && < Alert message='login successful' />}
             <header>
                 <h1 className="text-5xl p-px">MyDuka</h1>
@@ -83,7 +84,7 @@ function Login() {
                 <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /> <br />
                 <div className="relative">
                     <input type={hiddenPassword ? "password" : 'text'} placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} /> <br />
-                    <span className="absolute bottom-5 left-70" onClick={() => setHiddenPassword(!hiddenPassword)}>
+                    <span className="absolute bottom-5 right-30" onClick={() => setHiddenPassword(!hiddenPassword)}>
                         <i className={`fa-solid ${hiddenPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
                     </span>
                 </div>
