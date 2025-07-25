@@ -1,8 +1,15 @@
-export default function AddProduct() {
+import React from 'react'
+import StockEntryForm from '../../../components/clerk/StockEntryForm' 
+
+const AddProduct = () => {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Add New Product</h1>
-      {/* Form to add new product */}
-    </div>
+    <>
+    <h1 className='text-center text-2xl font-bold mt-8 mb-4 text-gray 300'>Add New Received Batch</h1>
+      <div>
+        <StockEntryForm />
+      </div>
+    </>
   )
 }
+
+export default AddProduct
