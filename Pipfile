@@ -8,11 +8,11 @@ flask = "*"
 flask-session = "*"
 flask-cors = "*"
 flask-migrate = "*"
-psycopg2 = "*"
 sqlalchemy-serializer = "*"
 python-dotenv = "*"
 flask-restful = "*"
 flask-bcrypt = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

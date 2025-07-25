@@ -54,33 +54,9 @@ export default function App() {
     return <RouterProvider router={router} />;
   }
 
-<<<<<<< HEAD
+
   
-=======
-  // if (!user) {
-  //   return (
-  //     <div className="min-h-screen bg-[#fdfdfd] flex flex-col items-center justify-center space-y-4">
-  //       <h1 className="text-2xl font-bold text-[#011638]">Login as a Test User</h1>
-  //       < BrowserRouter>
-  //         < Login />
-  //         dispatch(setUser(user))
-  //       </BrowserRouter>
-
-  //       {/* {testUsers.map((u) => (
-  //         <button
-  //           key={u.id}
-  //           className="bg-[#011638] text-white px-6 py-2 rounded hover:bg-[#000f2a] transition"
-  //           onClick={() => dispatch(setUser(u))}
-  //         >
-  //           {u.first_name} ({u.role})
-  //         </button>
-  //       ))} */}
-  //     </div>
-  //   );
-  // }
-
-  // Decide which routes to expose based on role
->>>>>>> origin/main
+ 
   let roleRoutes = [];
 
   if (user?.role === "admin") roleRoutes = adminRoutes;
