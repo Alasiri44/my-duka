@@ -13,6 +13,7 @@ sqlalchemy-serializer = "*"
 python-dotenv = "*"
 flask-restful = "*"
 flask-bcrypt = "*"
+flask-mail = "*"
 
 [dev-packages]
 
