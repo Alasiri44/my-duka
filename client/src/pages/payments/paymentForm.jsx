@@ -6,6 +6,7 @@ function PaymentForm() {
     mpesa_phone: "",
     name: "",
     amount: 0,
+    business_till_number: ''
   });
  
   const handleSubmit = async () => {
@@ -23,17 +24,14 @@ function PaymentForm() {
       <div className="overflow-hidden rounded-md bg-white">
         <div className="p-6 sm:p-10">
           <p className="mt-4 text-base text-gray-600">
-            Provide your name, mpesa number and amount to process donation.
+            Supplier Payment Platform
           </p>
           <form action="#" method="POST" className="mt-4">
             <div className="space-y-6">
               <div>
-                <label className="text-base font-medium text-gray-900">
-                  {" "}
-                  Name{" "}
-                </label>
+                <label className="text-base font-medium text-gray-900">Name of suppliers </label>
                 <div className="relative mt-2.5">
-                  <input
+                  <select
                     type="text"
                     required
                     name="name"
@@ -44,9 +42,12 @@ function PaymentForm() {
                         name: e.target.value,
                       })
                     }
-                    placeholder="John Doe"
                     className="block w-full rounded-md border border-gray-200 bg-white px-4 py-4 text-black placeholder-gray-500 caret-orange-500 transition-all duration-200 focus:border-orange-500 focus:outline-none focus:ring-orange-500"
-                  />
+                  >
+                    <option value="">Select name of suppliers</option>
+                    <option value="kengen">Kengen PharmaCeuticals</option>
+                    <option value="supplier1">Supplier 1</option>
+                  </select>
                 </div>
               </div>
               <div>
@@ -66,6 +67,48 @@ function PaymentForm() {
                       })
                     }
                     placeholder="Enter mpesa phone number"
+                    className="block w-full rounded-md border border-gray-200 bg-white px-4 py-4 text-black placeholder-gray-500 caret-orange-500 transition-all duration-200 focus:border-orange-500 focus:outline-none focus:ring-orange-500"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-base font-medium text-gray-900">
+                  {" "}
+                  Till Number{" "}
+                </label>
+                <div className="relative mt-2.5">
+                  <input
+                    type="text"
+                    name="mpesa_number"
+                    value={dataFromForm.mpesa_phone}
+                    onChange={(e) =>
+                      setDataFromForm({
+                        ...dataFromForm,
+                        mpesa_phone: e.target.value,
+                      })
+                    }
+                    placeholder="Enter business till number"
+                    className="block w-full rounded-md border border-gray-200 bg-white px-4 py-4 text-black placeholder-gray-500 caret-orange-500 transition-all duration-200 focus:border-orange-500 focus:outline-none focus:ring-orange-500"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-base font-medium text-gray-900">
+                  {" "}
+                  Account Number{" "}
+                </label>
+                <div className="relative mt-2.5">
+                  <input
+                    type="text"
+                    name="mpesa_number"
+                    value={dataFromForm.mpesa_phone}
+                    onChange={(e) =>
+                      setDataFromForm({
+                        ...dataFromForm,
+                        mpesa_phone: e.target.value,
+                      })
+                    }
+                    placeholder="Enter business account number"
                     className="block w-full rounded-md border border-gray-200 bg-white px-4 py-4 text-black placeholder-gray-500 caret-orange-500 transition-all duration-200 focus:border-orange-500 focus:outline-none focus:ring-orange-500"
                   />
                 </div>
