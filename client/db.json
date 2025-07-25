@@ -1523,6 +1523,14 @@
       "party": "MARTIN Korir",
       "created_by": 2,
       "created_at": "2025-07-25T00:00:00.000Z"
+    },
+    {
+      "id": "6ad3",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Philips Jones",
+      "created_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
     }
   ],
   "stock_entries": [
@@ -2336,6 +2344,36 @@
       "transaction_code": "TGO6CUIFEC",
       "store_id": 1,
       "created_at": "2025-07-24T22:29:58.286Z"
+    },
+    {
+      "id": "f640",
+      "product_id": 6,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": 3,
+      "quantity_received": 20,
+      "buying_price": 200,
+      "spoilt": 2,
+      "payment_status": "paid",
+      "payment_method": "Mpesa",
+      "transaction_code": "TGO6CU56Y",
+      "store_id": 1,
+      "created_at": "2025-07-25T01:53:59.270Z"
+    },
+    {
+      "id": "d297",
+      "product_id": 11,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": 3,
+      "quantity_received": 39,
+      "buying_price": 119,
+      "spoilt": 0,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "transaction_code": null,
+      "store_id": 1,
+      "created_at": "2025-07-25T01:53:59.298Z"
     }
   ],
   "stock_exits": [
@@ -2935,6 +2973,16 @@
       "selling_price": 458.78,
       "reason": "sold",
       "batch_id": "cf01",
+      "recorded_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
+    },
+    {
+      "id": "48f1",
+      "product_id": 6,
+      "quantity": 54,
+      "selling_price": 300,
+      "reason": "sold",
+      "batch_id": "6ad3",
       "recorded_by": 2,
       "created_at": "2025-07-25T00:00:00.000Z"
     }
