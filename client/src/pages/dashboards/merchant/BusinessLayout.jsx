@@ -5,23 +5,21 @@ import Sidebar from "../../../components/merchant/Sidebar";
 
 const BusinessLayout = () => {
   const { id } = useParams();
-  const { user } = useSelector((state) => state.auth); // pull role from Redux
+  const { user } = useSelector((state) => state.auth);
   const [businesses, setBusinesses] = useState([]);
+  const [stores, setStores] = useState([]);
   const [currentBusiness, setCurrentBusiness] = useState(null);
 
 
 
-  useEffect(() => {
-    fetch("http://localhost:3000/businesses")
-      .then((res) => res.json())
-      .then((data) => {
-        const list = data.map((b) => ({ ...b, id: Number(b.id) }));
-        setBusinesses(list);
-        const found = list.find((b) => b.id === Number(id));
-        setCurrentBusiness(found);
-      });
-  }, [id]);
-
+useEffect(() => {
+  fetch(`http://localhost:5000/business/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setCurrentBusiness(data);
+      setStores(data.stores); // if you're managing a separate stores state
+    });
+}, [id]);
 
 
   if (!currentBusiness) {
@@ -32,9 +30,13 @@ const BusinessLayout = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar businesses={businesses} currentId={Number(id)} />
+      <Sidebar
+  businesses={businesses}
+  currentId={currentBusiness?.id}
+  stores={currentBusiness?.stores || []}
+/>
       <main className="flex-1 bg-[#fdfdfd] p-6 overflow-y-auto">
-        <Outlet context={{ currentBusiness, role: user?.role }} /> {/*role passed to StoreLayout */}
+      <Outlet context={{ businessId: Number(id), role: user?.role }} />
       </main>
     </div>
   );

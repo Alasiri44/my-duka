@@ -1,4 +1,4 @@
-// /pages/dashboards/merchant/Stores.jsx
+import { useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,74 +9,10 @@ import {
 } from "react-icons/fa";
 
 const Stores = () => {
-  const [stores, setStores] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [entries, setEntries] = useState([]);
-
+  const { business } = useOutletContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchAll();
-  }, []);
-
-  const fetchAll = async () => {
-    const [storeRes, userRes, productRes, entryRes] = await Promise.all([
-      fetch("http://localhost:3000/stores"),
-      fetch("http://localhost:3000/users"),
-      fetch("http://localhost:3000/products"),
-      fetch("http://localhost:3000/stock_entries"),
-    ]);
-
-    const [storeData, userData, productData, entryData] = await Promise.all([
-      storeRes.json(),
-      userRes.json(),
-      productRes.json(),
-      entryRes.json(),
-    ]);
-
-    setStores(
-      storeData.map((s) => ({
-        ...s,
-        id: Number(s.id),
-        business_id: Number(s.business_id),
-      }))
-    );
-    setUsers(userData.map((u) => ({ ...u, store_id: Number(u.store_id) })));
-    setProducts(
-      productData.map((p) => ({
-        ...p,
-        store_id: Number(p.store_id),
-        id: Number(p.id),
-      }))
-    );
-    setEntries(
-      entryData.map((e) => ({
-        ...e,
-        product_id: Number(e.product_id),
-        buying_price: Number(e.buying_price),
-        quantity_received: Number(e.quantity_received),
-      }))
-    );
-  };
-
-  const getStoreStats = (storeId) => {
-    const storeUsers = users.filter((u) => u.store_id === storeId);
-    const storeAdmins = storeUsers.filter((u) => u.role === "admin").length;
-    const clerks = storeUsers.filter((u) => u.role === "clerk").length;
-
-    const storeProductIds = products
-      .filter((p) => p.store_id === storeId)
-      .map((p) => p.id);
-
-    const unpaidDeliveries = entries.filter(
-      (e) =>
-        storeProductIds.includes(e.product_id) &&
-        e.payment_status === "unpaid"
-    ).length;
-
-    return { storeAdmins, clerks, unpaidDeliveries };
-  };
+  
 
   return (
     <div className="min-h-screen bg-[#fdfdfd] p-6">

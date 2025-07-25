@@ -2,6 +2,21 @@ from flask import Blueprint, make_response, request, session
 from flask_restful import Api, Resource
 from ..models.merchant import Merchant
 from ..models import db
+from sqlalchemy import func
+from datetime import datetime, timedelta
+
+from flask_bcrypt import Bcrypt
+
+from ..models import db
+from ..models.business import Business
+from ..models.store import Store
+from ..models.product import Product
+from ..models.stock_entries import Stock_Entry
+from ..models.batch import Batch
+from ..models.user import User
+from ..models.supplier import Supplier
+
+bcrypt = Bcrypt()
 
 merchant_bp = Blueprint('merchant_bp', __name__)
 api = Api(merchant_bp)
@@ -61,18 +76,106 @@ api.add_resource(Merchant_By_ID, '/merchant/<id>')
 
 class Merchant_Login(Resource):
     def post(self):
-        from ..app import bcrypt
-        email = request.get_json().get('email')
-        password = request.get_json().get('password')
-        user = Merchant.query.filter(Merchant.email == email).first()
-        if(user):
-            if(bcrypt.check_password_hash(user.password_hash, password)):
-                # session.permanent = True
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+
+        user = Merchant.query.filter_by(email=email).first()
+
+        if user:
+            if bcrypt.check_password_hash(user.password_hash, password):
+                
                 session['email'] = user.email
                 session['role'] = 'merchant'
-                return make_response(user.to_dict(), 200)
+                session['user_id'] = user.id
+
+               
+                return make_response({
+                    "id": user.id,
+                    "email": user.email,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "role": "merchant"
+                }, 200)
             else:
-                return make_response({"message": "Wrong password"}, 404)
+                return make_response({"message": "Wrong password"}, 401)
         else:
             return make_response({"message": "The user does not exist in the database"}, 404)
 api.add_resource(Merchant_Login, '/merchant/login')
+
+
+
+class MerchantDashboard(Resource):
+    def get(self, id):
+        merchant = Merchant.query.get(id)
+        if not merchant:
+            return make_response({"message": "Merchant not found"}, 404)
+
+        # 1. Get all businesses linked to the merchant
+        businesses = Business.query.filter_by(merchant_id=id).all()
+        business_ids = [b.id for b in businesses]
+
+        # 2. Get stores under these businesses
+        stores = Store.query.filter(Store.business_id.in_(business_ids)).all()
+        store_ids = [s.id for s in stores]
+
+        # 3. Get entries via batches -> store
+        entries = db.session.query(Stock_Entry, Product, Supplier, Batch)\
+            .join(Product, Stock_Entry.product_id == Product.id)\
+            .join(Supplier, Stock_Entry.supplier_id == Supplier.id, isouter=True)\
+            .join(Batch, Stock_Entry.batch_id == Batch.id)\
+            .filter(Batch.store_id.in_(store_ids))\
+            .all()
+
+        # 4. Recent activity (limit to 5 latest)
+        recent = sorted(entries, key=lambda e: e[0].created_at, reverse=True)[:5]
+        recent_activity = [
+            {
+                "message": f"Received {entry.quantity_received} x {product.name} from {supplier.name if supplier else 'Unknown Supplier'}",
+                "timestamp": entry.created_at
+            }
+            for entry, product, supplier, batch in recent
+        ]
+
+        # 5. Summary cards
+        total_businesses = len(businesses)
+        total_stores = len(stores)
+        unpaid_deliveries = [e[0] for e in entries if e[0].payment_status == "unpaid"]
+        outstanding_amount = sum(e.buying_price * e.quantity_received for e in unpaid_deliveries)
+
+        summary = {
+            "totalBusinesses": total_businesses,
+            "totalStores": total_stores,
+            "unpaidDeliveries": len(unpaid_deliveries),
+            "outstandingAmount": float(outstanding_amount)
+        }
+
+        # 6. Enhance businesses
+        business_list = []
+        for biz in businesses:
+            biz_store_ids = [s.id for s in stores if s.business_id == biz.id]
+
+            # Find products for the business
+            product_ids = db.session.query(Product.id).filter_by(business_id=biz.id).all()
+            flat_ids = [pid[0] for pid in product_ids]
+
+            spend = db.session.query(func.sum(Stock_Entry.buying_price * Stock_Entry.quantity_received))\
+                .join(Batch, Stock_Entry.batch_id == Batch.id)\
+                .filter(Stock_Entry.product_id.in_(flat_ids), Batch.store_id.in_(biz_store_ids))\
+                .scalar() or 0
+
+            business_list.append({
+                "id": biz.id,
+                "name": biz.name,
+                "industry": biz.industry,
+                "status": "Active",
+                "store_count": len(biz_store_ids),
+                "monthly_spend": float(spend)
+            })
+
+        return make_response({
+            "summary": summary,
+            "businesses": business_list,
+            "recent_activity": recent_activity
+        }, 200)
+api.add_resource(MerchantDashboard, '/merchant/<int:id>/dashboard')

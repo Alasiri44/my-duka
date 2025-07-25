@@ -10,8 +10,13 @@ import AddProduct from "../pages/dashboards/clerk/AddProduct";
 const clerkRoutes = [
   {
     path: "/",
-    element: < Dashboard />,
+    element: < ClerkLayout />,
     children: [
+
+      {
+        path:"/clerk",
+        element: <Dashboard />,
+      },
       
       {
         path: "inventory",

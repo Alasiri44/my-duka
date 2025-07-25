@@ -7,7 +7,30 @@ auth_api = Api(auth_bp)
 class CheckSession(Resource):
     def get(self):
         if 'email' in session:
-            return {'email': session.get('email'), 'role': session.get('role')}
-        else:
-            return make_response({'message': 'Not logged in'}, 401)
+            role = session.get("role")
+            if role == "merchant":
+                from ..models.merchant import Merchant
+                user = Merchant.query.get(session["user_id"])
+            else:
+                from ..models.user import User
+                user = User.query.get(session["user_id"])
+
+            if user:
+                return {
+                    "id": user.id,
+                    "email": user.email,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "role": role
+                }
+        return make_response({'message': 'Not logged in'}, 401)
+
 auth_api.add_resource(CheckSession, '/check-session')
+
+
+
+class Logout(Resource):
+    def delete(self):
+        session.clear()
+        return {"message": "Logged out successfully"}, 200
+auth_api.add_resource(Logout, '/logout')

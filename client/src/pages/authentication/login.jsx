@@ -17,53 +17,53 @@ function Login() {
     const [showSuccess, setShowSuccess] = useState(false);
     const navigate = useNavigate();
 
-    function handleChange(event) {
-        event.preventDefault();
-        let apiRole;
-        if (role != 'merchant') {
-            apiRole = 'user'
-        } else {
-            apiRole = role;
-        }
-        fetch(`http://127.0.0.1:5000/${apiRole}/login`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.message) {
-                    setError(data.message)
-                } else {
-                    setIsLoggedIn(true)
-                    data.role = role
-                    const timer = setTimeout(() => {
-                        navigate(`/${data.role}`, { replace: true });
-                        dispatch(setUser(data))
-                    }, 2000);
-                    
-                    
+    async function handleChange(event) {
+      event.preventDefault();
+      setError('');
+    
+      // First, try to log in as a merchant
+      const res = await fetch(`http://127.0.0.1:5000/merchant/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+    
+      const data = await res.json();
+    
+      if (res.ok) {
+        data.role = 'merchant';
+        dispatch(setUser(data));
+        navigate('/merchant', { replace: true });
+      } else {
 
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                setError(err.message || "Something went wrong. Please try again.")
-            })
+        // If merchant login fails, try admin login
+        const userRes = await fetch(`http://127.0.0.1:5000/user/login`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+    
+        const userData = await userRes.json();
+    
+        if (userRes.ok) {
+          dispatch(setUser(userData));
+         dispatch(setUser(userData));
+         navigate(`/${userData.role}`, { replace: true });
+        } else {
+          setError(userData.message || "Login failed. Try again.");
+        }
+      }
     }
+
 
     useEffect(() => {
         if (isLoggedIn) {
             setShowSuccess(true);
             const timer = setTimeout(() => {
                 setShowSuccess(false);
-            }, 2000); // wait for 2 seconds
+            }, 2000); 
 
             return () => clearTimeout(timer);
         }

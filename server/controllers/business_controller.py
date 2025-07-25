@@ -46,28 +46,25 @@ business_api.add_resource(Businesses, '/business')
 
 class Business_By_ID(Resource):
     def get(self, id):
-        business = Business.query.filter(Business.id == id).first()
-        if business:
-            return make_response(business.to_dict(), 200)
-        return make_response({"message": "The business does not exist"}, 404)
+        business = Business.query.get(id)
+        if not business:
+            return make_response({"message": "The business does not exist"}, 404)
 
-    def patch(self, id):
-        business = Business.query.filter(Business.id == id).first()
-        if business:
-            data = request.get_json()
-            for attr in data:
-                setattr(business, attr, data[attr])
-            db.session.commit()
-            return make_response(business.to_dict(), 200)
-        return make_response({"message": "The business does not exist"}, 404)
+        
+        business_data = business.to_dict()
 
-    def delete(self, id):
-        business = Business.query.filter(Business.id == id).first()
-        if business:
-            db.session.delete(business)
-            db.session.commit()
-            return make_response('', 204)
-        return make_response({"message": "The business does not exist"}, 404)
+        stores = Store.query.filter_by(business_id=id).all()
+        business_data["stores"] = [
+            {
+                "id": store.id,
+                "name": store.name,
+                "location": store.location,
+                "created_at": store.created_at.isoformat()
+            }
+            for store in stores
+        ]
+
+        return make_response(business_data, 200)
 
 business_api.add_resource(Business_By_ID, '/business/<int:id>')
 
@@ -77,6 +74,9 @@ class Business_Summary(Resource):
         business = Business.query.get(id)
         if not business:
             return make_response({"message": "Business not found"}, 404)
+        
+        
+        
 
         stores = Store.query.filter_by(business_id=id).all()
         store_ids = [store.id for store in stores]
@@ -131,14 +131,50 @@ class Business_Summary(Resource):
             {"month": month, "count": count} for month, count in entries_by_month
         ]
 
-        # === Chart: Top Products by Quantity ===
-        top_products = db.session.query(
+        # === Chart: Top Products (by stock in - stock out) ===
+        top_products_query = db.session.query(
             Product.name,
-            Product.quantity
-        ).filter_by(business_id=id).order_by(Product.quantity.desc()).limit(5).all()
-
+            func.coalesce(func.sum(Stock_Entry.quantity_received), 0) - func.coalesce(func.sum(StockExit.quantity), 0)
+        ).join(Stock_Entry, Stock_Entry.product_id == Product.id)\
+         .join(Batch, Stock_Entry.batch_id == Batch.id)\
+         .outerjoin(StockExit, StockExit.product_id == Product.id)\
+         .filter(
+            Product.business_id == id,
+            Batch.store_id.in_(store_ids)
+        )\
+         .group_by(Product.name)\
+         .order_by(
+            (func.coalesce(func.sum(Stock_Entry.quantity_received), 0) - func.coalesce(func.sum(StockExit.quantity), 0)).desc()
+        )\
+         .limit(5)\
+         .all()
+        
         summary["top_products"] = [
-            {"name": name, "value": qty} for name, qty in top_products
+            {"name": name, "value": float(balance)} for name, balance in top_products_query
+        ]
+        
+        
+        
+        # === Chart: Low Stock Products (by stock in - stock out) ===
+        low_stock_query = db.session.query(
+            Product.name,
+            func.coalesce(func.sum(Stock_Entry.quantity_received), 0) - func.coalesce(func.sum(StockExit.quantity), 0)
+        ).join(Stock_Entry, Stock_Entry.product_id == Product.id)\
+         .join(Batch, Stock_Entry.batch_id == Batch.id)\
+         .outerjoin(StockExit, StockExit.product_id == Product.id)\
+         .filter(
+            Product.business_id == id,
+            Batch.store_id.in_(store_ids)
+        )\
+         .group_by(Product.name)\
+         .order_by(
+            (func.coalesce(func.sum(Stock_Entry.quantity_received), 0) - func.coalesce(func.sum(StockExit.quantity), 0)).asc()
+        )\
+         .limit(5)\
+         .all()
+        
+        summary["low_stock_products"] = [
+            {"name": name, "value": float(balance)} for name, balance in low_stock_query
         ]
 
         # === Store-by-Store Summary ===
@@ -167,9 +203,19 @@ class Business_Summary(Resource):
                 "total_exits": store_exit_count,
                 "total_stock_value": float(store_stock_value)
             })
+        
 
         summary["stores_summary"] = stores_summary
 
-        return make_response(summary, 200)
+        return make_response({
+         "business": {
+             "id": business.id,
+             "name": business.name,
+             "industry": business.industry,
+             "location": business.location,
+             "created_at": business.created_at.strftime("%d %b %Y")
+         },
+         **summary
+         }, 200)
 business_api.add_resource(Business_Summary, '/business/<int:id>/summary')
 

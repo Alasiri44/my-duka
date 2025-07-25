@@ -200,3 +200,5 @@ __pycache__/
 *.sqlite3
 migrations/
 Pipfile.lock
+
+flask_session/

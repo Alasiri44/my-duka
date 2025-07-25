@@ -57,52 +57,31 @@ export default function App() {
     );
   }
 
-  if (!user) {
-    const router = createBrowserRouter([
-      {
-        path: '/signup',
-        element: < Signup />
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: '/',
-        element: < LandingPage />
-      },
-      {
-        path: "*",
-        element: < Navigate to='/' />,
-      },
-    ]);
-
-    return <RouterProvider router={router} />;
-  }
 
   // Decide which routes to expose based on role
-  let roleRoutes = [];
-  if (user?.role === "admin") roleRoutes = adminRoutes;
-  else if (user?.role === "clerk") roleRoutes = clerkRoutes;
-  else if (user?.role === "merchant") roleRoutes = merchantRoutes;
+ let roleRoutes = [];
 
-  const redirectPath = localStorage.getItem("redirectAfterLogin");
-  localStorage.removeItem("redirectAfterLogin");
+if (user?.role === "admin") roleRoutes = adminRoutes;
+else if (user?.role === "clerk") roleRoutes = clerkRoutes;
+else if (user?.role === "merchant") roleRoutes = merchantRoutes;
 
-
-  const router = createBrowserRouter([
-    { path: '/login', element: <Login /> },
-    {path: '/signup',element: < Signup /> },
-    {
-      path: "/",
-      element: <Navigate to={redirectPath || `/${user.role}`} replace />,
-    },
-    ...roleRoutes,
-    {
-      path: "*",
-      element: <div className="p-10 text-center text-red-600 text-lg">404: Page not found</div>,
-    },
-  ]);
+const router = createBrowserRouter([
+  { path: '/login', element: <Login /> },
+  { path: '/signup', element: <Signup /> },
+  {
+    path: "/",
+    element: user?.role
+      ? <Navigate to={`/${user.role}`} replace />
+      : <LandingPage />,
+  },
+  ...roleRoutes,
+  {
+    path: "*",
+    element: user?.role
+      ? <Navigate to={`/${user.role}`} replace />
+      : <Navigate to="/" />,
+  },
+]);
 
   return <RouterProvider router={router} />;
 }

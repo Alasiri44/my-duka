@@ -19,6 +19,7 @@ from .models.sale import Sale
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = "super-secret-key"
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
     migrate = Migrate(app, db)
