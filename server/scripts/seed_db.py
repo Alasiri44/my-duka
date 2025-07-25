@@ -12,6 +12,7 @@ from server.models.stock_entries import Stock_Entry
 from server.models.stock_exits import StockExit
 from server.models.sale import Sale
 from datetime import datetime
+import bcrypt
 
 app = create_app()
 
@@ -19,14 +20,22 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
+    
+    merchant_password = "duka123"
+    print(f"Password for stephen@myduka.co.ke is: {merchant_password}")
+    
+    # Hash before saving
+    hashed_password = bcrypt.hashpw(merchant_password.encode(), bcrypt.gensalt()).decode()
+    
     merchant = Merchant(
         id=1,
         first_name="Stephen",
         last_name="Njenga",
         email="stephen@myduka.co.ke",
-        password_hash="$2b$12$RT8Cpy2r1dlsiIzA4qCscuKD72c.sESXp1puI5dE8JdPOGM5HiOaG",
+        password_hash=hashed_password,
         created_at=datetime(2025, 7, 1)
     )
+    
     db.session.add(merchant)
     db.session.flush()
 
@@ -51,20 +60,39 @@ with app.app_context():
     db.session.add_all(stores)
     db.session.flush()
 
-    users = [
-        User(id=1, store_id=1, first_name='Tracy', last_name='Njeri', email='tracy.njeri@duka.co.ke', role='admin', password_hash='$2b$12$JYV.diympvJw3NQYcRKItOPL2V9KagkvAD9a6DpygnBzKrcZiPvJK', is_active=True),
-        User(id=2, store_id=1, first_name='Brian', last_name='Otieno', email='brian.otieno@duka.co.ke', role='clerk', password_hash='$2b$12$uiyAbayDNaejKqH3bdyBaeNG7mSgUArS94ndMS7SEmlA3fdhv6BYm', is_active=True),
-        User(id=3, store_id=1, first_name='Linda', last_name='Chebet', email='linda.chebet@duka.co.ke', role='clerk', password_hash='$2b$12$WF3UumIbyV5WXoEYDUimQe76k/rID.w/xhuv6SQaMGHXJWO3meC9O', is_active=True),
-        User(id=4, store_id=1, first_name='Kevin', last_name='Mwangi', email='kevin.mwangi@duka.co.ke', role='clerk', password_hash='$2b$12$s4QQVzvW1eQeKs3MukioHOidv4BMudpZ1yX0IaHP1hkTKRvAzNFFe', is_active=True),
-        User(id=5, store_id=2, first_name='Faith', last_name='Wambui', email='faith.wambui@duka.co.ke', role='admin', password_hash='$2b$12$02oHJDl.Ah51UJ0Mi26mOOucKfyldRU/yZdzz6kaUI0HrvJnvciBy', is_active=True),
-        User(id=6, store_id=2, first_name='Samuel', last_name='Omollo', email='samuel.omollo@duka.co.ke', role='clerk', password_hash='$2b$12$GhhAsubik7dteIP9DZr6CenS1OsoCWTk/UL3lN9aThp.5YsB5r/Ba', is_active=True),
-        User(id=7, store_id=2, first_name='Cynthia', last_name='Achieng', email='cynthia.achieng@duka.co.ke', role='clerk', password_hash='$2b$12$yz7vZJXekByN/RkhuY8yOOMkWE64BiwJ3f/JT643yQcSgjXonll2y', is_active=True),
-        User(id=8, store_id=2, first_name='Dennis', last_name='Muriithi', email='dennis.muriithi@duka.co.ke', role='clerk', password_hash='$2b$12$T1c5LGUYNXGrWZyvGpu/C.7jK0bayzVaqFldIMrvk4/Z2UNQiHdAW', is_active=True),
-        User(id=9, store_id=3, first_name='Caroline', last_name='Mutua', email='caroline.mutua@duka.co.ke', role='admin', password_hash='$2b$12$/r7eGPizPsSqj0nuXX053OzO9guTGJHUTaU3/NtQnMZn04aueZfq.', is_active=True),
-        User(id=10, store_id=3, first_name='John', last_name='Kariuki', email='john.kariuki@duka.co.ke', role='clerk', password_hash='$2b$12$H9/xhhbNGLFuu7b.VlovsOmU7dbP7VlBJHwrw8H7sQXz4WZHYTAyS', is_active=True),
-        User(id=11, store_id=3, first_name='Esther', last_name='Nduta', email='esther.nduta@duka.co.ke', role='clerk', password_hash='$2b$12$atodYWb2QUZ.x4mV1VqqT.hwYWu/ZQR1K/rsLU.bterHtfdTmalry', is_active=True),
-        User(id=12, store_id=3, first_name='George', last_name='Otieno', email='george.otieno@duka.co.ke', role='clerk', password_hash='$2b$12$l6h4CAJl.DCNL4nZMxG89uRejKtJIl5Tln08d64I4/.NquAoKvqCy', is_active=True)
+    plain_password = "duka123"
+    
+    users = []
+    user_data = [
+        (1, 1, 'Tracy', 'Njeri', 'admin', 'tracy.njeri@duka.co.ke'),
+        (2, 1, 'Brian', 'Otieno', 'clerk', 'brian.otieno@duka.co.ke'),
+        (3, 1, 'Linda', 'Chebet', 'clerk', 'linda.chebet@duka.co.ke'),
+        (4, 1, 'Kevin', 'Mwangi', 'clerk', 'kevin.mwangi@duka.co.ke'),
+        (5, 2, 'Faith', 'Wambui', 'admin', 'faith.wambui@duka.co.ke'),
+        (6, 2, 'Samuel', 'Omollo', 'clerk', 'samuel.omollo@duka.co.ke'),
+        (7, 2, 'Cynthia', 'Achieng', 'clerk', 'cynthia.achieng@duka.co.ke'),
+        (8, 2, 'Dennis', 'Muriithi', 'clerk', 'dennis.muriithi@duka.co.ke'),
+        (9, 3, 'Caroline', 'Mutua', 'admin', 'caroline.mutua@duka.co.ke'),
+        (10, 3, 'John', 'Kariuki', 'clerk', 'john.kariuki@duka.co.ke'),
+        (11, 3, 'Esther', 'Nduta', 'clerk', 'esther.nduta@duka.co.ke'),
+        (12, 3, 'George', 'Otieno', 'clerk', 'george.otieno@duka.co.ke'),
     ]
+    
+    for uid, store_id, fname, lname, role, email in user_data:
+        print(f"Password for {email} is: {plain_password}")
+        hashed = bcrypt.hashpw(plain_password.encode(), bcrypt.gensalt()).decode()
+    
+        users.append(User(
+            id=uid,
+            store_id=store_id,
+            first_name=fname,
+            last_name=lname,
+            email=email,
+            role=role,
+            password_hash=hashed,
+            is_active=True
+        ))
+    
     db.session.add_all(users)
     db.session.flush()
 
