@@ -31,29 +31,30 @@ class Businesses(Resource):
         
 business_api.add_resource(Businesses, '/business')
 
+
 class Business_By_ID(Resource):
     def get(self, id):
-        response = Business.query.filter(Business.id == id).first()
-        if(response):
-            return make_response(response.to_dict(), 200)
-        else:
-            return make_response({"message": "The business does not exist"}, 404)
+        business = Business.query.filter(Business.id == id).first()
+        if business:
+            return make_response(business.to_dict(), 200)
+        return make_response({"message": "The business does not exist"}, 404)
+
     def patch(self, id):
         business = Business.query.filter(Business.id == id).first()
-        if(business):
-            for attr in request.get_json:
-                setattr(business, attr, request.get_json.get(attr))
-            db.session.add(business)
+        if business:
+            data = request.get_json()
+            for attr in data:
+                setattr(business, attr, data[attr])
             db.session.commit()
             return make_response(business.to_dict(), 200)
-        else:
-                return make_response({"message": "The business does not exist"}, 404)
+        return make_response({"message": "The business does not exist"}, 404)
+
     def delete(self, id):
-        response = Business.query.filter(Business.id == id).first()
-        if(response):
-            db.session.delete(response)
+        business = Business.query.filter(Business.id == id).first()
+        if business:
+            db.session.delete(business)
             db.session.commit()
             return make_response('', 204)
-        else:
-            return make_response({"message": "The business does not exist"}, 404)
-business_api.add_resource(Business_By_ID, '/business/<id>')
+        return make_response({"message": "The business does not exist"}, 404)
+
+business_api.add_resource(Business_By_ID, '/business/<int:id>')

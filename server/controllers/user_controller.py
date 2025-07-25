@@ -90,7 +90,7 @@ class Users_By_StoreID(Resource):
             return make_response('', 204)
         else:
             return make_response({"message": "The user does not exist in the database"}, 404)
-api.add_resource(Users_By_StoreID, '/user/store/<id>')
+api.add_resource(Users_By_StoreID, '/user/store/<int:id>')
 
 class Admins(Resource):
     def get(self):
@@ -108,4 +108,4 @@ class Clerks_By_StoreID(Resource):
     def get(self, id):
         response_dict = [user.to_dict() for user in User.query.filter(User.role == 'clerk' and User.store_id == id).all()]
         return make_response(response_dict, 200)
-api.add_resource(Clerks_By_StoreID, '/user/clerks/store/<id>')
+api.add_resource(Clerks_By_StoreID, '/user/clerks/store/<int:id>')

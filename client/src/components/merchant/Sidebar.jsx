@@ -12,6 +12,8 @@ import {
   FaCog,
   FaBuilding,
 } from "react-icons/fa";
+import { IoIosArrowDroprightCircle, IoIosArrowDropdownCircle } from "react-icons/io";
+
 import { motion } from "framer-motion";
 import Logo from "../../assets/logo.svg";
 
@@ -116,7 +118,8 @@ const Sidebar = ({ businesses, currentId }) => {
         className="text-[#011638] text-xs px-1 hover:text-[#ec4e20] transition"
         title={storesOpen ? "Collapse" : "Expand"}
       >
-        {storesOpen ? "▾" : "▸"}
+        {storesOpen ? <IoIosArrowDropdownCircle size={25}/> : <IoIosArrowDroprightCircle size={25}/>
+}
       </button>
     )}
   </div>

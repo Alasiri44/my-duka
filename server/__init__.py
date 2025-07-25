@@ -13,6 +13,9 @@ from .models.supplier import Supplier
 from .models.supply_request import Supply_Request
 from .models.stock_entries import Stock_Entry
 from .models.batch import Batch
+from .models.Invites import Invite
+from .models.stock_exits import StockExit
+from .models.sale import Sale
 
 def create_app():
     app = Flask(__name__)
