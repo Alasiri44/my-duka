@@ -6,6 +6,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [users, setUsers] = useState([]);
+  const [latestPrices, setLatestPrices] = useState({});
   const [storeId, setStoreId] = useState(null);
   const [filter, setFilter] = useState('my');
   const [search, setSearch] = useState('');
@@ -15,10 +16,10 @@ const SupplyRequestsPage = ({ clerkId }) => {
     const fetchAll = async () => {
       try {
         const [reqRes, prodRes, supRes, usersRes] = await Promise.all([
-          axios.get('http://localhost:3001/supply_requests'),
-          axios.get('http://localhost:3001/products'),
-          axios.get('http://localhost:3001/suppliers'),
-          axios.get('http://localhost:3001/users'),
+          axios.get('http://127.0.0.1:5000/supply_request'),
+          axios.get('http://127.0.0.1:5000/product'),
+          axios.get('http://127.0.0.1:5000/supplier'),
+          axios.get('http://127.0.0.1:5000/user/clerks'),
         ]);
         setRequests(reqRes.data);
         setProducts(prodRes.data);
@@ -27,6 +28,21 @@ const SupplyRequestsPage = ({ clerkId }) => {
 
         const currentClerk = usersRes.data.find(u => u.id === clerkId);
         if (currentClerk) setStoreId(currentClerk.store_id);
+
+        const prices = {};
+        await Promise.all(
+          prodRes.data.map(async product => {
+            const res = await axios.get(`http://127.0.0.1:5000/stock_entries?product_id=${product.id}`);
+            if (res.data.length > 0) {
+              const latestEntry = res.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+              const price = Number(latestEntry.buying_price);
+              prices[product.id] = isNaN(price) ? 0 : price;
+            } else {
+              prices[product.id] = 0;
+            }
+          })
+        );
+        setLatestPrices(prices);
       } catch (err) {
         console.error('Error fetching supply request data', err);
       }
@@ -43,7 +59,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
   const cancelRequest = async id => {
     if (window.confirm('Are you sure you want to cancel this request?')) {
       try {
-        await axios.delete(`http://localhost:3001/supply_requests/${id}`);
+        await axios.delete(`http://127.0.0.1:5000/supply_request/${id}`);
         setRequests(prev => prev.filter(r => r.id !== id));
       } catch (err) {
         console.error('Failed to cancel request', err);
@@ -157,7 +173,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
           <tbody>
             {filteredRequests.map(req => {
               const product = getProduct(req.product_id);
-              const unitPrice = product?.buying_price || 0;
+              const unitPrice = latestPrices[product?.id] || 0;
               const total = unitPrice * req.quantity;
 
               return (

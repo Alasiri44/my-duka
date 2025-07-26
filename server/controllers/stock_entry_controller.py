@@ -9,9 +9,15 @@ stock_entry_bp = Blueprint('stock_entry_bp', __name__)
 @stock_entry_bp.route('/stock_entries', methods=['GET'])
 def get_stock_entries():
     store_id = request.args.get('store_id')
-    if not store_id:
-        return make_response({'error': 'store_id is required'}, 400)
-    entries = db.session.query(Stock_Entry).join(Batch).filter(Batch.store_id == store_id).all()
+    product_id = request.args.get('product_id')
+    if not store_id and not product_id:
+        return make_response({'error': 'store_id or product_id is required'}, 400)
+    query = db.session.query(Stock_Entry).join(Batch)
+    if store_id:
+        query = query.filter(Batch.store_id == store_id)
+    if product_id:
+        query = query.filter(Stock_Entry.product_id == product_id)
+    entries = query.all()
     result = []
     for entry in entries:
         product = Product.query.get(entry.product_id)
