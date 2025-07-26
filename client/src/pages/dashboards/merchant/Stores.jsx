@@ -9,10 +9,14 @@ import {
 } from "react-icons/fa";
 
 const Stores = () => {
-  const { business } = useOutletContext();
   const navigate = useNavigate();
+  const { business, stores } = useOutletContext();
 
-  
+  const getStoreStats = (storeId) => ({
+  storeAdmins: 0,
+  clerks: 0,
+  unpaidDeliveries: 0,
+});
 
   return (
     <div className="min-h-screen bg-[#fdfdfd] p-6">

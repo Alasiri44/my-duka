@@ -1,56 +1,44 @@
 import React, { useEffect, useState } from "react";
 import StaffImage from "../../../assets/StaffImage.svg";
 
-const StaffDetailPanel = ({ user }) => {
+const StaffDetailPanel = ({ user,role }) => {
   const [stats, setStats] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    if (!user) return;
-
-    const userId = Number(user.id);
-
-    Promise.all([
-      fetch("http://localhost:3000/stock_entries").then((r) => r.json()),
-      fetch("http://localhost:3000/stock_exits").then((r) => r.json()),
-      fetch("http://localhost:3000/supply_requests").then((r) => r.json()),
-    ]).then(([entries, exits, requests]) => {
-      const entryCount = entries.filter((e) => Number(e.clerk_id) === userId).length;
-      const exitCount = exits.filter((e) => Number(e.recorded_by) === userId).length;
-      const submitted = requests.filter((r) => Number(r.requested_by) === userId);
-      const approved = submitted.filter((r) => r.status === "approved");
-
-      setStats({
-        entries: entryCount,
-        exits: exitCount,
-        requests: submitted.length,
-        approved: approved.length,
-        supervised: Math.floor(Math.random() * 4) + 1, // placeholder
-      });
-    });
-  }, [user]);
-
-  useEffect(() => {
     if (user) {
+      fetch(`http://localhost:5000/users/${user.id}/stats`)
+        .then((res) => res.json())
+        .then(setStats);
+
       setFormData({
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        role: user.role,
-        phone: "+254 700 000 000",
+        phone: user.phone_number || "",
+        role: user.role
       });
     }
   }, [user]);
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setFormData((f) => ({ ...f, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
-    console.log("Saved Data:", formData);
-    setShowEditModal(false);
+    fetch(`http://localhost:5000/user/${user.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        phone_number: formData.phone,
+      }),
+    })
+      .then((res) => res.json())
+      .then(() => setShowEditModal(false));
   };
 
   if (!user) {
@@ -75,7 +63,7 @@ const StaffDetailPanel = ({ user }) => {
               {user.first_name} {user.last_name}
             </h3>
             <p className="text-sm text-[#5e574d]">{user.email}</p>
-            <p className="text-sm text-[#5e574d]">Phone: <span className="text-[#011638]">+254 700 000 000</span></p>
+            <p className="text-sm text-[#5e574d]">Phone: <span className="text-[#011638]">{user.phone_number || "N/A"}</span></p>
             <p className="text-sm text-[#5e574d] capitalize">Role: {user.role}</p>
             <p className="text-xs text-[#999999]">
               Joined on {new Date(user.created_at).toLocaleDateString()}
@@ -116,20 +104,30 @@ const StaffDetailPanel = ({ user }) => {
           <p className="text-sm text-[#5e574d]">Loading stats...</p>
         )}
 
-        <div className="flex gap-2">
-          <button className="px-4 py-2 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200">
-            Deactivate
-          </button>
-          <button className="px-4 py-2 text-sm border border-[#5e574d] text-[#011638] rounded hover:bg-[#f2f0ed]">
-            Remove
-          </button>
-          <button
-            onClick={() => setShowEditModal(true)}
-            className="px-4 py-2 text-sm border border-[#011638] text-[#011638] rounded hover:bg-[#f2f0ed]"
-          >
-            Edit
-          </button>
-        </div>
+ <div className="flex gap-2">
+  {/* Deactivate */}
+  {(role === "merchant" || (role === "admin" && user.role === "clerk")) && (
+    <button className="px-4 py-2 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200">
+      Deactivate
+    </button>
+  )}
+
+  {/* Remove */}
+  {role === "merchant" && (
+    <button className="px-4 py-2 text-sm border border-[#5e574d] text-[#011638] rounded hover:bg-[#f2f0ed]">
+      Remove
+    </button>
+  )}
+
+  {/* Edit - everyone can edit */}
+  <button
+    onClick={() => setShowEditModal(true)}
+    className="px-4 py-2 text-sm border border-[#011638] text-[#011638] rounded hover:bg-[#f2f0ed]"
+  >
+    Edit
+  </button>
+</div>
+
       </div>
 
       {/* Edit Modal */}

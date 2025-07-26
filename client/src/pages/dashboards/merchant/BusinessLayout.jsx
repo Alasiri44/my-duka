@@ -36,7 +36,7 @@ useEffect(() => {
   stores={currentBusiness?.stores || []}
 />
       <main className="flex-1 bg-[#fdfdfd] p-6 overflow-y-auto">
-      <Outlet context={{ businessId: Number(id), role: user?.role }} />
+      <Outlet context={{ businessId: Number(id), role: user?.role ,business: currentBusiness, stores}} />
       </main>
     </div>
   );

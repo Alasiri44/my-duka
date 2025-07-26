@@ -7,12 +7,11 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 // import { logout } from "../../redux/slices/authSlice"; // Adjust path as needed
 
-const Sidebar = ({ businesses, currentId }) => {
+const Sidebar = ({  store, business, user }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -44,7 +43,6 @@ const Sidebar = ({ businesses, currentId }) => {
   const tabs = allTabs.filter((tab) => tab.roles.includes(role));
 
   const handleLogout = () => {
-    // dispatch(logout());
     navigate("/login");
   };
 
@@ -70,14 +68,14 @@ const Sidebar = ({ businesses, currentId }) => {
   </button>
 </div>
 
-      {/* Business Name */}
-      {!collapsed && (
-        <div className="px-4 pb-2">
-          <h2 className="text-base font-bold truncate text-[#ec4e20]">
-            {businesses.find((b) => b.id === currentId)?.name}
-          </h2>
-        </div>
-      )}
+{/* Business Name */}
+{!collapsed && (
+  <div className="px-4 pb-2">
+    <h2 className="text-base font-bold truncate text-[#ec4e20]">
+      {business?.name}
+    </h2>
+  </div>
+)}
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 px-2">

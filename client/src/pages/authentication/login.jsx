@@ -88,13 +88,13 @@ function Login() {
                         <i className={`fa-solid ${hiddenPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
                     </span>
                 </div>
-                <select value={role} onChange={e => setRole(e.target.value)}
+                {/* <select value={role} onChange={e => setRole(e.target.value)}
                 >
                     <option value="">Choose your role</option>
                     <option value="merchant">Merchant</option>
                     <option value="admin">Admin</option>
                     <option value="clerk">Clerk</option>
-                </select>
+                </select> */}
 
                 <button type="submit">{isLoggedIn ? 'Logging in... ' : 'Log in'}</button>
             </form>
