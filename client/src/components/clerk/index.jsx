@@ -1,30 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
 const ClerkLayout = () => {
-  const { id } = useParams(); // store ID from route
   const [clerk, setClerk] = useState(null);
   const [store, setStore] = useState(null);
+  const navigate = useNavigate();
 
-  const clerkId = 2; // 🔒 Hardcoded for now — update with real login logic later
-
-  // Fetch clerk and their store
   useEffect(() => {
-    fetch(`http://localhost:3001/users/${clerkId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setClerk(data);
-        return fetch(`http://localhost:3001/stores/${data.store_id}`);
+    const userStr = localStorage.getItem('user');
+    if (!userStr) {
+      console.warn("No user found in localStorage. Redirecting...");
+      navigate("/login"); // Redirect to login page
+      return;
+    }
+
+    const user = JSON.parse(userStr);
+
+    fetch(`http://127.0.0.1:5000/user/${user.id}`, { credentials: 'include' })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch user');
+        return res.json();
       })
-      .then((res) => res.json())
-      .then((storeData) => {
+      .then(data => {
+        setClerk(data);
+        return fetch(`http://127.0.0.1:5000/store/${data.store_id}`, { credentials: 'include' });
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch store');
+        return res.json();
+      })
+      .then(storeData => {
         setStore(storeData);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error("Error loading clerk or store", err);
+        navigate("/error"); // optional: redirect to error page
       });
-  }, []);
+  }, [navigate]);
 
   if (!clerk || !store) {
     return (
@@ -51,7 +64,7 @@ const ClerkLayout = () => {
               Store: {store.name} – {store.location}
             </p>
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500 text-right">
             <p>Email: {clerk.email}</p>
             <p className="text-xs">Clerk ID: {clerk.id}</p>
           </div>

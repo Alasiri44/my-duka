@@ -38,12 +38,17 @@ const ClerkDash = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const clerkId = 2; // Hardcoded clerk
-        const userRes = await axios.get(`${API_URL}/users/${clerkId}`);
-        const user = userRes.data;
+        // Get logged-in user from localStorage (set after login)
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+          // Not logged in, redirect or show error
+          return;
+        }
+        const user = JSON.parse(userStr);
         setClerk(user);
 
-        const storeRes = await axios.get(`${API_URL}/stores/${user.store_id}`);
+        // Get store details
+        const storeRes = await axios.get(`${API_URL}/store/${user.store_id}`);
         const store = storeRes.data;
         setStore(store);
 
@@ -57,8 +62,8 @@ const ClerkDash = () => {
           batchesRes,
           mpesaRes
         ] = await Promise.all([
-          axios.get(`${API_URL}/categories?store_id=${storeId}`),
-          axios.get(`${API_URL}/products?store_id=${storeId}`),
+          axios.get(`${API_URL}/category`), // No store filter in backend, fetch all
+          axios.get(`${API_URL}/product/store/${storeId}`),
           axios.get(`${API_URL}/stock_entries?store_id=${storeId}`),
           axios.get(`${API_URL}/stock_exits?store_id=${storeId}`),
           axios.get(`${API_URL}/batches?store_id=${storeId}`),

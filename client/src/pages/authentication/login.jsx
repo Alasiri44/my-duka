@@ -42,7 +42,7 @@ function Login() {
                     setError(data.message)
                 } else {
                     setIsLoggedIn(true)
-                    data.role = role
+                    localStorage.setItem('user', JSON.stringify(data))
                     const timer = setTimeout(() => {
                         navigate(`/${data.role}`, { replace: true });
                         dispatch(setUser(data))
