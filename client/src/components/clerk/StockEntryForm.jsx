@@ -99,6 +99,16 @@ const StockEntryForm = ({ clerkId = 2 }) => {
     e.preventDefault();
 
     try {
+      // 1. Create the batch first
+      const batchRes = await axios.post(`${API_URL}/batches`, {
+        store_id: storeId,
+        direction: 'in',
+        party: 'supplier',
+        created_by: clerkId,
+        created_at: new Date().toISOString(),
+      });
+      const createdBatchId = batchRes.data.id;
+
       for (const entry of entries) {
         let categoryId = entry.category_id;
         let productId = entry.product_id;
@@ -136,7 +146,7 @@ const StockEntryForm = ({ clerkId = 2 }) => {
         const payload = {
           product_id: Number(productId),
           clerk_id: clerkId,
-          batch_id: batchId,
+          batch_id: createdBatchId,
           supplier_id: Number(supplierId),
           quantity_received: Number(entry.quantity_received),
           buying_price: Number(entry.buying_price),

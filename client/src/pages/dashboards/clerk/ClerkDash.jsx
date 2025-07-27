@@ -57,7 +57,7 @@ const ClerkDash = () => {
           stockExitsRes,
           batchesRes
         ] = await Promise.all([
-          axios.get(`${API_URL}/category`), // No store filter in backend, fetch all
+          axios.get(`${API_URL}/category`),
           axios.get(`${API_URL}/product/store/${storeId}`),
           axios.get(`${API_URL}/stock_entries?store_id=${storeId}`),
           axios.get(`${API_URL}/stock_exits?store_id=${storeId}`),
