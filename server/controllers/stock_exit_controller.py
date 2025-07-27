@@ -41,6 +41,7 @@ class StockExits(Resource):
 
     def post(self):
         data = request.get_json()
+        print("Incoming payload:", data)
 
         new_exit = StockExit(
             store_id=data.get('store_id'),

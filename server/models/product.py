@@ -17,6 +17,7 @@ class Product(db.Model, SerializerMixin):
     
     business = db.relationship('Business', back_populates='products')
     category = db.relationship('Category', back_populates='products')
+    stock_exits = db.relationship('StockExit', back_populates='product')
     store = db.relationship('Store', back_populates='products')  # <-- Add this line
     supply_requests = db.relationship('Supply_Request', back_populates='product',)
     serialize_only = (

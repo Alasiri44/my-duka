@@ -23,10 +23,10 @@ const StockEntries = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:3000/stock_entries").then((r) => r.json()),
-      fetch("http://localhost:3000/users").then((r) => r.json()),
-      fetch("http://localhost:3000/products").then((r) => r.json()),
-      fetch("http://localhost:3000/suppliers").then((r) => r.json()),
+      fetch(`http://127.0.0.1:5000/stock_entries?store_id=${store.id}`).then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/user").then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/product").then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/supplier").then((r) => r.json()),
     ]).then(([entryData, userData, productData, supplierData]) => {
       setEntries(
         entryData.map((e) => ({

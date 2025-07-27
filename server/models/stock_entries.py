@@ -11,6 +11,7 @@ class Stock_Entry(db.Model, SerializerMixin):
     supplier_id = db.Column(db.Integer, db.ForeignKey('suppliers.id'), nullable=True)
     supply_request_id = db.Column(db.Integer, db.ForeignKey('supply_requests.id') ,nullable=True)
     quantity_received = db.Column(db.Integer)
+    spoilt = db.Column(db.Integer, default=0)
     buying_price = db.Column(db.Numeric(10, 2))
     payment_status = db.Column(db.String)
     payment_method = db.Column(db.String)

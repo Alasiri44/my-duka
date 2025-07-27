@@ -13,6 +13,7 @@ class Batch(db.Model, SerializerMixin):
     
     stock_entries = db.relationship('Stock_Entry', back_populates='batch', cascade='all, delete-orphan')
     store = db.relationship('Store', back_populates='batches')
+    stock_exits = db.relationship('StockExit', back_populates='batch')
     creator = db.relationship('User', back_populates='batches')
     serialize_only = ('id', 'store_id', 'direction', 'party', 'created_by')
     

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'http://127.0.0.1:5000';
 
 const StockExitForm = ({ clerkId = 2 }) => {
   const [clerk, setClerk] = useState(null);
   const [storeId, setStoreId] = useState(null);
-  const [batchId, setBatchId] = useState(null);
   const [products, setProducts] = useState([]);
   const [successMsg, setSuccessMsg] = useState('');
   const [party, setParty] = useState('');
@@ -23,17 +22,12 @@ const StockExitForm = ({ clerkId = 2 }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = (await axios.get(`${API_URL}/users/${clerkId}`)).data;
+      const user = (await axios.get(`${API_URL}/user/${clerkId}`)).data;
       setClerk(user);
       setStoreId(user.store_id);
 
-      const [productRes, batchRes] = await Promise.all([
-        axios.get(`${API_URL}/products?store_id=${user.store_id}`),
-        axios.get(`${API_URL}/batches?store_id=${user.store_id}`),
-      ]);
-
+      const productRes = await axios.get(`${API_URL}/product?store_id=${user.store_id}`);
       setProducts(productRes.data);
-      setBatchId(batchRes.data.length > 0 ? batchRes.data.slice(-1)[0].id + 1 : 1);
     };
 
     fetchData();
@@ -73,6 +67,7 @@ const StockExitForm = ({ clerkId = 2 }) => {
       // Post exits
       for (const exit of exits) {
         const payload = {
+          store_id: storeId,
           product_id: Number(exit.product_id),
           quantity: Number(exit.quantity),
           selling_price: Number(exit.selling_price),
@@ -89,7 +84,7 @@ const StockExitForm = ({ clerkId = 2 }) => {
       setExits([{ product_id: '', quantity: '', selling_price: '', reason: 'sold' }]);
       setParty('');
     } catch (err) {
-      console.error(err);
+      console.error(err.response ? err.response.data : err);
       alert('Submission failed');
     }
   };

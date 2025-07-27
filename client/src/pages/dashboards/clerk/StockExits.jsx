@@ -23,17 +23,17 @@ const StockExits = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:3001/stock_exits").then((r) => r.json()),
-      fetch("http://localhost:3001/users").then((r) => r.json()),
-      fetch("http://localhost:3001/products").then((r) => r.json()),
-      fetch("http://localhost:3001/suppliers").then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/stock_exits").then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/user").then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/product").then((r) => r.json()),
+      fetch("http://127.0.0.1:5000/supplier").then((r) => r.json()),
     ]).then(([exitData, userData, productData, supplierData]) => {
       setExits(
         exitData.map((e) => ({
           ...e,
           clerk_id: Number(e.clerk_id ?? e.recorded_by), // support both keys
           product_id: Number(e.product_id),
-          quantity_sold: Number(e.quantity_sold ?? e.quantity), // support both keys
+          quantity: Number(e.quantity ?? e.quantity), // support both keys
           selling_price: Number(e.selling_price),
           supplier_id: Number(e.supplier_id ?? 1), // default to 1 if missing
           payment_status: e.payment_status ?? "paid", // default to 'paid' if missing
