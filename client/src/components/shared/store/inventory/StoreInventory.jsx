@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 
 const StoreInventory = () => {
   const { store } = useOutletContext();
@@ -200,7 +200,14 @@ const StoreInventory = () => {
                     key={product.id}
                     className="border-t border-[#f2f0ed] even:bg-[#f9f9f9] odd:bg-white hover:bg-[#f2f2f2] transition"
                   >
-                    <td className="px-3 py-2">{product.name}</td>
+                    <td className="px-3 py-2">
+                      <Link
+                        to={`/clerk/inventory/products/${product.id}`}
+                        className="text-[#011638] hover:underline"
+                      >
+                        {product.name}
+                      </Link>
+                    </td>
                     <td className="px-3 py-2">
                       {getCategoryName(product.category_id)}
                     </td>

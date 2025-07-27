@@ -12,7 +12,7 @@ sqlalchemy-serializer = "*"
 python-dotenv = "*"
 flask-restful = "*"
 flask-bcrypt = "*"
-psycopg2 = "*"
+flask-mail = "*"
 
 [dev-packages]
 

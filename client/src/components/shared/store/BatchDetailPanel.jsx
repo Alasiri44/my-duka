@@ -40,9 +40,13 @@ const BatchDetailPanel = ({
               <tr key={entry.id} className="border-t even:bg-[#fafafa]">
                 <td className="px-2 py-2">{getProductName(entry.product_id)}</td>
                 <td className="px-2 py-2">{entry.quantity_received}</td>
-                <td className="px-2 py-2">KES {entry.buying_price.toFixed(2)}</td>
                 <td className="px-2 py-2">
-                  KES {(entry.buying_price * entry.quantity_received).toFixed(2)}
+                  KES {typeof entry.buying_price === "number" ? entry.buying_price.toFixed(2) : "0.00"}
+                </td>
+                <td className="px-2 py-2">
+                  KES {typeof entry.buying_price === "number" && typeof entry.quantity_received === "number"
+                    ? (entry.buying_price * entry.quantity_received).toFixed(2)
+                    : "0.00"}
                 </td>
                 <td className="px-2 py-2">{getClerkName(entry.clerk_id)}</td>
                 <td className="px-2 py-2">{getSupplierName(entry.supplier_id)}</td>

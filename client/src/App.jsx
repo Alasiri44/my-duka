@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import adminRoutes from "./routes/admin";
-import clerkRoutes from "./routes/clerk";
+import clerkRoutes from "./routes/clerks";
 import merchantRoutes from "./routes/merchant";
 import { RouterProvider, createBrowserRouter, Navigate, BrowserRouter } from "react-router-dom";
 import { setUser } from "./redux/slices/authSlice";
@@ -9,6 +9,7 @@ import Login from "./pages/authentication/login";
 import Signup from "./pages/authentication/signup";
 import LandingPage from "./pages/landingPage";
 import CheckSession from "./utils/session";
+import PaymentForm from "./pages/payments/paymentForm";
 
 const testUsers = [
   {
@@ -62,6 +63,9 @@ export default function App() {
       {
         path: '/signup',
         element: < Signup />
+      },{
+        path: '/payment',
+        element: < PaymentForm/>
       },
       {
         path: "/login",
