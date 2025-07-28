@@ -32,7 +32,7 @@ class Users(Resource):
         db.session.add(new_user)
         db.session.commit()
 
-            msg = Message(
+        msg = Message(
                 subject=f"{new_user.role.capitalize()} Account Creation Successful",
                 sender='austinalasiri44@gmail.com',
                 recipients=[new_user.email],
@@ -54,7 +54,7 @@ class Users(Resource):
         MyDuka Team
         """
             )
-            mail.send(msg)
+        mail.send(msg)
         return make_response(new_user.to_dict(), 201)
 
 api.add_resource(Users, '/user')
