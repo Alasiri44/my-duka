@@ -10,7 +10,32 @@ import Signup from "./pages/authentication/signup";
 import LandingPage from "./pages/landingPage";
 import CheckSession from "./utils/session";
 import PaymentForm from "./pages/payments/paymentForm";
-import CustomerPaymentForm from "./pages/payments/customerPaymentForm";
+
+const testUsers = [
+  {
+    id: 1,
+    first_name: "Stephen",
+    last_name: "Njenga",
+    email: "stephen@myduka.co.ke",
+    role: "merchant",
+  },
+  {
+    id: 2,
+    store_id: 2,
+    first_name: "Thomas",
+    last_name: "Harison",
+    email: "andy@duka.com",
+    role: "admin",
+  },
+  {
+    id: 3,
+    store_id: 1,
+    first_name: "Clara",
+    last_name: "Clerk",
+    email: "clara@duka.com",
+    role: "clerk",
+  },
+];
 
 export default function App() {
   const user = useSelector((state) => state.auth.user);
@@ -41,10 +66,6 @@ export default function App() {
       },{
         path: '/payment',
         element: < PaymentForm/>
-      },
-      {
-        path: '/cpay',
-        element: < CustomerPaymentForm/>,
       },
       {
         path: "/login",
