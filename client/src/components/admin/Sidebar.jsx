@@ -122,5 +122,5 @@ const Sidebar = ({ businesses, currentId, store }) => {
     </motion.aside>
   );
 };
-
-export default Sidebar;
+}
+export default Sidebar
