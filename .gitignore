@@ -202,4 +202,4 @@ migrations/
 Pipfile.lock
 
 #flask session folder
-**/flask_session/
+flask_session/
