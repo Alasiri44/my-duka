@@ -91,6 +91,9 @@ api.add_resource(User_By_ID, '/user/<int:id>')
 
 # --- LOGIN ---
 class User_Login(Resource):
+    def options(self):
+        return make_response('', 200)
+
     def post(self):
         from ..app import bcrypt
         data = request.get_json()
@@ -108,10 +111,13 @@ class User_Login(Resource):
                 "email": user.email,
                 "first_name": user.first_name,
                 "last_name": user.last_name,
-                "role": user.role
+                "role": user.role,
+                "store_id": user.store_id
             }, 200)
 
         return make_response({"message": "Invalid credentials"}, 404)
+api.add_resource(User_Login, '/user/login')
+
 
 
 # --- USERS BY STORE ---
