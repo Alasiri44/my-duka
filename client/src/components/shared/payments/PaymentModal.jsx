@@ -14,14 +14,15 @@ const PaymentModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({
+    const paymentData ={
       amount,
       direction,
-      paymentMethod,
+      method: paymentMethod,
       mpesaReceipt: paymentMethod === "Mpesa" ? mpesaReceipt : undefined,
       phoneNumber: paymentMethod === "Mpesa" ? phoneNumber : undefined,
       cardNumber: paymentMethod === "Card" ? cardNumber : undefined,
-    });
+    };
+    onSubmit(paymentData)
   };
 
   if (!isOpen) return null;

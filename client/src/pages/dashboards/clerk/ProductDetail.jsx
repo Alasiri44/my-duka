@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useOutletContext } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import axios from 'axios';
 import {
   LineChart, Line, PieChart, Pie, Cell, BarChart, Bar,
@@ -8,9 +9,6 @@ import {
 import SupplyRequestModal from "../../../components/clerk/SupplyRequestModal";
 
 const COLORS = ['#8884d8', '#82ca9d'];
-const loggedInClerkId = 2;
-const storeId = 1;
-
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return isNaN(date) ? '—' : date.toLocaleDateString('en-US', {
@@ -36,24 +34,25 @@ const ProductDetail = () => {
   const [chartType, setChartType] = useState('line');
   const [viewMode, setViewMode] = useState('clerk');
   const [showModal, setShowModal] = useState(false);
+  const {user} = useSelector((state) => state.auth)
+  const { store } = useOutletContext();
+
 
   useEffect(() => {
     const fetchData = async () => {
       const [
-        productRes, entriesRes, exitsRes, batchesRes, mpesaRes, clerksRes
+        productRes, entriesRes, exitsRes, batchesRes, clerksRes
       ] = await Promise.all([
         axios.get(`http://127.0.0.1:5000/product/${productId}`),
         axios.get(`http://127.0.0.1:5000/stock_entries?product_id=${productId}`),
         axios.get(`http://127.0.0.1:5000/stock_exits?product_id=${productId}`),
         axios.get('http://127.0.0.1:5000/batches'),
-        // axios.get('http://localhost:3001/mpesa_transactions'),
         axios.get('http://127.0.0.1:5000/user/clerks')
       ]);
       setProduct(productRes.data);
       setEntries(entriesRes.data);
       setExits(exitsRes.data);
       setBatches(batchesRes.data);
-      // setMpesa(mpesaRes.data);
       setClerks(clerksRes.data);
     };
     fetchData();
@@ -64,15 +63,15 @@ const ProductDetail = () => {
 
   const filteredEntries = useMemo(() => entries.filter(entry => {
     const batch = batchMap[entry.batch_id];
-    if (viewMode === 'clerk') return entry.clerk_id === loggedInClerkId;
-    if (viewMode === 'store') return batch?.store_id === storeId;
+    if (viewMode === 'clerk') return entry.clerk_id === user.id
+    if (viewMode === 'store') return batch?.store_id === store.id;
     return true;
   }), [entries, viewMode, batchMap]);
 
   const filteredExits = useMemo(() => exits.filter(exit => {
     const batch = batchMap[exit.batch_id];
-    if (viewMode === 'clerk') return exit.recorded_by === loggedInClerkId;
-    if (viewMode === 'store') return batch?.store_id === storeId;
+    if (viewMode === 'clerk') return exit.recorded_by === user.id;
+    if (viewMode === 'store') return batch?.store_id === store.id;
     return true;
   }), [exits, viewMode, batchMap]);
 
