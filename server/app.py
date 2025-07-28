@@ -1,5 +1,5 @@
 from . import create_app
-from flask import make_response, session
+from flask import make_response, session, request
 from flask_session import Session
 from .controllers.merchant_controller import merchant_bp
 from .controllers.business_controller import business_bp
@@ -34,6 +34,17 @@ app.register_blueprint(email_bp)
 @app.route('/')
 def index():
     return make_response('<h1>Welcome to myDuka platform</h1>')
+
+
+@app.route('/api/mpesa/callback', methods=['POST'])
+def mpesa_callback():
+    data = request.get_json()
+    print("M-PESA Callback received:")
+    print(data)
+
+    # Optionally, save to DB or log file
+
+    return make_response(({"ResultCode": 0, "ResultDesc": "Callback received successfully"}), 200)
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

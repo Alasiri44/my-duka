@@ -1,0 +1,3431 @@
+{
+  "merchants": [
+    {
+      "id": "1",
+      "first_name": "Stephen",
+      "last_name": "Njenga",
+      "email": "stephen@myduka.co.ke",
+      "password_hash": "hashedpassword1",
+      "created_at": "2025-07-10T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "first_name": "Mercy",
+      "last_name": "Wambui",
+      "email": "mercy@myduka.co.ke",
+      "password_hash": "hashedpassword2",
+      "created_at": "2025-06-12T14:35:58.175228"
+    }
+  ],
+  "businesses": [
+    {
+      "id": "1",
+      "merchant_id": 1,
+      "name": "Kwa Mwaura Wholesalers",
+      "industry": "Retail",
+      "created_at": "2025-07-05T14:35:58.175228"
+    }
+  ],
+  "business_settings": [
+    {
+      "id": "1",
+      "business_id": 1,
+      "use_daraja": true,
+      "daraja_short_code": "601234",
+      "daraja_consumer_key": "abc123",
+      "daraja_consumer_secret": "secret123",
+      "daraja_passkey": "passkey123",
+      "daraja_environment": "sandbox",
+      "business_email": "info@kwamwaura.co.ke",
+      "business_phone": "0764659064",
+      "branding_logo_url": "https://example.com/logo.png",
+      "brand_color": "#2D9CDB",
+      "created_at": "2025-06-12T14:35:58.175228"
+    }
+  ],
+  "stores": [
+    {
+      "id": "1",
+      "business_id": 1,
+      "name": "CBD Branch",
+      "location": "1641 Nicholas Points",
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "business_id": 1,
+      "name": "Kawangware Branch",
+      "location": "0225 Miles Estates Apt. 619",
+      "created_at": "2025-07-12T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "business_id": 1,
+      "name": "Gikambura Branch",
+      "location": "05710 Elizabeth Crossroad Apt. 469",
+      "created_at": "2025-05-29T14:35:58.175228"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "store_id": 1,
+      "first_name": "Thomas",
+      "last_name": "Harrison",
+      "email": "matthew73@fowler.com",
+      "password_hash": "adminhash",
+      "role": "admin",
+      "is_active": true,
+      "created_at": "2025-05-09T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "store_id": 1,
+      "first_name": "Raymond",
+      "last_name": "Hammond",
+      "email": "ameyer@yahoo.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-05-06T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "store_id": 1,
+      "first_name": "William",
+      "last_name": "Boone",
+      "email": "mcintyredominique@rogers.biz",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "store_id": 1,
+      "first_name": "Nicole",
+      "last_name": "Sharp",
+      "email": "allen91@hotmail.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "store_id": 2,
+      "first_name": "Michael",
+      "last_name": "Kemp",
+      "email": "upatel@fowler.com",
+      "password_hash": "adminhash",
+      "role": "admin",
+      "is_active": true,
+      "created_at": "2025-07-10T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "store_id": 2,
+      "first_name": "Amy",
+      "last_name": "Hooper",
+      "email": "dgray@smith.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-26T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "store_id": 2,
+      "first_name": "Andrew",
+      "last_name": "Lindsey",
+      "email": "awalters@gmail.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-29T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "store_id": 2,
+      "first_name": "Christina",
+      "last_name": "Dixon",
+      "email": "hamiltonalan@bennett.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "store_id": 3,
+      "first_name": "Tricia",
+      "last_name": "Baker",
+      "email": "pottermatthew@yahoo.com",
+      "password_hash": "adminhash",
+      "role": "admin",
+      "is_active": true,
+      "created_at": "2025-05-06T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "store_id": 3,
+      "first_name": "Andrew",
+      "last_name": "Fields",
+      "email": "rbrown@watson.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "store_id": 3,
+      "first_name": "Mallory",
+      "last_name": "Burton",
+      "email": "dustin46@yahoo.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-04-18T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "store_id": 3,
+      "first_name": "David",
+      "last_name": "Proctor",
+      "email": "leahhughes@figueroa.com",
+      "password_hash": "clerkhash",
+      "role": "clerk",
+      "is_active": true,
+      "created_at": "2025-06-15T14:35:58.175228"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "1",
+      "business_id": 1,
+      "name": "Cole-Rodgers",
+      "contact_name": "Michelle Hayes",
+      "email": "bmoody@boyd.net",
+      "phone_number": "0731981756",
+      "paybill_number": "600001",
+      "till_number": "510001",
+      "address": "8185 Patricia Junctions",
+      "created_at": "2025-07-16T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "business_id": 1,
+      "name": "Nelson PLC",
+      "contact_name": "Stephen Baker",
+      "email": "mayschristopher@wagner.com",
+      "phone_number": "0768555945",
+      "paybill_number": "600002",
+      "till_number": "510002",
+      "address": "319 Miller Plaza Apt. 827",
+      "created_at": "2025-07-05T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "business_id": 1,
+      "name": "Cross-Waters",
+      "contact_name": "Ross Lane",
+      "email": "opeterson@buckley.org",
+      "phone_number": "0790208442",
+      "paybill_number": "600003",
+      "till_number": "510003",
+      "address": "9105 Cox Skyway Suite 553",
+      "created_at": "2025-05-29T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "business_id": 1,
+      "name": "Cooper-Molina",
+      "contact_name": "Catherine Rowland",
+      "email": "skinnernicholas@calderon-thompson.net",
+      "phone_number": "0719378727",
+      "paybill_number": "600004",
+      "till_number": "510004",
+      "address": "1414 Brown Light Apt. 964",
+      "created_at": "2025-07-16T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "business_id": 1,
+      "name": "Owens Ltd",
+      "contact_name": "Matthew Adams",
+      "email": "whart@rush.net",
+      "phone_number": "0752340186",
+      "paybill_number": "600005",
+      "till_number": "510005",
+      "address": "0210 Keller Street Apt. 780",
+      "created_at": "2025-05-20T14:35:58.175228"
+    },
+    {
+      "id": "94b2",
+      "name": "Mumias Sugars",
+      "store_id": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "business_id": 1,
+      "name": "Electronics",
+      "description": "Items under Electronics",
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "business_id": 1,
+      "name": "Toiletries",
+      "description": "Items under Toiletries",
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "business_id": 1,
+      "name": "Beverages",
+      "description": "Items under Beverages",
+      "created_at": "2025-07-05T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "business_id": 1,
+      "name": "Groceries",
+      "description": "Items under Groceries",
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "business_id": 1,
+      "name": "Cleaning Supplies",
+      "description": "Items under Cleaning Supplies",
+      "created_at": "2025-06-28T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "business_id": 1,
+      "name": "Personal Care",
+      "description": "Items under Personal Care",
+      "created_at": "2025-06-30T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "business_id": 1,
+      "name": "Snacks",
+      "description": "Items under Snacks",
+      "created_at": "2025-07-14T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "business_id": 1,
+      "name": "Baby Products",
+      "description": "Items under Baby Products",
+      "created_at": "2025-06-09T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "business_id": 1,
+      "name": "Stationery",
+      "description": "Items under Stationery",
+      "created_at": "2025-05-22T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "business_id": 1,
+      "name": "Household Items",
+      "description": "Items under Household Items",
+      "created_at": "2025-05-04T14:35:58.175228"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "store_id": 1,
+      "category_id": 9,
+      "name": "Exercise Book",
+      "description": "Exercise Book under Stationery",
+      "selling_price": 358.18,
+      "created_at": "2025-04-26T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "store_id": 1,
+      "category_id": 9,
+      "name": "Biro Pen",
+      "description": "Biro Pen under Stationery",
+      "selling_price": 498.9,
+      "created_at": "2025-05-26T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "store_id": 1,
+      "category_id": 9,
+      "name": "Glue Stick",
+      "description": "Glue Stick under Stationery",
+      "selling_price": 209.78,
+      "created_at": "2025-07-05T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "store_id": 1,
+      "category_id": 8,
+      "name": "Baby Wipes",
+      "description": "Baby Wipes under Baby Products",
+      "selling_price": 290.71,
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "store_id": 1,
+      "category_id": 8,
+      "name": "Baby Powder",
+      "description": "Baby Powder under Baby Products",
+      "selling_price": 151.21,
+      "created_at": "2025-05-05T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "store_id": 1,
+      "category_id": 8,
+      "name": "Pampers Diapers",
+      "description": "Pampers Diapers under Baby Products",
+      "selling_price": 440.22,
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "store_id": 1,
+      "category_id": 4,
+      "name": "Sugar 1kg",
+      "description": "Sugar 1kg under Groceries",
+      "selling_price": 458.7,
+      "created_at": "2025-05-13T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "store_id": 1,
+      "category_id": 4,
+      "name": "Maize Flour",
+      "description": "Maize Flour under Groceries",
+      "selling_price": 69.24,
+      "created_at": "2025-05-08T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "store_id": 1,
+      "category_id": 7,
+      "name": "Potato Crisps",
+      "description": "Potato Crisps under Snacks",
+      "selling_price": 96.45,
+      "created_at": "2025-04-29T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "store_id": 1,
+      "category_id": 7,
+      "name": "Chocolate Bar",
+      "description": "Chocolate Bar under Snacks",
+      "selling_price": 68.83,
+      "created_at": "2025-06-15T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "store_id": 1,
+      "category_id": 7,
+      "name": "Biscuit Pack",
+      "description": "Biscuit Pack under Snacks",
+      "selling_price": 284.39,
+      "created_at": "2025-06-10T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "store_id": 2,
+      "category_id": 7,
+      "name": "Chocolate Bar",
+      "description": "Chocolate Bar under Snacks",
+      "selling_price": 110.45,
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "13",
+      "store_id": 2,
+      "category_id": 7,
+      "name": "Potato Crisps",
+      "description": "Potato Crisps under Snacks",
+      "selling_price": 331.74,
+      "created_at": "2025-05-24T14:35:58.175228"
+    },
+    {
+      "id": "14",
+      "store_id": 2,
+      "category_id": 1,
+      "name": "Extension Cable",
+      "description": "Extension Cable under Electronics",
+      "selling_price": 167.16,
+      "created_at": "2025-07-13T14:35:58.175228"
+    },
+    {
+      "id": "15",
+      "store_id": 2,
+      "category_id": 1,
+      "name": "AA Batteries",
+      "description": "AA Batteries under Electronics",
+      "selling_price": 52.41,
+      "created_at": "2025-07-02T14:35:58.175228"
+    },
+    {
+      "id": "16",
+      "store_id": 2,
+      "category_id": 9,
+      "name": "Biro Pen",
+      "description": "Biro Pen under Stationery",
+      "selling_price": 318.85,
+      "created_at": "2025-04-23T14:35:58.175228"
+    },
+    {
+      "id": "17",
+      "store_id": 2,
+      "category_id": 9,
+      "name": "Glue Stick",
+      "description": "Glue Stick under Stationery",
+      "selling_price": 472.52,
+      "created_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "18",
+      "store_id": 2,
+      "category_id": 2,
+      "name": "Bath Soap",
+      "description": "Bath Soap under Toiletries",
+      "selling_price": 234.94,
+      "created_at": "2025-06-23T14:35:58.175228"
+    },
+    {
+      "id": "19",
+      "store_id": 2,
+      "category_id": 2,
+      "name": "Toilet Paper",
+      "description": "Toilet Paper under Toiletries",
+      "selling_price": 129.74,
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "20",
+      "store_id": 2,
+      "category_id": 2,
+      "name": "Toothpaste",
+      "description": "Toothpaste under Toiletries",
+      "selling_price": 229.74,
+      "created_at": "2025-06-24T14:35:58.175228"
+    },
+    {
+      "id": "21",
+      "store_id": 3,
+      "category_id": 9,
+      "name": "Exercise Book",
+      "description": "Exercise Book under Stationery",
+      "selling_price": 107,
+      "created_at": "2025-05-20T14:35:58.175228"
+    },
+    {
+      "id": "22",
+      "store_id": 3,
+      "category_id": 9,
+      "name": "Glue Stick",
+      "description": "Glue Stick under Stationery",
+      "selling_price": 472.2,
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "23",
+      "store_id": 3,
+      "category_id": 8,
+      "name": "Baby Wipes",
+      "description": "Baby Wipes under Baby Products",
+      "selling_price": 275.04,
+      "created_at": "2025-07-12T14:35:58.175228"
+    },
+    {
+      "id": "24",
+      "store_id": 3,
+      "category_id": 8,
+      "name": "Baby Powder",
+      "description": "Baby Powder under Baby Products",
+      "selling_price": 373.85,
+      "created_at": "2025-06-09T14:35:58.175228"
+    },
+    {
+      "id": "25",
+      "store_id": 3,
+      "category_id": 6,
+      "name": "Nivea Lotion",
+      "description": "Nivea Lotion under Personal Care",
+      "selling_price": 237.18,
+      "created_at": "2025-06-26T14:35:58.175228"
+    },
+    {
+      "id": "26",
+      "store_id": 3,
+      "category_id": 6,
+      "name": "Vaseline Jelly",
+      "description": "Vaseline Jelly under Personal Care",
+      "selling_price": 206.34,
+      "created_at": "2025-07-06T14:35:58.175228"
+    },
+    {
+      "id": "27",
+      "store_id": 3,
+      "category_id": 10,
+      "name": "Dustpan",
+      "description": "Dustpan under Household Items",
+      "selling_price": 136.6,
+      "created_at": "2025-06-08T14:35:58.175228"
+    },
+    {
+      "id": "28",
+      "store_id": 3,
+      "category_id": 10,
+      "name": "Bucket",
+      "description": "Bucket under Household Items",
+      "selling_price": 405.76,
+      "created_at": "2025-06-14T14:35:58.175228"
+    }
+  ],
+  "batches": [
+    {
+      "id": "1",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Bolton-Thomas",
+      "created_by": 4,
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Snow-Walker",
+      "created_by": 4,
+      "created_at": "2025-06-13T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Julie Lam",
+      "created_by": 4,
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Patricia Roberts",
+      "created_by": 2,
+      "created_at": "2025-04-27T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Santana, Smith and Blair",
+      "created_by": 4,
+      "created_at": "2025-05-08T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Watts Inc",
+      "created_by": 4,
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Dominique Cowan",
+      "created_by": 4,
+      "created_at": "2025-06-12T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Andrew Smith",
+      "created_by": 2,
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Martin, Williams and Warren",
+      "created_by": 3,
+      "created_at": "2025-05-08T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Mcintosh, Franco and Turner",
+      "created_by": 3,
+      "created_at": "2025-07-12T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Julie Campbell",
+      "created_by": 4,
+      "created_at": "2025-06-16T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Jeremy Gardner",
+      "created_by": 4,
+      "created_at": "2025-05-28T14:35:58.175228"
+    },
+    {
+      "id": "13",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Aguirre-Meyer",
+      "created_by": 4,
+      "created_at": "2025-07-09T14:35:58.175228"
+    },
+    {
+      "id": "14",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Reid Group",
+      "created_by": 4,
+      "created_at": "2025-05-20T14:35:58.175228"
+    },
+    {
+      "id": "15",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Rick Rodriguez",
+      "created_by": 4,
+      "created_at": "2025-05-12T14:35:58.175228"
+    },
+    {
+      "id": "16",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Pamela Graham",
+      "created_by": 4,
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "17",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Moore-Taylor",
+      "created_by": 2,
+      "created_at": "2025-06-12T14:35:58.175228"
+    },
+    {
+      "id": "18",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Davila Inc",
+      "created_by": 3,
+      "created_at": "2025-05-05T14:35:58.175228"
+    },
+    {
+      "id": "19",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Daniel Powell",
+      "created_by": 4,
+      "created_at": "2025-06-29T14:35:58.175228"
+    },
+    {
+      "id": "20",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Jason Morris",
+      "created_by": 3,
+      "created_at": "2025-05-27T14:35:58.175228"
+    },
+    {
+      "id": "21",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Williams and Sons",
+      "created_by": 2,
+      "created_at": "2025-05-13T14:35:58.175228"
+    },
+    {
+      "id": "22",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Tanner, Farrell and Hale",
+      "created_by": 4,
+      "created_at": "2025-07-01T14:35:58.175228"
+    },
+    {
+      "id": "23",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Elizabeth Campbell",
+      "created_by": 3,
+      "created_at": "2025-07-09T14:35:58.175228"
+    },
+    {
+      "id": "24",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Erika Robertson",
+      "created_by": 3,
+      "created_at": "2025-06-24T14:35:58.175228"
+    },
+    {
+      "id": "25",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Ward, Hernandez and Walker",
+      "created_by": 2,
+      "created_at": "2025-05-29T14:35:58.175228"
+    },
+    {
+      "id": "26",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Dixon Group",
+      "created_by": 4,
+      "created_at": "2025-06-05T14:35:58.175228"
+    },
+    {
+      "id": "27",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Colin Jones",
+      "created_by": 2,
+      "created_at": "2025-06-23T14:35:58.175228"
+    },
+    {
+      "id": "28",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Sheena Mitchell",
+      "created_by": 4,
+      "created_at": "2025-05-14T14:35:58.175228"
+    },
+    {
+      "id": "29",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Simon-Gaines",
+      "created_by": 3,
+      "created_at": "2025-05-18T14:35:58.175228"
+    },
+    {
+      "id": "30",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Martinez LLC",
+      "created_by": 3,
+      "created_at": "2025-06-17T14:35:58.175228"
+    },
+    {
+      "id": "31",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Alicia Meyer",
+      "created_by": 2,
+      "created_at": "2025-06-21T14:35:58.175228"
+    },
+    {
+      "id": "32",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Daniel Zuniga",
+      "created_by": 2,
+      "created_at": "2025-05-10T14:35:58.175228"
+    },
+    {
+      "id": "33",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Romero Inc",
+      "created_by": 2,
+      "created_at": "2025-05-11T14:35:58.175228"
+    },
+    {
+      "id": "34",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Beck, Fitzgerald and Deleon",
+      "created_by": 3,
+      "created_at": "2025-06-27T14:35:58.175228"
+    },
+    {
+      "id": "35",
+      "store_id": 1,
+      "direction": "out",
+      "party": "James Barnes",
+      "created_by": 2,
+      "created_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "36",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Brenda Roy",
+      "created_by": 3,
+      "created_at": "2025-04-24T14:35:58.175228"
+    },
+    {
+      "id": "37",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Mccormick Inc",
+      "created_by": 4,
+      "created_at": "2025-06-09T14:35:58.175228"
+    },
+    {
+      "id": "38",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Johnson-Thomas",
+      "created_by": 3,
+      "created_at": "2025-06-18T14:35:58.175228"
+    },
+    {
+      "id": "39",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Timothy Stanley",
+      "created_by": 4,
+      "created_at": "2025-07-03T14:35:58.175228"
+    },
+    {
+      "id": "40",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Christian Murray",
+      "created_by": 3,
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "41",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Taylor Inc",
+      "created_by": 2,
+      "created_at": "2025-05-28T14:35:58.175228"
+    },
+    {
+      "id": "42",
+      "store_id": 1,
+      "direction": "in",
+      "party": "Gonzales-Burnett",
+      "created_by": 2,
+      "created_at": "2025-05-28T14:35:58.175228"
+    },
+    {
+      "id": "43",
+      "store_id": 1,
+      "direction": "out",
+      "party": "David Glover",
+      "created_by": 2,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "44",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Charles Leonard",
+      "created_by": 2,
+      "created_at": "2025-05-19T14:35:58.175228"
+    },
+    {
+      "id": "45",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Murphy-Morales",
+      "created_by": 7,
+      "created_at": "2025-06-20T14:35:58.175228"
+    },
+    {
+      "id": "46",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Briggs Inc",
+      "created_by": 6,
+      "created_at": "2025-07-09T14:35:58.175228"
+    },
+    {
+      "id": "47",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Ashley Wright",
+      "created_by": 8,
+      "created_at": "2025-07-16T14:35:58.175228"
+    },
+    {
+      "id": "48",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Justin Smith",
+      "created_by": 7,
+      "created_at": "2025-05-24T14:35:58.175228"
+    },
+    {
+      "id": "49",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Kline, Davidson and Rich",
+      "created_by": 8,
+      "created_at": "2025-07-16T14:35:58.175228"
+    },
+    {
+      "id": "50",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Baker, Fisher and Joyce",
+      "created_by": 8,
+      "created_at": "2025-06-23T14:35:58.175228"
+    },
+    {
+      "id": "51",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Mark Bradford",
+      "created_by": 8,
+      "created_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "52",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Lindsey Bailey",
+      "created_by": 7,
+      "created_at": "2025-05-16T14:35:58.175228"
+    },
+    {
+      "id": "53",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Skinner, Mcbride and Hunter",
+      "created_by": 6,
+      "created_at": "2025-04-30T14:35:58.175228"
+    },
+    {
+      "id": "54",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Lucas Inc",
+      "created_by": 6,
+      "created_at": "2025-05-31T14:35:58.175228"
+    },
+    {
+      "id": "55",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Clifford Nguyen",
+      "created_by": 6,
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "56",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Morgan Frye",
+      "created_by": 7,
+      "created_at": "2025-04-26T14:35:58.175228"
+    },
+    {
+      "id": "57",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Gonzalez, Reid and Jones",
+      "created_by": 7,
+      "created_at": "2025-06-30T14:35:58.175228"
+    },
+    {
+      "id": "58",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Bowen Group",
+      "created_by": 7,
+      "created_at": "2025-06-30T14:35:58.175228"
+    },
+    {
+      "id": "59",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Diane Zamora",
+      "created_by": 7,
+      "created_at": "2025-06-07T14:35:58.175228"
+    },
+    {
+      "id": "60",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Mrs. Alyssa Chandler",
+      "created_by": 8,
+      "created_at": "2025-05-27T14:35:58.175228"
+    },
+    {
+      "id": "61",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Chambers, Deleon and Diaz",
+      "created_by": 6,
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "62",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Taylor Ltd",
+      "created_by": 6,
+      "created_at": "2025-05-23T14:35:58.175228"
+    },
+    {
+      "id": "63",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Debra Orozco",
+      "created_by": 6,
+      "created_at": "2025-07-08T14:35:58.175228"
+    },
+    {
+      "id": "64",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Anthony Scott",
+      "created_by": 7,
+      "created_at": "2025-05-05T14:35:58.175228"
+    },
+    {
+      "id": "65",
+      "store_id": 2,
+      "direction": "in",
+      "party": "King Inc",
+      "created_by": 6,
+      "created_at": "2025-04-18T14:35:58.175228"
+    },
+    {
+      "id": "66",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Green, Sparks and Shields",
+      "created_by": 6,
+      "created_at": "2025-07-10T14:35:58.175228"
+    },
+    {
+      "id": "67",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Barbara Hendricks",
+      "created_by": 6,
+      "created_at": "2025-06-19T14:35:58.175228"
+    },
+    {
+      "id": "68",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Robert Delacruz",
+      "created_by": 6,
+      "created_at": "2025-04-17T14:35:58.175228"
+    },
+    {
+      "id": "69",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Parker, Frye and Smith",
+      "created_by": 6,
+      "created_at": "2025-05-11T14:35:58.175228"
+    },
+    {
+      "id": "70",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Harvey Group",
+      "created_by": 6,
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "71",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Sabrina Dyer",
+      "created_by": 6,
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "72",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Michael Wilkins",
+      "created_by": 6,
+      "created_at": "2025-05-15T14:35:58.175228"
+    },
+    {
+      "id": "73",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Hughes Group",
+      "created_by": 6,
+      "created_at": "2025-04-21T14:35:58.175228"
+    },
+    {
+      "id": "74",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Allen Inc",
+      "created_by": 6,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "75",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Beverly Boone",
+      "created_by": 8,
+      "created_at": "2025-06-28T14:35:58.175228"
+    },
+    {
+      "id": "76",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Derek Jackson",
+      "created_by": 6,
+      "created_at": "2025-04-24T14:35:58.175228"
+    },
+    {
+      "id": "77",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Clayton-Brown",
+      "created_by": 8,
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "78",
+      "store_id": 2,
+      "direction": "in",
+      "party": "Martinez PLC",
+      "created_by": 8,
+      "created_at": "2025-06-06T14:35:58.175228"
+    },
+    {
+      "id": "79",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Keith Little",
+      "created_by": 7,
+      "created_at": "2025-07-15T14:35:58.175228"
+    },
+    {
+      "id": "80",
+      "store_id": 2,
+      "direction": "out",
+      "party": "Chelsea Collins",
+      "created_by": 7,
+      "created_at": "2025-06-05T14:35:58.175228"
+    },
+    {
+      "id": "81",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Kelley, Stanley and Kaiser",
+      "created_by": 12,
+      "created_at": "2025-06-02T14:35:58.175228"
+    },
+    {
+      "id": "82",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Thomas, Mitchell and Woodward",
+      "created_by": 12,
+      "created_at": "2025-06-30T14:35:58.175228"
+    },
+    {
+      "id": "83",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Jonathan Henderson",
+      "created_by": 11,
+      "created_at": "2025-04-18T14:35:58.175228"
+    },
+    {
+      "id": "84",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Rebecca Moore",
+      "created_by": 10,
+      "created_at": "2025-05-27T14:35:58.175228"
+    },
+    {
+      "id": "85",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Williams, Walker and Calderon",
+      "created_by": 11,
+      "created_at": "2025-06-24T14:35:58.175228"
+    },
+    {
+      "id": "86",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Lane-Lee",
+      "created_by": 11,
+      "created_at": "2025-05-20T14:35:58.175228"
+    },
+    {
+      "id": "87",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Ruth Hamilton",
+      "created_by": 11,
+      "created_at": "2025-05-29T14:35:58.175228"
+    },
+    {
+      "id": "88",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Holly Duffy",
+      "created_by": 10,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "89",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Davis Inc",
+      "created_by": 11,
+      "created_at": "2025-06-06T14:35:58.175228"
+    },
+    {
+      "id": "90",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Frost, Miles and Clark",
+      "created_by": 11,
+      "created_at": "2025-06-27T14:35:58.175228"
+    },
+    {
+      "id": "91",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Scott Fox",
+      "created_by": 10,
+      "created_at": "2025-05-18T14:35:58.175228"
+    },
+    {
+      "id": "92",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Amber Jenkins",
+      "created_by": 12,
+      "created_at": "2025-05-20T14:35:58.175228"
+    },
+    {
+      "id": "93",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Andrade, Gilbert and Cook",
+      "created_by": 12,
+      "created_at": "2025-06-05T14:35:58.175228"
+    },
+    {
+      "id": "94",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Day Group",
+      "created_by": 12,
+      "created_at": "2025-04-18T14:35:58.175228"
+    },
+    {
+      "id": "95",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Mary Garcia",
+      "created_by": 12,
+      "created_at": "2025-05-28T14:35:58.175228"
+    },
+    {
+      "id": "96",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Christian Pratt",
+      "created_by": 11,
+      "created_at": "2025-04-19T14:35:58.175228"
+    },
+    {
+      "id": "97",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Casey Ltd",
+      "created_by": 11,
+      "created_at": "2025-04-29T14:35:58.175228"
+    },
+    {
+      "id": "98",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Turner, Dixon and Mccarthy",
+      "created_by": 12,
+      "created_at": "2025-07-10T14:35:58.175228"
+    },
+    {
+      "id": "99",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Ryan Ferguson",
+      "created_by": 10,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "100",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Tammy Davis",
+      "created_by": 11,
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "101",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Zamora PLC",
+      "created_by": 11,
+      "created_at": "2025-05-10T14:35:58.175228"
+    },
+    {
+      "id": "102",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Thomas, Blake and Harding",
+      "created_by": 11,
+      "created_at": "2025-06-16T14:35:58.175228"
+    },
+    {
+      "id": "103",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Jordan Rios",
+      "created_by": 12,
+      "created_at": "2025-05-26T14:35:58.175228"
+    },
+    {
+      "id": "104",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Samantha Mendoza",
+      "created_by": 11,
+      "created_at": "2025-05-22T14:35:58.175228"
+    },
+    {
+      "id": "105",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Phillips-Mullins",
+      "created_by": 12,
+      "created_at": "2025-06-28T14:35:58.175228"
+    },
+    {
+      "id": "106",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Wong-Mitchell",
+      "created_by": 10,
+      "created_at": "2025-05-14T14:35:58.175228"
+    },
+    {
+      "id": "107",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Kristine Willis",
+      "created_by": 12,
+      "created_at": "2025-04-27T14:35:58.175228"
+    },
+    {
+      "id": "108",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Gina Jackson",
+      "created_by": 12,
+      "created_at": "2025-06-17T14:35:58.175228"
+    },
+    {
+      "id": "109",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Williams-Davis",
+      "created_by": 11,
+      "created_at": "2025-06-16T14:35:58.175228"
+    },
+    {
+      "id": "110",
+      "store_id": 3,
+      "direction": "in",
+      "party": "Webster-Alvarado",
+      "created_by": 12,
+      "created_at": "2025-06-08T14:35:58.175228"
+    },
+    {
+      "id": "111",
+      "store_id": 3,
+      "direction": "out",
+      "party": "Vanessa Williamson",
+      "created_by": 11,
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "112",
+      "store_id": 3,
+      "direction": "out",
+      "party": "James Taylor",
+      "created_by": 11,
+      "created_at": "2025-07-02T14:35:58.175228"
+    },
+    {
+      "id": "0503",
+      "party": "Beth Kamau",
+      "direction": "out",
+      "created_at": "2025-07-24"
+    },
+    {
+      "id": "be99",
+      "party": "Maggie Njoroge",
+      "direction": "out",
+      "created_at": "2025-07-24"
+    },
+    {
+      "id": "4092",
+      "party": "Martha Njogu",
+      "direction": "out",
+      "created_at": "2025-07-24"
+    },
+    {
+      "id": "2662",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Pauline Kahinga",
+      "created_by": 2,
+      "created_at": "2025-07-24T00:00:00.000Z"
+    },
+    {
+      "id": "cf01",
+      "store_id": 1,
+      "direction": "out",
+      "party": "MARTIN Korir",
+      "created_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
+    },
+    {
+      "id": "6ad3",
+      "store_id": 1,
+      "direction": "out",
+      "party": "Philips Jones",
+      "created_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
+    }
+  ],
+  "stock_entries": [
+    {
+      "id": "1",
+      "product_id": 1,
+      "clerk_id": 4,
+      "batch_id": 1,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 18,
+      "buying_price": 131.12,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-15T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "product_id": 1,
+      "clerk_id": 4,
+      "batch_id": 2,
+      "supplier_id": 4,
+      "supply_request_id": null,
+      "quantity_received": 10,
+      "buying_price": 120.42,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-28T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "product_id": 2,
+      "clerk_id": 4,
+      "batch_id": 5,
+      "supplier_id": 4,
+      "supply_request_id": 1,
+      "quantity_received": 20,
+      "buying_price": 294.78,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-18T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "product_id": 2,
+      "clerk_id": 4,
+      "batch_id": 6,
+      "supplier_id": 3,
+      "supply_request_id": 1,
+      "quantity_received": 5,
+      "buying_price": 66.38,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-01T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "product_id": 3,
+      "clerk_id": 3,
+      "batch_id": 9,
+      "supplier_id": 3,
+      "supply_request_id": 2,
+      "quantity_received": 27,
+      "buying_price": 201.48,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-17T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "product_id": 3,
+      "clerk_id": 3,
+      "batch_id": 10,
+      "supplier_id": 1,
+      "supply_request_id": 2,
+      "quantity_received": 29,
+      "buying_price": 181.63,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-26T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "product_id": 4,
+      "clerk_id": 4,
+      "batch_id": 13,
+      "supplier_id": 4,
+      "supply_request_id": 3,
+      "quantity_received": 28,
+      "buying_price": 66.72,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "product_id": 4,
+      "clerk_id": 4,
+      "batch_id": 14,
+      "supplier_id": 5,
+      "supply_request_id": 3,
+      "quantity_received": 14,
+      "buying_price": 145.83,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-05T14:35:58.175228"
+    },
+    {
+      "id": "57",
+      "product_id": 5,
+      "clerk_id": 3,
+      "batch_id": 5,
+      "supplier_id": 4,
+      "supply_request_id": 3,
+      "quantity_received": 16,
+      "buying_price": 132.5,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-07-20T10:15:00.000000"
+    },
+    {
+      "id": "9",
+      "product_id": 5,
+      "clerk_id": 2,
+      "batch_id": 17,
+      "supplier_id": 4,
+      "supply_request_id": null,
+      "quantity_received": 21,
+      "buying_price": 95.67,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "product_id": 5,
+      "clerk_id": 3,
+      "batch_id": 18,
+      "supplier_id": 3,
+      "supply_request_id": null,
+      "quantity_received": 12,
+      "buying_price": 52.98,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "product_id": 6,
+      "clerk_id": 2,
+      "batch_id": 21,
+      "supplier_id": 3,
+      "supply_request_id": null,
+      "quantity_received": 9,
+      "buying_price": 194.63,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-18T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "product_id": 6,
+      "clerk_id": 4,
+      "batch_id": 22,
+      "supplier_id": 4,
+      "supply_request_id": null,
+      "quantity_received": 27,
+      "buying_price": 44.16,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-06T14:35:58.175228"
+    },
+    {
+      "id": "13",
+      "product_id": 7,
+      "clerk_id": 2,
+      "batch_id": 25,
+      "supplier_id": 4,
+      "supply_request_id": null,
+      "quantity_received": 6,
+      "buying_price": 188.21,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-04T14:35:58.175228"
+    },
+    {
+      "id": "14",
+      "product_id": 7,
+      "clerk_id": 4,
+      "batch_id": 26,
+      "supplier_id": 5,
+      "supply_request_id": null,
+      "quantity_received": 12,
+      "buying_price": 204.65,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-04T14:35:58.175228"
+    },
+    {
+      "id": "15",
+      "product_id": 8,
+      "clerk_id": 3,
+      "batch_id": 29,
+      "supplier_id": 3,
+      "supply_request_id": 4,
+      "quantity_received": 21,
+      "buying_price": 272.89,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-28T14:35:58.175228"
+    },
+    {
+      "id": "16",
+      "product_id": 8,
+      "clerk_id": 3,
+      "batch_id": 30,
+      "supplier_id": 2,
+      "supply_request_id": 4,
+      "quantity_received": 27,
+      "buying_price": 269.69,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-24T14:35:58.175228"
+    },
+    {
+      "id": "17",
+      "product_id": 9,
+      "clerk_id": 2,
+      "batch_id": 33,
+      "supplier_id": 4,
+      "supply_request_id": null,
+      "quantity_received": 7,
+      "buying_price": 201.58,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-07-02T14:35:58.175228"
+    },
+    {
+      "id": "18",
+      "product_id": 9,
+      "clerk_id": 3,
+      "batch_id": 34,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 20,
+      "buying_price": 66.33,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-15T14:35:58.175228"
+    },
+    {
+      "id": "19",
+      "product_id": 10,
+      "clerk_id": 4,
+      "batch_id": 37,
+      "supplier_id": 2,
+      "supply_request_id": null,
+      "quantity_received": 10,
+      "buying_price": 112.13,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-12T14:35:58.175228"
+    },
+    {
+      "id": "20",
+      "product_id": 10,
+      "clerk_id": 3,
+      "batch_id": 38,
+      "supplier_id": 5,
+      "supply_request_id": null,
+      "quantity_received": 21,
+      "buying_price": 208.85,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-22T14:35:58.175228"
+    },
+    {
+      "id": "21",
+      "product_id": 11,
+      "clerk_id": 2,
+      "batch_id": 41,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 6,
+      "buying_price": 58.55,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-22T14:35:58.175228"
+    },
+    {
+      "id": "22",
+      "product_id": 11,
+      "clerk_id": 2,
+      "batch_id": 42,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 10,
+      "buying_price": 143.07,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-26T14:35:58.175228"
+    },
+    {
+      "id": "23",
+      "product_id": 12,
+      "clerk_id": 7,
+      "batch_id": 45,
+      "supplier_id": 2,
+      "supply_request_id": null,
+      "quantity_received": 12,
+      "buying_price": 93.49,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-07-05T14:35:58.175228"
+    },
+    {
+      "id": "24",
+      "product_id": 12,
+      "clerk_id": 6,
+      "batch_id": 46,
+      "supplier_id": 2,
+      "supply_request_id": null,
+      "quantity_received": 22,
+      "buying_price": 47.44,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-30T14:35:58.175228"
+    },
+    {
+      "id": "25",
+      "product_id": 13,
+      "clerk_id": 8,
+      "batch_id": 49,
+      "supplier_id": 1,
+      "supply_request_id": 5,
+      "quantity_received": 30,
+      "buying_price": 124.65,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-29T14:35:58.175228"
+    },
+    {
+      "id": "26",
+      "product_id": 13,
+      "clerk_id": 8,
+      "batch_id": 50,
+      "supplier_id": 4,
+      "supply_request_id": 5,
+      "quantity_received": 24,
+      "buying_price": 117.92,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-04-26T14:35:58.175228"
+    },
+    {
+      "id": "27",
+      "product_id": 14,
+      "clerk_id": 6,
+      "batch_id": 53,
+      "supplier_id": 1,
+      "supply_request_id": 6,
+      "quantity_received": 8,
+      "buying_price": 103.02,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-14T14:35:58.175228"
+    },
+    {
+      "id": "28",
+      "product_id": 14,
+      "clerk_id": 6,
+      "batch_id": 54,
+      "supplier_id": 5,
+      "supply_request_id": 6,
+      "quantity_received": 9,
+      "buying_price": 98.06,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "29",
+      "product_id": 15,
+      "clerk_id": 7,
+      "batch_id": 57,
+      "supplier_id": 1,
+      "supply_request_id": 7,
+      "quantity_received": 17,
+      "buying_price": 30.09,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-24T14:35:58.175228"
+    },
+    {
+      "id": "30",
+      "product_id": 15,
+      "clerk_id": 7,
+      "batch_id": 58,
+      "supplier_id": 4,
+      "supply_request_id": 7,
+      "quantity_received": 30,
+      "buying_price": 258.74,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-25T14:35:58.175228"
+    },
+    {
+      "id": "31",
+      "product_id": 16,
+      "clerk_id": 6,
+      "batch_id": 61,
+      "supplier_id": 2,
+      "supply_request_id": null,
+      "quantity_received": 9,
+      "buying_price": 113.19,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-14T14:35:58.175228"
+    },
+    {
+      "id": "32",
+      "product_id": 16,
+      "clerk_id": 6,
+      "batch_id": 62,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 7,
+      "buying_price": 263.85,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "33",
+      "product_id": 17,
+      "clerk_id": 6,
+      "batch_id": 65,
+      "supplier_id": 5,
+      "supply_request_id": 8,
+      "quantity_received": 5,
+      "buying_price": 86.22,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-07-04T14:35:58.175228"
+    },
+    {
+      "id": "34",
+      "product_id": 17,
+      "clerk_id": 6,
+      "batch_id": 66,
+      "supplier_id": 3,
+      "supply_request_id": 8,
+      "quantity_received": 18,
+      "buying_price": 245.24,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-23T14:35:58.175228"
+    },
+    {
+      "id": "35",
+      "product_id": 18,
+      "clerk_id": 6,
+      "batch_id": 69,
+      "supplier_id": 2,
+      "supply_request_id": 9,
+      "quantity_received": 29,
+      "buying_price": 191.14,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-27T14:35:58.175228"
+    },
+    {
+      "id": "36",
+      "product_id": 18,
+      "clerk_id": 6,
+      "batch_id": 70,
+      "supplier_id": 3,
+      "supply_request_id": 9,
+      "quantity_received": 20,
+      "buying_price": 37.95,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-25T14:35:58.175228"
+    },
+    {
+      "id": "37",
+      "product_id": 19,
+      "clerk_id": 6,
+      "batch_id": 73,
+      "supplier_id": 5,
+      "supply_request_id": 10,
+      "quantity_received": 27,
+      "buying_price": 56.85,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-14T14:35:58.175228"
+    },
+    {
+      "id": "38",
+      "product_id": 19,
+      "clerk_id": 6,
+      "batch_id": 74,
+      "supplier_id": 3,
+      "supply_request_id": 10,
+      "quantity_received": 15,
+      "buying_price": 283.2,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-21T14:35:58.175228"
+    },
+    {
+      "id": "39",
+      "product_id": 20,
+      "clerk_id": 8,
+      "batch_id": 77,
+      "supplier_id": 5,
+      "supply_request_id": 11,
+      "quantity_received": 5,
+      "buying_price": 157.06,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-26T14:35:58.175228"
+    },
+    {
+      "id": "40",
+      "product_id": 20,
+      "clerk_id": 8,
+      "batch_id": 78,
+      "supplier_id": 3,
+      "supply_request_id": 11,
+      "quantity_received": 6,
+      "buying_price": 202.22,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-21T14:35:58.175228"
+    },
+    {
+      "id": "41",
+      "product_id": 21,
+      "clerk_id": 12,
+      "batch_id": 81,
+      "supplier_id": 5,
+      "supply_request_id": 12,
+      "quantity_received": 25,
+      "buying_price": 280.87,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-07T14:35:58.175228"
+    },
+    {
+      "id": "42",
+      "product_id": 21,
+      "clerk_id": 12,
+      "batch_id": 82,
+      "supplier_id": 4,
+      "supply_request_id": 12,
+      "quantity_received": 21,
+      "buying_price": 32.71,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-04-17T14:35:58.175228"
+    },
+    {
+      "id": "43",
+      "product_id": 22,
+      "clerk_id": 11,
+      "batch_id": 85,
+      "supplier_id": 4,
+      "supply_request_id": 13,
+      "quantity_received": 11,
+      "buying_price": 52.25,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-22T14:35:58.175228"
+    },
+    {
+      "id": "44",
+      "product_id": 22,
+      "clerk_id": 11,
+      "batch_id": 86,
+      "supplier_id": 3,
+      "supply_request_id": 13,
+      "quantity_received": 27,
+      "buying_price": 40.9,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-13T14:35:58.175228"
+    },
+    {
+      "id": "45",
+      "product_id": 23,
+      "clerk_id": 11,
+      "batch_id": 89,
+      "supplier_id": 5,
+      "supply_request_id": 14,
+      "quantity_received": 24,
+      "buying_price": 157.36,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-17T14:35:58.175228"
+    },
+    {
+      "id": "46",
+      "product_id": 23,
+      "clerk_id": 11,
+      "batch_id": 90,
+      "supplier_id": 3,
+      "supply_request_id": 14,
+      "quantity_received": 11,
+      "buying_price": 119.15,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-26T14:35:58.175228"
+    },
+    {
+      "id": "47",
+      "product_id": 24,
+      "clerk_id": 12,
+      "batch_id": 93,
+      "supplier_id": 1,
+      "supply_request_id": 15,
+      "quantity_received": 17,
+      "buying_price": 182.88,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-26T14:35:58.175228"
+    },
+    {
+      "id": "48",
+      "product_id": 24,
+      "clerk_id": 12,
+      "batch_id": 94,
+      "supplier_id": 5,
+      "supply_request_id": 15,
+      "quantity_received": 18,
+      "buying_price": 243.28,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-16T14:35:58.175228"
+    },
+    {
+      "id": "49",
+      "product_id": 25,
+      "clerk_id": 11,
+      "batch_id": 97,
+      "supplier_id": 2,
+      "supply_request_id": null,
+      "quantity_received": 12,
+      "buying_price": 195.58,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-05-02T14:35:58.175228"
+    },
+    {
+      "id": "50",
+      "product_id": 25,
+      "clerk_id": 12,
+      "batch_id": 98,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 29,
+      "buying_price": 264.17,
+      "payment_status": "paid",
+      "payment_method": "MPesa",
+      "created_at": "2025-06-23T14:35:58.175228"
+    },
+    {
+      "id": "51",
+      "product_id": 26,
+      "clerk_id": 11,
+      "batch_id": 101,
+      "supplier_id": 4,
+      "supply_request_id": 16,
+      "quantity_received": 6,
+      "buying_price": 193.63,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-27T14:35:58.175228"
+    },
+    {
+      "id": "52",
+      "product_id": 26,
+      "clerk_id": 11,
+      "batch_id": 102,
+      "supplier_id": 5,
+      "supply_request_id": 16,
+      "quantity_received": 26,
+      "buying_price": 112.85,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "53",
+      "product_id": 27,
+      "clerk_id": 12,
+      "batch_id": 105,
+      "supplier_id": 5,
+      "supply_request_id": null,
+      "quantity_received": 26,
+      "buying_price": 188.64,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-06-25T14:35:58.175228"
+    },
+    {
+      "id": "54",
+      "product_id": 27,
+      "clerk_id": 10,
+      "batch_id": 106,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 28,
+      "buying_price": 62.05,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-14T14:35:58.175228"
+    },
+    {
+      "id": "55",
+      "product_id": 28,
+      "clerk_id": 11,
+      "batch_id": 109,
+      "supplier_id": 1,
+      "supply_request_id": null,
+      "quantity_received": 9,
+      "buying_price": 196.68,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "created_at": "2025-05-25T14:35:58.175228"
+    },
+    {
+      "id": "56",
+      "product_id": 28,
+      "clerk_id": 12,
+      "batch_id": 110,
+      "supplier_id": 5,
+      "supply_request_id": null,
+      "quantity_received": 20,
+      "buying_price": 49.17,
+      "payment_status": "unpaid",
+      "payment_method": "MPesa",
+      "created_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "3449",
+      "product_id": "1",
+      "quantity_received": 5,
+      "buying_price": 65,
+      "spoilt": 4,
+      "payment_status": "paid",
+      "store_id": 1,
+      "created_at": "2025-07-21T12:21:03.059Z"
+    },
+    {
+      "id": "1e1d",
+      "product_id": 2,
+      "clerk_id": 2,
+      "batch_id": "441",
+      "supplier_id": 3,
+      "quantity_received": 20,
+      "buying_price": 293.78,
+      "spoilt": 2,
+      "payment_status": "paid",
+      "payment_method": "Mpesa",
+      "transaction_code": "AS3387FAS23S",
+      "store_id": 1,
+      "created_at": "2025-07-24T01:10:18.722Z"
+    },
+    {
+      "id": "c5d9",
+      "product_id": 7,
+      "clerk_id": 2,
+      "batch_id": "441",
+      "supplier_id": 4,
+      "quantity_received": 29,
+      "buying_price": 188.17,
+      "spoilt": 1,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "transaction_code": null,
+      "store_id": 1,
+      "created_at": "2025-07-24T03:49:05.840Z"
+    },
+    {
+      "id": "d8f6",
+      "product_id": 7,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": null,
+      "quantity_received": 10,
+      "buying_price": 126.45,
+      "spoilt": 0,
+      "payment_status": "unpaid",
+      "payment_method": "Cash",
+      "transaction_code": null,
+      "store_id": 1,
+      "created_at": "2025-07-24T22:20:24.939Z"
+    },
+    {
+      "id": "f4d4",
+      "product_id": 7,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": null,
+      "quantity_received": 12,
+      "buying_price": 188.76,
+      "spoilt": 0,
+      "payment_status": "paid",
+      "payment_method": "Mpesa",
+      "transaction_code": "TGO6CUIFEC",
+      "store_id": 1,
+      "created_at": "2025-07-24T22:29:58.286Z"
+    },
+    {
+      "id": "f640",
+      "product_id": 6,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": 3,
+      "quantity_received": 20,
+      "buying_price": 200,
+      "spoilt": 2,
+      "payment_status": "paid",
+      "payment_method": "Mpesa",
+      "transaction_code": "TGO6CU56Y",
+      "store_id": 1,
+      "created_at": "2025-07-25T01:53:59.270Z"
+    },
+    {
+      "id": "d297",
+      "product_id": 11,
+      "clerk_id": 2,
+      "batch_id": "cf011",
+      "supplier_id": 3,
+      "quantity_received": 39,
+      "buying_price": 119,
+      "spoilt": 0,
+      "payment_status": "paid",
+      "payment_method": "Cash",
+      "transaction_code": null,
+      "store_id": 1,
+      "created_at": "2025-07-25T01:53:59.298Z"
+    }
+  ],
+  "stock_exits": [
+    {
+      "id": "1",
+      "product_id": 1,
+      "recorded_by": 4,
+      "batch_id": 3,
+      "quantity": 1,
+      "selling_price": 358.18,
+      "reason": "sold",
+      "created_at": "2025-05-02T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "product_id": 1,
+      "recorded_by": 2,
+      "batch_id": 4,
+      "quantity": 6,
+      "selling_price": 358.18,
+      "reason": "sold",
+      "created_at": "2025-06-01T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "product_id": 2,
+      "recorded_by": 4,
+      "batch_id": 7,
+      "quantity": 7,
+      "selling_price": 498.9,
+      "reason": "damaged",
+      "created_at": "2025-05-24T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "product_id": 2,
+      "recorded_by": 2,
+      "batch_id": 8,
+      "quantity": 10,
+      "selling_price": 498.9,
+      "reason": "sold",
+      "created_at": "2025-05-12T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "product_id": 3,
+      "recorded_by": 4,
+      "batch_id": 11,
+      "quantity": 2,
+      "selling_price": 209.78,
+      "reason": "damaged",
+      "created_at": "2025-07-09T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "product_id": 3,
+      "recorded_by": 4,
+      "batch_id": 12,
+      "quantity": 9,
+      "selling_price": 209.78,
+      "reason": "expired",
+      "created_at": "2025-06-28T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "product_id": 4,
+      "recorded_by": 4,
+      "batch_id": 15,
+      "quantity": 9,
+      "selling_price": 290.71,
+      "reason": "sold",
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "product_id": 4,
+      "recorded_by": 4,
+      "batch_id": 16,
+      "quantity": 9,
+      "selling_price": 290.71,
+      "reason": "damaged",
+      "created_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "product_id": 5,
+      "recorded_by": 4,
+      "batch_id": 19,
+      "quantity": 9,
+      "selling_price": 151.21,
+      "reason": "sold",
+      "created_at": "2025-05-16T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "product_id": 5,
+      "recorded_by": 3,
+      "batch_id": 20,
+      "quantity": 1,
+      "selling_price": 151.21,
+      "reason": "expired",
+      "created_at": "2025-05-04T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "product_id": 6,
+      "recorded_by": 3,
+      "batch_id": 23,
+      "quantity": 7,
+      "selling_price": 440.22,
+      "reason": "expired",
+      "created_at": "2025-05-13T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "product_id": 6,
+      "recorded_by": 3,
+      "batch_id": 24,
+      "quantity": 9,
+      "selling_price": 440.22,
+      "reason": "expired",
+      "created_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "13",
+      "product_id": 7,
+      "recorded_by": 2,
+      "batch_id": 27,
+      "quantity": 2,
+      "selling_price": 458.7,
+      "reason": "sold",
+      "created_at": "2025-05-23T14:35:58.175228"
+    },
+    {
+      "id": "14",
+      "product_id": 7,
+      "recorded_by": 4,
+      "batch_id": 28,
+      "quantity": 3,
+      "selling_price": 458.7,
+      "reason": "expired",
+      "created_at": "2025-05-09T14:35:58.175228"
+    },
+    {
+      "id": "15",
+      "product_id": 8,
+      "recorded_by": 2,
+      "batch_id": 31,
+      "quantity": 1,
+      "selling_price": 69.24,
+      "reason": "expired",
+      "created_at": "2025-05-10T14:35:58.175228"
+    },
+    {
+      "id": "16",
+      "product_id": 8,
+      "recorded_by": 2,
+      "batch_id": 32,
+      "quantity": 4,
+      "selling_price": 69.24,
+      "reason": "expired",
+      "created_at": "2025-05-14T14:35:58.175228"
+    },
+    {
+      "id": "17",
+      "product_id": 9,
+      "recorded_by": 2,
+      "batch_id": 35,
+      "quantity": 7,
+      "selling_price": 96.45,
+      "reason": "sold",
+      "created_at": "2025-07-15T14:35:58.175228"
+    },
+    {
+      "id": "18",
+      "product_id": 9,
+      "recorded_by": 3,
+      "batch_id": 36,
+      "quantity": 6,
+      "selling_price": 96.45,
+      "reason": "damaged",
+      "created_at": "2025-07-13T14:35:58.175228"
+    },
+    {
+      "id": "19",
+      "product_id": 10,
+      "recorded_by": 4,
+      "batch_id": 39,
+      "quantity": 3,
+      "selling_price": 68.83,
+      "reason": "sold",
+      "created_at": "2025-05-19T14:35:58.175228"
+    },
+    {
+      "id": "20",
+      "product_id": 10,
+      "recorded_by": 3,
+      "batch_id": 40,
+      "quantity": 10,
+      "selling_price": 68.83,
+      "reason": "sold",
+      "created_at": "2025-05-21T14:35:58.175228"
+    },
+    {
+      "id": "21",
+      "product_id": 11,
+      "recorded_by": 2,
+      "batch_id": 43,
+      "quantity": 1,
+      "selling_price": 284.39,
+      "reason": "sold",
+      "created_at": "2025-06-28T14:35:58.175228"
+    },
+    {
+      "id": "22",
+      "product_id": 11,
+      "recorded_by": 2,
+      "batch_id": 44,
+      "quantity": 7,
+      "selling_price": 284.39,
+      "reason": "sold",
+      "created_at": "2025-04-23T14:35:58.175228"
+    },
+    {
+      "id": "23",
+      "product_id": 12,
+      "recorded_by": 8,
+      "batch_id": 47,
+      "quantity": 10,
+      "selling_price": 110.45,
+      "reason": "damaged",
+      "created_at": "2025-05-08T14:35:58.175228"
+    },
+    {
+      "id": "24",
+      "product_id": 12,
+      "recorded_by": 7,
+      "batch_id": 48,
+      "quantity": 9,
+      "selling_price": 110.45,
+      "reason": "expired",
+      "created_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "25",
+      "product_id": 13,
+      "recorded_by": 8,
+      "batch_id": 51,
+      "quantity": 4,
+      "selling_price": 331.74,
+      "reason": "sold",
+      "created_at": "2025-06-01T14:35:58.175228"
+    },
+    {
+      "id": "26",
+      "product_id": 13,
+      "recorded_by": 7,
+      "batch_id": 52,
+      "quantity": 5,
+      "selling_price": 331.74,
+      "reason": "damaged",
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "27",
+      "product_id": 14,
+      "recorded_by": 6,
+      "batch_id": 55,
+      "quantity": 9,
+      "selling_price": 167.16,
+      "reason": "sold",
+      "created_at": "2025-06-04T14:35:58.175228"
+    },
+    {
+      "id": "28",
+      "product_id": 14,
+      "recorded_by": 7,
+      "batch_id": 56,
+      "quantity": 5,
+      "selling_price": 167.16,
+      "reason": "expired",
+      "created_at": "2025-06-16T14:35:58.175228"
+    },
+    {
+      "id": "29",
+      "product_id": 15,
+      "recorded_by": 7,
+      "batch_id": 59,
+      "quantity": 2,
+      "selling_price": 52.41,
+      "reason": "sold",
+      "created_at": "2025-07-01T14:35:58.175228"
+    },
+    {
+      "id": "30",
+      "product_id": 15,
+      "recorded_by": 8,
+      "batch_id": 60,
+      "quantity": 5,
+      "selling_price": 52.41,
+      "reason": "damaged",
+      "created_at": "2025-07-10T14:35:58.175228"
+    },
+    {
+      "id": "31",
+      "product_id": 16,
+      "recorded_by": 6,
+      "batch_id": 63,
+      "quantity": 8,
+      "selling_price": 318.85,
+      "reason": "damaged",
+      "created_at": "2025-06-22T14:35:58.175228"
+    },
+    {
+      "id": "32",
+      "product_id": 16,
+      "recorded_by": 7,
+      "batch_id": 64,
+      "quantity": 7,
+      "selling_price": 318.85,
+      "reason": "damaged",
+      "created_at": "2025-05-09T14:35:58.175228"
+    },
+    {
+      "id": "33",
+      "product_id": 17,
+      "recorded_by": 6,
+      "batch_id": 67,
+      "quantity": 3,
+      "selling_price": 472.52,
+      "reason": "damaged",
+      "created_at": "2025-04-25T14:35:58.175228"
+    },
+    {
+      "id": "34",
+      "product_id": 17,
+      "recorded_by": 6,
+      "batch_id": 68,
+      "quantity": 10,
+      "selling_price": 472.52,
+      "reason": "expired",
+      "created_at": "2025-05-31T14:35:58.175228"
+    },
+    {
+      "id": "35",
+      "product_id": 18,
+      "recorded_by": 6,
+      "batch_id": 71,
+      "quantity": 6,
+      "selling_price": 234.94,
+      "reason": "sold",
+      "created_at": "2025-05-03T14:35:58.175228"
+    },
+    {
+      "id": "36",
+      "product_id": 18,
+      "recorded_by": 6,
+      "batch_id": 72,
+      "quantity": 6,
+      "selling_price": 234.94,
+      "reason": "expired",
+      "created_at": "2025-04-23T14:35:58.175228"
+    },
+    {
+      "id": "37",
+      "product_id": 19,
+      "recorded_by": 8,
+      "batch_id": 75,
+      "quantity": 6,
+      "selling_price": 129.74,
+      "reason": "sold",
+      "created_at": "2025-06-29T14:35:58.175228"
+    },
+    {
+      "id": "38",
+      "product_id": 19,
+      "recorded_by": 6,
+      "batch_id": 76,
+      "quantity": 3,
+      "selling_price": 129.74,
+      "reason": "damaged",
+      "created_at": "2025-04-20T14:35:58.175228"
+    },
+    {
+      "id": "39",
+      "product_id": 20,
+      "recorded_by": 7,
+      "batch_id": 79,
+      "quantity": 2,
+      "selling_price": 229.74,
+      "reason": "sold",
+      "created_at": "2025-06-01T14:35:58.175228"
+    },
+    {
+      "id": "40",
+      "product_id": 20,
+      "recorded_by": 7,
+      "batch_id": 80,
+      "quantity": 4,
+      "selling_price": 229.74,
+      "reason": "damaged",
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "41",
+      "product_id": 21,
+      "recorded_by": 11,
+      "batch_id": 83,
+      "quantity": 7,
+      "selling_price": 107,
+      "reason": "damaged",
+      "created_at": "2025-05-15T14:35:58.175228"
+    },
+    {
+      "id": "42",
+      "product_id": 21,
+      "recorded_by": 10,
+      "batch_id": 84,
+      "quantity": 2,
+      "selling_price": 107,
+      "reason": "expired",
+      "created_at": "2025-05-12T14:35:58.175228"
+    },
+    {
+      "id": "43",
+      "product_id": 22,
+      "recorded_by": 11,
+      "batch_id": 87,
+      "quantity": 6,
+      "selling_price": 472.2,
+      "reason": "expired",
+      "created_at": "2025-06-02T14:35:58.175228"
+    },
+    {
+      "id": "44",
+      "product_id": 22,
+      "recorded_by": 10,
+      "batch_id": 88,
+      "quantity": 10,
+      "selling_price": 472.2,
+      "reason": "sold",
+      "created_at": "2025-07-01T14:35:58.175228"
+    },
+    {
+      "id": "45",
+      "product_id": 23,
+      "recorded_by": 10,
+      "batch_id": 91,
+      "quantity": 8,
+      "selling_price": 275.04,
+      "reason": "expired",
+      "created_at": "2025-05-17T14:35:58.175228"
+    },
+    {
+      "id": "46",
+      "product_id": 23,
+      "recorded_by": 12,
+      "batch_id": 92,
+      "quantity": 8,
+      "selling_price": 275.04,
+      "reason": "expired",
+      "created_at": "2025-05-22T14:35:58.175228"
+    },
+    {
+      "id": "47",
+      "product_id": 24,
+      "recorded_by": 12,
+      "batch_id": 95,
+      "quantity": 9,
+      "selling_price": 373.85,
+      "reason": "sold",
+      "created_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "48",
+      "product_id": 24,
+      "recorded_by": 11,
+      "batch_id": 96,
+      "quantity": 3,
+      "selling_price": 373.85,
+      "reason": "sold",
+      "created_at": "2025-06-02T14:35:58.175228"
+    },
+    {
+      "id": "49",
+      "product_id": 25,
+      "recorded_by": 10,
+      "batch_id": 99,
+      "quantity": 10,
+      "selling_price": 237.18,
+      "reason": "damaged",
+      "created_at": "2025-06-26T14:35:58.175228"
+    },
+    {
+      "id": "50",
+      "product_id": 25,
+      "recorded_by": 11,
+      "batch_id": 100,
+      "quantity": 2,
+      "selling_price": 237.18,
+      "reason": "sold",
+      "created_at": "2025-07-11T14:35:58.175228"
+    },
+    {
+      "id": "51",
+      "product_id": 26,
+      "recorded_by": 12,
+      "batch_id": 103,
+      "quantity": 1,
+      "selling_price": 206.34,
+      "reason": "damaged",
+      "created_at": "2025-05-15T14:35:58.175228"
+    },
+    {
+      "id": "52",
+      "product_id": 26,
+      "recorded_by": 11,
+      "batch_id": 104,
+      "quantity": 7,
+      "selling_price": 206.34,
+      "reason": "damaged",
+      "created_at": "2025-05-01T14:35:58.175228"
+    },
+    {
+      "id": "53",
+      "product_id": 27,
+      "recorded_by": 12,
+      "batch_id": 107,
+      "quantity": 7,
+      "selling_price": 136.6,
+      "reason": "sold",
+      "created_at": "2025-05-07T14:35:58.175228"
+    },
+    {
+      "id": "54",
+      "product_id": 27,
+      "recorded_by": 12,
+      "batch_id": 108,
+      "quantity": 10,
+      "selling_price": 136.6,
+      "reason": "expired",
+      "created_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "55",
+      "product_id": 28,
+      "recorded_by": 11,
+      "batch_id": 111,
+      "quantity": 3,
+      "selling_price": 405.76,
+      "reason": "expired",
+      "created_at": "2025-05-18T14:35:58.175228"
+    },
+    {
+      "id": "56",
+      "product_id": 28,
+      "recorded_by": 11,
+      "batch_id": 112,
+      "quantity": 8,
+      "selling_price": 405.76,
+      "reason": "expired",
+      "created_at": "2025-06-02T14:35:58.175228"
+    },
+    {
+      "id": "6969",
+      "product_id": 14,
+      "quantity": 15,
+      "selling_price": 180,
+      "reason": "sold",
+      "batch_id": "4092",
+      "created_at": "2025-07-24"
+    },
+    {
+      "id": "57a7",
+      "product_id": 7,
+      "quantity": 15,
+      "selling_price": 458.56,
+      "reason": "sold",
+      "batch_id": "2662",
+      "recorded_by": 2,
+      "created_at": "2025-07-24T00:00:00.000Z"
+    },
+    {
+      "id": "d64e",
+      "product_id": 9,
+      "quantity": 10,
+      "selling_price": 98.23,
+      "reason": "sold",
+      "batch_id": "2662",
+      "recorded_by": 2,
+      "created_at": "2025-07-24T00:00:00.000Z"
+    },
+    {
+      "id": "c480",
+      "product_id": 7,
+      "quantity": 12,
+      "selling_price": 458.78,
+      "reason": "sold",
+      "batch_id": "cf01",
+      "recorded_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
+    },
+    {
+      "id": "48f1",
+      "product_id": 6,
+      "quantity": 54,
+      "selling_price": 300,
+      "reason": "sold",
+      "batch_id": "6ad3",
+      "recorded_by": 2,
+      "created_at": "2025-07-25T00:00:00.000Z"
+    }
+  ],
+  "supply_requests": [
+    {
+      "id": "1",
+      "product_id": 2,
+      "requested_by": 4,
+      "quantity": 73,
+      "status": "pending",
+      "reviewed_by": 1,
+      "created_at": "2025-04-27T14:35:58.175228",
+      "reviewed_at": "2025-06-17T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "product_id": 3,
+      "requested_by": 3,
+      "quantity": 78,
+      "status": "approved",
+      "reviewed_by": 1,
+      "created_at": "2025-05-29T14:35:58.175228",
+      "reviewed_at": "2025-07-07T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "product_id": 4,
+      "requested_by": 4,
+      "quantity": 85,
+      "status": "approved",
+      "reviewed_by": 1,
+      "created_at": "2025-05-28T14:35:58.175228",
+      "reviewed_at": "2025-05-22T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "product_id": 8,
+      "requested_by": 3,
+      "quantity": 38,
+      "status": "pending",
+      "reviewed_by": 1,
+      "created_at": "2025-05-01T14:35:58.175228",
+      "reviewed_at": "2025-07-12T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "product_id": 13,
+      "requested_by": 8,
+      "quantity": 54,
+      "status": "pending",
+      "reviewed_by": 5,
+      "created_at": "2025-06-06T14:35:58.175228",
+      "reviewed_at": "2025-04-19T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "product_id": 14,
+      "requested_by": 6,
+      "quantity": 33,
+      "status": "pending",
+      "reviewed_by": 5,
+      "created_at": "2025-07-04T14:35:58.175228",
+      "reviewed_at": "2025-06-29T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "product_id": 15,
+      "requested_by": 7,
+      "quantity": 55,
+      "status": "pending",
+      "reviewed_by": 5,
+      "created_at": "2025-04-21T14:35:58.175228",
+      "reviewed_at": "2025-06-23T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "product_id": 17,
+      "requested_by": 6,
+      "quantity": 15,
+      "status": "pending",
+      "reviewed_by": 5,
+      "created_at": "2025-05-09T14:35:58.175228",
+      "reviewed_at": "2025-06-07T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "product_id": 18,
+      "requested_by": 6,
+      "quantity": 87,
+      "status": "declined",
+      "reviewed_by": 5,
+      "created_at": "2025-04-17T14:35:58.175228",
+      "reviewed_at": "2025-06-28T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "product_id": 19,
+      "requested_by": 6,
+      "quantity": 59,
+      "status": "declined",
+      "reviewed_by": 5,
+      "created_at": "2025-06-29T14:35:58.175228",
+      "reviewed_at": "2025-05-13T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "product_id": 20,
+      "requested_by": 8,
+      "quantity": 33,
+      "status": "declined",
+      "reviewed_by": 5,
+      "created_at": "2025-05-15T14:35:58.175228",
+      "reviewed_at": "2025-05-13T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "product_id": 21,
+      "requested_by": 12,
+      "quantity": 64,
+      "status": "pending",
+      "reviewed_by": 9,
+      "created_at": "2025-04-26T14:35:58.175228",
+      "reviewed_at": "2025-07-15T14:35:58.175228"
+    },
+    {
+      "id": "13",
+      "product_id": 22,
+      "requested_by": 11,
+      "quantity": 98,
+      "status": "approved",
+      "reviewed_by": 9,
+      "created_at": "2025-07-01T14:35:58.175228",
+      "reviewed_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "14",
+      "product_id": 23,
+      "requested_by": 11,
+      "quantity": 99,
+      "status": "pending",
+      "reviewed_by": 9,
+      "created_at": "2025-06-10T14:35:58.175228",
+      "reviewed_at": "2025-06-27T14:35:58.175228"
+    },
+    {
+      "id": "15",
+      "product_id": 24,
+      "requested_by": 12,
+      "quantity": 69,
+      "status": "pending",
+      "reviewed_by": 9,
+      "created_at": "2025-07-04T14:35:58.175228",
+      "reviewed_at": "2025-04-29T14:35:58.175228"
+    },
+    {
+      "id": "16",
+      "product_id": 26,
+      "requested_by": 11,
+      "quantity": 32,
+      "status": "pending",
+      "reviewed_by": 9,
+      "created_at": "2025-07-04T14:35:58.175228",
+      "reviewed_at": "2025-05-06T14:35:58.175228"
+    },
+    {
+      "id": "76c3",
+      "product_id": "3",
+      "quantity": 7,
+      "status": "pending",
+      "reviewed_by": null,
+      "created_at": "2025-07-22T00:00:00.000Z",
+      "reviewed_at": null,
+      "note": "",
+      "supplier_id": 1
+    },
+    {
+      "id": "a8c6",
+      "product_id": "2",
+      "quantity": 10,
+      "status": "pending",
+      "reviewed_by": null,
+      "created_at": "2025-07-24T00:00:00.000Z",
+      "reviewed_at": null,
+      "note": "new red pens needed",
+      "supplier_id": 3
+    }
+  ],
+  "mpesa_transactions": [
+    {
+      "id": "1",
+      "business_id": 1,
+      "stock_entry_id": 6,
+      "phone_number": "0795373738",
+      "till_number": "510267",
+      "paybill_number": "600529",
+      "amount": 5267.27,
+      "type": "B2B",
+      "transaction_code": "MP167367",
+      "status": "failed",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-05-30T14:35:58.175228"
+    },
+    {
+      "id": "2",
+      "business_id": 1,
+      "stock_entry_id": 9,
+      "phone_number": "0777182329",
+      "till_number": "510182",
+      "paybill_number": "600301",
+      "amount": 2009.07,
+      "type": "B2B",
+      "transaction_code": "MP629668",
+      "status": "pending",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-06-22T14:35:58.175228"
+    },
+    {
+      "id": "3",
+      "business_id": 1,
+      "stock_entry_id": 12,
+      "phone_number": "0758139947",
+      "till_number": "510321",
+      "paybill_number": "600888",
+      "amount": 1192.32,
+      "type": "B2B",
+      "transaction_code": "MP570859",
+      "status": "success",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-06-23T14:35:58.175228"
+    },
+    {
+      "id": "4",
+      "business_id": 1,
+      "stock_entry_id": 14,
+      "phone_number": "0756178062",
+      "till_number": "510354",
+      "paybill_number": "600807",
+      "amount": 2455.8,
+      "type": "B2B",
+      "transaction_code": "MP577611",
+      "status": "failed",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-06-03T14:35:58.175228"
+    },
+    {
+      "id": "5",
+      "business_id": 1,
+      "stock_entry_id": 16,
+      "phone_number": "0757999706",
+      "till_number": "510535",
+      "paybill_number": "600144",
+      "amount": 7281.63,
+      "type": "B2B",
+      "transaction_code": "MP736547",
+      "status": "pending",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-04-21T14:35:58.175228"
+    },
+    {
+      "id": "6",
+      "business_id": 1,
+      "stock_entry_id": 17,
+      "phone_number": "0718073451",
+      "till_number": "510683",
+      "paybill_number": "600543",
+      "amount": 1411.06,
+      "type": "B2B",
+      "transaction_code": "MP898696",
+      "status": "failed",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-05-11T14:35:58.175228"
+    },
+    {
+      "id": "7",
+      "business_id": 1,
+      "stock_entry_id": 19,
+      "phone_number": "0713485136",
+      "till_number": "510866",
+      "paybill_number": "600470",
+      "amount": 1121.3,
+      "type": "B2B",
+      "transaction_code": "MP924261",
+      "status": "pending",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-06-18T14:35:58.175228"
+    },
+    {
+      "id": "8",
+      "business_id": 1,
+      "stock_entry_id": 20,
+      "phone_number": "0762356567",
+      "till_number": "510178",
+      "paybill_number": "600608",
+      "amount": 4385.85,
+      "type": "B2B",
+      "transaction_code": "MP144663",
+      "status": "success",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-05-17T14:35:58.175228"
+    },
+    {
+      "id": "9",
+      "business_id": 1,
+      "stock_entry_id": 23,
+      "phone_number": "0711280634",
+      "till_number": "510398",
+      "paybill_number": "600435",
+      "amount": 1121.88,
+      "type": "B2B",
+      "transaction_code": "MP801659",
+      "status": "success",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-06-17T14:35:58.175228"
+    },
+    {
+      "id": "10",
+      "business_id": 1,
+      "stock_entry_id": 34,
+      "phone_number": "0734486736",
+      "till_number": "510758",
+      "paybill_number": "600773",
+      "amount": 4414.32,
+      "type": "B2B",
+      "transaction_code": "MP524363",
+      "status": "success",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-07-05T14:35:58.175228"
+    },
+    {
+      "id": "11",
+      "business_id": 1,
+      "stock_entry_id": 36,
+      "phone_number": "0748146908",
+      "till_number": "510953",
+      "paybill_number": "600651",
+      "amount": 759,
+      "type": "B2B",
+      "transaction_code": "MP900686",
+      "status": "failed",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-06-21T14:35:58.175228"
+    },
+    {
+      "id": "12",
+      "business_id": 1,
+      "stock_entry_id": 38,
+      "phone_number": "0774543746",
+      "till_number": "510280",
+      "paybill_number": "600340",
+      "amount": 4248,
+      "type": "B2B",
+      "transaction_code": "MP207074",
+      "status": "failed",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-04-19T14:35:58.175228"
+    },
+    {
+      "id": "13",
+      "business_id": 1,
+      "stock_entry_id": 39,
+      "phone_number": "0768890229",
+      "till_number": "510330",
+      "paybill_number": "600168",
+      "amount": 785.3,
+      "type": "B2B",
+      "transaction_code": "MP547612",
+      "status": "failed",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-05-27T14:35:58.175228"
+    },
+    {
+      "id": "14",
+      "business_id": 1,
+      "stock_entry_id": 41,
+      "phone_number": "0719595657",
+      "till_number": "510454",
+      "paybill_number": "600310",
+      "amount": 7021.75,
+      "type": "B2B",
+      "transaction_code": "MP933655",
+      "status": "pending",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-05-06T14:35:58.175228"
+    },
+    {
+      "id": "15",
+      "business_id": 1,
+      "stock_entry_id": 42,
+      "phone_number": "0777049428",
+      "till_number": "510165",
+      "paybill_number": "600917",
+      "amount": 686.91,
+      "type": "B2B",
+      "transaction_code": "MP297589",
+      "status": "pending",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-06-17T14:35:58.175228"
+    },
+    {
+      "id": "16",
+      "business_id": 1,
+      "stock_entry_id": 48,
+      "phone_number": "0748999555",
+      "till_number": "510279",
+      "paybill_number": "600632",
+      "amount": 4379.04,
+      "type": "B2B",
+      "transaction_code": "MP348978",
+      "status": "failed",
+      "automated": false,
+      "response_payload": "{}",
+      "created_at": "2025-07-06T14:35:58.175228"
+    },
+    {
+      "id": "17",
+      "business_id": 1,
+      "stock_entry_id": 56,
+      "phone_number": "0768527462",
+      "till_number": "510657",
+      "paybill_number": "600417",
+      "amount": 983.4,
+      "type": "B2B",
+      "transaction_code": "MP200501",
+      "status": "success",
+      "automated": true,
+      "response_payload": "{}",
+      "created_at": "2025-06-28T14:35:58.175228"
+    }
+  ]
+}
