@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 import adminRoutes from "./routes/admin";
-import clerkRoutes from "./routes/clerk";
+import clerkRoutes from "./routes/clerks";
 import merchantRoutes from "./routes/merchant";
 
 import Login from "./pages/authentication/login";
