@@ -16,7 +16,7 @@ const BusinessPaymentsView = () => {
   const [openBatchId, setOpenBatchId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/payments")
+    fetch("http://127.0.0.1:5000/payments")
       .then((res) => res.json())
       .then((data) => {
         setPayments(data);
@@ -32,7 +32,7 @@ const BusinessPaymentsView = () => {
     async function fetchStockEntries() {
       const allEntries = [];
       for (const store of stores) {
-        const res = await fetch(`http://localhost:5000/store/${store.id}/stock_entries`);
+        const res = await fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries`);
         const entries = await res.json();
         allEntries.push(...entries);
       }
