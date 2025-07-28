@@ -97,13 +97,21 @@ class User_Login(Resource):
         email = data.get('email')
         password = data.get('password')
         user = User.query.filter_by(email=email).first()
+
         if user and bcrypt.check_password_hash(user.password_hash, password):
+            session['user_id'] = user.id 
             session['email'] = user.email
             session['role'] = user.role
-            return make_response(user.to_dict(), 200)
-        return make_response({"message": "Invalid credentials"}, 404)
 
-api.add_resource(User_Login, '/user/login')
+            return make_response({
+                "id": user.id,
+                "email": user.email,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "role": user.role
+            }, 200)
+
+        return make_response({"message": "Invalid credentials"}, 404)
 
 
 # --- USERS BY STORE ---

@@ -31,10 +31,10 @@ const StockEntries = () => {
     const queryString = queryParams.toString();
 
     Promise.all([
-      fetch(`http://localhost:5000/store/${store.id}/stock_entries?${queryString}`).then((r) => r.json()),
-      fetch(`http://localhost:5000/store/${store.id}/users`).then((r) => r.json()),
-      fetch(`http://localhost:5000/store/${store.id}/products`).then((r) => r.json()),
-      fetch(`http://localhost:5000/business/${store.business_id}/suppliers`).then((r) => r.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries?${queryString}`).then((r) => r.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((r) => r.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/products`).then((r) => r.json()),
+      fetch(`http://127.0.0.1:5000/business/${store.business_id}/suppliers`).then((r) => r.json()),
     ]).then(([entryData, userData, productData, supplierData]) => {
       setEntries(
   entryData.map((e) => {

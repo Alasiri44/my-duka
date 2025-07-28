@@ -11,8 +11,8 @@ const StoreInventory = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch(`http://localhost:5000/store/${store.id}/inventory`).then((res) => res.json()),
-      fetch(`http://localhost:5000/business/${store.business_id}/categories`).then((res) => res.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/inventory`).then((res) => res.json()),
+      fetch(`http://127.0.0.1:5000/business/${store.business_id}/categories`).then((res) => res.json()),
     ]).then(([productData, categoryData]) => {
       setProducts(productData.map((p) => ({ ...p, id: Number(p.id), category_id: Number(p.category_id) })));
       setCategories(categoryData.map((c) => ({ ...c, id: Number(c.id) })));

@@ -13,7 +13,7 @@ const BusinessOverview = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/business/${businessId}/summary`)
+    fetch(`http://127.0.0.1:5000/business/${businessId}/summary`)
       .then(res => res.json())
       .then(data => {
         setSummary(data);

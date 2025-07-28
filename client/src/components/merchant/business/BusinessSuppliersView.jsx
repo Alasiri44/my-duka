@@ -11,7 +11,7 @@ const BusinessSuppliersView = () => {
 
   useEffect(() => {
     if (!businessId) return;
-    fetch(`http://localhost:5000/business/${businessId}/suppliers`)
+    fetch(`http://127.0.0.1:5000/business/${businessId}/suppliers`)
       .then((res) => res.json())
       .then((data) => setSuppliers(data));
   }, [businessId]);
@@ -35,7 +35,7 @@ const BusinessSuppliersView = () => {
       ...newSupplier,
       business_id: businessId,
     };
-    const res = await fetch("http://localhost:5000/supplier", {
+    const res = await fetch("http://127.0.0.1:5000/supplier", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -51,7 +51,7 @@ const BusinessSuppliersView = () => {
 
   const handleUpdateSupplier = async () => {
     const res = await fetch(
-      `http://localhost:5000/supplier/${editingSupplier.id}`,
+      `http://127.0.0.1:5000/supplier/${editingSupplier.id}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -70,7 +70,7 @@ const BusinessSuppliersView = () => {
 
   const handleDeleteSupplier = async (id) => {
     if (!window.confirm("Delete this supplier?")) return;
-    await fetch(`http://localhost:5000/supplier/${id}`, { method: "DELETE" });
+    await fetch(`http://127.0.0.1:5000/supplier/${id}`, { method: "DELETE" });
     setSuppliers((prev) => prev.filter((s) => s.id !== id));
   };
 
