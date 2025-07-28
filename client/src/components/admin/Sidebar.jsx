@@ -123,4 +123,4 @@ const Sidebar = ({ businesses, currentId, store }) => {
   );
 };
 }
-export default Sidebar
+export default Sidebar;
