@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
 
 const ClerkLayout = () => {
   const [clerk, setClerk] = useState(null);
   const [store, setStore] = useState(null);
   const navigate = useNavigate();
+  const {user} = useSelector((state) => state.auth)
 
   useEffect(() => {
-    const userStr = localStorage.getItem('user');
-    if (!userStr) {
-      console.warn("No user found in localStorage. Redirecting...");
-      navigate("/login"); // Redirect to login page
-      return;
-    }
-
-    const user = JSON.parse(userStr);
 
     fetch(`http://127.0.0.1:5000/user/${user.id}`, { credentials: 'include' })
       .then(res => {
