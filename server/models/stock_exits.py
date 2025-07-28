@@ -16,11 +16,12 @@ class StockExit(db.Model, SerializerMixin):
     reason = db.Column(db.String, nullable=False)  # 'sold', 'expired', 'damaged'
     created_at = db.Column(db.DateTime, default=datetime.now)
 
-    store = db.relationship('Store')
-    product = db.relationship('Product')
-    user = db.relationship('User')
-    batch = db.relationship('Batch')
-    sale = db.relationship('Sale', back_populates='stock_exits')  # NEW
+    store = db.relationship('Store', back_populates='stock_exits')
+    product = db.relationship('Product', back_populates='stock_exits')
+    user = db.relationship('User', back_populates='stock_exits')
+    batch = db.relationship('Batch', back_populates='stock_exits')
+    sale = db.relationship('Sale', back_populates='stock_exits')
+
 
     serialize_only = (
         'id', 'store_id', 'product_id', 'recorded_by', 'batch_id',
