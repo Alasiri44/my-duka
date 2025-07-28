@@ -60,6 +60,26 @@ class StockExits(Resource):
 
         return make_response(results, 200)
 
+    def post(self):
+        data = request.get_json()
+        try:
+            stock_exit = StockExit(
+                store_id=data.get('store_id'),
+                product_id=data.get('product_id'),
+                quantity=data.get('quantity'),
+                selling_price=data.get('selling_price'),
+                reason=data.get('reason'),
+                recorded_by=data.get('recorded_by'),
+                batch_id=data.get('batch_id'),
+                sale_id=data.get('sale_id')
+            )
+            db.session.add(stock_exit)
+            db.session.commit()
+            return make_response(stock_exit.to_dict(), 201)
+        except Exception as e:
+            db.session.rollback()
+            return make_response({'message': f'Error creating stock exit: {str(e)}'}, 400)
+
 
 stock_exit_api.add_resource(StockExits, '/stock_exits')
 

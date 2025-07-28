@@ -137,7 +137,13 @@ api.add_resource(Admins, '/user/admins')
 class Clerks(Resource):
     def get(self):
         clerks = User.query.filter_by(role='clerk').all()
-        return make_response([u.to_dict() for u in clerks], 200)
+        # Add a 'name' field to each clerk
+        clerk_dicts = []
+        for u in clerks:
+            d = u.to_dict()
+            d['name'] = f"{d.get('first_name', '')} {d.get('last_name', '')}".strip()
+            clerk_dicts.append(d)
+        return make_response(clerk_dicts, 200)
 
 api.add_resource(Clerks, '/user/clerks')
 

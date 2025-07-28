@@ -317,6 +317,7 @@ const StockExitForm = () => {
         onClose={() => setShowPaymentModal(false)}
         amount={paymentAmount}
         direction="out"
+        paymentMethod={paymentMethod}
         onSubmit={handlePaymentSubmit}
       />
     </>

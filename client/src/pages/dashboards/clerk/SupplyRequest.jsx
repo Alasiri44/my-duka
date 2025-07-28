@@ -54,7 +54,11 @@ const SupplyRequestsPage = ({ clerkId }) => {
   const getProduct = id => products.find(p => p.id === id);
   const getProductName = id => getProduct(id)?.name || '—';
   const getSupplierName = id => suppliers.find(s => s.id === id)?.name || '—';
-  const getUserName = id => users.find(u => u.id === id)?.name || '—';
+  const getUserName = id => {
+    const user = users.find(u => u.id === id);
+    if (!user) return '—';
+    return user.name || `${user.first_name || ''} ${user.last_name || ''}`.trim() || '—';
+  };
 
   const cancelRequest = async id => {
     if (window.confirm('Are you sure you want to cancel this request?')) {
