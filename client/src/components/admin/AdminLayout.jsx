@@ -5,22 +5,14 @@ import { useSelector } from "react-redux";
 
 const AdminLayout = () => {
   const { user } = useSelector((state) => state.auth);
-  const [businesses, setBusinesses] = useState([]);
-  const [store, setStore] = useState({business_id: 1});
-
+  const [store, setStore] = useState(null);
+  
   useEffect(() => {
-    // Fetch business list
-    fetch("http://localhost:3000/businesses")
-      .then((res) => res.json())
-      .then((data) => setBusinesses(data.map((b) => ({ ...b, id: Number(b.id) }))));
-  }, []);
-
-  useEffect(() => {
-    // Fetch the store assigned to this admin/clerk
     if (user?.store_id) {
-      fetch(`http://localhost:3000/stores/${user.store_id}`)
+      fetch(`http://localhost:5000/store/${user.store_id}`)
         .then((res) => res.json())
-        .then((data) => setStore(data));
+        .then((data) => setStore(data))
+        .catch((err) => console.error("Failed to load store:", err));
     }
   }, [user?.store_id]);
 
@@ -28,18 +20,11 @@ const AdminLayout = () => {
     return <div className="p-10 text-center text-[#5e574d] text-lg">Loading store...</div>;
   }
 
-  const currentBusinessId = Number(store.business_id);
-
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar
-        user={user}
-        store={store}
-        businesses={businesses}
-        currentId={currentBusinessId}
-      />
+      <Sidebar user={user} store={store} business={store.business} />
       <main className="flex-1 bg-[#fdfdfd] p-6 overflow-y-auto">
-        <Outlet context={{ store, storeId: store.id, role: user.role }} />
+       <Outlet context={{ store, storeId: store.id, role: user.role, business: store.business }} />
       </main>
     </div>
   );

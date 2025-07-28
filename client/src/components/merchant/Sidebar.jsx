@@ -17,21 +17,13 @@ import { IoIosArrowDroprightCircle, IoIosArrowDropdownCircle } from "react-icons
 import { motion } from "framer-motion";
 import Logo from "../../assets/logo.svg";
 
-const Sidebar = ({ businesses, currentId }) => {
+const Sidebar = ({  businesses, currentId, stores  }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const [storesOpen, setStoresOpen] = useState(false);
-  const [stores, setStores] = useState([]);
+  // const [stores, setStores] = useState([]);
 
-
-
-  useEffect(() => {
-  if (!currentId) return;
-  fetch(`http://localhost:3000/stores?business_id=${currentId}`)
-    .then((res) => res.json())
-    .then((data) => setStores(data));
-}, [currentId]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);

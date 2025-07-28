@@ -18,10 +18,10 @@ const StoreLayout = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/stores/${storeId}`)
-      .then((res) => res.json())
-      .then((data) => setStore(data));
-  }, [storeId]);
+  fetch(`http://localhost:5000/store/${storeId}`)  
+    .then((res) => res.json())
+    .then((data) => setStore(data));
+}, [storeId]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);

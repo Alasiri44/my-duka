@@ -1,22 +1,42 @@
-import React from "react"
+import React from "react";
 
-const ExitFilters = ({ filters, onChange, products }) => {
+const ExitFilters = ({
+  products,
+  users,
+  filterProduct,
+  setFilterProduct,
+  filterClerk,
+  setFilterClerk,
+  filterReason,
+  setFilterReason
+}) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded-xl">
       <select
-        value={filters.productId}
-        onChange={(e) => onChange("productId", e.target.value)}
+        value={filterProduct}
+        onChange={(e) => setFilterProduct(e.target.value)}
         className="border border-[#d7d0c8] rounded p-2 text-sm text-[#011638]"
       >
         <option value="">Filter by Product</option>
-        {products.map(p => (
+        {products.map((p) => (
           <option key={p.id} value={p.id}>{p.name}</option>
         ))}
       </select>
 
       <select
-        value={filters.reason}
-        onChange={(e) => onChange("reason", e.target.value)}
+        value={filterClerk}
+        onChange={(e) => setFilterClerk(e.target.value)}
+        className="border border-[#d7d0c8] rounded p-2 text-sm text-[#011638]"
+      >
+        <option value="">Filter by Clerk</option>
+        {users.map((u) => (
+          <option key={u.id} value={u.id}>{u.first_name} {u.last_name}</option>
+        ))}
+      </select>
+
+      <select
+        value={filterReason}
+        onChange={(e) => setFilterReason(e.target.value)}
         className="border border-[#d7d0c8] rounded p-2 text-sm text-[#011638]"
       >
         <option value="">Filter by Reason</option>
@@ -24,15 +44,8 @@ const ExitFilters = ({ filters, onChange, products }) => {
         <option value="damaged">Damaged</option>
         <option value="expired">Expired</option>
       </select>
-
-      <input
-        type="date"
-        value={filters.date}
-        onChange={(e) => onChange("date", e.target.value)}
-        className="border border-[#d7d0c8] rounded p-2 text-sm text-[#011638]"
-      />
     </div>
-  )
-}
+  );
+};
 
-export default ExitFilters
+export default ExitFilters;

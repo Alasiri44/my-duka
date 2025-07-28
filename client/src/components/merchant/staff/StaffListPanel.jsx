@@ -1,4 +1,3 @@
-// /components/staff/StaffListPanel.jsx
 import React, { useState } from "react";
 import { FaUser, FaSearch } from "react-icons/fa";
 

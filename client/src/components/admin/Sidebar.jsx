@@ -8,8 +8,7 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../../redux/slices/authSlice";
 
-
-
+const Sidebar = ({  store, business, user }) => {
 const Sidebar = ({ businesses, currentId, store }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -76,6 +75,14 @@ const Sidebar = ({ businesses, currentId, store }) => {
         </button>
       </div>
 
+{/* Business Name */}
+{!collapsed && (
+  <div className="px-4 pb-2">
+    <h2 className="text-base font-bold truncate text-[#ec4e20]">
+      {business?.name}
+    </h2>
+  </div>
+)}
       
       {!collapsed && (
         <div className="px-4 pb-2">
