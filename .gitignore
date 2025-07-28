@@ -203,3 +203,6 @@ Pipfile.lock
 
 #flask session folder
 flask_session
+
+.vscode/*
+.vscode/
