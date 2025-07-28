@@ -6,6 +6,7 @@ const StoreOverview = () => {
   const { store } = useOutletContext();
   const [summary, setSummary] = useState(null);
   const [charts, setCharts] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState("All");
 
   useEffect(() => {
     fetch(`http://localhost:5000/store/${store.id}/overview`)
@@ -43,6 +44,37 @@ const StoreOverview = () => {
         <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm">
           <p className="text-[#5e574d]">Total Products</p>
           <p className="text-[#011638] font-medium">{summary.total_products}</p>
+        </div>
+
+          {/* Filterable Total Sales Card */}
+           <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm flex flex-col justify-between">
+          <div>
+            <p className="text-[#5e574d]">Total Sales</p>
+            <p className="text-[#011638] text-lg font-semibold">
+              KES{" "}
+              {(
+                selectedMethod === "All"
+                  ? summary.total_sales
+                  : charts.sales_by_payment_method.find((m) => m.method === selectedMethod)?.amount || 0
+              ).toLocaleString()}
+            </p>
+          </div>
+        
+          <div className="flex justify-center mt-4 space-x-2">
+            {["All", ...charts.sales_by_payment_method.map((m) => m.method)].map((method) => (
+              <button
+                key={method}
+                onClick={() => setSelectedMethod(method)}
+                className={`px-2 py-1 text-xs rounded border ${
+                  selectedMethod === method
+                    ? "bg-[#011638] text-white border-[#011638]"
+                    : "text-[#011638] border-[#d7d0c8] bg-white"
+                }`}
+              >
+                {method}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm">

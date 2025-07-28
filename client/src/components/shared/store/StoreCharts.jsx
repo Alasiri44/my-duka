@@ -2,6 +2,10 @@ import React from "react";
 import {
   ResponsiveContainer,
   LineChart,
+  PieChart,
+  Legend,
+  Pie,
+  Cell,
   BarChart,
   AreaChart,
   Area,
@@ -14,6 +18,7 @@ import {
 } from "recharts";
 
 const StoreCharts = ({ charts }) => {
+  const COLORS = ["#2D9CDB", "#ec4e20", "#011638", "#f4a261", "#6a0572", "#5e574d"];
   const {
     stock_in_by_day = [],
     top_products = [],
@@ -24,46 +29,19 @@ const StoreCharts = ({ charts }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
-      {/* Chart 1: Stock In (last 30 days) */}
-      <div className="bg-white p-4 rounded-xl border border-[#f2f0ed] shadow-sm col-span-1 xl:col-span-2">
-        <h3 className="text-sm font-semibold text-[#011638] mb-2">Stock In (last 30 days)</h3>
-        <ResponsiveContainer width="100%" height={200}>
-          <AreaChart data={stock_in_by_day}>
-            <defs>
-              <linearGradient id="colorQty" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#011638" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#011638" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <XAxis dataKey="date" fontSize={10} />
-            <YAxis fontSize={10} />
-            <Tooltip
-              content={({ active, payload, label }) => {
-                if (active && payload && payload.length) {
-                  const breakdown = stock_breakdown_by_date[label];
-                  return (
-                    <div className="bg-white p-2 shadow rounded border text-sm">
-                      <p className="font-semibold text-[#011638]">{label}</p>
-                      <p className="text-[#011638]">Total: {payload[0].value}</p>
-                      {breakdown && (
-                        <ul className="mt-1">
-                          {Object.entries(breakdown).map(([name, qty]) => (
-                            <li key={name} className="text-[#5e574d]">
-                              {name}: {qty}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  );
-                }
-                return null;
-              }}
-            />
-            <Area type="monotone" dataKey="quantity" stroke="#011638" fillOpacity={1} fill="url(#colorQty)" />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
+      {/* Chart 1: Daily Sales (last 30 days) */}
+<div className="bg-white p-4 rounded-xl border border-[#f2f0ed] shadow-sm col-span-1 xl:col-span-2">
+  <h3 className="text-sm font-semibold text-[#011638] mb-2">Sales (last 30 days)</h3>
+  <ResponsiveContainer width="100%" height={200}>
+    <LineChart data={charts.daily_sales_last_30_days}>
+      <XAxis dataKey="date" fontSize={10} />
+      <YAxis fontSize={10} />
+      <Tooltip formatter={(value) => `KES ${value.toLocaleString()}`} />
+      <CartesianGrid strokeDasharray="3 3" />
+      <Line type="monotone" dataKey="amount" stroke="#2D9CDB" strokeWidth={2} name="Sales" />
+    </LineChart>
+  </ResponsiveContainer>
+</div>
 
       {/* Chart 2: Top Products */}
       <div className="bg-white p-4 rounded-xl border border-[#f2f0ed] shadow-sm">
@@ -105,6 +83,43 @@ const StoreCharts = ({ charts }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
+
+        {/* Chart 5: Sales by Payment Method */}
+        <div className="bg-white p-4 rounded-xl border border-[#f2f0ed] shadow-sm">
+          <h3 className="text-sm font-semibold text-[#011638] mb-2">Sales by Payment Method</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={charts.sales_by_payment_method}
+                dataKey="amount"
+                nameKey="method"
+                cx="50%"
+                cy="50%"
+                outerRadius={70}
+                label={({ method, percent }) =>
+                  `${method} (${(percent * 100).toFixed(0)}%)`
+                }
+              >
+                {charts.sales_by_payment_method.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value) => `KES ${value.toLocaleString()}`}
+                contentStyle={{ fontSize: "0.85rem" }}
+              />
+              <Legend
+                layout="horizontal"
+                verticalAlign="bottom"
+                iconType="circle"
+                formatter={(value) => <span className="text-xs text-[#5e574d]">{value}</span>}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      
+
+
     </div>
   );
 };

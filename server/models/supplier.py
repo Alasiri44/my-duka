@@ -23,6 +23,7 @@ class Supplier(db.Model, SerializerMixin):
     supply_requests = db.relationship('Supply_Request', back_populates='supplier')
     stock_entries = db.relationship('Stock_Entry', back_populates='supplier' )
     serialize_rules = ('-business.suppliers', '-business.categories', '-business.stores', '-business.merchant')
+    serialize_only = ( 'id','business_id','name','contact_name','email','phone_number','paybill_number','till_number','location','country','county','po_box','postal_code','created_at',)
     
     def __repr__(self):
         return f'<Supplier {self.id}: {self.name }, {self.contact_name} using {self.email}>'

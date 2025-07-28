@@ -2,52 +2,65 @@ import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const BusinessInventoryView = () => {
-  const { currentBusiness } = useOutletContext();
+  const { business, stores } = useOutletContext();
   const [products, setProducts] = useState([]);
-  const [stockEntries, setStockEntries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
+  const [filterStoreId, setFilterStoreId] = useState("");
 
-  useEffect(() => {
-    Promise.all([
-      fetch("http://localhost:3000/products").then((res) => res.json()),
-      fetch("http://localhost:3000/stock_entries").then((res) => res.json()),
-    ]).then(([productData, entryData]) => {
-      const typedProducts = productData.map((p) => ({
-        ...p,
-        id: Number(p.id),
-        business_id: Number(p.business_id || 1), // placeholder
-      }));
+useEffect(() => {
+  const url = filterStoreId
+    ? `http://localhost:5000/store/${filterStoreId}/inventory`
+    : `http://localhost:5000/business/${business.id}/inventory`;
 
-      const typedEntries = entryData.map((e) => ({
-        ...e,
-        id: Number(e.id),
-        product_id: Number(e.product_id),
-        quantity: Number(e.quantity),
-      }));
-
-      const businessProducts = typedProducts.filter(
-        (p) => p.business_id === currentBusiness.id
-      );
-
-      setProducts(businessProducts);
-      setStockEntries(typedEntries);
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      if (filterStoreId) {
+        // enrich each item with category name
+        const enrichWithCategory = async () => {
+          const enriched = await Promise.all(
+            data.map(async (item) => {
+              try {
+                const res = await fetch(`http://localhost:5000/category/${item.category_id}`);
+                const category = await res.json();
+                return {
+                  ...item,
+                  category: {
+                    id: item.category_id,
+                    name: category.name,
+                  },
+                };
+              } catch {
+                return {
+                  ...item,
+                  category: {
+                    id: item.category_id,
+                    name: "Uncategorized",
+                  },
+                };
+              }
+            })
+          );
+          setProducts(enriched);
+        };
+        enrichWithCategory();
+      } else {
+        setProducts(data);
+      }
+    })
+    .catch((err) => {
+      console.error("Failed to fetch inventory data:", err);
     });
-  }, [currentBusiness.id]);
-
-  const getProductStock = (productId) => {
-    return stockEntries
-      .filter((entry) => entry.product_id === productId)
-      .reduce((sum, e) => sum + e.quantity, 0);
-  };
+}, [business.id, filterStoreId]);
 
   const filteredProducts = products.filter((p) => {
     const matchesName = p.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = filterCategory === "" || p.category === filterCategory;
+    const matchesCategory = filterCategory === "" || p.category?.name === filterCategory;
     return matchesName && matchesCategory;
   });
 
-  const uniqueCategories = [...new Set(products.map((p) => p.category))];
+  const uniqueCategories = [...new Set(products.map((p) => p.category?.name))];
 
   return (
     <div className="min-h-screen bg-[#fdfdfd] p-6">
@@ -55,13 +68,23 @@ const BusinessInventoryView = () => {
         <div>
           <h1 className="text-2xl font-bold text-[#011638]">Inventory</h1>
           <p className="text-sm text-[#5e574d]">
-            Products tracked under <span className="font-medium">{currentBusiness.name}</span>
+            Products tracked under <span className="font-medium">{business.name}</span>
           </p>
         </div>
       </div>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6 items-center">
+        <select
+          value={filterStoreId}
+          onChange={(e) => setFilterStoreId(e.target.value)}
+          className="border border-[#d7d0c8] px-3 py-2 rounded text-sm"
+        >
+          <option value="">All Stores</option>
+          {stores.map((s) => (
+            <option key={s.id} value={s.id}>{s.name}</option>
+          ))}
+        </select>
         <input
           type="text"
           placeholder="Search product name"
@@ -93,17 +116,17 @@ const BusinessInventoryView = () => {
               <tr>
                 <th className="px-4 py-2">Product</th>
                 <th className="px-4 py-2">Category</th>
-                <th className="px-4 py-2">Unit</th>
-                <th className="px-4 py-2">Total Stock</th>
+                <th className="px-4 py-2">Stock</th>
+                <th className="px-4 py-2">Price</th>
               </tr>
             </thead>
             <tbody>
               {filteredProducts.map((p) => (
                 <tr key={p.id} className="border-t border-[#f2f0ed]">
                   <td className="px-4 py-2">{p.name}</td>
-                  <td className="px-4 py-2">{p.category}</td>
-                  <td className="px-4 py-2">{p.unit}</td>
-                  <td className="px-4 py-2 font-semibold text-[#011638]">{getProductStock(p.id)}</td>
+                  <td className="px-4 py-2">{p.category?.name || "Uncategorized"}</td>
+                  <td className="px-4 py-2">{p.quantity_on_hand}</td>
+                  <td className="px-4 py-2">{p.selling_price !== undefined ? `Ksh ${Number(p.selling_price).toFixed(2)}` : "N/A"}</td>
                 </tr>
               ))}
             </tbody>

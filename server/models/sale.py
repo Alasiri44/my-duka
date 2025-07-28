@@ -16,6 +16,7 @@ class Sale(db.Model, SerializerMixin):
 
     store = db.relationship('Store')
     user = db.relationship('User')
+    payments = db.relationship('Payment', back_populates='sale')
     stock_exits = db.relationship('StockExit', back_populates='sale', cascade='all, delete-orphan')
 
     serialize_only = (

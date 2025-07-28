@@ -1,6 +1,5 @@
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext,useNavigate,useParams} from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   FaUserShield,
   FaUser,
@@ -10,7 +9,8 @@ import {
 
 const Stores = () => {
   const navigate = useNavigate();
-  const { business, stores } = useOutletContext();
+  const { businessId } = useParams();           
+  const { stores } = useOutletContext(); 
 
   const getStoreStats = (storeId) => ({
   storeAdmins: 0,
@@ -43,7 +43,11 @@ const Stores = () => {
               return (
                 <li
                   key={store.id}
-                  onClick={() => navigate(`/merchant/businesses/${store.business_id}/stores/${store.id}`)}
+                  onClick={() => {
+                     
+                      navigate(`/merchant/businesses/${businessId}/stores/${store.id}`);
+                     
+                    }}
                   className="border border-[#d7d0c8] border-t-4 border-t-[#ec4e20] rounded p-4 hover:shadow-md cursor-pointer transition bg-white"
                 >
                   <div className="flex items-center gap-2 text-[#011638] mb-1">

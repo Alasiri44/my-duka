@@ -10,7 +10,9 @@ from .controllers.product_controller import product_bp
 from .controllers.supplier_controller import supplier_bp
 from .controllers.supply_request_controller import supply_request_bp
 from .controllers.auth import auth_bp
+from .controllers.payment_controller import payment_bp
 from server.controllers.stock_exit_controller import stock_exit_bp
+
 
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -35,6 +37,7 @@ app.register_blueprint(supplier_bp)
 app.register_blueprint(supply_request_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(stock_exit_bp)
+app.register_blueprint(payment_bp)
 
 
 @app.route('/')

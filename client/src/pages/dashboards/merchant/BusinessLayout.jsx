@@ -17,7 +17,7 @@ useEffect(() => {
     .then((res) => res.json())
     .then((data) => {
       setCurrentBusiness(data);
-      setStores(data.stores); // if you're managing a separate stores state
+      setStores(data.stores); 
     });
 }, [id]);
 

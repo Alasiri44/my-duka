@@ -8,56 +8,68 @@ supplier_api = Api(supplier_bp)
 
 class Suppliers(Resource):
     def get(self):
-        response = [supplier.to_dict() for supplier in Supplier.query.all()]
-        return make_response(response, 200)
+        suppliers = Supplier.query.all()
+        return make_response([s.to_dict() for s in suppliers], 200)
+
     def post(self):
-        data = request.form
-        new_supplier = Supplier(
-            name = data.get('name'),
-            business_id = data.get('business_id'),
-            contact_name = data.get('contact_name'),
-            email = data.get('email'),
-            phone_number = data.get('phone_number'),
-            paybill_number = data.get('paybill_number'),
-            till_number = data.get('till_number'),
-            location = data.get('location'),
-            country = data.get('country'),
-            county = data.get('county'),
-            po_box = data.get('location'),
-            postal_code = data.get('postal_code'),
-        )
-        if(new_supplier):
+        data = request.get_json()
+        try:
+            new_supplier = Supplier(
+                name=data.get('name'),
+                business_id=int(data.get('business_id')),
+                contact_name=data.get('contact_name'),
+                email=data.get('email'),
+                phone_number=data.get('phone_number'),
+                paybill_number=data.get('paybill_number'),
+                till_number=data.get('till_number'),
+                location=data.get('location'),
+                country=data.get('country'),
+                county=data.get('county'),
+                po_box=data.get('po_box'),
+                postal_code=data.get('postal_code'),
+            )
             db.session.add(new_supplier)
             db.session.commit()
             return make_response(new_supplier.to_dict(), 201)
-        else:
-            return make_response({"message": "Failed to create the supplier"}, 404)
-        
+        except Exception as e:
+            return make_response({"message": "Failed to create supplier", "error": str(e)}, 400)
+
 supplier_api.add_resource(Suppliers, '/supplier')
 
 class Supplier_By_ID(Resource):
     def get(self, id):
-        response = Supplier.query.filter(Supplier.id == id).first()
-        if(response):
-            return make_response(response.to_dict(), 200)
-        else:
-            return make_response({"message": "The supplier does not exist"}, 404)
-    def patch(self, id):
-        supplier = Supplier.query.filter(Supplier.id == id).first()
-        if(supplier):
-            for attr in request.form:
-                setattr(supplier, attr, request.form.get(attr))
-            db.session.add(supplier)
-            db.session.commit()
+        supplier = Supplier.query.get(id)
+        if supplier:
             return make_response(supplier.to_dict(), 200)
-        else:
-                return make_response({"message": "The supplier does not exist"}, 404)
-    def delete(self, id):
-        response = Supplier.query.filter(Supplier.id == id).first()
-        if(response):
-            db.session.delete(response)
-            db.session.commit()
-            return make_response('', 204)
-        else:
+        return make_response({"message": "The supplier does not exist"}, 404)
+
+    def patch(self, id):
+        supplier = Supplier.query.get(id)
+        if not supplier:
             return make_response({"message": "The supplier does not exist"}, 404)
-supplier_api.add_resource(Supplier_By_ID, '/supplier/<id>')
+        
+        data = request.get_json()
+        for attr, value in data.items():
+            setattr(supplier, attr, value)
+        
+        db.session.commit()
+        return make_response(supplier.to_dict(), 200)
+
+    def delete(self, id):
+        supplier = Supplier.query.get(id)
+        if not supplier:
+            return make_response({"message": "The supplier does not exist"}, 404)
+        
+        db.session.delete(supplier)
+        db.session.commit()
+        return make_response('', 204)
+
+supplier_api.add_resource(Supplier_By_ID, '/supplier/<int:id>')
+
+
+class Suppliers_By_Business(Resource):
+    def get(self, id):
+        suppliers = Supplier.query.filter_by(business_id=id).all()
+        return make_response([s.to_dict() for s in suppliers], 200)
+
+supplier_api.add_resource(Suppliers_By_Business, '/business/<int:id>/suppliers')

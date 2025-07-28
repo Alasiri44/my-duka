@@ -16,6 +16,7 @@ from .models.batch import Batch
 from .models.Invites import Invite
 from .models.stock_exits import StockExit
 from .models.sale import Sale
+from .models.payment import Payment
 
 def create_app():
     app = Flask(__name__)

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const BusinessStaffView = () => {
-  const { currentBusiness } = useOutletContext();
+  const { business } = useOutletContext();
   const [users, setUsers] = useState([]);
   const [stores, setStores] = useState([]);
   const [filterRole, setFilterRole] = useState("");
@@ -13,12 +13,12 @@ const BusinessStaffView = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:3000/users").then((res) => res.json()),
-      fetch("http://localhost:3000/stores").then((res) => res.json()),
+      fetch("http://localhost:5000/user").then((res) => res.json()),
+      fetch("http://localhost:5000/store").then((res) => res.json()),
     ]).then(([userData, storeData]) => {
       const typedStores = storeData
         .map((s) => ({ ...s, id: Number(s.id), business_id: Number(s.business_id) }))
-        .filter((s) => s.business_id === currentBusiness.id);
+        .filter((s) => s.business_id === business.id);
 
       const typedUsers = userData
         .map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) }))
@@ -27,7 +27,7 @@ const BusinessStaffView = () => {
       setStores(typedStores);
       setUsers(typedUsers);
     });
-  }, [currentBusiness.id]);
+  }, [business.id]);
 
   const handleToggleActive = async (user) => {
     const action = user.is_active ? "deactivate" : "activate";
@@ -35,7 +35,7 @@ const BusinessStaffView = () => {
 
     const updatedUser = { ...user, is_active: !user.is_active };
 
-    await fetch(`http://localhost:3000/users/${user.id}`, {
+    await fetch(`http://localhost:5000/user/${user.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ is_active: updatedUser.is_active }),
@@ -47,7 +47,7 @@ const BusinessStaffView = () => {
   const handleTransfer = async (userId, newStoreId) => {
     if (!window.confirm("Are you sure you want to transfer this staff to another store?")) return;
 
-    await fetch(`http://localhost:3000/users/${userId}`, {
+    await fetch(`http://localhost:5000/user/${userId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ store_id: Number(newStoreId) }),
@@ -72,7 +72,7 @@ const BusinessStaffView = () => {
       created_at: new Date().toISOString(),
     };
 
-    const res = await fetch("http://localhost:3000/users", {
+    const res = await fetch("http://localhost:5000/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
@@ -104,7 +104,7 @@ const BusinessStaffView = () => {
         <div>
           <h1 className="text-2xl font-bold text-[#011638]">All Staff</h1>
           <p className="text-sm text-[#5e574d]">
-            Across all stores under <span className="font-medium">{currentBusiness.name}</span>
+            Across all stores under <span className="font-medium">{business.name}</span>
           </p>
         </div>
         <button
