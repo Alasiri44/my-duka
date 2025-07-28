@@ -38,17 +38,19 @@ const testUsers = [
 ];
 
 export default function App() {
-  const user = useSelector((state) => state.auth.user);
+  const user = testUsers[1]
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const check = async () => {
-      await CheckSession(dispatch);
+      // await CheckSession(dispatch);
       setLoading(false);
     };
     check();
   }, [dispatch]);
+
+  console.log(user, loading)
 
   if (loading) {
     return (
@@ -101,7 +103,7 @@ export default function App() {
       path: "/",
       element: <Navigate to={redirectPath || `/${user.role}`} replace />,
     },
-    ...roleRoutes,
+    ...adminRoutes,
     {
       path: "*",
       element: <div className="p-10 text-center text-red-600 text-lg">404: Page not found</div>,

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const AdminLayout = () => {
   const { user } = useSelector((state) => state.auth);
   const [businesses, setBusinesses] = useState([]);
-  const [store, setStore] = useState(null);
+  const [store, setStore] = useState({business_id: 1});
 
   useEffect(() => {
     // Fetch business list
