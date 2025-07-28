@@ -7,6 +7,7 @@ class Product(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True )
     business_id = db.Column(db.Integer, db.ForeignKey('businesses.id'))    
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))  # Make sure this exists
     name = db.Column(db.String, nullable=False, unique=True)
     description = db.Column(db.String)
     selling_price = db.Column(db.Numeric(10, 2), nullable=False)
@@ -16,6 +17,8 @@ class Product(db.Model, SerializerMixin):
     
     business = db.relationship('Business', back_populates='products')
     category = db.relationship('Category', back_populates='products')
+    stock_exits = db.relationship('StockExit', back_populates='product')
+    store = db.relationship('Store', back_populates='products')  # <-- Add this line
     supply_requests = db.relationship('Supply_Request', back_populates='product',)
     serialize_only = ('id', 'category_id', 'name', 'description', 'quantity', 'selling_price', 'created_at', 'updated_at', 'category.name')
     

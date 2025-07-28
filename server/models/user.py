@@ -23,6 +23,8 @@ class User(db.Model, SerializerMixin):
     requests_reviewed = db.relationship('Supply_Request', back_populates='reviewer', foreign_keys='Supply_Request.reviewer_id')
     stock_entries = db.relationship('Stock_Entry', back_populates='clerk')
     batches = db.relationship('Batch', back_populates='creator')
+    stock_exits = db.relationship('StockExit', back_populates='user')
+
     serialize_rules = ('-store.users', '-clerk_category.clerks', )
     serialize_only = (
     'id', 'first_name', 'last_name', 'email', 'role',
