@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import adminRoutes from "./routes/admin";
-import clerkRoutes from "./routes/clerks";
+import clerkRoutes from "./routes/clerk";
 import merchantRoutes from "./routes/merchant";
 import { RouterProvider, createBrowserRouter, Navigate, BrowserRouter } from "react-router-dom";
 import { setUser } from "./redux/slices/authSlice";
@@ -10,32 +10,7 @@ import Signup from "./pages/authentication/signup";
 import LandingPage from "./pages/landingPage";
 import CheckSession from "./utils/session";
 import PaymentForm from "./pages/payments/paymentForm";
-
-const testUsers = [
-  {
-    id: 1,
-    first_name: "Stephen",
-    last_name: "Njenga",
-    email: "stephen@myduka.co.ke",
-    role: "merchant",
-  },
-  {
-    id: 2,
-    store_id: 1,
-    first_name: "Thomas",
-    last_name: "Harison",
-    email: "andy@duka.com",
-    role: "admin",
-  },
-  {
-    id: 3,
-    store_id: 1,
-    first_name: "Clara",
-    last_name: "Clerk",
-    email: "clara@duka.com",
-    role: "clerk",
-  },
-];
+import CustomerPaymentForm from "./pages/payments/customerPaymentForm";
 
 export default function App() {
   const user = testUsers[1]
@@ -60,31 +35,6 @@ export default function App() {
     );
   }
 
-  if (!user) {
-    const router = createBrowserRouter([
-      {
-        path: '/signup',
-        element: < Signup />
-      },{
-        path: '/payment',
-        element: < PaymentForm/>
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: '/',
-        element: < LandingPage />
-      },
-      {
-        path: "*",
-        element: < Navigate to='/' />,
-      },
-    ]);
-
-    return <RouterProvider router={router} />;
-  }
 
   // Decide which routes to expose based on role
  let roleRoutes = [];

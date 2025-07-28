@@ -18,7 +18,7 @@ const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => 
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/suppliers');
+        const res = await axios.get('http://127.0.0.1:5000/supplier');
         setSuppliers(res.data);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
@@ -31,9 +31,9 @@ const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => 
   const handleSubmit = async () => {
     const newRequest = {
       product_id: product.id,
-      requested_by: clerkId,
+      requester_id: clerkId,
       quantity,
-      status: 'pending',
+      status: 'waiting',
       reviewed_by: null,
       created_at: new Date(requestDate).toISOString(),
       reviewed_at: null,
@@ -42,7 +42,7 @@ const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => 
     };
 
     try {
-      await axios.post('http://localhost:3001/supply_requests', newRequest);
+      await axios.post('http://127.0.0.1:5000/supply_request', newRequest, {headers: { 'Content-Type': 'multipart/form-data' }});
       onSubmit?.();
       onClose();
     } catch (error) {

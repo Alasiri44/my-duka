@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import QuickActions from '../../../components/clerk/QuickActionClerk';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'http://127.0.0.1:5000';
 
 const ClerkDash = () => {
   const [stats, setStats] = useState({
@@ -16,10 +16,8 @@ const ClerkDash = () => {
     stockEntries: 0,
     stockExits: 0,
     batches: 0,
-    mpesaTransactions: 0,
     inventoryValue: 0,
     spoiltItems: 0,
-    pendingTxns: 0,
   });
 
   const [recentProducts, setRecentProducts] = useState([]);
@@ -38,12 +36,15 @@ const ClerkDash = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const clerkId = 2; // Hardcoded clerk
-        const userRes = await axios.get(`${API_URL}/users/${clerkId}`);
-        const user = userRes.data;
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+          return;
+        }
+        const user = JSON.parse(userStr);
         setClerk(user);
 
-        const storeRes = await axios.get(`${API_URL}/stores/${user.store_id}`);
+        // Get store details
+        const storeRes = await axios.get(`${API_URL}/store/${user.store_id}`);
         const store = storeRes.data;
         setStore(store);
 
@@ -54,15 +55,13 @@ const ClerkDash = () => {
           productsRes,
           stockEntriesRes,
           stockExitsRes,
-          batchesRes,
-          mpesaRes
+          batchesRes
         ] = await Promise.all([
-          axios.get(`${API_URL}/categories?store_id=${storeId}`),
-          axios.get(`${API_URL}/products?store_id=${storeId}`),
+          axios.get(`${API_URL}/category`),
+          axios.get(`${API_URL}/product/store/${storeId}`),
           axios.get(`${API_URL}/stock_entries?store_id=${storeId}`),
           axios.get(`${API_URL}/stock_exits?store_id=${storeId}`),
-          axios.get(`${API_URL}/batches?store_id=${storeId}`),
-          axios.get(`${API_URL}/mpesa_transactions?store_id=${storeId}`)
+          axios.get(`${API_URL}/batches?store_id=${storeId}`)
         ]);
 
         setProducts(productsRes.data);
@@ -75,20 +74,19 @@ const ClerkDash = () => {
           exit.reason?.toLowerCase().includes('damage') || exit.reason?.toLowerCase().includes('spoil')
         ).length;
 
-        const pendingTxns = mpesaRes.data.filter(txn =>
-          txn.status?.toLowerCase() === 'pending'
-        ).length;
+        const totalStockQty = productsRes.data.reduce((sum, p) => {
+          return sum + (p.quantity || 0);
+        }, 0);
+
 
         setStats({
           categories: categoriesRes.data.length,
-          products: productsRes.data.length,
+          products: totalStockQty,
           stockEntries: stockEntriesRes.data.length,
           stockExits: stockExitsRes.data.length,
           batches: batchesRes.data.length,
-          mpesaTransactions: mpesaRes.data.length,
           inventoryValue,
           spoiltItems,
-          pendingTxns,
         });
 
         // Get low stock products
@@ -149,7 +147,6 @@ const ClerkDash = () => {
         <StatCard title="Products" value={stats.products} icon={<FaDropbox />} desc="Items in the inventory" bg="bg-white-100" text="text-blue-500" />
         <StatCard title="Inventory Value" value={`KES ${stats.inventoryValue.toLocaleString()}`} icon={<FaMoneyBill />} desc="Current stock value" bg="bg-white-100" text="text-green-700" />
         <StatCard title="Spoilt Items" value={stats.spoiltItems} icon={<FaExclamationTriangle />} desc="Damaged/Expired items" bg="bg-white-100" text="text-rose-900" />
-        <StatCard title="Pending Txns" value={stats.pendingTxns} icon={<FaMoneyBill />} desc="Uncleared transactions" bg="bg-white-100" text="text-orange-900" />
       </div>
 
       {/* Low Stock & Recent Inventory */}

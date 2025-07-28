@@ -31,6 +31,30 @@ class Users(Resource):
         )
         db.session.add(new_user)
         db.session.commit()
+
+        msg = Message(
+                subject=f"{new_user.role.capitalize()} Account Creation Successful",
+                sender='austinalasiri44@gmail.com',
+                recipients=[new_user.email],
+                        body=f"""Dear {new_user.first_name},
+
+        Your {new_user.role} account has been successfully created on MyDuka.
+
+        Login details:
+        - Email: {new_user.email}
+        - Password: {new_user.password_hash} (valid for 48 hours)
+
+        Use this OTP Password to log in and complete your setup. You will be prompted to create a new password:
+        Login here: http://localhost:5173/login
+
+        If you did not request this account, please ignore this email and contact our support team immediately..
+
+        Regards,  
+        Austin Alasiri
+        MyDuka Team
+        """
+            )
+        mail.send(msg)
         return make_response(new_user.to_dict(), 201)
 
 api.add_resource(Users, '/user')

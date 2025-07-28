@@ -42,18 +42,18 @@ const ProductDetail = () => {
       const [
         productRes, entriesRes, exitsRes, batchesRes, mpesaRes, clerksRes
       ] = await Promise.all([
-        axios.get(`http://localhost:3001/products/${productId}`),
-        axios.get(`http://localhost:3001/stock_entries?product_id=${productId}`),
-        axios.get(`http://localhost:3001/stock_exits?product_id=${productId}`),
-        axios.get('http://localhost:3001/batches'),
-        axios.get('http://localhost:3001/mpesa_transactions'),
-        axios.get('http://localhost:3001/users?role=clerk')
+        axios.get(`http://127.0.0.1:5000/product/${productId}`),
+        axios.get(`http://127.0.0.1:5000/stock_entries?product_id=${productId}`),
+        axios.get(`http://127.0.0.1:5000/stock_exits?product_id=${productId}`),
+        axios.get('http://127.0.0.1:5000/batches'),
+        // axios.get('http://localhost:3001/mpesa_transactions'),
+        axios.get('http://127.0.0.1:5000/user/clerks')
       ]);
       setProduct(productRes.data);
       setEntries(entriesRes.data);
       setExits(exitsRes.data);
       setBatches(batchesRes.data);
-      setMpesa(mpesaRes.data);
+      // setMpesa(mpesaRes.data);
       setClerks(clerksRes.data);
     };
     fetchData();
@@ -175,7 +175,9 @@ const ProductDetail = () => {
       <div className="bg-white p-6 rounded shadow border">
         <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
         <p className="text-gray-600">{product.description}</p>
-        <p className="text-gray-900 font-semibold mt-2 text-lg">Selling price: KES {product.selling_price?.toFixed(2)}</p>
+        <p className="text-gray-900 font-semibold mt-2 text-lg">
+          Selling price: KES {Number(product.selling_price).toFixed(2)}
+        </p>
       </div>
 
       <div className="flex flex-wrap items-center gap-4 justify-between">
