@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => {
   const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState('');
@@ -34,15 +35,11 @@ const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => 
       requester_id: clerkId,
       quantity,
       status: 'waiting',
-      reviewed_by: null,
-      created_at: new Date(requestDate).toISOString(),
-      reviewed_at: null,
-      note,
       supplier_id: Number(selectedSupplierId),
     };
 
     try {
-      await axios.post('http://127.0.0.1:5000/supply_request', newRequest, {headers: { 'Content-Type': 'multipart/form-data' }});
+      await axios.post('http://127.0.0.1:5000/supply_request', newRequest, {headers: { 'Content-Type': 'application/json' }});
       onSubmit?.();
       onClose();
     } catch (error) {
