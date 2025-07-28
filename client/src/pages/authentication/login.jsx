@@ -49,7 +49,6 @@ function Login() {
     
         if (userRes.ok) {
           dispatch(setUser(userData));
-         dispatch(setUser(userData));
          navigate(`/${userData.role}`, { replace: true });
         } else {
           setError(userData.message || "Login failed. Try again.");

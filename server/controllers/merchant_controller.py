@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, request, session
+from flask import Blueprint, make_response, request, session, current_app
 from flask_restful import Api, Resource
 from ..models.merchant import Merchant
 from ..models import db
@@ -17,9 +17,16 @@ from ..models.user import User
 from ..models.supplier import Supplier
 
 bcrypt = Bcrypt()
+from flask_mail import Message
+from .. import mail
+from threading import Thread
 
 merchant_bp = Blueprint('merchant_bp', __name__)
 api = Api(merchant_bp)
+
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
 
 class Merchants(Resource):
     def get(self):
@@ -42,7 +49,38 @@ class Merchants(Resource):
         if(new_merchant):
             db.session.add(new_merchant)
             db.session.commit()
-            return make_response(new_merchant.to_dict(), 201)
+            msg = Message(
+                subject=f"Merchant Account Creation Successful",
+                sender='austinalasiri44@gmail.com',
+                recipients=[new_merchant.email],)
+            msg.html = f"""Dear {new_merchant.first_name},
+
+        <p>Your Merchant account with MyDuka has been successfully created on MyDuka. You can now log in and create your profile
+        and access our services.</p>
+
+        <a href="http://127.0.0.1:5173/login" style="
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;">
+            Log In here
+        </a>
+
+        <p>If you have any questions or need assistance, contact our support team for help.</p>
+
+        <p>Thank you for choosing MyDuka.</p>
+
+        <p>Regards,<br>
+        Austin Alasiri<br>
+        MyDuka Team</p>
+"""
+            response = make_response(new_merchant.to_dict(), 201)
+            # Starting background thread
+            Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
+            
+            return response
         else:
             return make_response({"message": "Failed to create a new merchant"}, 404)
 api.add_resource(Merchants, '/merchant')
