@@ -1,7 +1,6 @@
-// /components/staff/InviteStaffModal.jsx
 import React, { useState } from "react";
 
-const InviteStaffModal = ({ storeId, onClose }) => {
+const InviteStaffModal = ({ storeId, role = "admin", onClose }) => {
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -20,17 +19,15 @@ const InviteStaffModal = ({ storeId, onClose }) => {
     setError("");
 
     try {
-      // Normally you'd POST to your backend to generate a token and email invite.
-      // Here we simulate creating a user with role "admin"
-      const res = await fetch("http://localhost:3000/users", {
+      const res = await fetch("http://localhost:5000/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
           store_id: Number(storeId),
-          role: "admin",
+          role, // dynamically passed role
           is_active: true,
-          created_at: new Date().toISOString(),
+          password: "changeme123", // placeholder default password
         }),
       });
 
@@ -46,7 +43,9 @@ const InviteStaffModal = ({ storeId, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
-        <h2 className="text-lg font-bold text-[#011638] mb-4">Invite Store Admin</h2>
+        <h2 className="text-lg font-bold text-[#011638] mb-4">
+          Invite Store {role === "admin" ? "Admin" : "Clerk"}
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"

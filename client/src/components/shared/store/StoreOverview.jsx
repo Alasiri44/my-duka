@@ -4,63 +4,22 @@ import StoreCharts from "./StoreCharts";
 
 const StoreOverview = () => {
   const { store } = useOutletContext();
-  const [users, setUsers] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [entries, setEntries] = useState([]);
+  const [summary, setSummary] = useState(null);
+  const [charts, setCharts] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState("All");
 
   useEffect(() => {
-    Promise.all([
-      fetch("http://localhost:3000/users").then((res) => res.json()),
-      fetch("http://localhost:3000/products").then((res) => res.json()),
-      fetch("http://localhost:3000/stock_entries").then((res) => res.json()),
-    ]).then(([userData, productData, entryData]) => {
-      const storeId = Number(store.id);
-
-      const typedUsers = userData.map((u) => ({
-        ...u,
-        id: Number(u.id),
-        store_id: Number(u.store_id),
-      }));
-
-      const typedProducts = productData.map((p) => ({
-        ...p,
-        id: Number(p.id),
-        store_id: Number(p.store_id),
-      }));
-
-      const typedEntries = entryData.map((e) => ({
-        ...e,
-        product_id: Number(e.product_id),
-        buying_price: Number(e.buying_price),
-        quantity_received: Number(e.quantity_received),
-        created_at: e.created_at,
-      }));
-
-      const storeProductIds = typedProducts
-        .filter((p) => p.store_id === storeId)
-        .map((p) => p.id);
-
-      const filteredEntries = typedEntries.filter((e) =>
-        storeProductIds.includes(e.product_id)
-      );
-
-      const relevantProducts = typedProducts.filter((p) =>
-        filteredEntries.some((e) => e.product_id === p.id)
-      );
-
-      setUsers(typedUsers.filter((u) => u.store_id === storeId));
-      setProducts(relevantProducts);
-      setEntries(filteredEntries);
-    });
+    fetch(`http://localhost:5000/store/${store.id}/overview`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSummary(data.summary);
+        setCharts(data.charts);
+      });
   }, [store.id]);
 
-  const adminCount = users.filter((u) => u.role === "admin").length;
-  const clerkCount = users.filter((u) => u.role === "clerk").length;
-  const storeProductIds = products.map((p) => p.id);
-
-  const unpaidDeliveries = entries.filter(
-    (e) => storeProductIds.includes(e.product_id) && e.payment_status === "unpaid"
-  );
+  if (!summary || !charts) {
+    return <p className="text-center p-6 text-[#5e574d]">Loading overview...</p>;
+  }
 
   return (
     <div>
@@ -84,27 +43,58 @@ const StoreOverview = () => {
 
         <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm">
           <p className="text-[#5e574d]">Total Products</p>
-          <p className="text-[#011638] font-medium">{products.length}</p>
+          <p className="text-[#011638] font-medium">{summary.total_products}</p>
+        </div>
+
+          {/* Filterable Total Sales Card */}
+           <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm flex flex-col justify-between">
+          <div>
+            <p className="text-[#5e574d]">Total Sales</p>
+            <p className="text-[#011638] text-lg font-semibold">
+              KES{" "}
+              {(
+                selectedMethod === "All"
+                  ? summary.total_sales
+                  : charts.sales_by_payment_method.find((m) => m.method === selectedMethod)?.amount || 0
+              ).toLocaleString()}
+            </p>
+          </div>
+        
+          <div className="flex justify-center mt-4 space-x-2">
+            {["All", ...charts.sales_by_payment_method.map((m) => m.method)].map((method) => (
+              <button
+                key={method}
+                onClick={() => setSelectedMethod(method)}
+                className={`px-2 py-1 text-xs rounded border ${
+                  selectedMethod === method
+                    ? "bg-[#011638] text-white border-[#011638]"
+                    : "text-[#011638] border-[#d7d0c8] bg-white"
+                }`}
+              >
+                {method}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm">
           <p className="text-[#5e574d]">Admins</p>
-          <p className="text-[#011638] font-medium">{adminCount}</p>
+          <p className="text-[#011638] font-medium">{summary.admin_count}</p>
         </div>
 
         <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm">
           <p className="text-[#5e574d]">Clerks</p>
-          <p className="text-[#011638] font-medium">{clerkCount}</p>
+          <p className="text-[#011638] font-medium">{summary.clerk_count}</p>
         </div>
 
         <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm">
           <p className="text-[#5e574d]">Unpaid Deliveries</p>
-          <p className="text-[#ec4e20] font-semibold">{unpaidDeliveries.length}</p>
+          <p className="text-[#ec4e20] font-semibold">{summary.unpaid_deliveries}</p>
         </div>
       </div>
 
       {/* Chart Section */}
-      <StoreCharts entries={entries} products={products} />
+      <StoreCharts charts={charts} />
     </div>
   );
 };

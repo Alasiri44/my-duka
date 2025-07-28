@@ -31,7 +31,7 @@ const Alert = ({ message }) => {
 
   return (
     <div style={alertStyle}>
-      <span><i class="fa-solid fa-square-check"></i></span>
+      <span><i className="fa-solid fa-square-check"></i></span>
       <span>{message}</span>
     </div>
   );

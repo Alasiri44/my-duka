@@ -2,153 +2,218 @@ import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const BusinessPaymentsView = () => {
-  const { currentBusiness } = useOutletContext();
-  const [entries, setEntries] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [suppliers, setSuppliers] = useState([]);
-  const [clerks, setClerks] = useState([]);
-  const [stores, setStores] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterStatus, setFilterStatus] = useState("");
+  const { businessId, business, stores } = useOutletContext();
+  const [payments, setPayments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [entriesByBatch, setEntriesByBatch] = useState({});
+  const [selectedEntries, setSelectedEntries] = useState([]);
+  const [totalToPay, setTotalToPay] = useState(0);
+  const [selectedSupplier, setSelectedSupplier] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [mpesaOption, setMpesaOption] = useState(null);
+  const [mpesaValue, setMpesaValue] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [openBatchId, setOpenBatchId] = useState(null);
 
   useEffect(() => {
-    Promise.all([
-      fetch("http://localhost:3000/stock_entries").then((res) => res.json()),
-      fetch("http://localhost:3000/products").then((res) => res.json()),
-      fetch("http://localhost:3000/suppliers").then((res) => res.json()),
-      fetch("http://localhost:3000/users").then((res) => res.json()),
-      fetch("http://localhost:3000/stores").then((res) => res.json()),
-    ]).then(([entryData, productData, supplierData, userData, storeData]) => {
-      const businessStores = storeData
-        .filter((s) => Number(s.business_id) === currentBusiness.id)
-        .map((s) => Number(s.id));
+    fetch("http://localhost:5000/payments")
+      .then((res) => res.json())
+      .then((data) => {
+        setPayments(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch payments:", err);
+        setLoading(false);
+      });
+  }, []);
 
-      const businessClerks = userData
-        .filter((u) => businessStores.includes(Number(u.store_id)))
-        .map((u) => Number(u.id));
+  useEffect(() => {
+    async function fetchStockEntries() {
+      const allEntries = [];
+      for (const store of stores) {
+        const res = await fetch(`http://localhost:5000/store/${store.id}/stock_entries`);
+        const entries = await res.json();
+        allEntries.push(...entries);
+      }
+      const unpaidByBatch = {};
+      for (const entry of allEntries) {
+        if (!unpaidByBatch[entry.batch_id]) unpaidByBatch[entry.batch_id] = [];
+        unpaidByBatch[entry.batch_id].push(entry);
+      }
+      setEntriesByBatch(unpaidByBatch);
+    }
+    if (stores?.length) fetchStockEntries();
+  }, [stores]);
 
-      const relevantEntries = entryData
-        .map((e) => ({
-          ...e,
-          id: Number(e.id),
-          quantity: Number(e.quantity),
-          amount_paid: Number(e.amount_paid || 0),
-          product_id: Number(e.product_id),
-          supplier_id: Number(e.supplier_id),
-          clerk_id: Number(e.clerk_id),
-        }))
-        .filter((e) => businessClerks.includes(e.clerk_id));
+  const toggleEntry = (entry) => {
+    if (
+      selectedEntries.length > 0 &&
+      selectedEntries[0].batch_id !== entry.batch_id
+    ) {
+      alert("You can only select entries from one batch at a time.");
+      return;
+    }
 
-      setEntries(relevantEntries);
-      setProducts(productData.map((p) => ({ ...p, id: Number(p.id) })));
-      setSuppliers(supplierData.map((s) => ({ ...s, id: Number(s.id) })));
-      setClerks(userData.map((u) => ({ ...u, id: Number(u.id) })));
-      setStores(storeData.map((s) => ({ ...s, id: Number(s.id) })));
-    });
-  }, [currentBusiness.id]);
-
-  const getStatus = (entry) => {
-    const totalDue = entry.unit_price * entry.quantity;
-    if (entry.amount_paid === 0) return "Unpaid";
-    if (entry.amount_paid < totalDue) return "Partial";
-    return "Paid";
+    const isSelected = selectedEntries.find((e) => e.id === entry.id);
+    let updated;
+    if (isSelected) {
+      updated = selectedEntries.filter((e) => e.id !== entry.id);
+    } else {
+      updated = [...selectedEntries, entry];
+    }
+    setSelectedEntries(updated);
+    setTotalToPay(
+      updated.reduce((sum, e) => sum + parseFloat(e.buying_price || 0), 0)
+    );
+    if (updated.length > 0) {
+      setSelectedSupplier(updated[0].supplier);
+    } else {
+      setSelectedSupplier(null);
+    }
   };
 
-  const filteredEntries = entries.filter((e) => {
-    const supplier = suppliers.find((s) => s.id === e.supplier_id);
-    const status = getStatus(e);
-    const matchesSearch = supplier?.name?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = filterStatus === "" || status === filterStatus;
-    return matchesSearch && matchesStatus;
-  });
-
-  const totalPaid = filteredEntries.reduce((sum, e) => sum + e.amount_paid, 0);
-
   return (
-    <div className="min-h-screen bg-[#fdfdfd] p-6">
-      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-[#011638]">Payments</h1>
-          <p className="text-sm text-[#5e574d]">
-            Stock payments across stores in <span className="font-medium">{currentBusiness.name}</span>
-          </p>
-        </div>
-        <div className="bg-[#011638] text-white px-4 py-2 rounded text-sm font-medium">
-          Total Paid: KES {totalPaid.toLocaleString()}
-        </div>
-      </div>
+    <div>
+      <h1 className="text-2xl font-bold text-[#011638] mb-2">Supplier Payments</h1>
+      <p className="text-[#5e574d] mb-6">Overview of payments for <strong>{business?.name}</strong></p>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        <input
-          type="text"
-          placeholder="Search supplier name"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="border border-[#d7d0c8] px-3 py-2 rounded text-sm"
-        />
-        <select
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-          className="border border-[#d7d0c8] px-3 py-2 rounded text-sm"
-        >
-          <option value="">All Statuses</option>
-          <option value="Paid">Paid</option>
-          <option value="Partial">Partial</option>
-          <option value="Unpaid">Unpaid</option>
-        </select>
-      </div>
+      {Object.entries(entriesByBatch).map(([batchId, entries]) => {
+        const storeName = stores.find(s => s.id === entries[0]?.store_id)?.name || "Unknown Store";
+        const supplierName = entries[0]?.supplier?.name || "Unknown Supplier";
+        const isOpen = openBatchId === batchId;
+        const unpaidTotal = entries.filter(e => e.payment_status !== "paid")
+          .reduce((sum, e) => sum + parseFloat(e.buying_price || 0), 0);
 
-      {/* Table */}
-      {filteredEntries.length === 0 ? (
-        <p className="text-[#5e574d]">No payment records match your filters.</p>
-      ) : (
-        <div className="overflow-auto border border-[#f2f0ed] rounded-xl">
-          <table className="w-full text-sm text-left min-w-[720px]">
-            <thead className="bg-[#f2f0ed] text-[#011638]">
-              <tr>
-                <th className="px-4 py-2">Supplier</th>
-                <th className="px-4 py-2">Product</th>
-                <th className="px-4 py-2">Quantity</th>
-                <th className="px-4 py-2">Paid (KES)</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredEntries.map((e) => {
-                const supplier = suppliers.find((s) => s.id === e.supplier_id);
-                const product = products.find((p) => p.id === e.product_id);
-                const status = getStatus(e);
-                return (
-                  <tr key={e.id} className="border-t border-[#f2f0ed]">
-                    <td className="px-4 py-2">{supplier?.name || "—"}</td>
-                    <td className="px-4 py-2">{product?.name || "—"}</td>
-                    <td className="px-4 py-2">{e.quantity}</td>
-                    <td className="px-4 py-2">{e.amount_paid.toLocaleString()}</td>
-                    <td className="px-4 py-2">
-                      <span
-                        className={`text-xs font-medium px-2 py-1 rounded ${
-                          status === "Paid"
-                            ? "text-green-600 bg-green-100"
-                            : status === "Partial"
-                            ? "text-yellow-700 bg-yellow-100"
-                            : "text-red-600 bg-red-100"
-                        }`}
+        return (
+          <div key={batchId} className="mb-4 border rounded-xl bg-white">
+            <button
+              onClick={() => {
+                setOpenBatchId(isOpen ? null : batchId);
+                setSelectedEntries([]);
+                setSelectedSupplier(null);
+                setTotalToPay(0);
+                setPaymentMethod("cash");
+                setMpesaOption(null);
+                setMpesaValue("");
+                setAccountNumber("");
+              }}
+              className="w-full text-left px-4 py-3 font-semibold bg-[#f7f7f7] hover:bg-[#eee]"
+            >
+              Batch #{batchId} — {storeName} — {supplierName} — <span className="text-sm font-normal text-gray-500">KES {unpaidTotal.toFixed(2)} unpaid</span>
+            </button>
+            {isOpen && (
+              <div className="p-4 border-t overflow-x-auto">
+                <table className="min-w-full text-sm mb-4">
+                  <thead className="bg-[#f4f4f4] text-left">
+                    <tr>
+                      <th className="py-2 px-3">Product</th>
+                      <th className="py-2 px-3">Quantity</th>
+                      <th className="py-2 px-3">Buying Price</th>
+                      <th className="py-2 px-3">Payment Status</th>
+                      <th className="py-2 px-3">Select</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {entries.map((entry) => (
+                      <tr key={entry.id} className="border-t">
+                        <td className="py-1 px-3">{entry.product_name || `Product #${entry.product_id}`}</td>
+                        <td className="py-1 px-3">{entry.quantity_received}</td>
+                        <td className="py-1 px-3">KES {parseFloat(entry.buying_price).toFixed(2)}</td>
+                        <td className="py-1 px-3">
+                          {entry.payment_status === "paid"
+                            ? <span className="text-green-600">Paid</span>
+                            : entry.payment_status === "partial"
+                            ? <span className="text-yellow-600">Partial</span>
+                            : <span className="text-red-600">Unpaid</span>}
+                        </td>
+                        <td className="py-1 px-3">
+                          {entry.payment_status === "paid" ? (
+                            <span className="text-sm text-gray-400 italic">Already Paid</span>
+                          ) : (
+                            <input
+                              type="checkbox"
+                              checked={selectedEntries.some(e => e.id === entry.id)}
+                              onChange={() => toggleEntry(entry)}
+                            />
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                {selectedEntries.length > 0 && (
+                  <div className="bg-[#f9f9f9] p-4 rounded-xl mt-4">
+                    <h4 className="text-md font-bold mb-2 text-[#011638]">Payment Summary</h4>
+                    <p className="text-sm text-[#444]">Selected Entries: <strong>{selectedEntries.length}</strong></p>
+                    <p className="text-sm mb-2">Total to Pay: <strong>KES {totalToPay.toFixed(2)}</strong></p>
+
+                    <label className="block text-sm mb-2">
+                      Payment Method:
+                      <select
+                        value={paymentMethod}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        className="block mt-1 border p-2 rounded w-full"
                       >
-                        {status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2 text-xs text-[#5e574d]">
-                      {new Date(e.created_at).toLocaleDateString()}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+                        <option value="cash">Cash</option>
+                        <option value="card">Card</option>
+                        <option value="mpesa">M-Pesa</option>
+                      </select>
+                    </label>
+
+                    {paymentMethod === "mpesa" && (
+                      <>
+                        <label className="block text-sm mb-2">
+                          Pay To:
+                          <select
+                            value={mpesaOption || ""}
+                            onChange={(e) => setMpesaOption(e.target.value)}
+                            className="block mt-1 border p-2 rounded w-full"
+                          >
+                            <option value="">-- Select Option --</option>
+                            <option value="paybill">Paybill ({selectedSupplier?.paybill_number || "custom"})</option>
+                            <option value="till">Till ({selectedSupplier?.till_number || "custom"})</option>
+                            <option value="phone">Phone ({selectedSupplier?.phone_number || "custom"})</option>
+                          </select>
+                        </label>
+
+                        {mpesaOption && (
+                          <label className="block text-sm mb-4">
+                            {mpesaOption === "paybill" ? "Paybill Number" : mpesaOption === "till" ? "Till Number" : "Phone Number"}:
+                            <input
+                              type="text"
+                              value={mpesaValue}
+                              onChange={(e) => setMpesaValue(e.target.value)}
+                              placeholder={`Enter ${mpesaOption} number`}
+                              className="block mt-1 border p-2 rounded w-full"
+                            />
+                          </label>
+                        )}
+
+                        {mpesaOption === "paybill" && (
+                          <label className="block text-sm mb-4">
+                            Account Number:
+                            <input
+                              type="text"
+                              value={accountNumber}
+                              onChange={(e) => setAccountNumber(e.target.value)}
+                              placeholder="Enter Account Number"
+                              className="block mt-1 border p-2 rounded w-full"
+                            />
+                          </label>
+                        )}
+                      </>
+                    )}
+
+                    <button className="bg-[#011638] text-white px-4 py-2 rounded">Pay</button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

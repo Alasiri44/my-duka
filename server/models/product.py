@@ -20,10 +20,7 @@ class Product(db.Model, SerializerMixin):
     stock_exits = db.relationship('StockExit', back_populates='product')
     store = db.relationship('Store', back_populates='products')  # <-- Add this line
     supply_requests = db.relationship('Supply_Request', back_populates='product',)
-    serialize_only = (
-        'id', 'store_id', 'category_id', 'name', 'description', 'quantity',
-        'selling_price', 'created_at', 'updated_at', 'store.name', 'category.name'
-    )
+    serialize_only = ('id', 'category_id', 'name', 'description', 'quantity', 'selling_price', 'created_at', 'updated_at', 'category.name')
     
     def __repr__(self):
         return f'<product {self.id}: {self.name}, {self.description}>'

@@ -26,6 +26,13 @@ class User(db.Model, SerializerMixin):
     stock_exits = db.relationship('StockExit', back_populates='user')
 
     serialize_rules = ('-store.users', '-clerk_category.clerks', )
+    serialize_only = (
+    'id', 'first_name', 'last_name', 'email', 'role',
+    'store_id', 'is_active', 'phone_number', 'gender', 'created_at'
+     )
+
     
     def __repr__(self):
         return f'<user {self.id}: {self.first_name} {self.last_name} using {self.email}>'
+    
+    

@@ -9,10 +9,12 @@ from .. import mail
 user_bp = Blueprint('user_bp', __name__)
 api = Api(user_bp)
 
+# --- CREATE & GET ALL USERS ---
 class Users(Resource):
     def get(self):
-        response_dict = [user.to_dict() for user in User.query.all()]
-        return make_response(response_dict, 200)
+        users = User.query.all()
+        return make_response([u.to_dict() for u in users], 200)
+
     def post(self):
         from ..app import bcrypt
         data = request.get_json()
@@ -27,9 +29,8 @@ class Users(Resource):
             is_active = data.get('is_active') or True,
             password_hash = bcrypt.generate_password_hash(str(randint(100000, 999999))).decode('utf-8')
         )
-        if(new_user):
-            db.session.add(new_user)
-            db.session.commit()
+        db.session.add(new_user)
+        db.session.commit()
 
             msg = Message(
                 subject=f"{new_user.role.capitalize()} Account Creation Successful",
@@ -54,85 +55,116 @@ class Users(Resource):
         """
             )
             mail.send(msg)
-            return make_response(new_user.to_dict(), 201)
-        else:
-            return make_response({"message": "Failed to create a new user"}, 404)
+        return make_response(new_user.to_dict(), 201)
+
 api.add_resource(Users, '/user')
 
+
+# --- USER BY ID ---
 class User_By_ID(Resource):
     def get(self, id):
-        response = User.query.filter(User.id == id).first()
-        if(response):
-            return make_response(response.to_dict(), 200)
-        else:
-            return make_response({"message": "The user does not exist in the database"}, 404)
-    def delete(self, id):
-        user = User.query.filter(User.id == id).first()
-        if(user):
-            db.session.delete(user)
-            db.session.commit()
-            return make_response('', 204)
-        else:
-            return make_response({"message": "The user does not exist in the database"}, 404)
-    def patch(self, id):
-        user = User.query.filter(User.id == id).first()
-        if(user):
-            for attr in request.get_json():
-                setattr(user, attr, request.get_json().get(attr))
-            db.session.add(user)
-            db.session.commit()
+        user = User.query.filter_by(id=id).first()
+        if user:
             return make_response(user.to_dict(), 200)
-        else:
-            return make_response({"message": "The user does not exist in the database"}, 404)
-api.add_resource(User_By_ID, '/user/<id>')
+        return make_response({"message": "The user does not exist in the database"}, 404)
 
+    def patch(self, id):
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return make_response({"message": "The user does not exist in the database"}, 404)
+        data = request.get_json()
+        for attr in data:
+            setattr(user, attr, data.get(attr))
+        db.session.commit()
+        return make_response(user.to_dict(), 200)
+
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return make_response({"message": "The user does not exist in the database"}, 404)
+        db.session.delete(user)
+        db.session.commit()
+        return make_response('', 204)
+
+api.add_resource(User_By_ID, '/user/<int:id>')
+
+
+# --- LOGIN ---
 class User_Login(Resource):
     def post(self):
         from ..app import bcrypt
-        email = request.get_json().get('email')
-        password = request.get_json().get('password')
-        print(email)
-        user = User.query.filter(User.email == email).first()
-        if(user):
-            if(bcrypt.check_password_hash(user.password_hash, password)):
-                # session.permanent = True
-                session['email'] = user.email
-                session['role'] = user.role
-                return make_response(user.to_dict(), 200)
-            else:
-                return make_response({"message": "Wrong password"}, 404)
-        else:
-            return make_response({"message": "The user does not exist in the database"}, 404)
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+        user = User.query.filter_by(email=email).first()
+        if user and bcrypt.check_password_hash(user.password_hash, password):
+            session['email'] = user.email
+            session['role'] = user.role
+            return make_response(user.to_dict(), 200)
+        return make_response({"message": "Invalid credentials"}, 404)
+
 api.add_resource(User_Login, '/user/login')
 
-class Users_By_StoreID(Resource):
-    def get(self, id):
-        response_dict = [user.to_dict() for user in User.query.filter(User.store_id == id).all()]
-        return make_response(response_dict, 200)
-    def delete(self, id):
-        user = [user.to_dict() for user in User.query.filter(User.store_id == id).all()]
-        if(user):
-            db.session.delete(user)
-            db.session.commit()
-            return make_response('', 204)
-        else:
-            return make_response({"message": "The user does not exist in the database"}, 404)
-api.add_resource(Users_By_StoreID, '/user/store/<int:id>')
 
+# --- USERS BY STORE ---
+class UsersByStore(Resource):
+    def get(self, store_id):
+        users = User.query.filter_by(store_id=store_id).all()
+        return make_response([u.to_dict() for u in users], 200)
+
+    def delete(self, store_id):
+        users = User.query.filter_by(store_id=store_id).all()
+        if not users:
+            return make_response({"message": "No users found for this store."}, 404)
+        for u in users:
+            db.session.delete(u)
+        db.session.commit()
+        return make_response('', 204)
+
+api.add_resource(UsersByStore, '/stores/<int:store_id>/users')
+
+
+# --- ADMINS ---
 class Admins(Resource):
     def get(self):
-        response_dict = [user.to_dict() for user in User.query.filter(User.role == 'admin').all()]
-        return make_response(response_dict, 200)
+        admins = User.query.filter_by(role='admin').all()
+        return make_response([u.to_dict() for u in admins], 200)
+
 api.add_resource(Admins, '/user/admins')
 
+
+# --- CLERKS ---
 class Clerks(Resource):
     def get(self):
-        response_dict = [user.to_dict() for user in User.query.filter(User.role == 'clerk').all()]
-        return make_response(response_dict, 200)
+        clerks = User.query.filter_by(role='clerk').all()
+        return make_response([u.to_dict() for u in clerks], 200)
+
 api.add_resource(Clerks, '/user/clerks')
 
-class Clerks_By_StoreID(Resource):
-    def get(self, id):
-        response_dict = [user.to_dict() for user in User.query.filter(User.role == 'clerk' and User.store_id == id).all()]
-        return make_response(response_dict, 200)
-api.add_resource(Clerks_By_StoreID, '/user/clerks/store/<int:id>')
+
+# --- USER STATS ---
+class UserStats(Resource):
+    def get(self, user_id):
+        from ..models.stock_entries import Stock_Entry
+        from ..models.stock_exits import StockExit
+        from ..models.supply_request import Supply_Request
+
+        entry_count = Stock_Entry.query.filter_by(clerk_id=user_id).count()
+        exit_count = StockExit.query.filter_by(recorded_by=user_id).count()
+        requests = Supply_Request.query.filter_by(requester_id=user_id).all()
+        approved_count = sum(1 for r in requests if r.status == "approved")
+
+        user = User.query.get(user_id)
+        supervised = 0
+        if user and user.role == "admin":
+            supervised = User.query.filter_by(store_id=user.store_id, role="clerk").count()
+
+        return make_response({
+            "entries": entry_count,
+            "exits": exit_count,
+            "requests": len(requests),
+            "approved": approved_count,
+            "supervised": supervised
+        }, 200)
+
+api.add_resource(UserStats, '/users/<int:user_id>/stats')

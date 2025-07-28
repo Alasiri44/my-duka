@@ -150,17 +150,18 @@ with app.app_context():
 
     # === Stock Entries ===
     db.session.add_all([
-    Stock_Entry(id=1, product_id=14, clerk_id=4, batch_id=1, supplier_id=1, quantity_received=21, buying_price=46.34, payment_status='paid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-25T17:23:46')),
-    Stock_Entry(id=2, product_id=8, clerk_id=3, batch_id=2, supplier_id=1, quantity_received=23, buying_price=104.79, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-06T08:00:22')),
-    Stock_Entry(id=3, product_id=9, clerk_id=2, batch_id=3, supplier_id=1, quantity_received=20, buying_price=197.52, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-02T00:33:10')),
-    Stock_Entry(id=4, product_id=15, clerk_id=10, batch_id=4, supplier_id=2, quantity_received=19, buying_price=176.73, payment_status='unpaid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-07T12:55:23')),
-    Stock_Entry(id=5, product_id=12, clerk_id=7, batch_id=5, supplier_id=1, quantity_received=22, buying_price=187.39, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-15T01:50:23')),
-    Stock_Entry(id=6, product_id=4, clerk_id=8, batch_id=1, supplier_id=1, quantity_received=18, buying_price=150.12, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-13T17:22:36')),
-    Stock_Entry(id=7, product_id=3, clerk_id=2, batch_id=2, supplier_id=1, quantity_received=18, buying_price=162.98, payment_status='paid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-07T10:27:02')),
-    Stock_Entry(id=8, product_id=6, clerk_id=3, batch_id=3, supplier_id=1, quantity_received=9, buying_price=24.19, payment_status='paid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-23T21:31:16')),
-    Stock_Entry(id=9, product_id=3, clerk_id=8, batch_id=4, supplier_id=1, quantity_received=22, buying_price=72.94, payment_status='paid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-24T03:35:48')),
-    Stock_Entry(id=10, product_id=11, clerk_id=8, batch_id=5, supplier_id=1, quantity_received=22, buying_price=43.57, payment_status='unpaid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-05T05:34:13'))
+        Stock_Entry(id=1, product_id=14, clerk_id=4, batch_id=1, store_id=1, supplier_id=1, quantity_received=21, buying_price=46.34, payment_status='paid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-25T17:23:46')),
+        Stock_Entry(id=2, product_id=8, clerk_id=3, batch_id=2, store_id=3, supplier_id=1, quantity_received=23, buying_price=104.79, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-06T08:00:22')),
+        Stock_Entry(id=3, product_id=9, clerk_id=2, batch_id=3, store_id=2, supplier_id=1, quantity_received=20, buying_price=197.52, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-02T00:33:10')),
+        Stock_Entry(id=4, product_id=15, clerk_id=10, batch_id=4, store_id=1, supplier_id=2, quantity_received=19, buying_price=176.73, payment_status='unpaid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-07T12:55:23')),
+        Stock_Entry(id=5, product_id=12, clerk_id=7, batch_id=5, store_id=1, supplier_id=1, quantity_received=22, buying_price=187.39, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-15T01:50:23')),
+        Stock_Entry(id=6, product_id=4, clerk_id=8, batch_id=1, store_id=1, supplier_id=1, quantity_received=18, buying_price=150.12, payment_status='unpaid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-13T17:22:36')),
+        Stock_Entry(id=7, product_id=3, clerk_id=2, batch_id=2, store_id=3, supplier_id=1, quantity_received=18, buying_price=162.98, payment_status='paid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-07T10:27:02')),
+        Stock_Entry(id=8, product_id=6, clerk_id=3, batch_id=3, store_id=2, supplier_id=1, quantity_received=9, buying_price=24.19, payment_status='paid', payment_method='MPesa', created_at=datetime.fromisoformat('2025-06-23T21:31:16')),
+        Stock_Entry(id=9, product_id=3, clerk_id=8, batch_id=4, store_id=1, supplier_id=1, quantity_received=22, buying_price=72.94, payment_status='paid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-24T03:35:48')),
+        Stock_Entry(id=10, product_id=11, clerk_id=8, batch_id=5, store_id=1, supplier_id=1, quantity_received=22, buying_price=43.57, payment_status='unpaid', payment_method='Cash', created_at=datetime.fromisoformat('2025-07-05T05:34:13'))
     ])
+
     db.session.flush()
 
     # === Sales ===

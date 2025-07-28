@@ -5,11 +5,15 @@ import SupplyRequestTable from "../components/admin/SupplyRequestTable";
 import Reports from "../components/admin/Reports";
 import AddClerk from "../pages/dashboards/admin/addClerk";
 import ProtectedRoute from "./ProtectedRoute";
+import StaffView from "@/components/merchant/staff/StaffView";
+import StoreInventory from "@/components/shared/store/inventory/StoreInventory";
+import StockEntries from "@/components/shared/store/inventory/StockEntries";
+import StockExits from "@/components/shared/store/inventory/exits/StockExits";
 
 const adminRoutes = [
   {
     path: "/admin",
-    element: <ProtectedRoute />, // redirects if not logged in
+    element: <ProtectedRoute />, 
     children: [
       {
         path: "",
@@ -17,6 +21,10 @@ const adminRoutes = [
         children: [
           { path: "", element: <StoreOverview /> },
           { path: "supply-requests", element: <SupplyRequestTable /> },
+          {path:"staff", element:<StaffView/>},
+          {path:"inventory", element:<StoreInventory/>},
+          {path:"entries", element:<StockEntries/>},
+          {path:"exits", element:<StockExits/>},
           { path: "payments", element: <div>Admin Payments Page</div> },
           { path: "suppliers", element: <div>Suppliers Page</div> },
           { path: "reports", element: <Reports /> },

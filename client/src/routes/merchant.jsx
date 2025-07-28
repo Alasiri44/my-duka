@@ -26,7 +26,7 @@ const merchantRoutes = [
     children: [
       {
         index: true,
-        element: <MerchantDashboard />, 
+        element: <MerchantDashboard />,
       },
       {
         path: "businesses/:id",

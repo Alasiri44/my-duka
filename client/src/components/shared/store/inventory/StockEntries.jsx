@@ -14,7 +14,7 @@ const StockEntries = () => {
   const [groupedView, setGroupedView] = useState(true);
   const [selectedBatchId, setSelectedBatchId] = useState(null);
   const [batchSearch, setBatchSearch] = useState("");
-  const [filterBatchStatus, setFilterBatchStatus] = useState(""); // new
+  const [filterBatchStatus, setFilterBatchStatus] = useState("");
 
   const [filterProduct, setFilterProduct] = useState("");
   const [filterSupplier, setFilterSupplier] = useState("");
@@ -22,61 +22,55 @@ const StockEntries = () => {
   const [filterEndDate, setFilterEndDate] = useState("");
 
   useEffect(() => {
+    const queryParams = new URLSearchParams();
+    if (filterProduct) queryParams.append("product_id", filterProduct);
+    if (filterSupplier) queryParams.append("supplier_id", filterSupplier);
+    if (filterStartDate) queryParams.append("start_date", filterStartDate);
+    if (filterEndDate) queryParams.append("end_date", filterEndDate);
+
+    const queryString = queryParams.toString();
+
     Promise.all([
-      fetch(`http://127.0.0.1:5000/stock_entries?store_id=${store.id}`).then((r) => r.json()),
-      fetch("http://127.0.0.1:5000/user").then((r) => r.json()),
-      fetch("http://127.0.0.1:5000/product").then((r) => r.json()),
-      fetch("http://127.0.0.1:5000/supplier").then((r) => r.json()),
+      fetch(`http://localhost:5000/store/${store.id}/stock_entries?${queryString}`).then((r) => r.json()),
+      fetch(`http://localhost:5000/store/${store.id}/users`).then((r) => r.json()),
+      fetch(`http://localhost:5000/store/${store.id}/products`).then((r) => r.json()),
+      fetch(`http://localhost:5000/business/${store.business_id}/suppliers`).then((r) => r.json()),
     ]).then(([entryData, userData, productData, supplierData]) => {
       setEntries(
-        entryData.map((e) => ({
-          ...e,
-          clerk_id: Number(e.clerk_id),
-          product_id: Number(e.product_id),
-          quantity_received: Number(e.quantity_received),
-          buying_price: Number(e.buying_price),
-        }))
-      );
+  entryData.map((e) => {
+    console.log(`entry.id=${e.id}, store_id=${e.store_id}, clerk_id=${e.clerk_id}`);
+    return {
+      ...e,
+      id: Number(e.id),
+      quantity: Number(e.quantity),
+      buying_price: parseFloat(e.buying_price) || 0,
+    };
+  })
+);
       setUsers(userData.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
       setProducts(productData.map((p) => ({ ...p, id: Number(p.id) })));
       setSuppliers(supplierData.map((s) => ({ ...s, id: Number(s.id) })));
     });
-  }, [store.id]);
+  }, [store.id, store.business_id, filterProduct, filterSupplier, filterStartDate, filterEndDate]);
 
-  const clerkIds = useMemo(
-    () => users.filter((u) => u.store_id === Number(store.id)).map((u) => u.id),
-    [users, store.id]
-  );
-
-  const storeEntries = useMemo(
-    () => entries.filter((e) => clerkIds.includes(e.clerk_id)),
-    [entries, clerkIds]
-  );
-
-  const filteredEntries = useMemo(() => {
-    return storeEntries.filter((e) => {
-      const productMatch = filterProduct ? e.product_id === Number(filterProduct) : true;
-      const supplierMatch = filterSupplier ? e.supplier_id === Number(filterSupplier) : true;
-      const dateMatch =
-        (!filterStartDate || new Date(e.created_at) >= new Date(filterStartDate)) &&
-        (!filterEndDate || new Date(e.created_at) <= new Date(filterEndDate));
-      return productMatch && supplierMatch && dateMatch;
-    });
-  }, [storeEntries, filterProduct, filterSupplier, filterStartDate, filterEndDate]);
+const storeEntries = useMemo(
+  () => entries.filter((e) => Number(e.store_id) === Number(store.id))
+,
+  [entries, store.id]
+);
+console.log("Current store ID:", store.id);
 
   const batches = useMemo(() => {
     const grouped = {};
-    for (const entry of filteredEntries) {
+    for (const entry of storeEntries) {
       const batchKey = entry.batch_id || `no-batch-${entry.id}`;
       if (!grouped[batchKey]) grouped[batchKey] = [];
       grouped[batchKey].push(entry);
     }
 
-    // ✅ Apply batch status filter
     const filteredBatches = {};
     for (const [batchId, entries] of Object.entries(grouped)) {
       const allPaid = entries.every((e) => e.payment_status === "paid");
-
       if (
         filterBatchStatus === "" ||
         (filterBatchStatus === "paid" && allPaid) ||
@@ -87,7 +81,7 @@ const StockEntries = () => {
     }
 
     return filteredBatches;
-  }, [filteredEntries, filterBatchStatus]);
+  }, [storeEntries, filterBatchStatus]);
 
   const selectedBatchEntries = batches[selectedBatchId] || [];
 
@@ -98,7 +92,7 @@ const StockEntries = () => {
   const getBatchTotal = (entries) =>
     entries.reduce((sum, e) => sum + e.buying_price * e.quantity_received, 0);
 
-  const totalValue = filteredEntries.reduce(
+  const totalValue = storeEntries.reduce(
     (sum, e) => sum + e.buying_price * e.quantity_received,
     0
   );
@@ -157,7 +151,7 @@ const StockEntries = () => {
         </div>
       ) : (
         <StockEntryTable
-          entries={filteredEntries}
+          entries={storeEntries}
           getProductName={getProductName}
           getClerkName={getClerkName}
           getSupplierName={getSupplierName}
