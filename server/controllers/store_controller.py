@@ -353,3 +353,57 @@ store_api.add_resource(StoreBatches, "/store/<int:id>/batches")
 
 
 
+
+class StoreInventory(Resource):
+    def get(self, id):
+        store = Store.query.get(id)
+        if not store:
+            return make_response({"message": "Store not found"}, 404)
+
+        products = Product.query.filter_by(business_id=store.business_id).all()
+        product_ids = [p.id for p in products]
+
+        entries = Stock_Entry.query.filter(
+            Stock_Entry.store_id == id,
+            Stock_Entry.product_id.in_(product_ids)
+        ).all()
+
+        exits = StockExit.query.filter(
+            StockExit.store_id == id,
+            StockExit.product_id.in_(product_ids)
+        ).all()
+
+        entry_totals = {}
+        for e in entries:
+            entry_totals[e.product_id] = entry_totals.get(e.product_id, 0) + e.quantity_received
+
+        exit_totals = {}
+        for e in exits:
+            exit_totals[e.product_id] = exit_totals.get(e.product_id, 0) + e.quantity
+
+        from ..models.category import Category
+        categories = Category.query.filter_by(business_id=store.business_id).all()
+        category_map = {c.id: c.name for c in categories}
+
+        response = []
+        for p in products:
+            pid = p.id
+            qty = entry_totals.get(pid, 0) - exit_totals.get(pid, 0)
+            response.append({
+                "id": p.id,
+                "name": p.name,
+                "description": p.description,
+                "category_id": p.category_id,
+                "category_name": category_map.get(p.category_id, "Uncategorized"),
+                "selling_price": float(p.selling_price),
+                "quantity_on_hand": max(qty, 0)
+            })
+
+        return make_response(response, 200)
+
+store_api.add_resource(StoreInventory, "/store/<int:id>/inventory")
+
+
+
+
+

@@ -10,8 +10,8 @@ const BusinessInventoryView = () => {
 
 useEffect(() => {
   const url = filterStoreId
-    ? `http://127.0.0.1:5000/store/${filterStoreId}/inventory`
-    : `http://127.0.0.1:5000/business/${business.id}/inventory`;
+    ? `
+    : `http://127.0.0.http://127.0.0.1:5000/store/${filterStoreId}/inventory`1:5000/business/${business.id}/inventory`;
 
   fetch(url)
     .then((res) => res.json())
