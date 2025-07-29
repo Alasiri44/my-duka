@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-// import M-PESA_LOGO from "../../../assets/M-PESA_LOGO.png"; 
 import mpesaLogo from "../../../assets/mpesaLogo.png";
 
 const BusinessSettingsView = () => {
-  const { currentBusiness } = useOutletContext();
+  const { businessId, business } = useOutletContext();
   const [settings, setSettings] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/business_settings?business_id=${currentBusiness.id}`)
-      .then((res) => res.json())
+  fetch(`http://localhost:5000/business_settings?business_id=${businessId}`)
+        .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) setSettings(data[0]);
       });
-  }, [currentBusiness.id]);
+  }, [businessId]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,11 +25,11 @@ const BusinessSettingsView = () => {
 
   const handleSave = async () => {
     setIsSaving(true);
-    await fetch(`http://localhost:3000/business_settings/${settings.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(settings),
-    });
+    await fetch(`http://localhost:5000/business_settings/${settings.id}`, {
+  method: "PATCH",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(settings),
+});
     setIsSaving(false);
     alert("Settings saved!");
   };

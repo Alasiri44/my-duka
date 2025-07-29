@@ -27,7 +27,7 @@ const InviteStaffModal = ({ storeId, role = "admin", onClose }) => {
           store_id: Number(storeId),
           role, // dynamically passed role
           is_active: true,
-          password: "changeme123", // placeholder default password
+           
         }),
       });
 

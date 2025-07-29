@@ -26,7 +26,7 @@ const BusinessTable = ({ businesses }) => {
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-[#011638]">{biz.name}</h3>
-                <span className="bg-[#5e574d] text-white text-xs px-2 py-0.5 rounded-full uppercase">
+                <span className="bg-[#0b7a29] text-white text-xs px-2 py-0.5 rounded-full uppercase">
                   {biz.status}
                 </span>
               </div>
