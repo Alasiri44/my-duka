@@ -46,7 +46,7 @@ class Users(Resource):
         - Password: {password}  (valid for 48 hours)
 
         Use this OTP Password to log in and complete your setup. You will be prompted to create a new password:
-        Login here: http://localhost:5173/login
+        Login here: http://127.0.0.1:5173/login
 
         If you did not request this account, please ignore this email and contact our support team immediately..
 
