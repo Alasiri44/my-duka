@@ -69,3 +69,6 @@ def create_sale():
 def get_sales():
     sales = Sale.query.all()
     return jsonify([sale.to_dict() if hasattr(sale, 'to_dict') else {'id': sale.id} for sale in sales])
+
+
+

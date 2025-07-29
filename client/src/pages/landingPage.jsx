@@ -1,6 +1,14 @@
 import React from "react";
 import LandingNavBar from "../components/landing_navbar";
 import { NavLink } from "react-router-dom";
+import { GoGraph } from "react-icons/go";
+import { FaUserLock, FaShieldAlt,FaChartArea  } from "react-icons/fa";
+import mpesaLogo from "../assets/mpesaLogo.png";
+import { MdAddBusiness } from "react-icons/md";
+import { IoDiamond } from "react-icons/io5";
+import dashScreenshot from "../assets/dashScreenshot.png";
+
+
 
 function LandingPage() {
     return (
@@ -22,9 +30,9 @@ function LandingPage() {
                             </NavLink>
                         </button>
                     </div>
-                    <div className="lg:w-1/2 animate-fade-in-right">
+                    <div className="lg:w-3/4 animate-fade-in-right">
                         <img
-                            src="https://i.pinimg.com/1200x/15/75/97/1575970572a5d879c21478e89c8b6657.jpg"
+                            src={dashScreenshot}
                             alt="Inventory Illustration"
                             className="w-full rounded-lg shadow-lg"
                         />
@@ -48,32 +56,33 @@ function LandingPage() {
                                 {
                                     title: "Smart Inventory",
                                     desc: "Track stock levels, manage suppliers, and automate reordering across multiple stores.",
-                                    icon: "📊"
+                                    icon: <GoGraph />
+
                                 },
                                 {
                                     title: "Role-Based Access",
                                     desc: "Merchant, Admin, and Clerk roles with tailored permissions and workflows.",
-                                    icon: "🔒"
+                                    icon: <FaUserLock />
                                 },
                                 {
                                     title: "M-Pesa Integration",
                                     desc: "Automated supplier payments through Daraja API for seamless transactions.",
-                                    icon: "💸"
+                                    icon: <img src={mpesaLogo} alt="M-Pesa Logo" className="w-6 inline-block" style={{width:"80px"}}/>
                                 },
                                 {
                                     title: "Business Analytics",
                                     desc: "Comprehensive reporting on procurement, sales, and supplier performance.",
-                                    icon: "📈"
+                                    icon: <FaChartArea />
                                 },
                                 {
                                     title: "Secure & Reliable",
                                     desc: "Enterprise-grade security with role-based access control and data encryption.",
-                                    icon: "🛡️"
+                                    icon: <FaShieldAlt />
                                 },
                                 {
                                     title: "Multi-Store Support",
                                     desc: "Manage multiple businesses and stores from a single centralized platform.",
-                                    icon: "🏬"
+                                    icon: <MdAddBusiness />
                                 },
                             ].map((feature, idx) => (
                                 <div
@@ -107,27 +116,27 @@ function LandingPage() {
 
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-left text-gray-800 list-none p-0 max-w-3xl mx-auto">
                             <li className="flex items-center space-x-3 text-lg font-medium p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-green-200">
-                                <span className="text-green-500 text-2xl">💎</span>
+                                <span className="text-green-500 text-2xl"><IoDiamond /></span>
                                 <span>Reduce inventory costs by up to 30%</span>
                             </li>
                             <li className="flex items-center space-x-3 text-lg font-medium p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-green-200">
-                                <span className="text-green-500 text-2xl">💎</span>
+                                <span className="text-green-500 text-2xl"><IoDiamond /></span>
                                 <span>Eliminate stockouts with smart alerts</span>
                             </li>
                             <li className="flex items-center space-x-3 text-lg font-medium p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-green-200">
-                                <span className="text-green-500 text-2xl">💎</span>
+                                <span className="text-green-500 text-2xl"><IoDiamond /></span>
                                 <span>Streamline supplier payments</span>
                             </li>
                             <li className="flex items-center space-x-3 text-lg font-medium p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-green-200">
-                                <span className="text-green-500 text-2xl">💎</span>
+                                <span className="text-green-500 text-2xl"><IoDiamond /></span>
                                 <span>Real-time inventory tracking</span>
                             </li>
                             <li className="flex items-center space-x-3 text-lg font-medium p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-green-200">
-                                <span className="text-green-500 text-2xl">💎</span>
+                                <span className="text-green-500 text-2xl"><IoDiamond /></span>
                                 <span>Automated supply request workflows</span>
                             </li>
                             <li className="flex items-center space-x-3 text-lg font-medium p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-green-200">
-                                <span className="text-green-500 text-2xl">💎</span>
+                                <span className="text-green-500 text-2xl"><IoDiamond /></span>
                                 <span>Mobile-first design for on-the-go management</span>
                             </li>
                         </ul>

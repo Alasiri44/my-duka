@@ -12,6 +12,7 @@ from ..models.product import Product
 from ..models.supplier import Supplier
 from ..models.stock_entries import Stock_Entry
 from ..models.stock_exits import StockExit
+from ..models.business_setting import Business_Setting
 from ..models.batch import Batch
 from ..models.category import Category
 
@@ -348,3 +349,29 @@ class BusinessInventory(Resource):
         return make_response(result, 200)
 
 business_api.add_resource(BusinessInventory, '/business/<int:id>/inventory')
+
+
+
+
+class BusinessSettingsResource(Resource):
+    def get(self):
+        business_id = request.args.get('business_id', type=int)
+        if not business_id:
+            return {"message": "Missing business_id"}, 400
+
+        setting = Business_Setting.query.filter_by(business_id=business_id).first()
+        return make_response(setting.to_dict(), 200) if setting else make_response([], 200)
+
+    def patch(self, id):
+        data = request.get_json()
+        setting = Business_Setting.query.get(id)
+        if not setting:
+            return {"message": "Not found"}, 404
+
+        for field in data:
+            if hasattr(setting, field):
+                setattr(setting, field, data[field])
+        db.session.commit()
+        return make_response(setting.to_dict(), 200)
+
+business_api.add_resource(BusinessSettingsResource, "/business_settings", "/business_settings/<int:id>")
