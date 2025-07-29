@@ -15,6 +15,7 @@ class Business(db.Model, SerializerMixin):
     industry = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     
+    
     products = db.relationship("Product", back_populates="business", cascade="all, delete-orphan")
     merchant = db.relationship('Merchant', back_populates='businesses')
     stores = db.relationship('Store', back_populates='business', cascade='all, delete-orphan')

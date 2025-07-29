@@ -14,6 +14,7 @@ from .controllers.email_controller import email_bp
 from .controllers.payment_controller import payment_bp
 from server.controllers.stock_exit_controller import stock_exit_bp
 
+
 from .controllers.stock_entry_controller import stock_entry_bp
 from .controllers.batch_controller import batch_bp
 from .controllers.sale_controller import sale_bp

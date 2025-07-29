@@ -108,68 +108,144 @@ const BusinessSettingsView = () => {
     Enable Daraja (M-Pesa)
   </label>
 
-  {settings.use_daraja && (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label htmlFor="daraja_short_code" className="block text-sm text-[#5e574d] mb-1">Short Code</label>
-        <input
-          id="daraja_short_code"
-          name="daraja_short_code"
-          value={settings.daraja_short_code || ""}
-          onChange={handleChange}
-          className="border border-[#d7d0c8] p-2 rounded w-full"
-        />
-      </div>
+{settings.use_daraja && (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-      <div>
-        <label htmlFor="daraja_consumer_key" className="block text-sm text-[#5e574d] mb-1">Consumer Key</label>
-        <input
-          id="daraja_consumer_key"
-          name="daraja_consumer_key"
-          value={settings.daraja_consumer_key || ""}
-          onChange={handleChange}
-          className="border border-[#d7d0c8] p-2 rounded w-full"
-        />
-      </div>
+  <div>
+    <label htmlFor="daraja_consumer_key" className="block text-sm text-[#5e574d] mb-1">Consumer Key</label>
+    <input
+      id="daraja_consumer_key"
+      name="daraja_consumer_key"
+      value={settings.daraja_consumer_key || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
 
-      <div>
-        <label htmlFor="daraja_consumer_secret" className="block text-sm text-[#5e574d] mb-1">Consumer Secret</label>
-        <input
-          id="daraja_consumer_secret"
-          name="daraja_consumer_secret"
-          value={settings.daraja_consumer_secret || ""}
-          onChange={handleChange}
-          className="border border-[#d7d0c8] p-2 rounded w-full"
-        />
-      </div>
+  <div>
+    <label htmlFor="daraja_consumer_secret" className="block text-sm text-[#5e574d] mb-1">Consumer Secret</label>
+    <input
+      id="daraja_consumer_secret"
+      name="daraja_consumer_secret"
+      value={settings.daraja_consumer_secret || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
 
-      <div>
-        <label htmlFor="daraja_passkey" className="block text-sm text-[#5e574d] mb-1">Daraja Passkey</label>
-        <input
-          id="daraja_passkey"
-          name="daraja_passkey"
-          value={settings.daraja_passkey || ""}
-          onChange={handleChange}
-          className="border border-[#d7d0c8] p-2 rounded w-full"
-        />
-      </div>
+  <div>
+    <label htmlFor="daraja_short_code" className="block text-sm text-[#5e574d] mb-1">Shortcode (Paybill)</label>
+    <input
+      id="daraja_short_code"
+      name="daraja_short_code"
+      value={settings.daraja_short_code || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
 
-      <div>
-        <label htmlFor="daraja_environment" className="block text-sm text-[#5e574d] mb-1">Environment</label>
-        <select
-          id="daraja_environment"
-          name="daraja_environment"
-          value={settings.daraja_environment || ""}
-          onChange={handleChange}
-          className="border border-[#d7d0c8] p-2 rounded w-full"
-        >
-          <option value="">Select Environment</option>
-          <option value="sandbox">Sandbox</option>
-          <option value="production">Production</option>
-        </select>
-      </div>
-    </div>
-  )}
+  <div>
+    <label htmlFor="daraja_passkey" className="block text-sm text-[#5e574d] mb-1">STK Passkey</label>
+    <input
+      id="daraja_passkey"
+      name="daraja_passkey"
+      value={settings.daraja_passkey || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="initiator_name" className="block text-sm text-[#5e574d] mb-1">Initiator Name</label>
+    <input
+      id="initiator_name"
+      name="initiator_name"
+      value={settings.initiator_name || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="security_credential" className="block text-sm text-[#5e574d] mb-1">Security Credential</label>
+    <input
+      id="security_credential"
+      name="security_credential"
+      value={settings.security_credential || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="base_url" className="block text-sm text-[#5e574d] mb-1">Base URL</label>
+    <input
+      id="base_url"
+      name="base_url"
+      value={settings.base_url || ""}
+      onChange={handleChange}
+      placeholder="https://sandbox.safaricom.co.ke"
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="callback_url" className="block text-sm text-[#5e574d] mb-1">STK Callback URL</label>
+    <input
+      id="callback_url"
+      name="callback_url"
+      value={settings.callback_url || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="result_url" className="block text-sm text-[#5e574d] mb-1">B2B Result URL</label>
+    <input
+      id="result_url"
+      name="result_url"
+      value={settings.result_url || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="timeout_url" className="block text-sm text-[#5e574d] mb-1">B2B Timeout URL</label>
+    <input
+      id="timeout_url"
+      name="timeout_url"
+      value={settings.timeout_url || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="c2b_confirm_url" className="block text-sm text-[#5e574d] mb-1">C2B Confirm URL</label>
+    <input
+      id="c2b_confirm_url"
+      name="c2b_confirm_url"
+      value={settings.c2b_confirm_url || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="c2b_validate_url" className="block text-sm text-[#5e574d] mb-1">C2B Validate URL</label>
+    <input
+      id="c2b_validate_url"
+      name="c2b_validate_url"
+      value={settings.c2b_validate_url || ""}
+      onChange={handleChange}
+      className="border border-[#d7d0c8] p-2 rounded w-full"
+    />
+  </div>
+
+</div>
+)}
 </section>
 
 

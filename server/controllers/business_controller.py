@@ -354,24 +354,35 @@ business_api.add_resource(BusinessInventory, '/business/<int:id>/inventory')
 
 
 class BusinessSettingsResource(Resource):
-    def get(self):
-        business_id = request.args.get('business_id', type=int)
-        if not business_id:
-            return {"message": "Missing business_id"}, 400
+    def get(self, id=None):
+        setting = Business_Setting.query.first() if id is None else Business_Setting.query.get(id)
+        return make_response([setting.to_dict()], 200) if setting else make_response([], 200)
 
-        setting = Business_Setting.query.filter_by(business_id=business_id).first()
-        return make_response(setting.to_dict(), 200) if setting else make_response([], 200)
-
-    def patch(self, id):
+    def post(self):
         data = request.get_json()
-        setting = Business_Setting.query.get(id)
-        if not setting:
-            return {"message": "Not found"}, 404
+        try:
+            setting = Business_Setting(**data)
+            db.session.add(setting)
+            db.session.commit()
+            return make_response(setting.to_dict(), 201)
+        except Exception as e:
+            db.session.rollback()
+            return make_response({'error': str(e)}, 400)
 
-        for field in data:
-            if hasattr(setting, field):
-                setattr(setting, field, data[field])
-        db.session.commit()
-        return make_response(setting.to_dict(), 200)
+    def patch(self, id=None):
+        setting = Business_Setting.query.first() if id is None else Business_Setting.query.get(id)
+        if not setting:
+            return make_response({"error": "No business setting found"}, 404)
+
+        data = request.get_json()
+        try:
+            for field in data:
+                if hasattr(setting, field):
+                    setattr(setting, field, data[field])
+            db.session.commit()
+            return make_response(setting.to_dict(), 200)
+        except Exception as e:
+            db.session.rollback()
+            return make_response({'error': str(e)}, 400)
 
 business_api.add_resource(BusinessSettingsResource, "/business_settings", "/business_settings/<int:id>")
