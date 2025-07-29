@@ -5,7 +5,7 @@ function sendStkPush({ phoneNumber, amount }) {
     const consumerKey = import.meta.env.VITE_MPESA_CONSUMER_KEY;
     const consumerSecret = import.meta.env.VITE_MPESA_CONSUMER_SECRET;
     const passkey = import.meta.env.VITE_MPESA_PASSKEY;
-    short_code = "174379"
+    const short_code = "174379"
 
     const encodedauth = btoa(`${consumerKey}:${consumerSecret}`)
     let token;
@@ -70,3 +70,5 @@ function sendStkPush({ phoneNumber, amount }) {
             return { error: "something wrong happened" };
         })
 }
+
+export default sendStkPush;

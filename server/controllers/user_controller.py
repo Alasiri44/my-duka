@@ -18,6 +18,7 @@ class Users(Resource):
     def post(self):
         from ..app import bcrypt
         data = request.get_json()
+        password = str(randint(100000, 999999))
         new_user = User(
             first_name = data.get('first_name'),
             store_id = data.get('store_id'),
@@ -27,14 +28,14 @@ class Users(Resource):
             gender = data.get('gender'),
             role = data.get('role'),
             is_active = data.get('is_active') or True,
-            password_hash = bcrypt.generate_password_hash(str(randint(100000, 999999))).decode('utf-8')
+            password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
         )
         db.session.add(new_user)
         db.session.commit()
 
         msg = Message(
                 subject=f"{new_user.role.capitalize()} Account Creation Successful",
-                sender='austinalasiri44@gmail.com',
+                sender='myduka77@gmail.com',
                 recipients=[new_user.email],
                         body=f"""Dear {new_user.first_name},
 
@@ -42,7 +43,7 @@ class Users(Resource):
 
         Login details:
         - Email: {new_user.email}
-        - Password: {new_user.password_hash} (valid for 48 hours)
+        - Password: {password}  (valid for 48 hours)
 
         Use this OTP Password to log in and complete your setup. You will be prompted to create a new password:
         Login here: http://localhost:5173/login
@@ -50,7 +51,7 @@ class Users(Resource):
         If you did not request this account, please ignore this email and contact our support team immediately..
 
         Regards,  
-        Austin Alasiri
+        Austin Alasiri, Customer Support
         MyDuka Team
         """
             )

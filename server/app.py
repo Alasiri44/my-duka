@@ -17,13 +17,14 @@ from server.controllers.stock_exit_controller import stock_exit_bp
 from .controllers.stock_entry_controller import stock_entry_bp
 from .controllers.batch_controller import batch_bp
 from .controllers.sale_controller import sale_bp
+from .controllers.mpesa_controller import mpesa_bp
 
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 app = create_app()
 bcrypt = Bcrypt(app)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5173"])
 
 app.register_blueprint(merchant_bp)
 app.register_blueprint(business_bp)
@@ -41,6 +42,7 @@ app.register_blueprint(email_bp)
 app.register_blueprint(stock_entry_bp)
 app.register_blueprint(batch_bp)
 app.register_blueprint(sale_bp)
+app.register_blueprint(mpesa_bp)
 
 @app.route('/')
 def index():

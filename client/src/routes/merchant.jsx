@@ -18,6 +18,7 @@ import BusinessInventoryView from "../components/merchant/business/BusinessInven
 import BusinessSuppliersView from "../components/merchant/business/BusinessSuppliersView";
 import BusinessPaymentsView from "../components/merchant/business/BusinessPaymentsView";
 import BusinessSettingsView from "../components/merchant/business/BusinessSettingsView";
+import CustomerPaymentForm from "@/pages/payments/customerPaymentForm";
 
 const merchantRoutes = [
   {
@@ -28,6 +29,7 @@ const merchantRoutes = [
         index: true,
         element: <MerchantDashboard />,
       },
+      { path: 'cpay', element: < CustomerPaymentForm/>},
       {
         path: "businesses/:id",
         element: <BusinessLayout />,
@@ -40,6 +42,7 @@ const merchantRoutes = [
           { path: "payments", element: <BusinessPaymentsView />},
           { path: "reports", element: <div>Reports Page</div> },
           { path: "settings", element: <BusinessSettingsView/> },
+          
           {
             path: "stores/:storeId",
             element: <StoreLayout />,

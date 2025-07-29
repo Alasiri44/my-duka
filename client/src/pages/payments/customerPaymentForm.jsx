@@ -1,14 +1,44 @@
 import React, { useState } from "react";
 
 function CustomerPaymentForm() {
-    const [phoneNumber, setPhoneNumber] = useState();
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [amount, setAmount] = useState(5);
+    const [loading, setLoading] = useState(false)
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
+        setLoading(true)
         e.preventDefault();
-        
-        console.log(phoneNumber.trim(), amount)
-    }
+        const kenyanPhoneNumberRegex =
+            /^(07\d{8}|01\d{8}|2547\d{8}|2541\d{8}|\+2547\d{8}|\+2541\d{8})$/;
+
+        if (!kenyanPhoneNumberRegex.test(phoneNumber)) {
+            setLoading(false);
+            return alert("Invalid mpesa number");
+        }
+        console.log(phoneNumber, amount)
+
+        try {
+            const res = await fetch("http://127.0.0.1:5000/api/stk", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ phoneNumber, amount })
+            });
+
+            const data = await res.json();
+            console.log(data)
+            if (!res.ok) throw new Error(data.error || "STK Push Failed");
+            return { data };
+        } catch (error) {
+            console.error(error);
+            return { error: error.message };
+        }
+
+    };
+
+
     return <>
         <div>
             <form className="m-4">
@@ -52,10 +82,11 @@ function CustomerPaymentForm() {
                         <button
                             type="submit"
                             onClick={handleSubmit}
+                            disabled={loading}
                             className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-orange-500 px-4 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-orange-600 focus:bg-orange-600 focus:outline-none"
                         >
-                            Proceed With payment
-                        </button>
+                            {loading ? "Processing.." : "Proceed With Payment"}
+                        </button>;
                     </div>
                 </div>
             </form>
