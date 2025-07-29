@@ -9,9 +9,9 @@ const AdminSupplyRequests = () => {
   useEffect(() => {
     const fetchAll = async () => {
       const [reqRes, prodRes, userRes] = await Promise.all([
-        axios.get('http://localhost:3001/supply_requests'),
-        axios.get('http://localhost:3001/products'),
-        axios.get('http://localhost:3001/users?role=clerk'),
+        axios.get('http://127.0.0.1:5000/supply_request'),
+        axios.get('http://127.0.0.1:5000/product'),
+        axios.get('http://127.0.0.1:5000/users?role=clerk'),
       ]);
 
       setRequests(reqRes.data);
@@ -26,7 +26,7 @@ const AdminSupplyRequests = () => {
   const clerkMap = Object.fromEntries(clerks.map(c => [c.id, `${c.first_name} ${c.last_name}`]));
 
   const updateStatus = async (id, newStatus) => {
-    await axios.patch(`http://localhost:3001/supply_requests/${id}`, { status: newStatus });
+    await axios.patch(`http://127.0.0.1:5000/supply_request/${id}`, { status: newStatus });
     setRequests(prev =>
       prev.map(r => (r.id === id ? { ...r, status: newStatus } : r))
     );
