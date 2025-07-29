@@ -9,7 +9,7 @@ const AdminLayout = () => {
   
   useEffect(() => {
     if (user?.store_id) {
-      fetch(`http://localhost:5000/store/${user.store_id}`)
+      fetch(`http://127.0.0.1:5000/store/${user.store_id}`)
         .then((res) => res.json())
         .then((data) => setStore(data))
         .catch((err) => console.error("Failed to load store:", err));

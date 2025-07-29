@@ -11,18 +11,27 @@ class CheckSession(Resource):
             if role == "merchant":
                 from ..models.merchant import Merchant
                 user = Merchant.query.get(session["user_id"])
+                if user:
+                    return {
+                        "id": user.id,
+                        "email": user.email,
+                        "first_name": user.first_name,
+                        "last_name": user.last_name,
+                        "role": role
+                    }
             else:
                 from ..models.user import User
                 user = User.query.get(session["user_id"])
+                if user:
+                    return {
+                        "id": user.id,
+                        "email": user.email,
+                        "first_name": user.first_name,
+                        "last_name": user.last_name,
+                        "role": role,
+                        "store_id": user.store_id
+                    }
 
-            if user:
-                return {
-                    "id": user.id,
-                    "email": user.email,
-                    "first_name": user.first_name,
-                    "last_name": user.last_name,
-                    "role": role
-                }
         return make_response({'message': 'Not logged in'}, 401)
 
 auth_api.add_resource(CheckSession, '/check-session')

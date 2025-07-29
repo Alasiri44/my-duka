@@ -18,7 +18,7 @@ from ..models.supplier import Supplier
 
 bcrypt = Bcrypt()
 from flask_mail import Message
-from .. import mail
+from server import mail
 from threading import Thread
 
 merchant_bp = Blueprint('merchant_bp', __name__)

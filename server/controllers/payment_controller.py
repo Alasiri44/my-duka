@@ -23,6 +23,11 @@ class Payments(Resource):
 
     def post(self):
         data = request.get_json()
+        # Validate required fields
+        required_fields = ['direction', 'method', 'amount']
+        missing = [field for field in required_fields if not data.get(field)]
+        if missing:
+            return make_response({"error": f"Missing required field(s): {', '.join(missing)}"}, 400)
         try:
             payment = Payment(
                 direction=data['direction'],

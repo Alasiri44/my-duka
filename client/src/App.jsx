@@ -23,6 +23,12 @@ export default function App() {
     setLoading(false);
   }, [dispatch]);
 
+  useEffect(() => {
+  CheckSession(dispatch).then(() => {
+    console.log("Session check complete");
+  });
+}, []);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

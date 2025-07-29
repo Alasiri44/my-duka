@@ -10,8 +10,8 @@ const BusinessInventoryView = () => {
 
 useEffect(() => {
   const url = filterStoreId
-    ? `http://localhost:5000/store/${filterStoreId}/inventory`
-    : `http://localhost:5000/business/${business.id}/inventory`;
+    ? `http://127.0.0.1:5000/store/${filterStoreId}/inventory`
+    : `http://127.0.0.1:5000/business/${business.id}/inventory`;
 
   fetch(url)
     .then((res) => res.json())
@@ -22,7 +22,7 @@ useEffect(() => {
           const enriched = await Promise.all(
             data.map(async (item) => {
               try {
-                const res = await fetch(`http://localhost:5000/category/${item.category_id}`);
+                const res = await fetch(`http://127.0.0.1:5000/category/${item.category_id}`);
                 const category = await res.json();
                 return {
                   ...item,

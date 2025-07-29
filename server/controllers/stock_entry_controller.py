@@ -36,7 +36,6 @@ def create_stock_entry():
     product_id = data.get('product_id')
     supplier_id = data.get('supplier_id')
     quantity_received = data.get('quantity_received')
-    spoilt = data.get('spoilt', 0)
     buying_price = data.get('buying_price')
     payment_status = data.get('payment_status')
     payment_method = data.get('payment_method')
@@ -56,14 +55,13 @@ def create_stock_entry():
         db.session.add(batch)
         db.session.commit()
 
-    # Create stock entry
+    # Create stock entry (remove `spoilt`)
     stock_entry = Stock_Entry(
         product_id=product_id,
         clerk_id=clerk_id,
         batch_id=batch.id,
         supplier_id=supplier_id,
         quantity_received=quantity_received,
-        spoilt=spoilt,
         buying_price=buying_price,
         payment_status=payment_status,
         payment_method=payment_method,

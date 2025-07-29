@@ -25,10 +25,10 @@ const StockExits = () => {
     if (filterReason) queryParams.append("reason", filterReason);
 
     Promise.all([
-      fetch(`http://localhost:5000/stock_exits?${queryParams}`).then((res) => res.json()),
-      fetch(`http://localhost:5000/store/${store.id}/products`).then((res) => res.json()),
-      fetch(`http://localhost:5000/store/${store.id}/users`).then((res) => res.json()),
-      fetch(`http://localhost:5000/store/${store.id}/batches?direction=out`).then((res) => res.json()),
+      fetch(`http://127.0.0.1:5000/stock_exits?${queryParams}`).then((res) => res.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/products`).then((res) => res.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((res) => res.json()),
+      fetch(`http://127.0.0.1:5000/store/${store.id}/batches?direction=out`).then((res) => res.json()),
     ]).then(([exitData, productData, userData, batchData]) => {
       setExits(
         exitData.map((e) => ({

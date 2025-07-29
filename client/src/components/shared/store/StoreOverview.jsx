@@ -9,7 +9,7 @@ const StoreOverview = () => {
   const [selectedMethod, setSelectedMethod] = useState("All");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/store/${store.id}/overview`)
+    fetch(`http://127.0.0.1:5000/store/${store.id}/overview`)
       .then((res) => res.json())
       .then((data) => {
         setSummary(data.summary);

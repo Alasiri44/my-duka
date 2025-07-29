@@ -91,19 +91,33 @@ api.add_resource(User_By_ID, '/user/<int:id>')
 
 # --- LOGIN ---
 class User_Login(Resource):
+    def options(self):
+        return make_response('', 200)
+
     def post(self):
         from ..app import bcrypt
         data = request.get_json()
         email = data.get('email')
         password = data.get('password')
         user = User.query.filter_by(email=email).first()
+
         if user and bcrypt.check_password_hash(user.password_hash, password):
+            session['user_id'] = user.id 
             session['email'] = user.email
             session['role'] = user.role
-            return make_response(user.to_dict(), 200)
-        return make_response({"message": "Invalid credentials"}, 404)
 
+            return make_response({
+                "id": user.id,
+                "email": user.email,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "role": user.role,
+                "store_id": user.store_id
+            }, 200)
+
+        return make_response({"message": "Invalid credentials"}, 404)
 api.add_resource(User_Login, '/user/login')
+
 
 
 # --- USERS BY STORE ---
@@ -137,7 +151,13 @@ api.add_resource(Admins, '/user/admins')
 class Clerks(Resource):
     def get(self):
         clerks = User.query.filter_by(role='clerk').all()
-        return make_response([u.to_dict() for u in clerks], 200)
+        # Add a 'name' field to each clerk
+        clerk_dicts = []
+        for u in clerks:
+            d = u.to_dict()
+            d['name'] = f"{d.get('first_name', '')} {d.get('last_name', '')}".strip()
+            clerk_dicts.append(d)
+        return make_response(clerk_dicts, 200)
 
 api.add_resource(Clerks, '/user/clerks')
 
