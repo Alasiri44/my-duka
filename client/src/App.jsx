@@ -9,6 +9,8 @@ import Login from "./pages/authentication/login";
 import Signup from "./pages/authentication/signup";
 import LandingPage from "./pages/landingPage";
 import CheckSession from "./utils/session";
+import { Toaster } from 'react-hot-toast';
+
 import PaymentForm from "./pages/payments/paymentForm";
 import CustomerPaymentForm from "./pages/payments/customerPaymentForm";
 
@@ -65,5 +67,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-  return <RouterProvider router={router} />;
+  return  (
+    <>
+      <RouterProvider router={router} />
+      <Toaster position="top-center" />
+    </>
+  );
 }

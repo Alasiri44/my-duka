@@ -10,6 +10,7 @@ from server.models.supplier import Supplier
 from server.models.batch import Batch
 from server.models.stock_entries import Stock_Entry
 from server.models.stock_exits import StockExit
+from server.models.business_setting import Business_Setting
 from server.models.sale import Sale
 from datetime import datetime
 import bcrypt
@@ -51,6 +52,30 @@ with app.app_context():
     )
     db.session.add(business)
     db.session.flush()
+    
+    #business settings
+    daraja_settings = Business_Setting(
+    business_id=1,
+    business_email="stephen@myduka.co.ke", 
+    business_phone="0712345678",    
+    use_daraja=True,
+    daraja_short_code="174379",
+    daraja_consumer_key="YourConsumerKeyHere",
+    daraja_consumer_secret="YourConsumerSecretHere",
+    daraja_passkey="YourDarajaPasskeyHere",
+    initiator_name="testapi",
+    security_credential="Safaricom999!",
+    base_url="https://sandbox.safaricom.co.ke",
+    callback_url="https://myduka.fake/payments/callback",
+    result_url="https://myduka.fake/payments/result",
+    timeout_url="https://myduka.fake/payments/timeout",
+    c2b_confirm_url="https://myduka.fake/c2b/confirm",
+    c2b_validate_url="https://myduka.fake/c2b/validate"
+    )
+    
+    db.session.add(daraja_settings)
+    db.session.flush()
+
 
     stores = [
         Store(id=1, business_id=1, name="Westlands Shop", country="Kenya", county="Nairobi", location="Westlands"),
@@ -105,21 +130,21 @@ with app.app_context():
     db.session.flush()
 
     products = [
-    Product(id=1, store_id=1, business_id=1, category_id=1, name="Coca Cola", description="500ml bottle", selling_price=70, quantity=100),
-    Product(id=2, store_id=1, business_id=1, category_id=1, name="Pepsi", description="500ml bottle", selling_price=65, quantity=100),
-    Product(id=3, store_id=1, business_id=1, category_id=1, name="Fanta", description="500ml bottle", selling_price=68, quantity=100),
-    Product(id=4, store_id=1, business_id=1, category_id=1, name="Sprite", description="500ml bottle", selling_price=69, quantity=100),
-    Product(id=5, store_id=1, business_id=1, category_id=1, name="Water 500ml", description="Mineral water", selling_price=30, quantity=100),
-    Product(id=6, store_id=1, business_id=1, category_id=2, name="Chevda", description="Spicy snack", selling_price=50, quantity=100),
-    Product(id=7, store_id=1, business_id=1, category_id=2, name="Biscuits", description="Pack of 6", selling_price=40, quantity=100),
-    Product(id=8, store_id=1, business_id=1, category_id=2, name="Crisps", description="Potato crisps", selling_price=35, quantity=100),
-    Product(id=9, store_id=1, business_id=1, category_id=2, name="Groundnuts", description="Roasted", selling_price=38, quantity=100),
-    Product(id=10, store_id=1, business_id=1, category_id=2, name="Mandazi", description="Sweet fried bread", selling_price=20, quantity=100),
-    Product(id=11, store_id=1, business_id=1, category_id=3, name="Exercise Book", description="A4, 200pgs", selling_price=50, quantity=100),
-    Product(id=12, store_id=1, business_id=1, category_id=3, name="Biro Pen", description="Blue ink", selling_price=20, quantity=100),
-    Product(id=13, store_id=1, business_id=1, category_id=3, name="Glue Stick", description="Large", selling_price=45, quantity=100),
-    Product(id=14, store_id=1, business_id=1, category_id=3, name="Marker Pen", description="Black", selling_price=55, quantity=100),
-    Product(id=15, store_id=1, business_id=1, category_id=3, name="Pencil", description="HB", selling_price=15, quantity=100)
+    Product(id=1, business_id=1, category_id=1, name="Coca Cola", description="500ml bottle", selling_price=70, quantity=100),
+    Product(id=2, business_id=1, category_id=1, name="Pepsi", description="500ml bottle", selling_price=65, quantity=100),
+    Product(id=3, business_id=1, category_id=1, name="Fanta", description="500ml bottle", selling_price=68, quantity=100),
+    Product(id=4, business_id=1, category_id=1, name="Sprite", description="500ml bottle", selling_price=69, quantity=100),
+    Product(id=5, business_id=1, category_id=1, name="Water 500ml", description="Mineral water", selling_price=30, quantity=100),
+    Product(id=6, business_id=1, category_id=2, name="Chevda", description="Spicy snack", selling_price=50, quantity=100),
+    Product(id=7, business_id=1, category_id=2, name="Biscuits", description="Pack of 6", selling_price=40, quantity=100),
+    Product(id=8, business_id=1, category_id=2, name="Crisps", description="Potato crisps", selling_price=35, quantity=100),
+    Product(id=9, business_id=1, category_id=2, name="Groundnuts", description="Roasted", selling_price=38, quantity=100),
+    Product(id=10,business_id=1, category_id=2, name="Mandazi", description="Sweet fried bread", selling_price=20, quantity=100),
+    Product(id=11,business_id=1, category_id=3, name="Exercise Book", description="A4, 200pgs", selling_price=50, quantity=100),
+    Product(id=12,business_id=1, category_id=3, name="Biro Pen", description="Blue ink", selling_price=20, quantity=100),
+    Product(id=13,business_id=1, category_id=3, name="Glue Stick", description="Large", selling_price=45, quantity=100),
+    Product(id=14,business_id=1, category_id=3, name="Marker Pen", description="Black", selling_price=55, quantity=100),
+    Product(id=15,business_id=1, category_id=3, name="Pencil", description="HB", selling_price=15, quantity=100)
 ]
 
     db.session.add_all(products)
@@ -168,7 +193,7 @@ with app.app_context():
     db.session.add_all([
     Sale(id=1, store_id=2, recorded_by=8, payment_method='Cash', total_amount=253, customer_name='Carmen Fowler', customer_contact='001-361-094-0496x52041', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-18T11:06:05')),
     Sale(id=2, store_id=1, recorded_by=6, payment_method='Cash', total_amount=547, customer_name='Katherine Davidson', customer_contact='891-425-8343x3934', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-22T02:33:44')),
-    Sale(id=3, store_id=2, recorded_by=10, payment_method='Cash', total_amount=350, customer_name='Jermaine Velasquez', customer_contact='832-503-5924', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-14T05:20:42'))
+    Sale(id=3, store_id=2, recorded_by=10, payment_method='mpesa', total_amount=350, customer_name='Jermaine Velasquez', customer_contact='832-503-5924', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-14T05:20:42'))
     ])
     db.session.flush()
 

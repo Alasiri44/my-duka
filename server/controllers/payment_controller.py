@@ -1,20 +1,15 @@
-from flask import Blueprint, request, make_response
 from flask_restful import Api, Resource
+from flask import make_response, Blueprint, request
+from datetime import datetime
+
 from ..models import db
 from ..models.payment import Payment
-from ..models.sale import Sale
 from ..models.stock_entries import Stock_Entry
-from datetime import datetime
+from ..models.business_setting import Business_Setting
+from ..utils.daraja import initiate_stk_push
 
 payment_bp = Blueprint('payment_bp', __name__)
 payment_api = Api(payment_bp)
-
-
-def parse_transaction_date(val):
-    if val and isinstance(val, int):
-        return datetime.strptime(str(val), "%Y%m%d%H%M%S")
-    return None
-
 
 class Payments(Resource):
     def get(self):
@@ -22,76 +17,98 @@ class Payments(Resource):
         return make_response([p.to_dict() for p in payments], 200)
 
     def post(self):
-        data = request.get_json()
-        # Validate required fields
-        required_fields = ['direction', 'method', 'amount']
-        missing = [field for field in required_fields if not data.get(field)]
-        if missing:
-            return make_response({"error": f"Missing required field(s): {', '.join(missing)}"}, 400)
-        try:
-            payment = Payment(
-                direction=data['direction'],
-                method=data['method'],
-                amount=data['amount'],
-                sale_id=data.get('sale_id'),
-                stock_entry_id=data.get('stock_entry_id'),
-                mpesa_receipt_number=data.get('mpesa_receipt_number'),
-                phone_number=data.get('phone_number'),
-                transaction_date=parse_transaction_date(data.get('transaction_date'))
-            )
-            db.session.add(payment)
-            db.session.commit()
-            return make_response(payment.to_dict(), 201)
-        except Exception as e:
-            db.session.rollback()
-            return make_response({"error": str(e)}, 400)
-
-
-payment_api.add_resource(Payments, '/payments')
-
+       data = request.get_json()
+       required = ['direction', 'method', 'amount', 'business_id', 'entry_ids', 'mpesa_value', 'payer_phone', 'account_number']
+       missing = [f for f in required if not data.get(f)]
+       if missing:
+           return make_response({"error": f"Missing required field(s): {', '.join(missing)}"}, 400)
+   
+       try:
+           business_id = data['business_id']
+           entry_ids = data['entry_ids']
+           method = data['method']
+           direction = data['direction']
+           amount = float(data['amount'])
+           paybill_number = data['mpesa_value']
+           payer_phone = data['payer_phone']
+           account_number = data['account_number']
+   
+           settings = Business_Setting.query.filter_by(business_id=business_id).first()
+           if not settings:
+               return make_response({"error": "Business settings not found"}, 404)
+   
+           txn_ref = f"TXN{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+   
+           entries = Stock_Entry.query.filter(Stock_Entry.id.in_(entry_ids)).all()
+           for entry in entries:
+               entry.payment_status = "pending"
+   
+           stock_entry_id = entries[0].id if entries else None
+           txn_date = datetime.utcnow()
+           receipt = None
+   
+           # C2B STK Push
+           daraja_response = initiate_stk_push(settings, payer_phone, amount, account_number)
+   
+           payment = Payment(
+               direction=direction,
+               method=method,
+               amount=amount,
+               phone_number=payer_phone,
+               mpesa_receipt_number=receipt,
+               transaction_date=txn_date,
+               stock_entry_id=stock_entry_id
+           )
+   
+           db.session.add(payment)
+           db.session.commit()
+   
+           return make_response({
+               "message": "STK push initiated",
+               "payment": payment.to_dict(),
+               "daraja_response": daraja_response  # 👈 include raw API response here
+           }, 201)
+   
+       except Exception as e:
+           db.session.rollback()
+           import traceback
+           traceback.print_exc()
+           return make_response({"error": str(e)}, 500)
+    
 
 class MpesaCallback(Resource):
     def post(self):
-        callback_data = request.get_json()
-        stk = callback_data.get("Body", {}).get("stkCallback", {})
-
-        if stk.get("ResultCode") != 0:
-            return make_response({"message": "Transaction failed or cancelled."}, 200)
-
-        meta = stk.get("CallbackMetadata", {}).get("Item", [])
-        values = {item['Name']: item.get('Value') for item in meta}
-
         try:
+            payload = request.get_json()
+            stk_data = payload.get("Body", {}).get("stkCallback", {})
+            metadata = stk_data.get("CallbackMetadata", {}).get("Item", [])
+
+            def extract(name):
+                item = next((i for i in metadata if i["Name"] == name), None)
+                return item.get("Value") if item else None
+
+            amount = extract("Amount")
+            receipt = extract("MpesaReceiptNumber")
+            phone = extract("PhoneNumber")
+            txn_date_raw = extract("TransactionDate")
+            txn_date = datetime.strptime(str(txn_date_raw), "%Y%m%d%H%M%S") if txn_date_raw else datetime.utcnow()
+
             payment = Payment(
-                direction="outgoing",
+                direction="in",
                 method="mpesa",
-                amount=values.get("Amount"),
-                mpesa_receipt_number=values.get("MpesaReceiptNumber"),
-                phone_number=str(values.get("PhoneNumber")),
-                transaction_date=parse_transaction_date(values.get("TransactionDate"))
+                amount=amount,
+                phone_number=phone,
+                mpesa_receipt_number=receipt,
+                transaction_date=txn_date
             )
             db.session.add(payment)
             db.session.commit()
-            return make_response({"message": "Payment recorded."}, 201)
+
+            return make_response({"message": "Callback received"}, 200)
         except Exception as e:
             db.session.rollback()
             return make_response({"error": str(e)}, 400)
 
-
-payment_api.add_resource(MpesaCallback, '/mpesa/callback')
-
-
-class PaymentsByEntry(Resource):
-    def get(self, entry_id):
-        payments = Payment.query.filter_by(stock_entry_id=entry_id).order_by(Payment.created_at.desc()).all()
-        return make_response([p.to_dict() for p in payments], 200)
-
-
-class PaymentsBySale(Resource):
-    def get(self, sale_id):
-        payments = Payment.query.filter_by(sale_id=sale_id).order_by(Payment.created_at.desc()).all()
-        return make_response([p.to_dict() for p in payments], 200)
-
-
-payment_api.add_resource(PaymentsByEntry, '/payments/by_entry/<int:entry_id>')
-payment_api.add_resource(PaymentsBySale, '/payments/by_sale/<int:sale_id>')
+# Route registration
+payment_api.add_resource(Payments, '/payments/mpesa')
+payment_api.add_resource(MpesaCallback, '/payments/callback')
