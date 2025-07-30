@@ -58,7 +58,7 @@ const ClerkDash = () => {
           batchesRes
         ] = await Promise.all([
           axios.get(`${API_URL}/category`),
-          axios.get(`${API_URL}/product/store/${storeId}`),
+          axios.get(`${API_URL}/product`),
           axios.get(`${API_URL}/stock_entries?store_id=${storeId}`),
           axios.get(`${API_URL}/stock_exits?store_id=${storeId}`),
           axios.get(`${API_URL}/batches?store_id=${storeId}`)

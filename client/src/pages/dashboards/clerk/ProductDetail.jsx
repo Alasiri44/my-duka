@@ -277,6 +277,7 @@ const ProductDetail = () => {
       <SupplyRequestModal
         product={product}
         isOpen={showModal}
+        clerkId={user.id}
         onClose={() => setShowModal(false)}
       />
     </div>
