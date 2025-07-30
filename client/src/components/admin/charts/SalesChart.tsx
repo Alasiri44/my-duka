@@ -1,81 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
-} from 'recharts';
-import axios from 'axios';
-import dayjs from 'dayjs';
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
+import axios from "axios";
 
-interface SalesChartProps {
+type SaleData = {
+  week: string;
+  sales: number;
+};
+
+type Props = {
   storeId: number;
-}
+};
 
-interface SalePoint {
-  name: string;
-  stock: number;
-}
-
-const SalesChart: React.FC<SalesChartProps> = ({ storeId }) => {
-  const [chartData, setChartData] = useState<SalePoint[]>([]);
+const SalesChart: React.FC<Props> = ({ storeId }) => {
+  const [data, setData] = useState<SaleData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchStoreSalesData = async () => {
+    if (!storeId) return;
+
+    const fetchSales = async () => {
       try {
-        const [productsRes, exitsRes] = await Promise.all([
-          axios.get('http://localhost:3000/products'),
-          axios.get('http://localhost:3000/stock_exits'),
-        ]);
-
-        // Get product IDs for this store
-        const storeProductIds = productsRes.data
-          .filter((product: any) => product.store_id === storeId)
-          .map((product: any) => product.id);
-
-        // Get stock exits of type "sold" for those products
-        const storeSales = exitsRes.data.filter(
-          (exit: any) =>
-            exit.reason === 'sold' && storeProductIds.includes(exit.product_id)
-        );
-
-        // Group and sum sales by month
-        const monthlySales = storeSales.reduce((acc: any, sale: any) => {
-          const month = dayjs(sale.created_at).format('MMM');
-          const total = sale.quantity * sale.selling_price;
-          acc[month] = (acc[month] || 0) + total;
+        const res = await axios.get(`http://localhost:3001/sales?store_id=${storeId}`);
+        const salesByWeek = res.data.reduce((acc: any, sale: any) => {
+          const date = new Date(sale.date);
+          const week = `${date.getFullYear()}-W${Math.ceil(date.getDate() / 7)}`;
+          acc[week] = (acc[week] || 0) + sale.amount;
           return acc;
         }, {});
 
-        // Structure data in order of calendar months
-        const monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const formattedData: SalePoint[] = monthOrder.map(month => ({
-          name: month,
-          stock: parseFloat((monthlySales[month] || 0).toFixed(2)),
+        const formatted = Object.entries(salesByWeek).map(([week, sales]) => ({
+          week,
+          sales,
         }));
 
-        setChartData(formattedData);
+        setData(formatted);
+        setLoading(false);
       } catch (err) {
-        console.error('Error loading sales data:', err);
+        console.error("Error loading sales data", err);
+        setLoading(false);
       }
     };
 
-    if (storeId) {
-      fetchStoreSalesData();
-    }
+    fetchSales();
   }, [storeId]);
 
+  if (loading) return <p className="p-4">Loading sales data...</p>;
+  if (!data.length) return <p className="p-4 text-gray-500">No sales data available.</p>;
+
   return (
-    <div className="w-full">
-      <h2 className="text-lg font-semibold mb-2">Monthly Sales Chart</h2>
+    <div className="bg-white p-4 rounded shadow">
+      <h3 className="text-lg font-semibold text-gray-700 mb-2">Weekly Sales</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={chartData}
-          margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-        >
+        <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="week" />
           <YAxis />
           <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="stock" stroke="#2D9CDB" strokeWidth={2} />
+          <Line type="monotone" dataKey="sales" stroke="#3b82f6" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
     </div>

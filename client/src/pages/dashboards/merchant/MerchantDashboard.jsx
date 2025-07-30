@@ -59,9 +59,10 @@ const handleLogout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#fdfdfd] px-0 py-8 space-y-8">
-
-<div className="flex items-center justify-between gap-4 shadow-xl/5 flex-wrap  mb-6">
+    <div className="min-h-screen bg-[#fdfdfd] px-8 py-8 space-y-8 relative">
+{/* //header with user avatar 100% width */}
+<div className="flex items-center  bg-white p-6 rounded-lg shadow-md mb-8 mr-0 ml-0 absolute top-0 left-0 right-0 z-10">
+<div className="flex items-center justify-between gap-4  flex-wrap  mb-6">
   <div>
     <h1 className="text-2xl font-bold text-[#011638]">
       Welcome back, {user?.first_name || "Merchant"}!
@@ -98,6 +99,7 @@ const handleLogout = () => {
       </div>
     )}
   </div>
+</div>
 </div>
 
 

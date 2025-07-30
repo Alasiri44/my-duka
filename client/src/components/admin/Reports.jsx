@@ -1,20 +1,23 @@
-import React from 'react'
-import SalesChart from './charts/SalesChart'
+import React from 'react';
+import SalesChart from './charts/SalesChart';
+import ProductStatusChart from './charts/ProductStatusChart';
+import RevenueChart from './charts/RevenueChart';
+import { useOutletContext } from 'react-router-dom';
 
 const Reports = () => {
-    return <div>
+  const { storeId } = useOutletContext();
 
-        <div className='grid grid-cols-2'>
-       
-        <SalesChart storeId={1}/>
-        {/* <SalesChart /> */}
-    </div>
-     <div className='grid grid-cols-2'>
-       
-        {/* <SalesChart />
-        <SalesChart /> */}
-    </div>
-    </div>
-}
+  return (
+    <div className="space-y-8">
+      <h1 className="text-xl font-semibold text-gray-700">Store Reports</h1>
 
-export default Reports
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <SalesChart storeId={storeId} />
+        <ProductStatusChart storeId={storeId} />
+        <RevenueChart storeId={storeId} />
+      </div>
+    </div>
+  );
+};
+
+export default Reports;

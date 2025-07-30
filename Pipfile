@@ -12,6 +12,7 @@ python-dotenv = "*"
 flask-restful = "*"
 flask-bcrypt = "*"
 flask-mail = "*"
+requests = "*"
 
 [dev-packages]
 

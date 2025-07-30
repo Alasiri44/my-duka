@@ -21,6 +21,8 @@ class CheckSession(Resource):
                     }
             else:
                 from ..models.user import User
+                if "user_id" not in session:
+                    return {"message": "Not logged in"}, 401
                 user = User.query.get(session["user_id"])
                 if user:
                     return {
