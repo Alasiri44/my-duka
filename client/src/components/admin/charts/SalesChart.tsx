@@ -65,6 +65,7 @@ const SalesChart: React.FC<Props> = ({ storeId }) => {
           <YAxis />
           <Tooltip />
           <Line type="monotone" dataKey="sales" stroke="#3b82f6" strokeWidth={2} />
+          
         </LineChart>
       </ResponsiveContainer>
     </div>
