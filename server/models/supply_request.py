@@ -31,5 +31,22 @@ class Supply_Request(db.Model, SerializerMixin):
             self.reviewed_at = datetime.now()
         return value
     
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "product_id": self.product_id,
+            "supplier_id": self.supplier_id,
+            "requester_id": self.requester_id,
+            "requester_first_name": self.requester.first_name if self.requester else None,
+            "requester_last_name": self.requester.last_name if self.requester else None,
+            "reviewer_id": self.reviewer_id,
+            "reviewer_first_name": self.reviewer.first_name if self.reviewer else None,
+            "reviewer_last_name": self.reviewer.last_name if self.reviewer else None,
+            "quantity": self.quantity,
+            "status": self.status,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "reviewed_at": self.reviewed_at.isoformat() if self.reviewed_at else None,
+        }
+    
     def __repr__(self):
         return f'<supply_request {self.id}: {self.name }, {self.contact_name} using {self.email}>'
