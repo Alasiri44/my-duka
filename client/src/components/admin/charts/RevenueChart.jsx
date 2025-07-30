@@ -8,7 +8,7 @@ const RevenueChart = ({ storeId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/stocks?store_id=${storeId}`)
+    axios.get(`http://127.0.0.1:/stocks?store_id=${storeId}`)
       .then((res) => {
         const totalBuying = res.data.reduce((sum, item) => sum + (item.buying_price || 0) * (item.sold || 0), 0);
         const totalSelling = res.data.reduce((sum, item) => sum + (item.selling_price || 0) * (item.sold || 0), 0);
