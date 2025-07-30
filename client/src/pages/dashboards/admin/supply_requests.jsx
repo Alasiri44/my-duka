@@ -33,6 +33,32 @@ const AdminSupplyRequests = () => {
   const productMap = Object.fromEntries(products.map(p => [p.id, p.name]));
   const supplierMap = Object.fromEntries(suppliers.map(p =>[p.id, p.name]));
   const requesterMap = Object.fromEntries(requesters.map(u => [u.user_id, `${u.first_name} ${u.last_name}`]));
+  const handleApprove = async (id) => {
+    try {
+      const res = await axios.patch(`http://127.0.0.1:5000/supply_request/${id}`, {
+        status: 'approved'
+      });
+      // Update the UI by replacing the updated request in the list
+      setRequests(prev =>
+        prev.map(req => (req.id === id ? { ...req, status: 'approved' } : req))
+      );
+    } catch (error) {
+      console.error('Error approving request:', error);
+    }
+  };
+
+  const handleDecline = async (id) => {
+    try {
+      const res = await axios.patch(`http://127.0.0.1:5000/supply_request/${id}`, {
+        status: 'denied'
+      });
+      setRequests(prev =>
+        prev.map(req => (req.id === id ? { ...req, status: 'denied' } : req))
+      );
+    } catch (error) {
+      console.error('Error declining request:', error);
+    }
+  };
 
   return (
     <div className="p-6 bg-white rounded shadow">
@@ -43,6 +69,8 @@ const AdminSupplyRequests = () => {
           getProductName={id => productMap[id] || 'Unknown'}
           getSupplierName={id => supplierMap[id] || '-'}
           getRequesterName={req => `${req.requester_first_name} ${req.requester_last_name}`}
+          onApprove={handleApprove}
+          onDecline={handleDecline}
         />
       </div>
     </div>
