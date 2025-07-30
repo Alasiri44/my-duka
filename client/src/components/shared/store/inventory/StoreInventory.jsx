@@ -5,6 +5,7 @@ const StoreInventory = () => {
   const { store } = useOutletContext();
   const [products, setProducts] = useState([]);
   const [entries, setEntries] = useState([]);
+  const [exits, setExits] = useState([]);
   const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -14,19 +15,23 @@ const StoreInventory = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch(`http://127.0.0.1:5000/store/${store.id}/inventory`).then((res) =>
+      fetch(`http://127.0.0.1:5000/store/${store.id}/products`).then((res) =>
         res.json()
       ),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries`).then((res) =>
+      fetch(`http://127.0.0.1:5000/stock_entries?store_id=${store.id}`).then((res) =>
+        res.json()
+      ),
+      fetch(`http://127.0.0.1:5000/stock_exits?store_id=${store.id}`).then((res) =>
         res.json()
       ),
       fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((res) =>
         res.json()
       ),
       fetch("http://127.0.0.1:5000/category").then((res) => res.json()),
-    ]).then(([productData, entryData, userData, categoryData]) => {
+    ]).then(([productData, entryData, exitData, userData, categoryData]) => {
       setProducts(productData);
       setEntries(entryData);
+      setExits(exitData);
       setUsers(userData);
       setCategories(categoryData);
     });
@@ -38,9 +43,35 @@ const StoreInventory = () => {
     );
   };
 
+  // Compute quantity_on_hand for each product
+  const computedProducts = useMemo(() => {
+    // Map product_id to total entries and exits
+    const entryMap = {};
+    const exitMap = {};
+
+    entries.forEach((e) => {
+      const pid = Number(e.product_id);
+      entryMap[pid] = (entryMap[pid] || 0) + Number(e.quantity_received || e.quantity || 0);
+    });
+
+    exits.forEach((e) => {
+      const pid = Number(e.product_id);
+      exitMap[pid] = (exitMap[pid] || 0) + Number(e.quantity_sold || e.quantity || 0);
+    });
+
+    return products.map((p) => {
+      const pid = Number(p.id);
+      const quantity_on_hand = (entryMap[pid] || 0) - (exitMap[pid] || 0);
+      return {
+        ...p,
+        quantity_on_hand,
+      };
+    });
+  }, [products, entries, exits]);
+
   const categoryTotals = useMemo(() => {
     const map = {};
-    products.forEach((product) => {
+    computedProducts.forEach((product) => {
       const qty = Number(product.quantity_on_hand) || 0;
       const price = Number(product.selling_price) || 0;
       const value = qty * price;
@@ -49,7 +80,7 @@ const StoreInventory = () => {
       map[categoryName] += value;
     });
     return map;
-  }, [products, categories]);
+  }, [computedProducts, categories]);
 
   const totalStockValue = useMemo(() => {
     return Object.values(categoryTotals).reduce((sum, val) => sum + val, 0);
@@ -57,7 +88,7 @@ const StoreInventory = () => {
 
   const filteredProducts = useMemo(() => {
     const query = search.toLowerCase();
-    let result = products.filter(
+    let result = computedProducts.filter(
       (p) =>
         p.name.toLowerCase().includes(query) ||
         (p.category_name || getCategoryName(p.category_id))
@@ -78,7 +109,7 @@ const StoreInventory = () => {
     }
 
     return result;
-  }, [products, search, sortByStock, categories]);
+  }, [computedProducts, search, sortByStock, categories]);
 
   return (
     <div className="bg-white p-6 rounded-xl border border-[#f2f0ed] shadow-sm">

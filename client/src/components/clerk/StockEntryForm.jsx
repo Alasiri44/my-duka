@@ -3,7 +3,11 @@ import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:5000';
 
-const StockEntryForm = ({ clerkId = 2 }) => {
+const user = JSON.parse(localStorage.getItem('user'));
+const clerkId = user?.id;
+const storeId = user?.store_id;
+
+const StockEntryForm = () => {
   const [clerk, setClerk] = useState(null);
   const [storeId, setStoreId] = useState(null);
   const [batchId, setBatchId] = useState(null);

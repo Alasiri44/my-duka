@@ -27,6 +27,12 @@ const ClerkDash = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
+
+  const getStockQty = (p) => 
+    p.stock_quantity !== undefined && p.stock_quantity !== null
+      ? p.stock_quantity
+      : (p.quantity !== undefined && p.quantity !== null ? p.quantity : 0);
+
   const getQuantityColor = (qty) => {
     if (qty < 10) return 'text-red-600';
     if (qty >= 10 && qty <= 20) return 'text-orange-500';
@@ -43,7 +49,6 @@ const ClerkDash = () => {
         const user = JSON.parse(userStr);
         setClerk(user);
 
-        // Get store details
         const storeRes = await axios.get(`${API_URL}/store/${user.store_id}`);
         const store = storeRes.data;
         setStore(store);
@@ -75,9 +80,8 @@ const ClerkDash = () => {
         ).length;
 
         const totalStockQty = productsRes.data.reduce((sum, p) => {
-          return sum + (p.quantity || 0);
+          return sum + getStockQty(p);
         }, 0);
-
 
         setStats({
           categories: categoriesRes.data.length,
@@ -89,9 +93,8 @@ const ClerkDash = () => {
           spoiltItems,
         });
 
-        // Get low stock products
         const lowStock = productsRes.data.filter(
-          p => p.stock_quantity !== undefined && p.stock_quantity <= 20
+          p => getStockQty(p) <= 40
         );
         setLowStockProducts(lowStock);
 
@@ -167,16 +170,37 @@ const ClerkDash = () => {
                     <th className="p-2 border">Product Name</th>
                     <th className="p-2 border">Stock Quantity</th>
                     <th className="p-2 border">Category</th>
+                    <th className="p-2 border">Buying Price</th>
+                    <th className="p-2 border">Supplier</th>
+                    <th className="p-2 border">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {lowStockProducts.map((product) => (
                     <tr key={product.id} className="hover:bg-gray-50">
                       <td className="p-2 border">{product.name}</td>
-                      <td className={`p-2 border font-bold ${getQuantityColor(product.stock_quantity)}`}>
-                        {product.stock_quantity}
+                      <td className={`p-2 border font-bold ${getQuantityColor(getStockQty(product))}`}>
+                        {getStockQty(product)}
                       </td>
-                      <td className="p-2 border">{product.category || '—'}</td>
+                      <td className="p-2 border">
+                        {typeof product.category === 'object'
+                          ? product.category?.name || '—'
+                          : product.category || '—'}
+                      </td>
+                      <td className="p-2 border">
+                        {product.buying_price ? `KES ${product.buying_price.toLocaleString()}` : '—'}
+                      </td>
+                      <td className="p-2 border">
+                        {product.supplier ? product.supplier : '—'}
+                      </td>
+                      <td className="p-2 border">
+                        <button
+                          onClick={() => handleGoToProductDetail(product.id)}
+                          className="bg-indigo-600 text-white px-3 py-1 rounded text-xs hover:bg-indigo-700"
+                        >
+                          View Details
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

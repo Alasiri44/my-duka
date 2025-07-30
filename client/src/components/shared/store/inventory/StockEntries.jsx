@@ -23,6 +23,7 @@ const StockEntries = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams();
+    queryParams.append("store_id", store.id); // always filter by store_id
     if (filterProduct) queryParams.append("product_id", filterProduct);
     if (filterSupplier) queryParams.append("supplier_id", filterSupplier);
     if (filterStartDate) queryParams.append("start_date", filterStartDate);
@@ -31,34 +32,27 @@ const StockEntries = () => {
     const queryString = queryParams.toString();
 
     Promise.all([
-      fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries?${queryString}`).then((r) => r.json()),
+      fetch(`http://127.0.0.1:5000/stock_entries?${queryString}`).then((r) => r.json()),
       fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((r) => r.json()),
       fetch(`http://127.0.0.1:5000/store/${store.id}/products`).then((r) => r.json()),
       fetch(`http://127.0.0.1:5000/business/${store.business_id}/suppliers`).then((r) => r.json()),
     ]).then(([entryData, userData, productData, supplierData]) => {
       setEntries(
-  entryData.map((e) => {
-    console.log(`entry.id=${e.id}, store_id=${e.store_id}, clerk_id=${e.clerk_id}`);
-    return {
-      ...e,
-      id: Number(e.id),
-      quantity: Number(e.quantity),
-      buying_price: parseFloat(e.buying_price) || 0,
-    };
-  })
-);
+        entryData.map((e) => ({
+          ...e,
+          id: Number(e.id),
+          quantity: Number(e.quantity),
+          buying_price: parseFloat(e.buying_price) || 0,
+        }))
+      );
       setUsers(userData.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
       setProducts(productData.map((p) => ({ ...p, id: Number(p.id) })));
       setSuppliers(supplierData.map((s) => ({ ...s, id: Number(s.id) })));
     });
   }, [store.id, store.business_id, filterProduct, filterSupplier, filterStartDate, filterEndDate]);
 
-const storeEntries = useMemo(
-  () => entries.filter((e) => Number(e.store_id) === Number(store.id))
-,
-  [entries, store.id]
-);
-console.log("Current store ID:", store.id);
+  // No need to filter by store_id in frontend anymore
+  const storeEntries = useMemo(() => entries, [entries]);
 
   const batches = useMemo(() => {
     const grouped = {};
