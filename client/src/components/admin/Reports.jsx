@@ -1,5 +1,5 @@
 import React from 'react';
-import SalesChart from './charts/SalesChart';
+import SalesChart from './charts/SalesCharts';
 import ProductStatusChart from './charts/ProductStatusChart';
 import RevenueChart from './charts/RevenueChart';
 import { useOutletContext } from 'react-router-dom';
