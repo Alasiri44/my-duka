@@ -37,6 +37,7 @@ const Sidebar = ({  store, business, user }) => {
     { label: "Stock Exits", path: "exits", icon: TbPackageExport, roles: ["merchant", "admin", "clerk"] },
     { label: "Reports", path: "reports", icon: FaChartBar, roles: ["merchant", "admin"] },
     { label: "Settings", path: "settings", icon: FaCog, roles: ["merchant", "admin"] },
+    { label: "Supply requests", path : "supply-requests", icon: FaCog, roles: ["merchant", "admin"] },
   ];
 
   const role = user?.role || "clerk";

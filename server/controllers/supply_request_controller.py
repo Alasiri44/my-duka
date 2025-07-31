@@ -39,8 +39,9 @@ class Supply_Request_By_ID(Resource):
     def patch(self, id):
         supply_request = Supply_Request.query.filter(Supply_Request.id == id).first()
         if(supply_request):
-            for attr in request.form:
-                setattr(supply_request, attr, request.form.get(attr))
+            data= request.get_json()
+            for key, value in data.items():
+                setattr(supply_request, key, value)
             db.session.add(supply_request)
             db.session.commit()
             return make_response(supply_request.to_dict(), 200)

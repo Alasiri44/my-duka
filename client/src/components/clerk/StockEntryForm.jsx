@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "@/utils/axiosConfig"; // Import axios from the configured instance
 
-const StockEntryForm = ({ clerkId = 2 }) => {
+const user = JSON.parse(localStorage.getItem('user'));
+const clerkId = user?.id;
+const storeId = user?.store_id;
+
+const StockEntryForm = () => {
   const [clerk, setClerk] = useState(null);
   const [storeId, setStoreId] = useState(null);
   const [batchId, setBatchId] = useState(null);

@@ -24,6 +24,7 @@ const StockEntries = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams();
+    queryParams.append("store_id", store.id); // always filter by store_id
     if (filterProduct) queryParams.append("product_id", filterProduct);
     if (filterSupplier) queryParams.append("supplier_id", filterSupplier);
     if (filterStartDate) queryParams.append("start_date", filterStartDate);
