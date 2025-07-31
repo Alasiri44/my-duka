@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import StoreCharts from "./StoreCharts";
+import axios from "@/utils/axiosConfig";
 
 const StoreOverview = () => {
   const { store } = useOutletContext();
@@ -9,11 +10,11 @@ const StoreOverview = () => {
   const [selectedMethod, setSelectedMethod] = useState("All");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/store/${store.id}/overview`)
-      .then((res) => res.json())
-      .then((data) => {
-        setSummary(data.summary);
-        setCharts(data.charts);
+    axios
+      .get(`/store/${store.id}/overview`)
+      .then((res) => {
+        setSummary(res.data.summary);
+        setCharts(res.data.charts);
       });
   }, [store.id]);
 
@@ -46,8 +47,7 @@ const StoreOverview = () => {
           <p className="text-[#011638] font-medium">{summary.total_products}</p>
         </div>
 
-          {/* Filterable Total Sales Card */}
-           <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm flex flex-col justify-between">
+        <div className="bg-[#f2f0ed] border border-[#d7d0c8] p-4 rounded shadow-sm flex flex-col justify-between">
           <div>
             <p className="text-[#5e574d]">Total Sales</p>
             <p className="text-[#011638] text-lg font-semibold">
@@ -59,7 +59,7 @@ const StoreOverview = () => {
               ).toLocaleString()}
             </p>
           </div>
-        
+
           <div className="flex justify-center mt-4 space-x-2">
             {["All", ...charts.sales_by_payment_method.map((m) => m.method)].map((method) => (
               <button
@@ -93,7 +93,6 @@ const StoreOverview = () => {
         </div>
       </div>
 
-      {/* Chart Section */}
       <StoreCharts charts={charts} />
     </div>
   );

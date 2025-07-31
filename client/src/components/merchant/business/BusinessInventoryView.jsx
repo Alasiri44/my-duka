@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import axios from "@/utils/axiosConfig"; 
 
 const BusinessInventoryView = () => {
   const { business, stores } = useOutletContext();
@@ -8,51 +9,50 @@ const BusinessInventoryView = () => {
   const [filterCategory, setFilterCategory] = useState("");
   const [filterStoreId, setFilterStoreId] = useState("");
 
-useEffect(() => {
-  const url = filterStoreId
-    ? `http://127.0.0.1:5000/store/${filterStoreId}/inventory`
-    : `http://127.0.0.1:5000/business/${business.id}/inventory`;
+  useEffect(() => {
+    const url = filterStoreId
+      ? `/store/${filterStoreId}/inventory`
+      : `/business/${business.id}/inventory`;
 
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      if (filterStoreId) {
-        // enrich each item with category name
-        const enrichWithCategory = async () => {
-          const enriched = await Promise.all(
-            data.map(async (item) => {
-              try {
-                const res = await fetch(`http://127.0.0.1:5000/category/${item.category_id}`);
-                const category = await res.json();
-                return {
-                  ...item,
-                  category: {
-                    id: item.category_id,
-                    name: category.name,
-                  },
-                };
-              } catch {
-                return {
-                  ...item,
-                  category: {
-                    id: item.category_id,
-                    name: "Uncategorized",
-                  },
-                };
-              }
-            })
-          );
-          setProducts(enriched);
-        };
-        enrichWithCategory();
-      } else {
-        setProducts(data);
-      }
-    })
-    .catch((err) => {
-      console.error("Failed to fetch inventory data:", err);
-    });
-}, [business.id, filterStoreId]);
+    axios
+      .get(url)
+      .then((res) => {
+        if (filterStoreId) {
+          // enrich each item with category name
+          const enrichWithCategory = async () => {
+            const enriched = await Promise.all(
+              res.data.map(async (item) => {
+                try {
+                  const categoryRes = await axios.get(`/category/${item.category_id}`);
+                  return {
+                    ...item,
+                    category: {
+                      id: item.category_id,
+                      name: categoryRes.data.name,
+                    },
+                  };
+                } catch {
+                  return {
+                    ...item,
+                    category: {
+                      id: item.category_id,
+                      name: "Uncategorized",
+                    },
+                  };
+                }
+              })
+            );
+            setProducts(enriched);
+          };
+          enrichWithCategory();
+        } else {
+          setProducts(res.data);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch inventory data:", err);
+      });
+  }, [business.id, filterStoreId]);
 
   const filteredProducts = products.filter((p) => {
     const matchesName = p.name.toLowerCase().includes(searchQuery.toLowerCase());

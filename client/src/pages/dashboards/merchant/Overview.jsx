@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "@/utils/axiosConfig";
 import {
   BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, Tooltip, ResponsiveContainer
@@ -13,10 +14,9 @@ const BusinessOverview = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/business/${businessId}/summary`)
-      .then(res => res.json())
-      .then(data => {
-        setSummary(data);
+    axios.get(`/business/${businessId}/summary`)
+      .then(res => {
+        setSummary(res.data);
         setLoading(false);
       });
   }, [businessId]);
@@ -29,7 +29,6 @@ const BusinessOverview = () => {
 
   return (
     <div className="space-y-8">
-      {/* Business Header */}
       <div>
         <h1 className="text-3xl font-bold text-[#011638]">{business.name}</h1>
         <p className="text-gray-600">
@@ -38,7 +37,6 @@ const BusinessOverview = () => {
         </p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Stat title="Products" value={summary.total_products} />
         <Stat title="Stock Entries" value={summary.total_stock_entries} />
@@ -49,7 +47,6 @@ const BusinessOverview = () => {
         <Stat title="Users" value={summary.total_users} />
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChartCard title="Stock Entries by Month">
           <BarChart width={400} height={250} data={summary.stock_entries_by_month}>
@@ -77,28 +74,26 @@ const BusinessOverview = () => {
           </PieChart>
         </ChartCard>
       </div>
-<div className="flex flex-col lg:flex-row gap-even justify-evenly border-lg:rounded-xl shadow-lg border border-[#d7d0c8] p-6 space-y-6 lg:space-y-0 lg:space-x-6">
-      {/* Top Products */}
-      <ChartCard title="Top Products in Stock">
-        <BarChart layout="vertical" width={500} height={300} data={summary.top_products}>
-          <XAxis type="number" stroke="#6e6d7a" />
-          <YAxis dataKey="name" type="category" width={120} stroke="#6e6d7a" />
-          <Tooltip />
-          <Bar dataKey="value" fill={colors[2]} />
-        </BarChart>
-      </ChartCard>
+      <div className="flex flex-col lg:flex-row gap-even justify-evenly border-lg:rounded-xl shadow-lg border border-[#d7d0c8] p-6 space-y-6 lg:space-y-0 lg:space-x-6">
+        <ChartCard title="Top Products in Stock">
+          <BarChart layout="vertical" width={500} height={300} data={summary.top_products}>
+            <XAxis type="number" stroke="#6e6d7a" />
+            <YAxis dataKey="name" type="category" width={120} stroke="#6e6d7a" />
+            <Tooltip />
+            <Bar dataKey="value" fill={colors[2]} />
+          </BarChart>
+        </ChartCard>
 
-      {/* Low Stock */}
-      <ChartCard title="Low Stock Products">
-        <BarChart layout="vertical" width={500} height={300} data={summary.low_stock_products}>
-          <XAxis type="number" stroke="#6e6d7a" />
-          <YAxis dataKey="name" type="category" width={120} stroke="#6e6d7a" />
-          <Tooltip />
-          <Bar dataKey="value" fill="#e4572e" />
-        </BarChart>
-      </ChartCard>
-</div>
-      {/* Stores Table */}
+        <ChartCard title="Low Stock Products">
+          <BarChart layout="vertical" width={500} height={300} data={summary.low_stock_products}>
+            <XAxis type="number" stroke="#6e6d7a" />
+            <YAxis dataKey="name" type="category" width={120} stroke="#6e6d7a" />
+            <Tooltip />
+            <Bar dataKey="value" fill="#e4572e" />
+          </BarChart>
+        </ChartCard>
+      </div>
+
       <div className="bg-white rounded-xl shadow border p-6">
         <h2 className="text-xl font-semibold mb-4 text-[#011638]">Stores Summary</h2>
         <div className="overflow-x-auto">
@@ -130,7 +125,6 @@ const BusinessOverview = () => {
   );
 };
 
-// Reusable Stat Card
 const Stat = ({ title, value }) => (
   <div className="bg-white rounded-xl shadow border p-4 text-center">
     <div className="text-sm text-gray-500">{title}</div>
@@ -138,7 +132,6 @@ const Stat = ({ title, value }) => (
   </div>
 );
 
-// Reusable Chart Wrapper
 const ChartCard = ({ title, children }) => (
   <div className="bg-white rounded-xl shadow border p-6">
     <h2 className="text-lg font-semibold text-[#011638] mb-3">{title}</h2>

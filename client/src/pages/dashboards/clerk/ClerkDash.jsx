@@ -3,11 +3,9 @@ import StatCard from '../../../components/clerk/StatCard';
 import {
   FaDropbox, FaExclamationTriangle, FaMoneyBill, FaBoxOpen
 } from 'react-icons/fa';
-import axios from 'axios';
+import axios from "@/utils/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import QuickActions from '../../../components/clerk/QuickActionClerk';
-
-const API_URL = 'http://127.0.0.1:5000';
 
 const ClerkDash = () => {
   const [stats, setStats] = useState({
@@ -44,7 +42,7 @@ const ClerkDash = () => {
         setClerk(user);
 
         // Get store details
-        const storeRes = await axios.get(`${API_URL}/store/${user.store_id}`);
+        const storeRes = await axios.get(`/store/${user.store_id}`);
         const store = storeRes.data;
         setStore(store);
 
@@ -57,11 +55,11 @@ const ClerkDash = () => {
           stockExitsRes,
           batchesRes
         ] = await Promise.all([
-          axios.get(`${API_URL}/category`),
-          axios.get(`${API_URL}/product`),
-          axios.get(`${API_URL}/stock_entries?store_id=${storeId}`),
-          axios.get(`${API_URL}/stock_exits?store_id=${storeId}`),
-          axios.get(`${API_URL}/batches?store_id=${storeId}`)
+          axios.get(`/category`),
+          axios.get(`/product/store/${storeId}`),
+          axios.get(`/stock_entries?store_id=${storeId}`),
+          axios.get(`/stock_exits?store_id=${storeId}`),
+          axios.get(`/batches?store_id=${storeId}`)
         ]);
 
         setProducts(productsRes.data);
@@ -77,7 +75,6 @@ const ClerkDash = () => {
         const totalStockQty = productsRes.data.reduce((sum, p) => {
           return sum + (p.quantity || 0);
         }, 0);
-
 
         setStats({
           categories: categoriesRes.data.length,

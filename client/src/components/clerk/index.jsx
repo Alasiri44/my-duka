@@ -2,36 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
+import axios from "@/utils/axiosConfig"; 
 
 const ClerkLayout = () => {
   const [clerk, setClerk] = useState(null);
   const [store, setStore] = useState(null);
   const navigate = useNavigate();
-  const {user} = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-
-    fetch(`http://127.0.0.1:5000/user/${user.id}`, { credentials: 'include' })
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch user');
-        return res.json();
+    axios
+      .get(`/user/${user.id}`, { withCredentials: true })
+      .then((res) => {
+        if (res.status !== 200) throw new Error("Failed to fetch user");
+        setClerk(res.data);
+        return axios.get(`/store/${res.data.store_id}`, { withCredentials: true });
       })
-      .then(data => {
-        setClerk(data);
-        return fetch(`http://127.0.0.1:5000/store/${data.store_id}`, { credentials: 'include' });
+      .then((res) => {
+        if (res.status !== 200) throw new Error("Failed to fetch store");
+        setStore(res.data);
       })
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch store');
-        return res.json();
-      })
-      .then(storeData => {
-        setStore(storeData);
-      })
-      .catch(err => {
+      .catch((err) => {
         console.error("Error loading clerk or store", err);
         navigate("/error"); // optional: redirect to error page
       });
-  }, [navigate]);
+  }, [navigate, user.id]);
 
   if (!clerk || !store) {
     return (

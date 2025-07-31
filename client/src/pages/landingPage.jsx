@@ -7,6 +7,7 @@ import mpesaLogo from "../assets/mpesaLogo.png";
 import { MdAddBusiness } from "react-icons/md";
 import { IoDiamond } from "react-icons/io5";
 import dashScreenshot from "../assets/dashScreenshot.png";
+import screenshot2 from "../assets/screenshot2.png";
 
 
 
@@ -32,7 +33,7 @@ function LandingPage() {
                     </div>
                     <div className="lg:w-3/4 animate-fade-in-right">
                         <img
-                            src={dashScreenshot}
+                            src={screenshot2}
                             alt="Inventory Illustration"
                             className="w-full rounded-lg shadow-lg"
                         />

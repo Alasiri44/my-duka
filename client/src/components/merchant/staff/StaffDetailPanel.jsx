@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import StaffImage from "../../../assets/StaffImage.svg";
+import axios from "@/utils/axiosConfig";
 
-const StaffDetailPanel = ({ user,role }) => {
+const StaffDetailPanel = ({ user, role }) => {
   const [stats, setStats] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
     if (user) {
-      fetch(`http://127.0.0.1:5000/users/${user.id}/stats`)
-        .then((res) => res.json())
-        .then(setStats);
+      axios.get(`/users/${user.id}/stats`).then((res) => setStats(res.data));
 
       setFormData({
         first_name: user.first_name,
@@ -28,16 +27,12 @@ const StaffDetailPanel = ({ user,role }) => {
   };
 
   const handleSave = () => {
-    fetch(`http://127.0.0.1:5000/user/${user.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    axios
+      .patch(`/user/${user.id}`, {
         first_name: formData.first_name,
         last_name: formData.last_name,
         phone_number: formData.phone,
-      }),
-    })
-      .then((res) => res.json())
+      })
       .then(() => setShowEditModal(false));
   };
 
@@ -63,7 +58,9 @@ const StaffDetailPanel = ({ user,role }) => {
               {user.first_name} {user.last_name}
             </h3>
             <p className="text-sm text-[#5e574d]">{user.email}</p>
-            <p className="text-sm text-[#5e574d]">Phone: <span className="text-[#011638]">{user.phone_number || "N/A"}</span></p>
+            <p className="text-sm text-[#5e574d]">
+              Phone: <span className="text-[#011638]">{user.phone_number || "N/A"}</span>
+            </p>
             <p className="text-sm text-[#5e574d] capitalize">Role: {user.role}</p>
             <p className="text-xs text-[#999999]">
               Joined on {new Date(user.created_at).toLocaleDateString()}
@@ -104,33 +101,28 @@ const StaffDetailPanel = ({ user,role }) => {
           <p className="text-sm text-[#5e574d]">Loading stats...</p>
         )}
 
- <div className="flex gap-2">
-  {/* Deactivate */}
-  {(role === "merchant" || (role === "admin" && user.role === "clerk")) && (
-    <button className="px-4 py-2 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200">
-      Deactivate
-    </button>
-  )}
+        <div className="flex gap-2">
+          {(role === "merchant" || (role === "admin" && user.role === "clerk")) && (
+            <button className="px-4 py-2 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200">
+              Deactivate
+            </button>
+          )}
 
-  {/* Remove */}
-  {role === "merchant" && (
-    <button className="px-4 py-2 text-sm border border-[#5e574d] text-[#011638] rounded hover:bg-[#f2f0ed]">
-      Remove
-    </button>
-  )}
+          {role === "merchant" && (
+            <button className="px-4 py-2 text-sm border border-[#5e574d] text-[#011638] rounded hover:bg-[#f2f0ed]">
+              Remove
+            </button>
+          )}
 
-  {/* Edit - everyone can edit */}
-  <button
-    onClick={() => setShowEditModal(true)}
-    className="px-4 py-2 text-sm border border-[#011638] text-[#011638] rounded hover:bg-[#f2f0ed]"
-  >
-    Edit
-  </button>
-</div>
-
+          <button
+            onClick={() => setShowEditModal(true)}
+            className="px-4 py-2 text-sm border border-[#011638] text-[#011638] rounded hover:bg-[#f2f0ed]"
+          >
+            Edit
+          </button>
+        </div>
       </div>
 
-      {/* Edit Modal */}
       {showEditModal && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md space-y-4">

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from "@/utils/axiosConfig";
 import PaymentModal from '../shared/payments/PaymentModal';
-
-const API_URL = 'http://127.0.0.1:5000';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const clerkId = user?.id;
@@ -30,10 +28,10 @@ const StockExitForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = (await axios.get(`${API_URL}/user/${clerkId}`)).data;
+        const user = (await axios.get(`/user/${clerkId}`)).data;
         setClerk(user);
         setStoreId(user.store_id);
-        const productRes = await axios.get(`${API_URL}/product?store_id=${user.store_id}`);
+        const productRes = await axios.get(`/product?store_id=${user.store_id}`);
         setProducts(productRes.data);
       } catch (err) {
         console.error('Error loading data:', err);
@@ -69,7 +67,7 @@ const StockExitForm = () => {
         return;
       }
 
-      const batchRes = await axios.post(`${API_URL}/batches`, {
+      const batchRes = await axios.post(`/batches`, {
         store_id: storeId,
         direction: 'out',
         party,
@@ -93,7 +91,7 @@ const StockExitForm = () => {
         if (exit.reason === 'sold') {
           total += Number(exit.quantity) * Number(exit.selling_price);
         }
-        await axios.post(`${API_URL}/stock_exits`, payload);
+        await axios.post(`/stock_exits`, payload);
       }
 
       const hasSale = exits.some((exit) => exit.reason === 'sold');
@@ -121,7 +119,7 @@ const StockExitForm = () => {
 
         console.log('Sale payload:', salePayload);
 
-        const saleRes = await axios.post(`${API_URL}/sales`, salePayload);
+        const saleRes = await axios.post(`/sales`, salePayload);
         setSaleInfo(saleRes.data);
         setPaymentAmount(total);
         setShowPaymentModal(true);
@@ -141,10 +139,9 @@ const StockExitForm = () => {
     }
   };
 
-
   const handlePaymentSubmit = async (paymentData) => {
     try {
-      await axios.post(`${API_URL}/payments`, {
+      await axios.post(`/payments`, {
         ...paymentData,
         sale_id: saleInfo?.id,
         store_id: storeId,

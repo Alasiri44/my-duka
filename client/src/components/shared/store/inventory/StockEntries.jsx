@@ -4,6 +4,7 @@ import BatchList from "../BatchList";
 import BatchDetailPanel from "../BatchDetailPanel";
 import StockEntryTable from "../../../../components/shared/store/StockEntryTable";
 import StockEntriesFilters from "../../../../components/shared/store/StockEntriesFilters";
+import axios from "@/utils/axiosConfig";
 
 const StockEntries = () => {
   const { store } = useOutletContext();
@@ -31,34 +32,30 @@ const StockEntries = () => {
     const queryString = queryParams.toString();
 
     Promise.all([
-      fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries?${queryString}`).then((r) => r.json()),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((r) => r.json()),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/products`).then((r) => r.json()),
-      fetch(`http://127.0.0.1:5000/business/${store.business_id}/suppliers`).then((r) => r.json()),
-    ]).then(([entryData, userData, productData, supplierData]) => {
+      axios.get(`/store/${store.id}/stock_entries?${queryString}`),
+      axios.get(`/store/${store.id}/users`),
+      axios.get(`/store/${store.id}/products`),
+      axios.get(`/business/${store.business_id}/suppliers`),
+    ]).then(([entryRes, userRes, productRes, supplierRes]) => {
       setEntries(
-  entryData.map((e) => {
-    console.log(`entry.id=${e.id}, store_id=${e.store_id}, clerk_id=${e.clerk_id}`);
-    return {
-      ...e,
-      id: Number(e.id),
-      quantity: Number(e.quantity),
-      buying_price: parseFloat(e.buying_price) || 0,
-    };
-  })
-);
-      setUsers(userData.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
-      setProducts(productData.map((p) => ({ ...p, id: Number(p.id) })));
-      setSuppliers(supplierData.map((s) => ({ ...s, id: Number(s.id) })));
+        entryRes.data.map((e) => ({
+          ...e,
+          id: Number(e.id),
+          quantity: Number(e.quantity),
+          buying_price: parseFloat(e.buying_price) || 0,
+        }))
+      );
+      setUsers(userRes.data.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
+      setProducts(productRes.data.map((p) => ({ ...p, id: Number(p.id) })));
+      setSuppliers(supplierRes.data.map((s) => ({ ...s, id: Number(s.id) })));
     });
   }, [store.id, store.business_id, filterProduct, filterSupplier, filterStartDate, filterEndDate]);
 
-const storeEntries = useMemo(
-  () => entries.filter((e) => Number(e.store_id) === Number(store.id))
-,
-  [entries, store.id]
-);
-console.log("Current store ID:", store.id);
+  const storeEntries = useMemo(
+    () => entries.filter((e) => Number(e.store_id) === Number(store.id)),
+    [entries, store.id]
+  );
+  console.log("Current store ID:", store.id);
 
   const batches = useMemo(() => {
     const grouped = {};
