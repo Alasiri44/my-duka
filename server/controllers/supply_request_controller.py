@@ -1,7 +1,7 @@
 from flask_restful import Api, Resource
 from flask import make_response, Blueprint, request
-from ..models.supply_request import Supply_Request
-from ..models import db
+from models.supply_request import Supply_Request
+from models import db
 
 supply_request_bp = Blueprint('supply_request_bp', __name__)
 supply_request_api = Api(supply_request_bp)

@@ -1,20 +1,20 @@
 from flask_restful import Api, Resource
 from flask import make_response, Blueprint, request
-from ..models.business import Business
-from ..models import db
+from models.business import Business
+from models import db
 
 
 from sqlalchemy import func
 from datetime import datetime
-from ..models.store import Store
-from ..models.user import User
-from ..models.product import Product
-from ..models.supplier import Supplier
-from ..models.stock_entries import Stock_Entry
-from ..models.stock_exits import StockExit
-from ..models.business_setting import Business_Setting
-from ..models.batch import Batch
-from ..models.category import Category
+from models.store import Store
+from models.user import User
+from models.product import Product
+from models.supplier import Supplier
+from models.stock_entries import Stock_Entry
+from models.stock_exits import StockExit
+from models.business_setting import Business_Setting
+from models.batch import Batch
+from models.category import Category
 
 
 business_bp = Blueprint('business_bp', __name__)

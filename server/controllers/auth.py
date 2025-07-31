@@ -9,7 +9,7 @@ class CheckSession(Resource):
         if 'email' in session:
             role = session.get("role")
             if role == "merchant":
-                from ..models.merchant import Merchant
+                from models.merchant import Merchant
                 user = Merchant.query.get(session["user_id"])
                 if user:
                     return {
@@ -20,7 +20,7 @@ class CheckSession(Resource):
                         "role": role
                     }
             else:
-                from ..models.user import User
+                from models.user import User
                 if "user_id" not in session:
                     return {"message": "Not logged in"}, 401
                 user = User.query.get(session["user_id"])

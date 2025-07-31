@@ -1,9 +1,9 @@
 from flask import Blueprint, request, make_response
 from flask_restful import Api, Resource
-from ..models import db
-from ..models.payment import Payment
-from ..models.sale import Sale
-from ..models.stock_entries import Stock_Entry
+from models import db
+from models.payment import Payment
+from models.sale import Sale
+from models.stock_entries import Stock_Entry
 from datetime import datetime
 
 payment_bp = Blueprint('payment_bp', __name__)

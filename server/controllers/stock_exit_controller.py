@@ -1,12 +1,12 @@
 from flask import Blueprint, request, make_response
 from flask_restful import Api, Resource
-from ..models.stock_exits import StockExit
-from ..models import db
-from ..models.product import Product
-from ..models.user import User
-from ..models.store import Store
-from ..models.batch import Batch
-from ..models.sale import Sale
+from models.stock_exits import StockExit
+from models import db
+from models.product import Product
+from models.user import User
+from models.store import Store
+from models.batch import Batch
+from models.sale import Sale
 
 stock_exit_bp = Blueprint('stock_exit_bp', __name__)
 stock_exit_api = Api(stock_exit_bp)

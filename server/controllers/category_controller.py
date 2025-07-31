@@ -1,7 +1,7 @@
 from flask_restful import Api, Resource
 from flask import make_response, Blueprint, request
-from ..models.category import Category
-from ..models import db
+from models.category import Category
+from models import db
 
 category_bp = Blueprint('category_bp', __name__)
 category_api = Api(category_bp)

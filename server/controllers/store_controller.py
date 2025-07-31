@@ -1,15 +1,15 @@
 from flask_restful import Api, Resource
 from flask import make_response, Blueprint, request
-from ..models.store import Store
-from ..models import db
-from ..models.user import User
-from ..models.batch import Batch
-from ..models.product import Product
-from ..models.stock_entries import Stock_Entry
-from ..models.stock_exits import StockExit
+from models.store import Store
+from models import db
+from models.user import User
+from models.batch import Batch
+from models.product import Product
+from models.stock_entries import Stock_Entry
+from models.stock_exits import StockExit
 from datetime import datetime, timedelta
-from ..models.stock_exits import StockExit
-from ..models.sale import Sale
+from models.stock_exits import StockExit
+from models.sale import Sale
 from sqlalchemy.orm import joinedload
 
 
@@ -72,11 +72,11 @@ store_api.add_resource(Store_By_ID, '/store/<id>')
 from flask import request, make_response
 from flask_restful import Resource
 from datetime import datetime, timedelta
-from ..models.store import Store
-from ..models.user import User
-from ..models.product import Product
-from ..models.stock_entries import Stock_Entry
-from ..models.stock_exits import StockExit
+from models.store import Store
+from models.user import User
+from models.product import Product
+from models.stock_entries import Stock_Entry
+from models.stock_exits import StockExit
 
 class StoreOverview(Resource):
     def get(self, id):
@@ -224,8 +224,8 @@ store_api.add_resource(StoreOverview, '/store/<int:id>/overview')
 
 class StoreStockEntries(Resource):
     def get(self, id):
-        from ..models.supplier import Supplier
-        from ..models.product import Product
+        from models.supplier import Supplier
+        from models.product import Product
 
         store = Store.query.get(id)
         if not store:
@@ -381,7 +381,7 @@ class StoreInventory(Resource):
         for e in exits:
             exit_totals[e.product_id] = exit_totals.get(e.product_id, 0) + e.quantity
 
-        from ..models.category import Category
+        from models.category import Category
         categories = Category.query.filter_by(business_id=store.business_id).all()
         category_map = {c.id: c.name for c in categories}
 

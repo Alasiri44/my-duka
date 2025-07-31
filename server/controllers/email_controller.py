@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_mail import Message
-from .. import mail
+from __init__ import mail
 from random import randint
 
 email_bp = Blueprint('email_bp', __name__)

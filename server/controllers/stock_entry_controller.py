@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify, make_response
-from ..models.stock_entries import Stock_Entry
-from ..models.batch import Batch
-from ..models.product import Product
-from ..models import db
+from models.stock_entries import Stock_Entry
+from models.batch import Batch
+from models.product import Product
+from models import db
 
 stock_entry_bp = Blueprint('stock_entry_bp', __name__)
 

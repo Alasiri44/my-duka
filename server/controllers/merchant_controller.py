@@ -1,24 +1,24 @@
 from flask import Blueprint, make_response, request, session, current_app
 from flask_restful import Api, Resource
-from ..models.merchant import Merchant
-from ..models import db
+from models.merchant import Merchant
+from models import db
 from sqlalchemy import func
 from datetime import datetime, timedelta
 
 from flask_bcrypt import Bcrypt
 
-from ..models import db
-from ..models.business import Business
-from ..models.store import Store
-from ..models.product import Product
-from ..models.stock_entries import Stock_Entry
-from ..models.batch import Batch
-from ..models.user import User
-from ..models.supplier import Supplier
+from models import db
+from models.business import Business
+from models.store import Store
+from models.product import Product
+from models.stock_entries import Stock_Entry
+from models.batch import Batch
+from models.user import User
+from models.supplier import Supplier
 
 bcrypt = Bcrypt()
 from flask_mail import Message
-from .. import mail
+from __init__ import mail
 from threading import Thread
 
 merchant_bp = Blueprint('merchant_bp', __name__)

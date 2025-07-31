@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_cors import CORS
-from ..models.sale import Sale
-from ..models import db
+from models.sale import Sale
+from models import db
 from datetime import datetime
 
 sale_bp = Blueprint('sale_bp', __name__)

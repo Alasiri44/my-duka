@@ -1,10 +1,10 @@
 from flask import Blueprint, make_response, request, session
 from flask_restful import Api, Resource
-from ..models.user import User
-from ..models import db
+from models.user import User
+from models import db
 from flask_mail import Message
 from random import randint
-from .. import mail
+from __init__ import mail
 
 user_bp = Blueprint('user_bp', __name__)
 api = Api(user_bp)
@@ -166,9 +166,9 @@ api.add_resource(Clerks, '/user/clerks')
 # --- USER STATS ---
 class UserStats(Resource):
     def get(self, user_id):
-        from ..models.stock_entries import Stock_Entry
-        from ..models.stock_exits import StockExit
-        from ..models.supply_request import Supply_Request
+        from models.stock_entries import Stock_Entry
+        from models.stock_exits import StockExit
+        from models.supply_request import Supply_Request
 
         entry_count = Stock_Entry.query.filter_by(clerk_id=user_id).count()
         exit_count = StockExit.query.filter_by(recorded_by=user_id).count()

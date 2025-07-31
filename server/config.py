@@ -1,4 +1,4 @@
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:1234@localhost:5432/my_duka_db'
+SQLALCHEMY_DATABASE_URI = 'postgresql://my_duka_db_user:YII7EXB6QxPi3fCIuO4VVvP7TRsmRK3f@dpg-d25ip3ili9vc73fc23vg-a.oregon-postgres.render.com/my_duka_db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 MAIL_SERVER = 'smtp.gmail.com'

@@ -105,21 +105,21 @@ with app.app_context():
     db.session.flush()
 
     products = [
-    Product(id=1, store_id=1, business_id=1, category_id=1, name="Coca Cola", description="500ml bottle", selling_price=70, quantity=100),
-    Product(id=2, store_id=1, business_id=1, category_id=1, name="Pepsi", description="500ml bottle", selling_price=65, quantity=100),
-    Product(id=3, store_id=1, business_id=1, category_id=1, name="Fanta", description="500ml bottle", selling_price=68, quantity=100),
-    Product(id=4, store_id=1, business_id=1, category_id=1, name="Sprite", description="500ml bottle", selling_price=69, quantity=100),
-    Product(id=5, store_id=1, business_id=1, category_id=1, name="Water 500ml", description="Mineral water", selling_price=30, quantity=100),
-    Product(id=6, store_id=1, business_id=1, category_id=2, name="Chevda", description="Spicy snack", selling_price=50, quantity=100),
-    Product(id=7, store_id=1, business_id=1, category_id=2, name="Biscuits", description="Pack of 6", selling_price=40, quantity=100),
-    Product(id=8, store_id=1, business_id=1, category_id=2, name="Crisps", description="Potato crisps", selling_price=35, quantity=100),
-    Product(id=9, store_id=1, business_id=1, category_id=2, name="Groundnuts", description="Roasted", selling_price=38, quantity=100),
-    Product(id=10, store_id=1, business_id=1, category_id=2, name="Mandazi", description="Sweet fried bread", selling_price=20, quantity=100),
-    Product(id=11, store_id=1, business_id=1, category_id=3, name="Exercise Book", description="A4, 200pgs", selling_price=50, quantity=100),
-    Product(id=12, store_id=1, business_id=1, category_id=3, name="Biro Pen", description="Blue ink", selling_price=20, quantity=100),
-    Product(id=13, store_id=1, business_id=1, category_id=3, name="Glue Stick", description="Large", selling_price=45, quantity=100),
-    Product(id=14, store_id=1, business_id=1, category_id=3, name="Marker Pen", description="Black", selling_price=55, quantity=100),
-    Product(id=15, store_id=1, business_id=1, category_id=3, name="Pencil", description="HB", selling_price=15, quantity=100)
+    Product(id=1, business_id=1, category_id=1, name="Coca Cola", description="500ml bottle", selling_price=70, quantity=100),
+    Product(id=2, business_id=1, category_id=1, name="Pepsi", description="500ml bottle", selling_price=65, quantity=100),
+    Product(id=3, business_id=1, category_id=1, name="Fanta", description="500ml bottle", selling_price=68, quantity=100),
+    Product(id=4, business_id=1, category_id=1, name="Sprite", description="500ml bottle", selling_price=69, quantity=100),
+    Product(id=5, business_id=1, category_id=1, name="Water 500ml", description="Mineral water", selling_price=30, quantity=100),
+    Product(id=6, business_id=1, category_id=2, name="Chevda", description="Spicy snack", selling_price=50, quantity=100),
+    Product(id=7, business_id=1, category_id=2, name="Biscuits", description="Pack of 6", selling_price=40, quantity=100),
+    Product(id=8, business_id=1, category_id=2, name="Crisps", description="Potato crisps", selling_price=35, quantity=100),
+    Product(id=9, business_id=1, category_id=2, name="Groundnuts", description="Roasted", selling_price=38, quantity=100),
+    Product(id=10, business_id=1, category_id=2, name="Mandazi", description="Sweet fried bread", selling_price=20, quantity=100),
+    Product(id=11, business_id=1, category_id=3, name="Exercise Book", description="A4, 200pgs", selling_price=50, quantity=100),
+    Product(id=12, business_id=1, category_id=3, name="Biro Pen", description="Blue ink", selling_price=20, quantity=100),
+    Product(id=13, business_id=1, category_id=3, name="Glue Stick", description="Large", selling_price=45, quantity=100),
+    Product(id=14, business_id=1, category_id=3, name="Marker Pen", description="Black", selling_price=55, quantity=100),
+    Product(id=15, business_id=1, category_id=3, name="Pencil", description="HB", selling_price=15, quantity=100)
 ]
 
     db.session.add_all(products)

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, make_response
-from ..models.batch import Batch
+from models.batch import Batch
 
 batch_bp = Blueprint('batch_bp', __name__)
 
@@ -21,7 +21,7 @@ def batches():
         if not all([store_id, direction, party, created_by]):
             return jsonify({'error': 'Missing required fields'}), 400
         batch = Batch(store_id=store_id, direction=direction, party=party, created_by=created_by)
-        from ..models import db
+        from models import db
         db.session.add(batch)
         db.session.commit()
         return jsonify(batch.to_dict()), 201

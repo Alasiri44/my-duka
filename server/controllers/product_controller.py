@@ -1,8 +1,8 @@
 from flask_restful import Api, Resource
 from flask import make_response, Blueprint, request
-from ..models.product import Product
-from ..models.category import Category
-from ..models import db
+from models.product import Product
+from models.category import Category
+from models import db
 
 product_bp = Blueprint('product_bp', __name__)
 product_api = Api(product_bp)
