@@ -50,16 +50,8 @@ app.register_blueprint(mpesa_bp)
 
 # Serve React frontend
 @app.route('/')
-def serve_index():
-    return send_from_directory(app.static_folder, 'index.html')
-
-
-@app.route('/<path:path>')
-def serve_vue(path):  # name doesn't matter
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+def serve_vue(path):  
+    return make_response('<h1>Welcome to my duka</h1>', 200)
 
 
 @app.route('/api/mpesa/callback', methods=['POST'])
@@ -71,15 +63,6 @@ def mpesa_callback():
     # Optionally, save to DB or log file
 
     return make_response(({"ResultCode": 0, "ResultDesc": "Callback received successfully"}), 200)
-
-# @app.route('/run-seed')
-# def seed_route():
-#     try:
-#         with current_app.app_context():
-#             run_seed()
-#         return {"message": "Database seeded successfully."}, 200
-#     except Exception as e:
-#         return {"error": str(e)}, 500
 
 
 if __name__ == '__main__':
