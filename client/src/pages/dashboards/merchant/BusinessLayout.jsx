@@ -36,11 +36,11 @@ const BusinessLayout = () => {
       <Sidebar
         businesses={businesses}
         currentId={currentBusiness?.id}
-        stores={currentBusiness?.stores || []}
+        stores={stores}
       />
       <main className="flex-1 bg-[#fdfdfd] p-6 overflow-y-auto">
         <Outlet
-          context={{ businessId: Number(id), role: user?.role, business: currentBusiness, stores }}
+          context={{ businessId: Number(id), role: user?.role, business: currentBusiness, stores, setStores }}
         />
       </main>
     </div>
