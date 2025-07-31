@@ -25,7 +25,7 @@ mail = Mail()
 sess = Session()
 
 def create_app():
-    app = Flask(__name__, static_folder='../client/build', static_url_path='', template_folder='../client/build')
+    app = Flask(__name__, static_folder='../client/dist', static_url_path='', template_folder='../client/dist')
     app.secret_key = "super-secret-key"
     # Database configuration
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
