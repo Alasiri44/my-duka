@@ -24,7 +24,7 @@ class Categories(Resource):
         else:
             return make_response({"message": "Failed to create the category"}, 404)
         
-category_api.add_resource(Categories, '/category')
+category_api.add_resource(Categories, '/backend/category')
 
 class category_By_ID(Resource):
     def get(self, id):
@@ -51,4 +51,4 @@ class category_By_ID(Resource):
             return make_response('', 204)
         else:
             return make_response({"message": "The category does not exist"}, 404)
-category_api.add_resource(category_By_ID, '/category/<id>')
+category_api.add_resource(category_By_ID, '/backend/category/<id>')

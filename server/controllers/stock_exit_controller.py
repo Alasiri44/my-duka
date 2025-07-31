@@ -81,7 +81,7 @@ class StockExits(Resource):
             return make_response({'message': f'Error creating stock exit: {str(e)}'}, 400)
 
 
-stock_exit_api.add_resource(StockExits, '/stock_exits')
+stock_exit_api.add_resource(StockExits, '/backend/stock_exits')
 
 
 class StockExit_By_ID(Resource):
@@ -117,4 +117,4 @@ class StockExit_By_ID(Resource):
         return make_response({"message": "The stock exit does not exist"}, 404)
 
 
-stock_exit_api.add_resource(StockExit_By_ID, '/stock_exits/<int:id>')
+stock_exit_api.add_resource(StockExit_By_ID, '/backend/stock_exits/<int:id>')

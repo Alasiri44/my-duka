@@ -83,7 +83,7 @@ class Merchants(Resource):
             return response
         else:
             return make_response({"message": "Failed to create a new merchant"}, 404)
-api.add_resource(Merchants, '/merchant')
+api.add_resource(Merchants, '/backend/merchant')
 
 class Merchant_By_ID(Resource):
     def get(self, id):
@@ -110,7 +110,7 @@ class Merchant_By_ID(Resource):
             return make_response(merchant.to_dict(), 200)
         else:
             return make_response({"message": "The user does not exist in the database"}, 404)
-api.add_resource(Merchant_By_ID, '/merchant/<id>')
+api.add_resource(Merchant_By_ID, '/backend/merchant/<id>')
 
 class Merchant_Login(Resource):
     def post(self):
@@ -139,7 +139,7 @@ class Merchant_Login(Resource):
                 return make_response({"message": "Wrong password"}, 401)
         else:
             return make_response({"message": "The user does not exist in the database"}, 404)
-api.add_resource(Merchant_Login, '/merchant/login')
+api.add_resource(Merchant_Login, '/backend/merchant/login')
 
 
 
@@ -216,4 +216,4 @@ class MerchantDashboard(Resource):
             "businesses": business_list,
             "recent_activity": recent_activity
         }, 200)
-api.add_resource(MerchantDashboard, '/merchant/<int:id>/dashboard')
+api.add_resource(MerchantDashboard, '/backend/merchant/<int:id>/dashboard')

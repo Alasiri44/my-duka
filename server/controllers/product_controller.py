@@ -26,7 +26,7 @@ class Products(Resource):
         db.session.commit()
         return make_response(new_product.to_dict(), 201)
 
-product_api.add_resource(Products, '/product')
+product_api.add_resource(Products, '/backend/product')
 
 class Product_By_ID(Resource):
     def get(self, id):
@@ -56,21 +56,21 @@ class Product_By_ID(Resource):
         else:
             return make_response({"message": "The product does not exist"}, 404)
 
-product_api.add_resource(Product_By_ID, '/product/<int:id>')
+product_api.add_resource(Product_By_ID, '/backend/product/<int:id>')
 
 class Product_By_StoreID(Resource):
     def get(self, id):
         response = [product.to_dict() for product in Product.query.filter(Product.store_id == id).all()]
         return make_response(response, 200)
 
-product_api.add_resource(Product_By_StoreID, '/product/store/<int:id>')
+product_api.add_resource(Product_By_StoreID, '/backend/product/store/<int:id>')
 
 class Product_By_CategoryID(Resource):
     def get(self, id):
         response = [product.to_dict() for product in Product.query.filter(Product.category_id == id).all()]
         return make_response(response, 200)
 
-product_api.add_resource(Product_By_CategoryID, '/product/category/<int:id>')
+product_api.add_resource(Product_By_CategoryID, '/backend/product/category/<int:id>')
 
 class Product_In_Store_By_CategoryID(Resource):
     def post(self, id):
@@ -79,4 +79,4 @@ class Product_In_Store_By_CategoryID(Resource):
         response = [product.to_dict() for product in Product.query.join(Category).filter((Product.store_id == id) & (Category.name == category)).all()]
         return make_response(response, 200)
 
-product_api.add_resource(Product_In_Store_By_CategoryID, '/product/store_category/<int:id>')
+product_api.add_resource(Product_In_Store_By_CategoryID, '/backend/product/store_category/<int:id>')

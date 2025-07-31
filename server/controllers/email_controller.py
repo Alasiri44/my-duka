@@ -5,7 +5,7 @@ from random import randint
 
 email_bp = Blueprint('email_bp', __name__)
 
-@email_bp.route('/send')
+@email_bp.route('/backend/send')
 def send_email():
     email = 'austin.pamba@student.moringaschool.com'
     otp = str(randint(100000, 999999))

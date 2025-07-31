@@ -38,7 +38,7 @@ class Stores(Resource):
         else:
             return make_response({"message": "Failed to create the store"}, 404)
         
-store_api.add_resource(Stores, '/store')
+store_api.add_resource(Stores, '/backend/store')
 
 class Store_By_ID(Resource):
     def get(self, id):
@@ -65,7 +65,7 @@ class Store_By_ID(Resource):
             return make_response('', 204)
         else:
             return make_response({"message": "The store does not exist"}, 404)
-store_api.add_resource(Store_By_ID, '/store/<id>')
+store_api.add_resource(Store_By_ID, '/backend/store/<id>')
 
 
 
@@ -217,7 +217,7 @@ class StoreOverview(Resource):
                 "stock_breakdown_by_date": stock_breakdown
             }
         }, 200)
-store_api.add_resource(StoreOverview, '/store/<int:id>/overview')
+store_api.add_resource(StoreOverview, '/backend/store/<int:id>/overview')
 
 
 
@@ -279,7 +279,7 @@ class StoreStockEntries(Resource):
 
         return make_response(response, 200)
 
-store_api.add_resource(StoreStockEntries, "/store/<int:id>/stock_entries")
+store_api.add_resource(StoreStockEntries, "/backend/store/<int:id>/stock_entries")
 
 
 class StoreProducts(Resource):
@@ -302,7 +302,7 @@ class StoreProducts(Resource):
         ]
         return make_response(response, 200)
 
-store_api.add_resource(StoreProducts, "/store/<int:id>/products")
+store_api.add_resource(StoreProducts, "/backend/store/<int:id>/products")
 
 class StoreUsers(Resource):
     def get(self, id):
@@ -320,7 +320,7 @@ class StoreUsers(Resource):
         ]
         return make_response(response, 200)
 
-store_api.add_resource(StoreUsers, "/store/<int:id>/users")
+store_api.add_resource(StoreUsers, "/backend/store/<int:id>/users")
 
 class StoreBatches(Resource):
     def get(self, id):
@@ -348,7 +348,7 @@ class StoreBatches(Resource):
 
         return make_response(response, 200)
 
-store_api.add_resource(StoreBatches, "/store/<int:id>/batches")
+store_api.add_resource(StoreBatches, "/backend/store/<int:id>/batches")
 
 
 
@@ -401,7 +401,7 @@ class StoreInventory(Resource):
 
         return make_response(response, 200)
 
-store_api.add_resource(StoreInventory, "/store/<int:id>/inventory")
+store_api.add_resource(StoreInventory, "/backend/store/<int:id>/inventory")
 
 
 

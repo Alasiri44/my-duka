@@ -36,7 +36,7 @@ class CheckSession(Resource):
 
         return make_response({'message': 'Not logged in'}, 401)
 
-auth_api.add_resource(CheckSession, '/check-session')
+auth_api.add_resource(CheckSession, '/backend/check-session')
 
 
 
@@ -44,4 +44,4 @@ class Logout(Resource):
     def delete(self):
         session.clear()
         return {"message": "Logged out successfully"}, 200
-auth_api.add_resource(Logout, '/logout')
+auth_api.add_resource(Logout, '/backend/logout')

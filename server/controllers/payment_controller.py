@@ -77,7 +77,7 @@ class Payments(Resource):
            import traceback
            traceback.print_exc()
            return make_response({"error": str(e)}, 500)
-    
+payment_api.add_resource(Payments, '/backend/payments/mpesa')   
 
 class MpesaCallback(Resource):
     def post(self):
@@ -111,7 +111,4 @@ class MpesaCallback(Resource):
         except Exception as e:
             db.session.rollback()
             return make_response({"error": str(e)}, 400)
-
-# Route registration
-payment_api.add_resource(Payments, '/payments/mpesa')
-payment_api.add_resource(MpesaCallback, '/payments/callback')
+payment_api.add_resource(MpesaCallback, '/backend/payments/callback')

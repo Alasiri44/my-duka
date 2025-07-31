@@ -58,7 +58,7 @@ class Users(Resource):
         mail.send(msg)
         return make_response(new_user.to_dict(), 201)
 
-api.add_resource(Users, '/user')
+api.add_resource(Users, '/backend/user')
 
 
 # --- USER BY ID ---
@@ -87,7 +87,7 @@ class User_By_ID(Resource):
         db.session.commit()
         return make_response('', 204)
 
-api.add_resource(User_By_ID, '/user/<int:id>')
+api.add_resource(User_By_ID, '/backend/user/<int:id>')
 
 
 # --- LOGIN ---
@@ -117,7 +117,7 @@ class User_Login(Resource):
             }, 200)
 
         return make_response({"message": "Invalid credentials"}, 404)
-api.add_resource(User_Login, '/user/login')
+api.add_resource(User_Login, '/backend/user/login')
 
 
 
@@ -136,7 +136,7 @@ class UsersByStore(Resource):
         db.session.commit()
         return make_response('', 204)
 
-api.add_resource(UsersByStore, '/stores/<int:store_id>/users')
+api.add_resource(UsersByStore, '/backend/stores/<int:store_id>/users')
 
 
 # --- ADMINS ---
@@ -145,7 +145,7 @@ class Admins(Resource):
         admins = User.query.filter_by(role='admin').all()
         return make_response([u.to_dict() for u in admins], 200)
 
-api.add_resource(Admins, '/user/admins')
+api.add_resource(Admins, '/backend/user/admins')
 
 
 # --- CLERKS ---
@@ -160,7 +160,7 @@ class Clerks(Resource):
             clerk_dicts.append(d)
         return make_response(clerk_dicts, 200)
 
-api.add_resource(Clerks, '/user/clerks')
+api.add_resource(Clerks, '/backend/user/clerks')
 
 
 # --- USER STATS ---
@@ -188,4 +188,4 @@ class UserStats(Resource):
             "supervised": supervised
         }, 200)
 
-api.add_resource(UserStats, '/users/<int:user_id>/stats')
+api.add_resource(UserStats, '/backend/users/<int:user_id>/stats')

@@ -14,7 +14,7 @@ PASSKEY = os.getenv("MPESA_PASSKEY", 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059
 SHORT_CODE = "174379"
 CALLBACK_URL = "https://2085acff5096.ngrok-free.app/api/mpesa/callback"
 
-@mpesa_bp.route("/api/stk", methods=["POST"])
+@mpesa_bp.route("/backend/api/stk", methods=["POST"])
 def stk_push():
     try:
         # 1. Get data from frontend

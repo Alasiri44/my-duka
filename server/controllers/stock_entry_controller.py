@@ -6,7 +6,7 @@ from models import db
 
 stock_entry_bp = Blueprint('stock_entry_bp', __name__)
 
-@stock_entry_bp.route('/stock_entries', methods=['GET'])
+@stock_entry_bp.route('/backend/stock_entries', methods=['GET'])
 def get_stock_entries():
     store_id = request.args.get('store_id')
     product_id = request.args.get('product_id')
@@ -27,7 +27,7 @@ def get_stock_entries():
         result.append(entry_dict)
     return jsonify(result)
 
-@stock_entry_bp.route('/stock_entries', methods=['POST'])
+@stock_entry_bp.route('/backend/stock_entries', methods=['POST'])
 def create_stock_entry():
     data = request.get_json()
     batch_id = data.get('batch_id')

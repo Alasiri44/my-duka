@@ -27,7 +27,7 @@ class Supply_Requests(Resource):
         else:
             return make_response({"message": "Failed to create the supply_request"}, 404)
         
-supply_request_api.add_resource(Supply_Requests, '/supply_request')
+supply_request_api.add_resource(Supply_Requests, '/backend/supply_request')
 
 class Supply_Request_By_ID(Resource):
     def get(self, id):
@@ -54,4 +54,4 @@ class Supply_Request_By_ID(Resource):
             return make_response('', 204)
         else:
             return make_response({"message": "The supply_request does not exist"}, 404)
-supply_request_api.add_resource(Supply_Request_By_ID, '/supply_request/<id>')
+supply_request_api.add_resource(Supply_Request_By_ID, '/backend/supply_request/<id>')

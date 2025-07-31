@@ -25,7 +25,7 @@ REQUIRED_FIELDS = {
     'total_amount'
 }
 
-@sale_bp.route('/sales', methods=['POST'])
+@sale_bp.route('/backend/sales', methods=['POST'])
 def create_sale():
     try:
         data = request.get_json()
@@ -65,7 +65,7 @@ def create_sale():
         # Always return an 'error' field for frontend consistency
         return make_response({'error': 'Internal server error', 'details': str(e)}, 500)
 
-@sale_bp.route('/sales', methods=['GET'])
+@sale_bp.route('/backend/sales', methods=['GET'])
 def get_sales():
     sales = Sale.query.all()
     return jsonify([sale.to_dict() if hasattr(sale, 'to_dict') else {'id': sale.id} for sale in sales])

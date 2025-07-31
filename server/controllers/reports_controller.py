@@ -25,7 +25,7 @@ def get_date_range():
     return start_date, end_date
 
 # 1. Sales Summary
-@reports_bp.route("/business/<int:business_id>/reports/sales-summary")
+@reports_bp.route("/backend/business/<int:business_id>/reports/sales-summary")
 def sales_summary(business_id):
     start_date, end_date = get_date_range()
     store_id = request.args.get("store_id", type=int)
@@ -46,7 +46,7 @@ def sales_summary(business_id):
     return jsonify([{"date": str(r.date), "total_sales": float(r.total_sales)} for r in data])
 
 # 2. Top Products
-@reports_bp.route("/business/<int:business_id>/reports/top-products")
+@reports_bp.route("/backend/business/<int:business_id>/reports/top-products")
 def top_products(business_id):
     store_id = request.args.get("store_id", type=int)
 
@@ -62,7 +62,7 @@ def top_products(business_id):
     return jsonify([{"product": p.name, "total_sold": int(p.total_sold)} for p in query.all()])
 
 # 3. Sales by Payment Method
-@reports_bp.route("/business/<int:business_id>/reports/sales-by-payment-method")
+@reports_bp.route("/backend/business/<int:business_id>/reports/sales-by-payment-method")
 def sales_by_payment_method(business_id):
     store_id = request.args.get("store_id", type=int)
 
@@ -78,7 +78,7 @@ def sales_by_payment_method(business_id):
     return jsonify([{"payment_method": r.payment_method, "total": float(r.total)} for r in query.all()])
 
 # 4. Sales by Clerk
-@reports_bp.route("/business/<int:business_id>/reports/sales-by-clerk")
+@reports_bp.route("/backend/business/<int:business_id>/reports/sales-by-clerk")
 def sales_by_clerk(business_id):
     store_id = request.args.get("store_id", type=int)
 
@@ -94,7 +94,7 @@ def sales_by_clerk(business_id):
     return jsonify([{"clerk": r.first_name, "total_sales": float(r.total_sales)} for r in query.all()])
 
 # 5. Stock Entries
-@reports_bp.route("/business/<int:business_id>/reports/stock-entries")
+@reports_bp.route("/backend/business/<int:business_id>/reports/stock-entries")
 def stock_entries_summary(business_id):
     store_id = request.args.get("store_id", type=int)
     start_date, end_date = get_date_range()
@@ -115,7 +115,7 @@ def stock_entries_summary(business_id):
     return jsonify([{"product": r.name, "total_received": int(r.total_received)} for r in query.all()])
 
 # 6. Stock Exits
-@reports_bp.route("/business/<int:business_id>/reports/stock-exits")
+@reports_bp.route("/backend/business/<int:business_id>/reports/stock-exits")
 def stock_exits_summary(business_id):
     store_id = request.args.get("store_id", type=int)
     start_date, end_date = get_date_range()
@@ -136,7 +136,7 @@ def stock_exits_summary(business_id):
     return jsonify([{"reason": r.reason, "total": int(r.total)} for r in query.all()])
 
 # 7. Product Performance
-@reports_bp.route("/business/<int:business_id>/reports/product-performance")
+@reports_bp.route("/backend/business/<int:business_id>/reports/product-performance")
 def product_performance(business_id):
     store_id = request.args.get("store_id", type=int)
 
@@ -179,7 +179,7 @@ def product_performance(business_id):
     ])
 
 # 8. Payment Status Summary
-@reports_bp.route("/business/<int:business_id>/reports/payment-status")
+@reports_bp.route("/backend/business/<int:business_id>/reports/payment-status")
 def payment_status_summary(business_id):
     store_id = request.args.get("store_id", type=int)
     query = db.session.query(
@@ -194,7 +194,7 @@ def payment_status_summary(business_id):
     return jsonify([{"payment_status": r.payment_status, "total": float(r.total)} for r in query.all()])
 
 # 9. Procurement Spend per Supplier
-@reports_bp.route("/business/<int:business_id>/reports/procurement-spend")
+@reports_bp.route("/backend/business/<int:business_id>/reports/procurement-spend")
 def procurement_spend(business_id):
     store_id = request.args.get("store_id", type=int)
     product_id = request.args.get("product_id", type=int)
@@ -213,7 +213,7 @@ def procurement_spend(business_id):
     return jsonify([{"supplier": r.name, "total_spent": float(r.total_spent)} for r in query.all()])
 
 # 10. Unpaid Stock Entries
-@reports_bp.route("/business/<int:business_id>/reports/unpaid-entries")
+@reports_bp.route("/backend/business/<int:business_id>/reports/unpaid-entries")
 def unpaid_stock_entries(business_id):
     store_id = request.args.get("store_id", type=int)
     query = db.session.query(
@@ -244,7 +244,7 @@ def unpaid_stock_entries(business_id):
     ])
 
 # 11. Supplier Payments History
-@reports_bp.route("/business/<int:business_id>/reports/supplier-payments")
+@reports_bp.route("/backend/business/<int:business_id>/reports/supplier-payments")
 def supplier_payments(business_id):
     store_id = request.args.get("store_id", type=int)
 
@@ -273,7 +273,7 @@ def supplier_payments(business_id):
     
 
 # 12. Top Suppliers by Volume
-@reports_bp.route("/business/<int:business_id>/reports/top-suppliers-by-volume")
+@reports_bp.route("/backend/business/<int:business_id>/reports/top-suppliers-by-volume")
 def top_suppliers(business_id):
     store_id = request.args.get("store_id", type=int)
 
@@ -298,7 +298,7 @@ def top_suppliers(business_id):
     
     
 # 13. Store Performance Summary
-@reports_bp.route("/business/<int:business_id>/reports/store-performance")
+@reports_bp.route("/backend/business/<int:business_id>/reports/store-performance")
 def store_performance(business_id):
     query = (
         db.session.query(
@@ -329,7 +329,7 @@ def store_performance(business_id):
     
     
 # 14. User Activity Summary
-@reports_bp.route("/business/<int:business_id>/reports/user-activity")
+@reports_bp.route("/backend/business/<int:business_id>/reports/user-activity")
 def user_activity(business_id):
     store_id = request.args.get("store_id", type=int)
 

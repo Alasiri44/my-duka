@@ -43,7 +43,7 @@ class Businesses(Resource):
         else:
             return make_response({"message": "Failed to create the business"}, 404)
         
-business_api.add_resource(Businesses, '/business')
+business_api.add_resource(Businesses, '/backend/business')
 
 
 class Business_By_ID(Resource):
@@ -68,7 +68,7 @@ class Business_By_ID(Resource):
 
         return make_response(business_data, 200)
 
-business_api.add_resource(Business_By_ID, '/business/<int:id>')
+business_api.add_resource(Business_By_ID, '/backend/business/<int:id>')
 
 
 class BusinessCategories(Resource):
@@ -84,7 +84,7 @@ class BusinessCategories(Resource):
         ]
         return make_response(response, 200)
 
-business_api.add_resource(BusinessCategories, '/business/<int:id>/categories')
+business_api.add_resource(BusinessCategories, '/backend/business/<int:id>/categories')
 
 
 class Business_Summary(Resource):
@@ -233,7 +233,7 @@ class Business_Summary(Resource):
          },
          **summary
          }, 200)
-business_api.add_resource(Business_Summary, '/business/<int:id>/summary')
+business_api.add_resource(Business_Summary, '/backend/business/<int:id>/summary')
 
 class BusinessSuppliers(Resource):
     def get(self, id):
@@ -258,7 +258,7 @@ class BusinessSuppliers(Resource):
         ]
         return make_response(response, 200)
 
-business_api.add_resource(BusinessSuppliers, "/business/<int:id>/suppliers")
+business_api.add_resource(BusinessSuppliers, "/backend/business/<int:id>/suppliers")
 
 
 class BusinessUsers(Resource):
@@ -288,7 +288,7 @@ class BusinessUsers(Resource):
 
         return make_response(response, 200)
 
-business_api.add_resource(BusinessUsers, "/business/<int:id>/users")
+business_api.add_resource(BusinessUsers, "/backend/business/<int:id>/users")
 
 
 
@@ -348,7 +348,7 @@ class BusinessInventory(Resource):
 
         return make_response(result, 200)
 
-business_api.add_resource(BusinessInventory, '/business/<int:id>/inventory')
+business_api.add_resource(BusinessInventory, '/backend/business/<int:id>/inventory')
 
 
 
@@ -385,4 +385,4 @@ class BusinessSettingsResource(Resource):
             db.session.rollback()
             return make_response({'error': str(e)}, 400)
 
-business_api.add_resource(BusinessSettingsResource, "/business_settings", "/business_settings/<int:id>")
+business_api.add_resource(BusinessSettingsResource, "/backend/business_settings", "/business_settings/<int:id>")

@@ -3,7 +3,7 @@ from models.batch import Batch
 
 batch_bp = Blueprint('batch_bp', __name__)
 
-@batch_bp.route('/batches', methods=['GET', 'POST'])
+@batch_bp.route('/backend/batches', methods=['GET', 'POST'])
 def batches():
     if request.method == 'GET':
         store_id = request.args.get('store_id')

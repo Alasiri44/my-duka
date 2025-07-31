@@ -34,7 +34,7 @@ class Suppliers(Resource):
         except Exception as e:
             return make_response({"message": "Failed to create supplier", "error": str(e)}, 400)
 
-supplier_api.add_resource(Suppliers, '/supplier')
+supplier_api.add_resource(Suppliers, '/backend/supplier')
 
 class Supplier_By_ID(Resource):
     def get(self, id):
@@ -64,7 +64,7 @@ class Supplier_By_ID(Resource):
         db.session.commit()
         return make_response('', 204)
 
-supplier_api.add_resource(Supplier_By_ID, '/supplier/<int:id>')
+supplier_api.add_resource(Supplier_By_ID, '/backend/supplier/<int:id>')
 
 
 class Suppliers_By_Business(Resource):
@@ -72,4 +72,4 @@ class Suppliers_By_Business(Resource):
         suppliers = Supplier.query.filter_by(business_id=id).all()
         return make_response([s.to_dict() for s in suppliers], 200)
 
-supplier_api.add_resource(Suppliers_By_Business, '/business/<int:id>/suppliers')
+supplier_api.add_resource(Suppliers_By_Business, '/backend/business/<int:id>/suppliers')
