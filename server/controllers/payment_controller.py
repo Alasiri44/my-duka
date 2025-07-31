@@ -21,6 +21,9 @@ class Payments(Resource):
 
     def post(self):
        data = request.get_json()
+       import logging 
+       logging.basicConfig(level=logging.INFO)
+       logging.info(f"Received JSON data: {data}")
        required = ['direction', 'method', 'amount', 'business_id', 'entry_ids', 'mpesa_value', 'payer_phone', 'account_number']
        missing = [f for f in required if not data.get(f)]
        if missing:
