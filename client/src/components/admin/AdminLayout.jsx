@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
+import axios from "@/utils/axiosConfig"; 
 
 const AdminLayout = () => {
   const { user } = useSelector((state) => state.auth);
@@ -9,9 +10,9 @@ const AdminLayout = () => {
   
   useEffect(() => {
     if (user?.store_id) {
-      fetch(`http://127.0.0.1:5000/store/${user.store_id}`)
-        .then((res) => res.json())
-        .then((data) => setStore(data))
+      axios
+        .get(`/store/${user.store_id}`)
+        .then((res) => setStore(res.data))
         .catch((err) => console.error("Failed to load store:", err));
     }
   }, [user?.store_id]);

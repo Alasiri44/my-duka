@@ -1,40 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import axios from "@/utils/axiosConfig"; 
 
 const BusinessPaymentsView = () => {
   const { businessId, business, stores } = useOutletContext();
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [entriesByBatch, setEntriesByBatch] = useState({});
   const [selectedEntries, setSelectedEntries] = useState([]);
   const [totalToPay, setTotalToPay] = useState(0);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [mpesaOption, setMpesaOption] = useState(null);
-  const [mpesaValue, setMpesaValue] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
+  const [mpesaPaybill, setMpesaPaybill] = useState("");
+  const [accountReference, setAccountReference] = useState("");
+  const [payerPhone, setPayerPhone] = useState("");
+  const [isPaying, setIsPaying] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [openBatchId, setOpenBatchId] = useState(null);
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/payments")
-      .then((res) => res.json())
-      .then((data) => {
-        setPayments(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch payments:", err);
-        setLoading(false);
-      });
-  }, []);
 
   useEffect(() => {
     async function fetchStockEntries() {
       const allEntries = [];
       for (const store of stores) {
-        const res = await fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries`);
-        const entries = await res.json();
-        allEntries.push(...entries);
+        const res = await axios.get(`/store/${store.id}/stock_entries`);
+        allEntries.push(...res.data);
       }
       const unpaidByBatch = {};
       for (const entry of allEntries) {
@@ -51,32 +39,80 @@ const BusinessPaymentsView = () => {
       selectedEntries.length > 0 &&
       selectedEntries[0].batch_id !== entry.batch_id
     ) {
-      alert("You can only select entries from one batch at a time.");
+      toast.error("Only one batch can be selected at a time.");
       return;
     }
 
     const isSelected = selectedEntries.find((e) => e.id === entry.id);
-    let updated;
-    if (isSelected) {
-      updated = selectedEntries.filter((e) => e.id !== entry.id);
-    } else {
-      updated = [...selectedEntries, entry];
-    }
+    const updated = isSelected
+      ? selectedEntries.filter((e) => e.id !== entry.id)
+      : [...selectedEntries, entry];
+
     setSelectedEntries(updated);
-    setTotalToPay(
-      updated.reduce((sum, e) => sum + parseFloat(e.buying_price || 0), 0)
-    );
-    if (updated.length > 0) {
-      setSelectedSupplier(updated[0].supplier);
-    } else {
-      setSelectedSupplier(null);
+    setTotalToPay(updated.reduce((sum, e) => sum + parseFloat(e.buying_price || 0), 0));
+    setSelectedSupplier(updated[0]?.supplier || null);
+  };
+
+  const handlePayment = async () => {
+    const normalizePhone = (phone) => {
+      return phone.startsWith("0") ? "254" + phone.slice(1) : phone;
+    };
+
+    if (!selectedEntries.length) return toast.error("No entries selected.");
+    if (!selectedSupplier) return toast.error("Supplier not selected.");
+    if (totalToPay <= 0) return toast.error("Amount is zero.");
+
+    if (paymentMethod === "mpesa") {
+      if (!mpesaPaybill || mpesaPaybill.length < 5)
+        return toast.error("Enter a valid Paybill number.");
+      if (!accountReference)
+        return toast.error("Enter Account Reference.");
+      if (!payerPhone || !/^(07|01)\d{8}$/.test(payerPhone))
+        return toast.error("Enter valid payer Safaricom number.");
+    }
+
+    const payload = {
+      business_id: businessId,
+      direction: "out",
+      entry_ids: selectedEntries.map((e) => e.id),
+      amount: totalToPay,
+      method: paymentMethod,
+      mpesa_type: "paybill",
+      mpesa_value: mpesaPaybill,
+      payer_phone: normalizePhone(payerPhone),
+      account_number: accountReference,
+      supplier_id: selectedSupplier.id,
+    };
+
+    setIsProcessing(true);
+
+    try {
+      await toast.promise(
+        axios.post("/payments/mpesa", payload, {
+          withCredentials: true
+        }).then((res) => {
+          if (res.status !== 200) {
+            throw new Error(res.data?.error || "Payment failed.");
+          }
+          return res.data;
+        }),
+        {
+          loading: "Sending STK Push...",
+          success: (data) =>
+            data?.daraja_response?.CustomerMessage ||
+            "STK Push request sent successfully.",
+          error: (err) => err.message || "Payment failed.",
+        }
+      );
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   return (
-    <div>
+    <div className="p-4">
       <h1 className="text-2xl font-bold text-[#011638] mb-2">Supplier Payments</h1>
-      <p className="text-[#5e574d] mb-6">Overview of payments for <strong>{business?.name}</strong></p>
+      <p className="text-[#5e574d] mb-6">Overview for <strong>{business?.name}</strong></p>
 
       {Object.entries(entriesByBatch).map(([batchId, entries]) => {
         const storeName = stores.find(s => s.id === entries[0]?.store_id)?.name || "Unknown Store";
@@ -94,28 +130,29 @@ const BusinessPaymentsView = () => {
                 setSelectedSupplier(null);
                 setTotalToPay(0);
                 setPaymentMethod("cash");
-                setMpesaOption(null);
-                setMpesaValue("");
-                setAccountNumber("");
+                setMpesaPaybill("");
+                setAccountReference("");
+                setPayerPhone("");
               }}
               className="w-full text-left px-4 py-3 font-semibold bg-[#f7f7f7] hover:bg-[#eee]"
             >
-              Batch #{batchId} — {storeName} — {supplierName} — <span className="text-sm font-normal text-gray-500">KES {unpaidTotal.toFixed(2)} unpaid</span>
+              Batch #{batchId} — {storeName} — {supplierName} — <span className="text-sm text-gray-500 font-normal">KES {unpaidTotal.toFixed(2)} unpaid</span>
             </button>
+
             {isOpen && (
               <div className="p-4 border-t overflow-x-auto">
                 <table className="min-w-full text-sm mb-4">
                   <thead className="bg-[#f4f4f4] text-left">
                     <tr>
                       <th className="py-2 px-3">Product</th>
-                      <th className="py-2 px-3">Quantity</th>
-                      <th className="py-2 px-3">Buying Price</th>
-                      <th className="py-2 px-3">Payment Status</th>
+                      <th className="py-2 px-3">Qty</th>
+                      <th className="py-2 px-3">Price</th>
+                      <th className="py-2 px-3">Status</th>
                       <th className="py-2 px-3">Select</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {entries.map((entry) => (
+                    {entries.map(entry => (
                       <tr key={entry.id} className="border-t">
                         <td className="py-1 px-3">{entry.product_name || `Product #${entry.product_id}`}</td>
                         <td className="py-1 px-3">{entry.quantity_received}</td>
@@ -123,13 +160,11 @@ const BusinessPaymentsView = () => {
                         <td className="py-1 px-3">
                           {entry.payment_status === "paid"
                             ? <span className="text-green-600">Paid</span>
-                            : entry.payment_status === "partial"
-                            ? <span className="text-yellow-600">Partial</span>
                             : <span className="text-red-600">Unpaid</span>}
                         </td>
                         <td className="py-1 px-3">
                           {entry.payment_status === "paid" ? (
-                            <span className="text-sm text-gray-400 italic">Already Paid</span>
+                            <span className="text-gray-400 italic text-sm">Already Paid</span>
                           ) : (
                             <input
                               type="checkbox"
@@ -146,8 +181,8 @@ const BusinessPaymentsView = () => {
                 {selectedEntries.length > 0 && (
                   <div className="bg-[#f9f9f9] p-4 rounded-xl mt-4">
                     <h4 className="text-md font-bold mb-2 text-[#011638]">Payment Summary</h4>
-                    <p className="text-sm text-[#444]">Selected Entries: <strong>{selectedEntries.length}</strong></p>
-                    <p className="text-sm mb-2">Total to Pay: <strong>KES {totalToPay.toFixed(2)}</strong></p>
+                    <p className="text-sm text-[#444]">Selected: <strong>{selectedEntries.length}</strong></p>
+                    <p className="text-sm mb-2">Total: <strong>KES {totalToPay.toFixed(2)}</strong></p>
 
                     <label className="block text-sm mb-2">
                       Payment Method:
@@ -165,48 +200,47 @@ const BusinessPaymentsView = () => {
                     {paymentMethod === "mpesa" && (
                       <>
                         <label className="block text-sm mb-2">
-                          Pay To:
-                          <select
-                            value={mpesaOption || ""}
-                            onChange={(e) => setMpesaOption(e.target.value)}
+                          Paybill Number:
+                          <input
+                            type="text"
+                            value={mpesaPaybill}
+                            onChange={(e) => setMpesaPaybill(e.target.value)}
+                            placeholder="Enter Paybill Number"
                             className="block mt-1 border p-2 rounded w-full"
-                          >
-                            <option value="">-- Select Option --</option>
-                            <option value="paybill">Paybill ({selectedSupplier?.paybill_number || "custom"})</option>
-                            <option value="till">Till ({selectedSupplier?.till_number || "custom"})</option>
-                            <option value="phone">Phone ({selectedSupplier?.phone_number || "custom"})</option>
-                          </select>
+                          />
                         </label>
 
-                        {mpesaOption && (
-                          <label className="block text-sm mb-4">
-                            {mpesaOption === "paybill" ? "Paybill Number" : mpesaOption === "till" ? "Till Number" : "Phone Number"}:
-                            <input
-                              type="text"
-                              value={mpesaValue}
-                              onChange={(e) => setMpesaValue(e.target.value)}
-                              placeholder={`Enter ${mpesaOption} number`}
-                              className="block mt-1 border p-2 rounded w-full"
-                            />
-                          </label>
-                        )}
+                        <label className="block text-sm mb-2">
+                          Account Reference:
+                          <input
+                            type="text"
+                            value={accountReference}
+                            onChange={(e) => setAccountReference(e.target.value)}
+                            placeholder="Enter Account Reference"
+                            className="block mt-1 border p-2 rounded w-full"
+                          />
+                        </label>
 
-                        {mpesaOption === "paybill" && (
-                          <label className="block text-sm mb-4">
-                            Account Number:
-                            <input
-                              type="text"
-                              value={accountNumber}
-                              onChange={(e) => setAccountNumber(e.target.value)}
-                              placeholder="Enter Account Number"
-                              className="block mt-1 border p-2 rounded w-full"
-                            />
-                          </label>
-                        )}
+                        <label className="block text-sm mb-4">
+                          Payer Phone Number:
+                          <input
+                            type="text"
+                            value={payerPhone}
+                            onChange={(e) => setPayerPhone(e.target.value)}
+                            placeholder="e.g. 0712345678"
+                            className="block mt-1 border p-2 rounded w-full"
+                          />
+                        </label>
                       </>
                     )}
 
-                    <button className="bg-[#011638] text-white px-4 py-2 rounded">Pay</button>
+                    <button
+                      onClick={handlePayment}
+                      disabled={isProcessing}
+                      className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
+                    >
+                      {isProcessing ? "Processing..." : "Pay"}
+                    </button>
                   </div>
                 )}
               </div>

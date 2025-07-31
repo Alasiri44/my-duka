@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const API_URL = 'http://127.0.0.1:5000';
+import React, { useState, useEffect } from "react";
+import axios from "@/utils/axiosConfig"; // Import axios from the configured instance
 
 const StockEntryForm = ({ clerkId = 2 }) => {
   const [clerk, setClerk] = useState(null);
@@ -34,15 +32,15 @@ const StockEntryForm = ({ clerkId = 2 }) => {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      const user = (await axios.get(`${API_URL}/user/${clerkId}`)).data;
+      const user = (await axios.get(`/user/${clerkId}`)).data;
       setClerk(user);
       setStoreId(user.store_id);
 
       const [productRes, categoryRes, supplierRes, batchRes] = await Promise.all([
-        axios.get(`${API_URL}/product?store_id=${user.store_id}`),
-        axios.get(`${API_URL}/category`),
-        axios.get(`${API_URL}/supplier`),
-        axios.get(`${API_URL}/batches?store_id=${user.store_id}`)
+        axios.get(`/product?store_id=${user.store_id}`),
+        axios.get(`/category`),
+        axios.get(`/supplier`),
+        axios.get(`/batches?store_id=${user.store_id}`)
       ]);
 
       setProducts(productRes.data);
@@ -100,7 +98,7 @@ const StockEntryForm = ({ clerkId = 2 }) => {
 
     try {
       // 1. Create the batch first
-      const batchRes = await axios.post(`${API_URL}/batches`, {
+      const batchRes = await axios.post(`/batches`, {
         store_id: storeId,
         direction: 'in',
         party: 'supplier',
@@ -116,7 +114,7 @@ const StockEntryForm = ({ clerkId = 2 }) => {
 
         // New category
         if (entry.isNewCategory && entry.new_category) {
-          const res = await axios.post(`${API_URL}/category`, {
+          const res = await axios.post(`/category`, {
             name: entry.new_category,
             store_id: storeId,
           });
@@ -125,7 +123,7 @@ const StockEntryForm = ({ clerkId = 2 }) => {
 
         // New product
         if (entry.isNewProduct && entry.new_product_name) {
-          const res = await axios.post(`${API_URL}/product`, {
+          const res = await axios.post(`/product`, {
             name: entry.new_product_name,
             category_id: categoryId,
             store_id: storeId,
@@ -135,7 +133,7 @@ const StockEntryForm = ({ clerkId = 2 }) => {
 
         // New supplier
         if (entry.isNewSupplier && entry.new_supplier_name) {
-          const res = await axios.post(`${API_URL}/supplier`, {
+          const res = await axios.post(`/supplier`, {
             name: entry.new_supplier_name,
             store_id: storeId,
           });
@@ -157,7 +155,7 @@ const StockEntryForm = ({ clerkId = 2 }) => {
           created_at: new Date().toISOString(),
         };
 
-        await axios.post(`${API_URL}/stock_entries`, payload);
+        await axios.post(`/stock_entries`, payload);
       }
 
       setSuccessMsg('Batch submitted successfully!');

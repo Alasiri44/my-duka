@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "@/utils/axiosConfig";
 
 function CustomerPaymentForm() {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,26 +19,24 @@ function CustomerPaymentForm() {
         console.log(phoneNumber, amount)
 
         try {
-            const res = await fetch("http://127.0.0.1:5000/api/stk", {
-                method: "POST",
-                credentials: "include",
+            const res = await axios.post("/api/stk", {
+                phoneNumber,
+                amount
+            }, {
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ phoneNumber, amount })
+                }
             });
 
-            const data = await res.json();
+            const data = res.data;
             console.log(data)
-            if (!res.ok) throw new Error(data.error || "STK Push Failed");
+            if (!res.status === 200) throw new Error(data.error || "STK Push Failed");
             return { data };
         } catch (error) {
             console.error(error);
             return { error: error.message };
         }
-
     };
-
 
     return <>
         <div>
@@ -95,7 +94,3 @@ function CustomerPaymentForm() {
 }
 
 export default CustomerPaymentForm;
-
-// bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919 - Passskey
-// 86uk0x9KTzpSXJX53GAhV7TVKOrR87002D9Y8QZjLlotL3ga - Consumer key
-// okY9SVzZZzRqRfdsRzYiLJXd7GOr8jZSloE2Uw7wFypfCEPzQJbgxD4ZyVS2OGte - Consumer Secret

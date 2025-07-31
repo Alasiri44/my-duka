@@ -1,14 +1,14 @@
 import { setUser, clearUser } from "../redux/slices/authSlice";
+import axios from "@/utils/axiosConfig";
 
 async function CheckSession(dispatch) {
   try {
-    const res = await fetch("http://127.0.0.1:5000/check-session", {
-      credentials: "include",
+    const res = await axios.get("/check-session", {
+      withCredentials: true,
     });
 
-    if (res.ok) {
-      const data = await res.json();
-      dispatch(setUser(data));
+    if (res.status === 200) {
+      dispatch(setUser(res.data));
     } else {
       dispatch(clearUser());
     }
@@ -17,5 +17,4 @@ async function CheckSession(dispatch) {
     dispatch(clearUser());
   }
 }
-
 export default CheckSession;

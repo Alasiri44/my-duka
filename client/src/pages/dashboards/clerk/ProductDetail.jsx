@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import axios from 'axios';
+import axios from "@/utils/axiosConfig";
 import {
   LineChart, Line, PieChart, Pie, Cell, BarChart, Bar,
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -37,17 +37,16 @@ const ProductDetail = () => {
   const {user} = useSelector((state) => state.auth)
   const { store } = useOutletContext();
 
-
   useEffect(() => {
     const fetchData = async () => {
       const [
         productRes, entriesRes, exitsRes, batchesRes, clerksRes
       ] = await Promise.all([
-        axios.get(`http://127.0.0.1:5000/product/${productId}`),
-        axios.get(`http://127.0.0.1:5000/stock_entries?product_id=${productId}`),
-        axios.get(`http://127.0.0.1:5000/stock_exits?product_id=${productId}`),
-        axios.get('http://127.0.0.1:5000/batches'),
-        axios.get('http://127.0.0.1:5000/user/clerks')
+        axios.get(`/product/${productId}`),
+        axios.get(`/stock_entries?product_id=${productId}`),
+        axios.get(`/stock_exits?product_id=${productId}`),
+        axios.get('/batches'),
+        axios.get('/user/clerks')
       ]);
       setProduct(productRes.data);
       setEntries(entriesRes.data);
@@ -203,7 +202,6 @@ const ProductDetail = () => {
         </button>
       </div>
 
-      {/* Stock Entries */}
       <InfoCard title="Stock Entries">
         <table className="w-full text-sm border-separate border-spacing-0">
           <thead className="sticky top-0 bg-[#f2f0ed] text-[#011638] shadow-sm z-10">
@@ -238,7 +236,6 @@ const ProductDetail = () => {
         </table>
       </InfoCard>
 
-      {/* Stock Exits */}
       <InfoCard title="Stock Exits">
         <table className="w-full text-sm border-separate border-spacing-0">
           <thead className="sticky top-0 bg-[#f2f0ed] text-[#011638] shadow-sm z-10">
@@ -277,6 +274,7 @@ const ProductDetail = () => {
       <SupplyRequestModal
         product={product}
         isOpen={showModal}
+        clerkId={user.id}
         onClose={() => setShowModal(false)}
       />
     </div>

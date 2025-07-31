@@ -11,7 +11,8 @@ class Supply_Requests(Resource):
         response = [supply_request.to_dict() for supply_request in Supply_Request.query.all()]
         return make_response(response, 200)
     def post(self):
-        data = request.form
+        data = request.get_json() if request.is_json else request.form
+        print('Received data:', data)
         new_supply_request = Supply_Request(
             product_id = data.get('product_id'),
             supplier_id = data.get('supplier_id'),

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "@/utils/axiosConfig"; 
 
 const InviteStaffModal = ({ storeId, role = "admin", onClose }) => {
   const [form, setForm] = useState({
@@ -19,19 +20,14 @@ const InviteStaffModal = ({ storeId, role = "admin", onClose }) => {
     setError("");
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          store_id: Number(storeId),
-          role, // dynamically passed role
-          is_active: true,
-           
-        }),
+      const res = await axios.post("/user", {
+        ...form,
+        store_id: Number(storeId),
+        role,
+        is_active: true,
       });
 
-      if (!res.ok) throw new Error("Failed to invite user");
+      if (res.status !== 200 && res.status !== 201) throw new Error("Failed to invite user");
       onClose();
     } catch (err) {
       setError(err.message || "Something went wrong");

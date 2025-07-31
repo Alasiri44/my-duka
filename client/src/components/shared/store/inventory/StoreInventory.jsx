@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useOutletContext, Link } from "react-router-dom";
+import axios from "@/utils/axiosConfig";
 
 const StoreInventory = () => {
   const { store } = useOutletContext();
@@ -14,21 +15,15 @@ const StoreInventory = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch(`http://127.0.0.1:5000/store/${store.id}/inventory`).then((res) =>
-        res.json()
-      ),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries`).then((res) =>
-        res.json()
-      ),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((res) =>
-        res.json()
-      ),
-      fetch("http://127.0.0.1:5000/category").then((res) => res.json()),
-    ]).then(([productData, entryData, userData, categoryData]) => {
-      setProducts(productData);
-      setEntries(entryData);
-      setUsers(userData);
-      setCategories(categoryData);
+      axios.get(`/store/${store.id}/inventory`),
+      axios.get(`/store/${store.id}/stock_entries`),
+      axios.get(`/store/${store.id}/users`),
+      axios.get("/category"),
+    ]).then(([productRes, entryRes, userRes, categoryRes]) => {
+      setProducts(productRes.data);
+      setEntries(entryRes.data);
+      setUsers(userRes.data);
+      setCategories(categoryRes.data);
     });
   }, [store.id]);
 

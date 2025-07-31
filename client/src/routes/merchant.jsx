@@ -19,6 +19,14 @@ import BusinessSuppliersView from "../components/merchant/business/BusinessSuppl
 import BusinessPaymentsView from "../components/merchant/business/BusinessPaymentsView";
 import BusinessSettingsView from "../components/merchant/business/BusinessSettingsView";
 import CustomerPaymentForm from "@/pages/payments/customerPaymentForm";
+import BusinessReports from "../components/merchant/reports/BusinessReports";
+import SalesReports from "../components/merchant/reports/SalesReports";
+import StockReports from "../components/merchant/reports/StockReports";
+import ProcurementPayments from "../components/merchant/reports/ProcurementPayments";
+import SupplierReports from "../components/merchant/reports/SupplierReports";
+import StorePerformance from "../components/merchant/reports/StorePerformance";
+import UserActivity from "../components/merchant/reports/UserActivity";
+import MerchantProfile from "../pages/dashboards/merchant/MerchantProfile";
 
 const merchantRoutes = [
   {
@@ -28,6 +36,10 @@ const merchantRoutes = [
       {
         index: true,
         element: <MerchantDashboard />,
+      },
+      {
+        path: "profile",
+        element: <MerchantProfile />,
       },
       { path: 'cpay', element: < CustomerPaymentForm/>},
       {
@@ -40,7 +52,17 @@ const merchantRoutes = [
           { path: "inventory", element: <BusinessInventoryView /> },
           { path: "suppliers", element: <BusinessSuppliersView /> },
           { path: "payments", element: <BusinessPaymentsView />},
-          { path: "reports", element: <div>Reports Page</div> },
+          { path: "reports",
+              element: <BusinessReports />, 
+                children: [
+                  { path: "sales", element: <SalesReports /> },
+                  { path: "stock", element: <StockReports /> },
+                  { path: "procurement", element: <ProcurementPayments /> },
+                  { path: "suppliers", element: <SupplierReports /> },
+                  { path: "stores", element: <StorePerformance /> },
+                  { path: "users", element: <UserActivity /> },
+                ]
+            },
           { path: "settings", element: <BusinessSettingsView/> },
           
           {

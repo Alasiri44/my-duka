@@ -8,6 +8,7 @@ import {
   useOutletContext,
 } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "@/utils/axiosConfig"; 
 
 const StoreLayout = () => {
   const { storeId } = useParams();
@@ -18,10 +19,13 @@ const StoreLayout = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
   useEffect(() => {
-  fetch(`http://127.0.0.1:5000/store/${storeId}`)  
-    .then((res) => res.json())
-    .then((data) => setStore(data));
-}, [storeId]);
+    axios
+      .get(`/store/${storeId}`)
+      .then((res) => setStore(res.data))
+      .catch((err) => {
+        console.error("Failed to fetch store data:", err);
+      });
+  }, [storeId]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -35,7 +39,6 @@ const StoreLayout = () => {
     { label: "Inventory", path: "inventory", roles: ["merchant", "admin", "clerk"] },
     { label: "Entries", path: "entries", roles: ["merchant", "admin", "clerk"] },
     { label: "Exits", path: "exits", roles: ["merchant", "admin", "clerk"] },
-    { label: "Reports", path: "reports", roles: ["merchant", "admin"] },
     { label: "Settings", path: "settings", roles: ["merchant", "admin"] },
   ];
 

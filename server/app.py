@@ -38,7 +38,7 @@ app.register_blueprint(supply_request_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(stock_exit_bp)
 app.register_blueprint(payment_bp)
-
+app.register_blueprint(reports_bp)
 app.register_blueprint(email_bp)
 app.register_blueprint(stock_entry_bp)
 app.register_blueprint(batch_bp)

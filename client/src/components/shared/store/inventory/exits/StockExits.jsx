@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import axios from "@/utils/axiosConfig";
 import ExitTable from "../../../../../components/shared/store/inventory/exits/ExitTable";
 import ExitFilters from "../../../../../components/shared/store/inventory/exits/ExitFilters";
 import ExitBatchList from "../../../../../components/shared/store/inventory/exits/ExitBatchList";
@@ -25,22 +26,22 @@ const StockExits = () => {
     if (filterReason) queryParams.append("reason", filterReason);
 
     Promise.all([
-      fetch(`http://127.0.0.1:5000/stock_exits?${queryParams}`).then((res) => res.json()),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/products`).then((res) => res.json()),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/users`).then((res) => res.json()),
-      fetch(`http://127.0.0.1:5000/store/${store.id}/batches?direction=out`).then((res) => res.json()),
-    ]).then(([exitData, productData, userData, batchData]) => {
+      axios.get(`/stock_exits?${queryParams}`),
+      axios.get(`/store/${store.id}/products`),
+      axios.get(`/store/${store.id}/users`),
+      axios.get(`/store/${store.id}/batches?direction=out`),
+    ]).then(([exitRes, productRes, userRes, batchRes]) => {
       setExits(
-        exitData.map((e) => ({
+        exitRes.data.map((e) => ({
           ...e,
           id: Number(e.id),
           quantity: Number(e.quantity),
           selling_price: parseFloat(e.selling_price) || 0,
         }))
       );
-      setProducts(productData.map((p) => ({ ...p, id: Number(p.id) })));
-      setUsers(userData.map((u) => ({ ...u, id: Number(u.id) })));
-      setBatches(batchData.map((b) => ({ ...b, id: Number(b.id) })));
+      setProducts(productRes.data.map((p) => ({ ...p, id: Number(p.id) })));
+      setUsers(userRes.data.map((u) => ({ ...u, id: Number(u.id) })));
+      setBatches(batchRes.data.map((b) => ({ ...b, id: Number(b.id) })));
     });
   }, [store.id, filterProduct, filterClerk, filterReason]);
 

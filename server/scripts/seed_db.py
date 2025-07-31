@@ -10,6 +10,7 @@ from server.models.supplier import Supplier
 from server.models.batch import Batch
 from server.models.stock_entries import Stock_Entry
 from server.models.stock_exits import StockExit
+from server.models.business_setting import Business_Setting
 from server.models.sale import Sale
 from datetime import datetime
 import bcrypt
@@ -51,6 +52,30 @@ with app.app_context():
     )
     db.session.add(business)
     db.session.flush()
+    
+    #business settings
+    daraja_settings = Business_Setting(
+    business_id=1,
+    business_email="stephen@myduka.co.ke", 
+    business_phone="0712345678",    
+    use_daraja=True,
+    daraja_short_code="174379",
+    daraja_consumer_key="YourConsumerKeyHere",
+    daraja_consumer_secret="YourConsumerSecretHere",
+    daraja_passkey="YourDarajaPasskeyHere",
+    initiator_name="testapi",
+    security_credential="Safaricom999!",
+    base_url="https://sandbox.safaricom.co.ke",
+    callback_url="https://myduka.fake/payments/callback",
+    result_url="https://myduka.fake/payments/result",
+    timeout_url="https://myduka.fake/payments/timeout",
+    c2b_confirm_url="https://myduka.fake/c2b/confirm",
+    c2b_validate_url="https://myduka.fake/c2b/validate"
+    )
+    
+    db.session.add(daraja_settings)
+    db.session.flush()
+
 
     stores = [
         Store(id=1, business_id=1, name="Westlands Shop", country="Kenya", county="Nairobi", location="Westlands"),
@@ -168,7 +193,7 @@ with app.app_context():
     db.session.add_all([
     Sale(id=1, store_id=2, recorded_by=8, payment_method='Cash', total_amount=253, customer_name='Carmen Fowler', customer_contact='001-361-094-0496x52041', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-18T11:06:05')),
     Sale(id=2, store_id=1, recorded_by=6, payment_method='Cash', total_amount=547, customer_name='Katherine Davidson', customer_contact='891-425-8343x3934', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-22T02:33:44')),
-    Sale(id=3, store_id=2, recorded_by=10, payment_method='Cash', total_amount=350, customer_name='Jermaine Velasquez', customer_contact='832-503-5924', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-14T05:20:42'))
+    Sale(id=3, store_id=2, recorded_by=10, payment_method='mpesa', total_amount=350, customer_name='Jermaine Velasquez', customer_contact='832-503-5924', notes='Auto-generated sale', created_at=datetime.fromisoformat('2025-07-14T05:20:42'))
     ])
     db.session.flush()
 

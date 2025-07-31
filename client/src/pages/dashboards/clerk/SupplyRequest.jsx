@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from "@/utils/axiosConfig";
 
-const SupplyRequestsPage = ({ clerkId }) => {
+const SupplyRequestsPage = () => {
+  const { user } = useSelector(state => state.auth);
+  const clerkId = user?.id;
   const [requests, setRequests] = useState([]);
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
@@ -16,23 +18,30 @@ const SupplyRequestsPage = ({ clerkId }) => {
     const fetchAll = async () => {
       try {
         const [reqRes, prodRes, supRes, usersRes] = await Promise.all([
-          axios.get('http://127.0.0.1:5000/supply_request'),
-          axios.get('http://127.0.0.1:5000/product'),
-          axios.get('http://127.0.0.1:5000/supplier'),
-          axios.get('http://127.0.0.1:5000/user/clerks'),
+          axios.get('/supply_request'),
+          axios.get('/product'),
+          axios.get('/supplier'),
+          axios.get('/user/clerks'),
         ]);
         setRequests(reqRes.data);
         setProducts(prodRes.data);
         setSuppliers(supRes.data);
         setUsers(usersRes.data);
 
+        console.log('Fetched requests:', reqRes.data);
+        console.log('Fetched products:', prodRes.data);
+        console.log('Fetched suppliers:', supRes.data);
+        console.log('Fetched users:', usersRes.data);
+        console.log('clerkId:', clerkId);
+
         const currentClerk = usersRes.data.find(u => u.id === clerkId);
         if (currentClerk) setStoreId(currentClerk.store_id);
+        console.log('storeId:', currentClerk ? currentClerk.store_id : null);
 
         const prices = {};
         await Promise.all(
           prodRes.data.map(async product => {
-            const res = await axios.get(`http://127.0.0.1:5000/stock_entries?product_id=${product.id}`);
+            const res = await axios.get(`/stock_entries?product_id=${product.id}`);
             if (res.data.length > 0) {
               const latestEntry = res.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
               const price = Number(latestEntry.buying_price);
@@ -63,7 +72,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
   const cancelRequest = async id => {
     if (window.confirm('Are you sure you want to cancel this request?')) {
       try {
-        await axios.delete(`http://127.0.0.1:5000/supply_request/${id}`);
+        await axios.delete(`/supply_request/${id}`);
         setRequests(prev => prev.filter(r => r.id !== id));
       } catch (err) {
         console.error('Failed to cancel request', err);
@@ -77,11 +86,13 @@ const SupplyRequestsPage = ({ clerkId }) => {
       if (!product) return false;
 
       const matchesFilter =
-        filter === 'my' ? req.requested_by === clerkId : product.store_id === storeId;
+        filter === 'my'
+          ? req.requester_id === clerkId
+          : (product.store_id === storeId || req.requester_id === clerkId);
 
       const productName = getProductName(req.product_id).toLowerCase();
       const supplierName = getSupplierName(req.supplier_id).toLowerCase();
-      const clerkName = getUserName(req.requested_by).toLowerCase();
+      const clerkName = getUserName(req.requester_id).toLowerCase();
       const searchLower = search.toLowerCase();
 
       const matchesSearch =
@@ -186,7 +197,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
                   <td className="px-4 py-2">{getSupplierName(req.supplier_id)}</td>
                   <td className="px-4 py-2">{req.quantity}</td>
                   <td className="px-4 py-2">KES {total.toFixed(2)}</td>
-                  <td className="px-4 py-2">{getUserName(req.requested_by)}</td>
+                  <td className="px-4 py-2">{`${req.requester_first_name || ''} ${req.requester_last_name || ''}`.trim() || '—'}</td>
                   <td className="px-4 py-2">
                     <span
                       className={`inline-block px-2 py-1 rounded text-xs font-medium ${
@@ -201,13 +212,13 @@ const SupplyRequestsPage = ({ clerkId }) => {
                     </span>
                   </td>
                   <td className="px-4 py-2">
-                    {req.reviewed_by ? getUserName(req.reviewed_by) : '—'}
+                    {req.reviewer_id ? `${req.reviewer_first_name || ''} ${req.reviewer_last_name || ''}`.trim() : '—'}
                   </td>
                   <td className="px-4 py-2">
                     {new Date(req.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-2">
-                    {req.status === 'pending' && req.requested_by === clerkId ? (
+                    {req.status === 'pending' && req.requester_id === clerkId ? (
                       <button
                         onClick={() => cancelRequest(req.id)}
                         className="text-red-600 hover:underline text-xs"
