@@ -2,8 +2,6 @@ import requests
 from base64 import b64encode
 from datetime import datetime
 
-
-
 def get_access_token(settings):
     auth = (settings.daraja_consumer_key, settings.daraja_consumer_secret)
     url = f"{settings.base_url}/oauth/v1/generate?grant_type=client_credentials"
@@ -14,12 +12,21 @@ def get_access_token(settings):
     if res.status_code != 200:
         print("❌ Token request failed")
         print("Status Code:", res.status_code)
-        print("Response:", res.text)  
-    return res.json().get("access_token")
+        print("Response:", res.text)
+        return None  
+    try:
+        return res.json().get("access_token")
+    except Exception as e:
+        print("❌ Failed to parse JSON from token response")
+        print("Error:", str(e))
+        print("Raw response:", res.text)
+        return None
 
 
 def initiate_stk_push(business_settings, phone_number, amount, reference):
     access_token = get_access_token(business_settings)
+    if not access_token:
+        raise Exception("Failed to retrieve M-Pesa access token")
     timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     password = b64encode(
         (business_settings.daraja_short_code + business_settings.daraja_passkey + timestamp).encode()
