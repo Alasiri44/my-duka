@@ -16,7 +16,7 @@ class Users(Resource):
         return make_response([u.to_dict() for u in users], 200)
 
     def post(self):
-        from ..app import bcrypt
+        from app import bcrypt
         data = request.get_json()
         password = str(randint(100000, 999999))
         new_user = User(
