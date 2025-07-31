@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "@/utils/axiosConfig";
 
 const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => {
   const [quantity, setQuantity] = useState(0);
@@ -18,7 +18,7 @@ const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => 
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const res = await axios.get('http://127.0.0.1:5000/supplier');
+        const res = await axios.get('/supplier');
         setSuppliers(res.data);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
@@ -42,7 +42,7 @@ const SupplyRequestModal = ({ isOpen, onClose, product, clerkId, onSubmit }) => 
     };
 
     try {
-      await axios.post('http://127.0.0.1:5000/supply_request', newRequest, {headers: { 'Content-Type': 'multipart/form-data' }});
+      await axios.post('/supply_request', newRequest, {headers: { 'Content-Type': 'multipart/form-data' }});
       onSubmit?.();
       onClose();
     } catch (error) {

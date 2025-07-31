@@ -4,6 +4,7 @@ import BatchList from "../../../components/shared/store/BatchList";
 import BatchDetailPanel from "../../../components/shared/store/BatchDetailPanel";
 import StockExitTable from "../../../components/shared/store/StockExitTable";
 import StockEntriesFilters from "../../../components/shared/store/StockEntriesFilters";
+import axios from "@/utils/axiosConfig";
 
 const StockExits = () => {
   const { store } = useOutletContext();
@@ -23,25 +24,25 @@ const StockExits = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://127.0.0.1:5000/stock_exits").then((r) => r.json()),
-      fetch("http://127.0.0.1:5000/user").then((r) => r.json()),
-      fetch("http://127.0.0.1:5000/product").then((r) => r.json()),
-      fetch("http://127.0.0.1:5000/supplier").then((r) => r.json()),
-    ]).then(([exitData, userData, productData, supplierData]) => {
+      axios.get("/stock_exits"),
+      axios.get("/user"),
+      axios.get("/product"),
+      axios.get("/supplier"),
+    ]).then(([exitRes, userRes, productRes, supplierRes]) => {
       setExits(
-        exitData.map((e) => ({
+        exitRes.data.map((e) => ({
           ...e,
-          clerk_id: Number(e.clerk_id ?? e.recorded_by), 
+          clerk_id: Number(e.clerk_id ?? e.recorded_by),
           product_id: Number(e.product_id),
-          quantity_sold: Number(e.quantity_sold ?? e.quantity ?? 0), 
-          selling_price: Number(e.selling_price ?? 0), 
-          supplier_id: Number(e.supplier_id ?? 1), 
-          payment_status: e.payment_status ?? "paid", 
+          quantity_sold: Number(e.quantity_sold ?? e.quantity ?? 0),
+          selling_price: Number(e.selling_price ?? 0),
+          supplier_id: Number(e.supplier_id ?? 1),
+          payment_status: e.payment_status ?? "paid",
         }))
       );
-      setUsers(userData.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
-      setProducts(productData.map((p) => ({ ...p, id: Number(p.id) })));
-      setSuppliers(supplierData.map((s) => ({ ...s, id: Number(s.id) })));
+      setUsers(userRes.data.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
+      setProducts(productRes.data.map((p) => ({ ...p, id: Number(p.id) })));
+      setSuppliers(supplierRes.data.map((s) => ({ ...s, id: Number(s.id) })));
     });
   }, [store.id]);
 

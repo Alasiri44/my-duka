@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from "@/utils/axiosConfig";
 
 const SupplyRequestsPage = ({ clerkId }) => {
   const [requests, setRequests] = useState([]);
@@ -16,10 +16,10 @@ const SupplyRequestsPage = ({ clerkId }) => {
     const fetchAll = async () => {
       try {
         const [reqRes, prodRes, supRes, usersRes] = await Promise.all([
-          axios.get('http://127.0.0.1:5000/supply_request'),
-          axios.get('http://127.0.0.1:5000/product'),
-          axios.get('http://127.0.0.1:5000/supplier'),
-          axios.get('http://127.0.0.1:5000/user/clerks'),
+          axios.get('/supply_request'),
+          axios.get('/product'),
+          axios.get('/supplier'),
+          axios.get('/user/clerks'),
         ]);
         setRequests(reqRes.data);
         setProducts(prodRes.data);
@@ -32,7 +32,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
         const prices = {};
         await Promise.all(
           prodRes.data.map(async product => {
-            const res = await axios.get(`http://127.0.0.1:5000/stock_entries?product_id=${product.id}`);
+            const res = await axios.get(`/stock_entries?product_id=${product.id}`);
             if (res.data.length > 0) {
               const latestEntry = res.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
               const price = Number(latestEntry.buying_price);
@@ -63,7 +63,7 @@ const SupplyRequestsPage = ({ clerkId }) => {
   const cancelRequest = async id => {
     if (window.confirm('Are you sure you want to cancel this request?')) {
       try {
-        await axios.delete(`http://127.0.0.1:5000/supply_request/${id}`);
+        await axios.delete(`/supply_request/${id}`);
         setRequests(prev => prev.filter(r => r.id !== id));
       } catch (err) {
         console.error('Failed to cancel request', err);

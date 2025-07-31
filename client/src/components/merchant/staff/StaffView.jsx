@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import InviteStaffModal from "../../../components/merchant/staff/InviteStaffModal";
 import StaffListPanel from "../../../components/merchant/staff/StaffListPanel";
 import StaffDetailPanel from "../../../components/merchant/staff/StaffDetailPanel";
+import axios from "@/utils/axiosConfig";
 
 const StaffView = () => {
   const { storeId, role } = useOutletContext();
@@ -12,9 +13,7 @@ const StaffView = () => {
 
   useEffect(() => {
     if (storeId) {
-      fetch(`http://127.0.0.1:5000/stores/${storeId}/users`)
-        .then((res) => res.json())
-        .then(setUsers);
+      axios.get(`/stores/${storeId}/users`).then((res) => setUsers(res.data));
     }
   }, [storeId]);
 

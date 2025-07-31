@@ -1,8 +1,7 @@
-// Updated BusinessPaymentsView.jsx
-
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { toast } from "react-hot-toast"; // use hot-toast as requested
+import { toast } from "react-hot-toast";
+import axios from "@/utils/axiosConfig"; 
 
 const BusinessPaymentsView = () => {
   const { businessId, business, stores } = useOutletContext();
@@ -22,9 +21,8 @@ const BusinessPaymentsView = () => {
     async function fetchStockEntries() {
       const allEntries = [];
       for (const store of stores) {
-        const res = await fetch(`http://127.0.0.1:5000/store/${store.id}/stock_entries`);
-        const entries = await res.json();
-        allEntries.push(...entries);
+        const res = await axios.get(`/store/${store.id}/stock_entries`);
+        allEntries.push(...res.data);
       }
       const unpaidByBatch = {};
       for (const entry of allEntries) {
@@ -55,64 +53,61 @@ const BusinessPaymentsView = () => {
     setSelectedSupplier(updated[0]?.supplier || null);
   };
 
-const handlePayment = async () => {
-  const normalizePhone = (phone) => {
-    return phone.startsWith("0") ? "254" + phone.slice(1) : phone;
-  };
+  const handlePayment = async () => {
+    const normalizePhone = (phone) => {
+      return phone.startsWith("0") ? "254" + phone.slice(1) : phone;
+    };
 
-  if (!selectedEntries.length) return toast.error("No entries selected.");
-  if (!selectedSupplier) return toast.error("Supplier not selected.");
-  if (totalToPay <= 0) return toast.error("Amount is zero.");
+    if (!selectedEntries.length) return toast.error("No entries selected.");
+    if (!selectedSupplier) return toast.error("Supplier not selected.");
+    if (totalToPay <= 0) return toast.error("Amount is zero.");
 
-  if (paymentMethod === "mpesa") {
-    if (!mpesaPaybill || mpesaPaybill.length < 5)
-      return toast.error("Enter a valid Paybill number.");
-    if (!accountReference)
-      return toast.error("Enter Account Reference.");
-    if (!payerPhone || !/^(07|01)\d{8}$/.test(payerPhone))
-      return toast.error("Enter valid payer Safaricom number.");
-  }
+    if (paymentMethod === "mpesa") {
+      if (!mpesaPaybill || mpesaPaybill.length < 5)
+        return toast.error("Enter a valid Paybill number.");
+      if (!accountReference)
+        return toast.error("Enter Account Reference.");
+      if (!payerPhone || !/^(07|01)\d{8}$/.test(payerPhone))
+        return toast.error("Enter valid payer Safaricom number.");
+    }
 
-  const payload = {
-    business_id: businessId,
-    direction: "out",
-    entry_ids: selectedEntries.map((e) => e.id),
-    amount: totalToPay,
-    method: paymentMethod,
-    mpesa_type: "paybill",
-    mpesa_value: mpesaPaybill,
-    payer_phone: normalizePhone(payerPhone),
-    account_number: accountReference,
-    supplier_id: selectedSupplier.id,
-  };
+    const payload = {
+      business_id: businessId,
+      direction: "out",
+      entry_ids: selectedEntries.map((e) => e.id),
+      amount: totalToPay,
+      method: paymentMethod,
+      mpesa_type: "paybill",
+      mpesa_value: mpesaPaybill,
+      payer_phone: normalizePhone(payerPhone),
+      account_number: accountReference,
+      supplier_id: selectedSupplier.id,
+    };
 
-  setIsProcessing(true);
+    setIsProcessing(true);
 
-  try {
-    await toast.promise(
-      fetch("http://localhost:5000/payments/mpesa", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).then(async (res) => {
-        if (!res.ok) {
-          const error = await res.json().catch(() => ({ error: "Unknown error" }));
-          throw new Error(error.error || "Payment failed.");
+    try {
+      await toast.promise(
+        axios.post("/payments/mpesa", payload, {
+          withCredentials: true
+        }).then((res) => {
+          if (res.status !== 200) {
+            throw new Error(res.data?.error || "Payment failed.");
+          }
+          return res.data;
+        }),
+        {
+          loading: "Sending STK Push...",
+          success: (data) =>
+            data?.daraja_response?.CustomerMessage ||
+            "STK Push request sent successfully.",
+          error: (err) => err.message || "Payment failed.",
         }
-        return res.json();
-      }),
-      {
-        loading: "Sending STK Push...",
-        success: (data) =>
-          data?.daraja_response?.CustomerMessage ||
-          "STK Push request sent successfully.",
-        error: (err) => err.message || "Payment failed.",
-      }
-    );
-  } finally {
-    setIsProcessing(false);
-  }
-};
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <div className="p-4">
@@ -240,12 +235,12 @@ const handlePayment = async () => {
                     )}
 
                     <button
-                         onClick={handlePayment}
-                         disabled={isProcessing}
-                         className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
-                       >
-                         {isProcessing ? "Processing..." : "Pay"}
-                       </button>
+                      onClick={handlePayment}
+                      disabled={isProcessing}
+                      className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
+                    >
+                      {isProcessing ? "Processing..." : "Pay"}
+                    </button>
                   </div>
                 )}
               </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import axios from "@/utils/axiosConfig"; 
 
 const BusinessStaffView = () => {
   const { business } = useOutletContext();
@@ -13,19 +14,21 @@ const BusinessStaffView = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://127.0.0.1:5000/user").then((res) => res.json()),
-      fetch("http://127.0.0.1:5000/store").then((res) => res.json()),
-    ]).then(([userData, storeData]) => {
-      const typedStores = storeData
+      axios.get("/user"),
+      axios.get("/store"),
+    ]).then(([userRes, storeRes]) => {
+      const typedStores = storeRes.data
         .map((s) => ({ ...s, id: Number(s.id), business_id: Number(s.business_id) }))
         .filter((s) => s.business_id === business.id);
 
-      const typedUsers = userData
+      const typedUsers = userRes.data
         .map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) }))
         .filter((u) => typedStores.some((s) => s.id === u.store_id));
 
       setStores(typedStores);
       setUsers(typedUsers);
+    }).catch((err) => {
+      console.error("Failed to fetch users or stores:", err);
     });
   }, [business.id]);
 
@@ -35,11 +38,7 @@ const BusinessStaffView = () => {
 
     const updatedUser = { ...user, is_active: !user.is_active };
 
-    await fetch(`http://127.0.0.1:5000/user/${user.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ is_active: updatedUser.is_active }),
-    });
+    await axios.patch(`/user/${user.id}`, { is_active: updatedUser.is_active });
 
     setUsers((prev) => prev.map((u) => (u.id === user.id ? updatedUser : u)));
   };
@@ -47,11 +46,7 @@ const BusinessStaffView = () => {
   const handleTransfer = async (userId, newStoreId) => {
     if (!window.confirm("Are you sure you want to transfer this staff to another store?")) return;
 
-    await fetch(`http://127.0.0.1:5000/user/${userId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ store_id: Number(newStoreId) }),
-    });
+    await axios.patch(`/user/${userId}`, { store_id: Number(newStoreId) });
 
     setUsers((prev) =>
       prev.map((u) => (u.id === userId ? { ...u, store_id: Number(newStoreId) } : u))
@@ -72,14 +67,10 @@ const BusinessStaffView = () => {
       created_at: new Date().toISOString(),
     };
 
-    const res = await fetch("http://127.0.0.1:5000/user", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    });
+    const res = await axios.post("/user", newUser);
 
-    if (res.ok) {
-      const added = await res.json();
+    if (res.status === 200 || res.status === 201) {
+      const added = res.data;
       setUsers((prev) => [...prev, added]);
       setShowInviteModal(false);
     }

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/authSlice";
 import toast from "react-hot-toast";
+import axios from "@/utils/axiosConfig"; 
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -18,41 +19,41 @@ function Login() {
     setIsLoggingIn(true);
 
     try {
-      const res = await fetch(`http://127.0.0.1:5000/merchant/login`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+      const res = await axios.post(`/merchant/login`, {
+        email,
+        password
+      }, {
+        withCredentials: true
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
+      if (res.status === 200) {
+        const data = res.data;
         data.role = 'merchant';
         dispatch(setUser(data));
         toast.success("Login successful");
         navigate('/merchant', { replace: true });
-      } else {
-        // Try user login
-        const userRes = await fetch(`http://127.0.0.1:5000/user/login`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-
-        const userData = await userRes.json();
-
-        if (userRes.ok) {
-          dispatch(setUser(userData));
-          toast.success("Login successful");
-          navigate(`/${userData.role}`, { replace: true });
-        } else {
-          toast.error(userData.message || "Login failed. Try again.");
-        }
       }
     } catch (err) {
-      toast.error("Something went wrong. Please try again.");
+      if (err.response && !err.response.ok) {
+        // Try user login
+        try {
+          const userRes = await axios.post(`/user/login`, {
+            email,
+            password
+          }, {
+            withCredentials: true
+          });
+
+          if (userRes.status === 200) {
+            const userData = userRes.data;
+            dispatch(setUser(userData));
+            toast.success("Login successful");
+            navigate(`/${userData.role}`, { replace: true });
+          }
+        } catch (userErr) {
+          toast.error(userErr.response?.data?.message || "Login failed. Try again.");
+        }
+      }
     } finally {
       setIsLoggingIn(false);
     }

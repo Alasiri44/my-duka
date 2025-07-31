@@ -7,8 +7,8 @@ const BusinessTable = ({ businesses }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleBusinessAdded = () => {
-    // Callback to refresh businesses (e.g., re-fetch from API)
-    window.location.reload(); // Temporary; replace with proper re-fetch if needed
+    
+    window.location.reload();
   };
 
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import axios from "@/utils/axiosConfig"; 
 
 const BusinessSuppliersView = () => {
   const { businessId, business } = useOutletContext();
@@ -11,9 +12,10 @@ const BusinessSuppliersView = () => {
 
   useEffect(() => {
     if (!businessId) return;
-    fetch(`http://127.0.0.1:5000/business/${businessId}/suppliers`)
-      .then((res) => res.json())
-      .then((data) => setSuppliers(data));
+    axios
+      .get(`/business/${businessId}/suppliers`)
+      .then((res) => setSuppliers(res.data))
+      .catch((err) => console.error("Failed to fetch suppliers:", err));
   }, [businessId]);
 
   const fieldList = [
@@ -35,14 +37,9 @@ const BusinessSuppliersView = () => {
       ...newSupplier,
       business_id: businessId,
     };
-    const res = await fetch("http://127.0.0.1:5000/supplier", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    if (res.ok) {
-      const created = await res.json();
+    const res = await axios.post("/supplier", payload);
+    if (res.status === 200 || res.status === 201) {
+      const created = res.data;
       setSuppliers((prev) => [...prev, created]);
       setNewSupplier({});
       setShowAddModal(false);
@@ -50,16 +47,9 @@ const BusinessSuppliersView = () => {
   };
 
   const handleUpdateSupplier = async () => {
-    const res = await fetch(
-      `http://127.0.0.1:5000/supplier/${editingSupplier.id}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editingSupplier),
-      }
-    );
-    if (res.ok) {
-      const updated = await res.json();
+    const res = await axios.patch(`/supplier/${editingSupplier.id}`, editingSupplier);
+    if (res.status === 200 || res.status === 201) {
+      const updated = res.data;
       setSuppliers((prev) =>
         prev.map((s) => (s.id === updated.id ? updated : s))
       );
@@ -70,7 +60,7 @@ const BusinessSuppliersView = () => {
 
   const handleDeleteSupplier = async (id) => {
     if (!window.confirm("Delete this supplier?")) return;
-    await fetch(`http://127.0.0.1:5000/supplier/${id}`, { method: "DELETE" });
+    await axios.delete(`/supplier/${id}`);
     setSuppliers((prev) => prev.filter((s) => s.id !== id));
   };
 
