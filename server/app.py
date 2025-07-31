@@ -60,7 +60,7 @@ def mpesa_callback():
     print("M-PESA Callback received:")
     print(data)
 
-    # Optionally, save to DB or log file
+   
 
     return make_response(({"ResultCode": 0, "ResultDesc": "Callback received successfully"}), 200)
 

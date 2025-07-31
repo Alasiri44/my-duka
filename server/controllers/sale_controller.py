@@ -38,7 +38,7 @@ def create_sale():
         if missing:
             return make_response({'error': f"Missing required fields: {', '.join(missing)}"}, 400)
 
-        # Parse total_amount as Decimal if needed
+
         if isinstance(sale_data['total_amount'], str):
             try:
                 from decimal import Decimal
@@ -46,10 +46,8 @@ def create_sale():
             except Exception:
                 return make_response({'error': 'Invalid total_amount format'}, 400)
 
-        # Parse created_at if provided
         if sale_data.get('created_at'):
             try:
-                # Accept both ISO string and datetime object
                 if isinstance(sale_data['created_at'], str):
                     sale_data['created_at'] = datetime.fromisoformat(sale_data['created_at'].replace('Z', '+00:00'))
             except Exception:
@@ -62,7 +60,6 @@ def create_sale():
 
     except Exception as e:
         print(f"Error creating sale: {e}")
-        # Always return an 'error' field for frontend consistency
         return make_response({'error': 'Internal server error', 'details': str(e)}, 500)
 
 @sale_bp.route('/backend/sales', methods=['GET'])
