@@ -19,6 +19,7 @@ from controllers.batch_controller import batch_bp
 from controllers.sale_controller import sale_bp
 from controllers.mpesa_controller import mpesa_bp
 from controllers.reports_controller import reports_bp
+from scripts.seed_db import run_seed
 
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -65,6 +66,14 @@ def mpesa_callback():
     # Optionally, save to DB or log file
 
     return make_response(({"ResultCode": 0, "ResultDesc": "Callback received successfully"}), 200)
+
+@app.route('/run-seed', methods=['POST'])
+def seed_route():
+    try:
+        run_seed()
+        return {"message": "Database seeded successfully."}, 200
+    except Exception as e:
+        return {"error": str(e)}, 500
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
