@@ -1,5 +1,5 @@
 from __init__  import create_app
-from flask import make_response, session, request, send_from_directory
+from flask import make_response, session, request, send_from_directory, current_app
 from flask_session import Session
 from controllers.merchant_controller import merchant_bp
 from controllers.business_controller import business_bp
@@ -70,7 +70,8 @@ def mpesa_callback():
 @app.route('/run-seed')
 def seed_route():
     try:
-        run_seed()
+        with current_app.app_context():
+            run_seed()
         return {"message": "Database seeded successfully."}, 200
     except Exception as e:
         return {"error": str(e)}, 500
