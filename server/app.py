@@ -21,6 +21,7 @@ from controllers.sale_controller import sale_bp
 from controllers.mpesa_controller import mpesa_bp
 from controllers.reports_controller import reports_bp
 from scripts.seed_db import run_seed
+from sqlalchemy import text
 
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -67,7 +68,7 @@ def mpesa_callback():
 @app.route('/run-seed')
 def seed_route():
     try:
-        with current_app.app_context():
+        with current_app.app_context:
             run_seed()
         return {"message": "Database seeded successfully."}, 200
     except Exception as e:
@@ -76,51 +77,51 @@ def seed_route():
 @app.route("/reset-user-id-sequence")
 def reset_user_id_sequence():
     try:
-        db.session.execute("""
+        db.session.execute(text("""
             SELECT setval('users_id_seq', (SELECT MAX(id) FROM "users"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('merchants_id_seq', (SELECT MAX(id) FROM "merchants"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('batches_id_seq', (SELECT MAX(id) FROM "batches"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('business_settings_id_seq', (SELECT MAX(id) FROM "business_settings"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('businesses_id_seq', (SELECT MAX(id) FROM "businesses"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('categories_id_seq', (SELECT MAX(id) FROM "categories"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('invites_id_seq', (SELECT MAX(id) FROM "invites"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('payments_id_seq', (SELECT MAX(id) FROM "payments"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('products_id_seq', (SELECT MAX(id) FROM "products"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('sales_id_seq', (SELECT MAX(id) FROM "sales"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('stock_entries_id_seq', (SELECT MAX(id) FROM "stock_entries"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('stock_exits_id_seq', (SELECT MAX(id) FROM "stock_exits"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('stores_id_seq', (SELECT MAX(id) FROM "stores"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('suppliers_id_seq', (SELECT MAX(id) FROM "suppliers"));
-        """)
-        db.session.execute("""
+        """))
+        db.session.execute(text("""
             SELECT setval('supply_requests_id_seq', (SELECT MAX(id) FROM "supply_requests"));
-        """)
+        """))
         db.session.commit()
         return {"message": "id_seq updated successfully"}, 200
     except Exception as e:
