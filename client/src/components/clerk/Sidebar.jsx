@@ -11,6 +11,7 @@ import {
   FaDolly,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 
 const Sidebar = ({ user, store }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -35,7 +36,16 @@ const Sidebar = ({ user, store }) => {
     }`;
 
   const handleLogout = () => {
-    navigate("/login");
+    axios
+      .delete("http://localhost:5000/logout", { withCredentials: true })
+      .then((res) => {
+        console.log("Logged out:", res.data.message);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.error("Logout failed:", err);
+        alert("Logout failed. Please try again.");
+      });
   };
 
   const toggleSidebar = () => {
@@ -76,9 +86,10 @@ const Sidebar = ({ user, store }) => {
             animate={{ x: 0 }}
             exit={{ x: isMobile ? -300 : 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className={`bg-[#f2f0ed] border-r border-[#d7d0c8] h-full flex flex-col fixed z-50 shadow-xl ${
-              isMobile ? "w-64" : collapsed ? "w-16" : "w-64"
-            }`}
+            className={`bg-[#f2f0ed] border-r border-[#d7d0c8] h-screen flex flex-col shadow-xl
+              ${isMobile ? "fixed z-50" : "relative"}
+              ${collapsed ? "w-16" : "w-64"}
+            `}
           >
             {/* Header */}
             <div className="p-4 flex justify-between items-center">
