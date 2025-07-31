@@ -1,5 +1,5 @@
 from __init__  import create_app
-from flask import make_response, session, request
+from flask import make_response, session, request, send_from_directory
 from flask_session import Session
 from controllers.merchant_controller import merchant_bp
 from controllers.business_controller import business_bp
@@ -21,6 +21,7 @@ from controllers.mpesa_controller import mpesa_bp
 
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+import os
 
 app = create_app()
 bcrypt = Bcrypt(app)
@@ -44,9 +45,14 @@ app.register_blueprint(batch_bp)
 app.register_blueprint(sale_bp)
 app.register_blueprint(mpesa_bp)
 
-@app.route('/')
-def index():
-    return make_response('<h1>Welcome to myDuka platform</h1>')
+# Serve React frontend
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_vue(path):  # name doesn't matter
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/api/mpesa/callback', methods=['POST'])
