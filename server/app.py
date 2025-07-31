@@ -60,9 +60,6 @@ def mpesa_callback():
     data = request.get_json()
     print("M-PESA Callback received:")
     print(data)
-
-   
-
     return make_response(({"ResultCode": 0, "ResultDesc": "Callback received successfully"}), 200)
 
 @app.route('/run-seed')
@@ -77,53 +74,54 @@ def seed_route():
 @app.route("/reset-user-id-sequence")
 def reset_user_id_sequence():
     try:
-        db.session.execute(text("""
-            SELECT setval('users_id_seq', (SELECT MAX(id) FROM "users"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('merchants_id_seq', (SELECT MAX(id) FROM "merchants"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('batches_id_seq', (SELECT MAX(id) FROM "batches"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('business_settings_id_seq', (SELECT MAX(id) FROM "business_settings"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('businesses_id_seq', (SELECT MAX(id) FROM "businesses"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('categories_id_seq', (SELECT MAX(id) FROM "categories"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('invites_id_seq', (SELECT MAX(id) FROM "invites"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('payments_id_seq', (SELECT MAX(id) FROM "payments"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('products_id_seq', (SELECT MAX(id) FROM "products"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('sales_id_seq', (SELECT MAX(id) FROM "sales"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('stock_entries_id_seq', (SELECT MAX(id) FROM "stock_entries"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('stock_exits_id_seq', (SELECT MAX(id) FROM "stock_exits"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('stores_id_seq', (SELECT MAX(id) FROM "stores"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('suppliers_id_seq', (SELECT MAX(id) FROM "suppliers"));
-        """))
-        db.session.execute(text("""
-            SELECT setval('supply_requests_id_seq', (SELECT MAX(id) FROM "supply_requests"));
-        """))
-        db.session.commit()
-        return {"message": "id_seq updated successfully"}, 200
+        with current_app.app_context:
+            db.session.execute(text("""
+                SELECT setval('users_id_seq', (SELECT MAX(id) FROM "users"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('merchants_id_seq', (SELECT MAX(id) FROM "merchants"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('batches_id_seq', (SELECT MAX(id) FROM "batches"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('business_settings_id_seq', (SELECT MAX(id) FROM "business_settings"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('businesses_id_seq', (SELECT MAX(id) FROM "businesses"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('categories_id_seq', (SELECT MAX(id) FROM "categories"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('invites_id_seq', (SELECT MAX(id) FROM "invites"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('payments_id_seq', (SELECT MAX(id) FROM "payments"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('products_id_seq', (SELECT MAX(id) FROM "products"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('sales_id_seq', (SELECT MAX(id) FROM "sales"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('stock_entries_id_seq', (SELECT MAX(id) FROM "stock_entries"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('stock_exits_id_seq', (SELECT MAX(id) FROM "stock_exits"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('stores_id_seq', (SELECT MAX(id) FROM "stores"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('suppliers_id_seq', (SELECT MAX(id) FROM "suppliers"));
+            """))
+            db.session.execute(text("""
+                SELECT setval('supply_requests_id_seq', (SELECT MAX(id) FROM "supply_requests"));
+            """))
+            db.session.commit()
+            return {"message": "id_seq updated successfully"}, 200
     except Exception as e:
         db.session.rollback()
         return {"error": str(e)}, 500
