@@ -96,7 +96,7 @@ class User_Login(Resource):
         return make_response('', 200)
 
     def post(self):
-        from ..app import bcrypt
+        from app import bcrypt
         data = request.get_json()
         email = data.get('email')
         password = data.get('password')
