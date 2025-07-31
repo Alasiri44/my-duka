@@ -1,5 +1,5 @@
 from __init__  import create_app
-from models.__init__ import db
+from models import db
 from flask import make_response, session, request, send_from_directory, current_app
 from flask_session import Session
 from controllers.merchant_controller import merchant_bp
