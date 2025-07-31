@@ -35,7 +35,6 @@ const StoreLayout = () => {
     { label: "Inventory", path: "inventory", roles: ["merchant", "admin", "clerk"] },
     { label: "Entries", path: "entries", roles: ["merchant", "admin", "clerk"] },
     { label: "Exits", path: "exits", roles: ["merchant", "admin", "clerk"] },
-    { label: "Reports", path: "reports", roles: ["merchant", "admin"] },
     { label: "Settings", path: "settings", roles: ["merchant", "admin"] },
   ];
 
