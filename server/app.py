@@ -67,7 +67,7 @@ def mpesa_callback():
 
     return make_response(({"ResultCode": 0, "ResultDesc": "Callback received successfully"}), 200)
 
-@app.route('/run-seed', methods=['POST'])
+@app.route('/run-seed')
 def seed_route():
     try:
         run_seed()
