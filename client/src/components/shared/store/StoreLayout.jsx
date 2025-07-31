@@ -39,7 +39,7 @@ const StoreLayout = () => {
     { label: "Inventory", path: "inventory", roles: ["merchant", "admin", "clerk"] },
     { label: "Entries", path: "entries", roles: ["merchant", "admin", "clerk"] },
     { label: "Exits", path: "exits", roles: ["merchant", "admin", "clerk"] },
-    { label: "Settings", path: "settings", roles: ["merchant", "admin"] },
+    // { label: "Settings", path: "settings", roles: ["merchant", "admin"] },
   ];
 
   const tabs = allTabs.filter((tab) => tab.roles.includes(role));
