@@ -28,7 +28,7 @@ import os
 
 app = create_app()
 bcrypt = Bcrypt(app)
-CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5173"])
+CORS(app, supports_credentials=True, origins=["https://myduka-xylv.onrender.com"])
 
 app.register_blueprint(merchant_bp)
 app.register_blueprint(business_bp)

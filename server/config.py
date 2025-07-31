@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 SQLALCHEMY_DATABASE_URI = 'postgresql://my_duka_db_user:YII7EXB6QxPi3fCIuO4VVvP7TRsmRK3f@dpg-d25ip3ili9vc73fc23vg-a.oregon-postgres.render.com/my_duka_db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -7,3 +9,9 @@ MAIL_USE_TLS = True
 MAIL_USERNAME = 'myduka77@gmail.com'
 MAIL_PASSWORD = 'dopasssdlbclymmz'
 MAIL_DEFAULT_SENDER = 'myduka77@gmail.com'
+
+SESSION_COOKIE_SAMESITE="None"
+SESSION_COOKIE_SECURE=True 
+SESSION_PERMANENT=False
+SESSION_TYPE='filesystem'
+PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)

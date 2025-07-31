@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
-from config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS, MAIL_DEFAULT_SENDER, MAIL_PASSWORD, MAIL_PORT, MAIL_SERVER, MAIL_USE_TLS, MAIL_USERNAME
+from config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS, MAIL_DEFAULT_SENDER, MAIL_PASSWORD, MAIL_PORT, MAIL_SERVER, MAIL_USE_TLS, MAIL_USERNAME, SESSION_COOKIE_SAMESITE, SESSION_COOKIE_SECURE, SESSION_PERMANENT, SESSION_TYPE, PERMANENT_SESSION_LIFETIME
 from models import db
 from models.merchant import Merchant
 from models.business import Business
@@ -19,7 +19,6 @@ from models.sale import Sale
 from models.payment import Payment
 from flask_mail import Mail
 from flask_session import Session
-from datetime import timedelta
 
 mail = Mail()
 sess = Session()
@@ -40,12 +39,12 @@ def create_app():
     app.config['MAIL_DEFAULT_SENDER'] = MAIL_DEFAULT_SENDER
     
     #Session configuration
-    app.config['SESSION_PERMANENT'] = False
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.config["SESSION_COOKIE_DOMAIN"] = "127.0.0.1"
+    app.config['SESSION_PERMANENT'] = SESSION_PERMANENT
+    app.config['SESSION_TYPE'] = SESSION_TYPE
+    app.config["SESSION_COOKIE_SAMESITE"] = SESSION_COOKIE_SAMESITE
 
-    # app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
-    # app.config["SESSION_COOKIE_SECURE"] = True
+    # app.config['PERMANENT_SESSION_LIFETIME'] = PERMANENT_SESSION_LIFETIME
+    app.config["SESSION_COOKIE_SECURE"] = SESSION_COOKIE_SECURE
     
     #Initializing extensions
     migrate = Migrate(app, db)
