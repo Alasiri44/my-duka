@@ -2,16 +2,16 @@ from flask import Blueprint, request, jsonify, make_response
 from sqlalchemy import func
 from datetime import datetime
 
-from ..models.sale import Sale
-from ..models.stock_exits import StockExit
-from ..models.stock_entries import Stock_Entry
-from ..models.product import Product
-from ..models.user import User
-from ..models.store import Store
-from ..models.category import Category
-from ..models.supplier import Supplier
-from ..models.supply_request import Supply_Request
-from .. import db
+from models.sale import Sale
+from models.stock_exits import StockExit
+from models.stock_entries import Stock_Entry
+from models.product import Product
+from models.user import User
+from models.store import Store
+from models.category import Category
+from models.supplier import Supplier
+from models.supply_request import Supply_Request
+from __init__ import db
 
 reports_bp = Blueprint('reports', __name__)
 
