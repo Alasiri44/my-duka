@@ -17,5 +17,4 @@ async function CheckSession(dispatch) {
     dispatch(clearUser());
   }
 }
-
 export default CheckSession;
