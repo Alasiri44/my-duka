@@ -10,14 +10,14 @@ def get_access_token(settings):
     res = requests.get(url, auth=auth)
     
     if res.status_code != 200:
-        print("❌ Token request failed")
+        print("Token request failed")
         print("Status Code:", res.status_code)
         print("Response:", res.text)
         return None  
     try:
         return res.json().get("access_token")
     except Exception as e:
-        print("❌ Failed to parse JSON from token response")
+        print("Failed to parse JSON from token response")
         print("Error:", str(e))
         print("Raw response:", res.text)
         return None
