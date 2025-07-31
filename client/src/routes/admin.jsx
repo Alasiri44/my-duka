@@ -1,7 +1,7 @@
 import React from "react";
 import AdminLayout from "../components/admin/AdminLayout";
 import StoreOverview from "../components/shared/store/StoreOverview";
-import SupplyRequestTable from "../components/admin/SupplyRequestTable";
+import AdminSupplyRequests from "../pages/dashboards/admin/supply_requests.jsx";
 import Reports from "../components/admin/Reports";
 import AddClerk from "../pages/dashboards/admin/addClerk";
 import ProtectedRoute from "./ProtectedRoute";
@@ -20,7 +20,7 @@ const adminRoutes = [
         element: <AdminLayout />,
         children: [
           { path: "", element: <StoreOverview /> },
-          { path: "supply-requests", element: <SupplyRequestTable /> },
+          { path: "supply-requests", element: < AdminSupplyRequests /> },
           {path:"staff", element:<StaffView/>},
           {path:"inventory", element:<StoreInventory/>},
           {path:"entries", element:<StockEntries/>},
