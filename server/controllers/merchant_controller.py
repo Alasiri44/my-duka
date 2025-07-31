@@ -33,7 +33,7 @@ class Merchants(Resource):
         response_dict = [merchant.to_dict() for merchant in Merchant.query.all()]
         return make_response(response_dict, 200)
     def post(self):
-        from ..app import bcrypt
+        from app import bcrypt
         data = request.get_json()
         new_merchant = Merchant(
             first_name = data.get('first_name'),
