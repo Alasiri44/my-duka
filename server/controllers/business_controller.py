@@ -385,4 +385,4 @@ class BusinessSettingsResource(Resource):
             db.session.rollback()
             return make_response({'error': str(e)}, 400)
 
-business_api.add_resource(BusinessSettingsResource, "/backend/business_settings", "/business_settings/<int:id>")
+business_api.add_resource(BusinessSettingsResource, "/backend/business_settings", "/backend/business_settings/<int:id>")
