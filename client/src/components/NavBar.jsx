@@ -39,6 +39,9 @@ const Sidebar = ({ businesses, currentId }) => {
         <NavLink to="staff" className={({ isActive }) => linkClass(isActive)}>
           <FaUser /> {!collapsed && "Staff"}
         </NavLink>
+        <NavLink to="clerks" className={({ isActive }) => linkClass(isActive)}>
+          <FaUser /> {!collapsed && "Clerks"}
+        </NavLink>
         <NavLink to="inventory" className={({ isActive }) => linkClass(isActive)}>
           <FaBoxes /> {!collapsed && "Inventory"}
         </NavLink>

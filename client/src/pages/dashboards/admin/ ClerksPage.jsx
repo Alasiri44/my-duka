@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchClerks, deactivateClerk, deleteClerk , addClerk} from '../../store/clerksSlice';
+import { fetchClerks, deactivateClerk, deleteClerk , addClerk} from '../../../store/clerksSlice';
 import axios from 'axios';
 
-const Clerks = () => {
+const ClerksPage = () => {
   const dispatch = useDispatch();
   const { list: clerks, status } = useSelector((state) => state.clerks);
+  console.log("Fetched Clerks:", clerks);
   const [storeMap, setStoreMap] = useState({});
   const [formData, setFormData] = useState({
     first_name: '',
@@ -158,4 +159,4 @@ const Clerks = () => {
   );
 };
 
-export default Clerks;
+export default ClerksPage;
