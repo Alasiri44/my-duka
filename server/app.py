@@ -18,6 +18,7 @@ from controllers.stock_entry_controller import stock_entry_bp
 from controllers.batch_controller import batch_bp
 from controllers.sale_controller import sale_bp
 from controllers.mpesa_controller import mpesa_bp
+from controllers.reports_controller import reports_bp
 
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS

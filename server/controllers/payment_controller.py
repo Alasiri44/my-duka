@@ -2,11 +2,9 @@ from flask_restful import Api, Resource
 from flask import make_response, Blueprint, request
 from datetime import datetime
 
-from ..models import db
-from ..models.payment import Payment
-from ..models.stock_entries import Stock_Entry
-from ..models.business_setting import Business_Setting
-from ..utils.daraja import initiate_stk_push
+from models.stock_entries import Stock_Entry
+from models.business_setting import Business_Setting
+from utils.daraja import initiate_stk_push
 from models import db
 from models.payment import Payment
 from models.sale import Sale
