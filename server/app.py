@@ -65,7 +65,7 @@ def mpesa_callback():
 @app.route('/run-seed')
 def seed_route():
     try:
-        with current_app.app_context:
+        with current_app.app_context():
             run_seed()
         return {"message": "Database seeded successfully."}, 200
     except Exception as e:
