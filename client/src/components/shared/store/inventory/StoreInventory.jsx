@@ -102,6 +102,29 @@ const StoreInventory = () => {
     return result;
   }, [computedProducts, search, sortByStock, categories]);
 
+  const handleExportCSV = () => {
+    const headers = ["Name", "Category", "Description", "Unit Cost (KES)", "Quantity on Hand"];
+    const rows = filteredProducts.map(product => [
+      `"${product.name.replace(/"/g, '""')}"`,
+      `"${(product.category_name || getCategoryName(product.category_id)).replace(/"/g, '""')}"`,
+      `"${(product.description || "—").replace(/"/g, '""')}"`,
+      Number(product.selling_price).toFixed(2),
+      product.quantity_on_hand || 0
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map(row => row.join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `inventory_${store.id}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
   return (
     <div className="bg-white p-6 rounded-xl border border-[#f2f0ed] shadow-sm">
       <div className="flex justify-between items-center mb-2">
@@ -113,7 +136,10 @@ const StoreInventory = () => {
           >
             {showSummary ? "Hide Summary" : "Show Summary"}
           </button>
-          <button className="px-3 py-2 bg-[#011638] text-white text-sm rounded hover:bg-[#000f2a]">
+          <button
+            onClick={handleExportCSV}
+            className="px-3 py-2 bg-[#011638] text-white text-sm rounded hover:bg-[#000f2a]"
+          >
             Export CSV
           </button>
         </div>
