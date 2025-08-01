@@ -20,7 +20,6 @@ def run_seed():
         db.drop_all()
         db.create_all()
 
-        
         merchant_password = "duka123"
         print(f"Password for stephen@myduka.co.ke is: {merchant_password}")
         
@@ -210,5 +209,29 @@ def run_seed():
         StockExit(id=10, store_id=3, product_id=12, recorded_by=4, batch_id=10, quantity=5, selling_price=70.43, reason='damaged', sale_id=None, created_at=datetime.fromisoformat('2025-07-17T04:40:51'))
         ])
         db.session.commit()
-        print("All seed data created successfully.")
         
+        def reset_sequences():
+            tables = [
+                ('merchants', 'merchants_id_seq'),
+                ('businesses', 'businesses_id_seq'),
+                ('stores', 'stores_id_seq'),
+                ('users', 'users_id_seq'),
+                ('categories', 'categories_id_seq'),
+                ('products', 'products_id_seq'),
+                ('suppliers', 'suppliers_id_seq'),
+                ('batches', 'batches_id_seq'),
+                ('stock_entries', 'stock_entries_id_seq'),
+                ('stock_exits', 'stock_exits_id_seq'),
+                ('sales', 'sales_id_seq'),
+            ]
+
+            for table, seq in tables:
+                stmt = text(f"""
+                    SELECT setval('{seq}', COALESCE((SELECT MAX(id) FROM {table}), 1), true);
+                """)
+                db.session.execute(stmt)
+            
+            db.session.commit()
+            print("Sequences reset successfully.")
+        reset_sequences()
+        print("All seed data created successfully.")   
