@@ -224,60 +224,31 @@ store_api.add_resource(StoreOverview, '/store/<int:id>/overview')
 
 class StoreStockEntries(Resource):
     def get(self, id):
-        from ..models.supplier import Supplier
-        from ..models.product import Product
-
-        store = Store.query.get(id)
-        if not store:
-            return make_response({"message": "Store not found"}, 404)
+        query = db.session.query(Stock_Entry).options(
+            joinedload(Stock_Entry.product),
+            joinedload(Stock_Entry.supplier),
+            joinedload(Stock_Entry.clerk)
+        ).filter(
+            Stock_Entry.store_id == id,
+            Stock_Entry.quantity_received > 0,
+            Stock_Entry.buying_price > 0
+        )
 
         product_id = request.args.get("product_id", type=int)
         supplier_id = request.args.get("supplier_id", type=int)
         start_date = request.args.get("start_date")
         end_date = request.args.get("end_date")
 
-        query = db.session.query(Stock_Entry)\
-            .options(
-                joinedload(Stock_Entry.supplier),
-                joinedload(Stock_Entry.product)
-            )\
-            .filter(Stock_Entry.store_id == id)
-
         if product_id:
             query = query.filter(Stock_Entry.product_id == product_id)
         if supplier_id:
             query = query.filter(Stock_Entry.supplier_id == supplier_id)
         if start_date:
-            query = query.filter(Stock_Entry.created_at >= start_date)
+            query = query.filter(Stock_Entry.created_at >= datetime.fromisoformat(start_date))
         if end_date:
-            query = query.filter(Stock_Entry.created_at <= end_date)
+            query = query.filter(Stock_Entry.created_at <= datetime.fromisoformat(end_date))
 
-        entries = query.order_by(Stock_Entry.created_at.desc()).all()
-
-        response = []
-        for e in entries:
-            response.append({
-                "id": e.id,
-                "product_id": e.product_id,
-                "product_name": e.product.name if e.product else None,
-                "supplier_id": e.supplier_id,
-                "supplier": {
-                    "id": e.supplier.id,
-                    "name": e.supplier.name,
-                    "paybill_number": e.supplier.paybill_number,
-                    "till_number": e.supplier.till_number,
-                    "phone_number": e.supplier.phone_number,
-                } if e.supplier else None,
-                "clerk_id": e.clerk_id,
-                "batch_id": e.batch_id,
-                "store_id": e.store_id,
-                "quantity_received": e.quantity_received,
-                "buying_price": float(e.buying_price),
-                "payment_status": e.payment_status,
-                "created_at": e.created_at.isoformat(),
-            })
-
-        return make_response(response, 200)
+        return [entry.to_dict() for entry in query.all()], 200
 
 store_api.add_resource(StoreStockEntries, "/store/<int:id>/stock_entries")
 
