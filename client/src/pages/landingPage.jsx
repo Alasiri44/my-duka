@@ -8,6 +8,7 @@ import { MdAddBusiness } from "react-icons/md";
 import { IoDiamond } from "react-icons/io5";
 import dashScreenshot from "../assets/dashScreenshot.png";
 import screenshot2 from "../assets/screenshot2.png";
+import StockReportsDemo from "@/components/StockReportsDemo";
 
 
 
@@ -142,6 +143,10 @@ function LandingPage() {
                             </li>
                         </ul>
                     </div>
+                </section>
+
+                <section>
+                    <StockReportsDemo/>
                 </section>
 
                 <footer className="text-center py-6 bg-white text-gray-500 text-sm border-t">
