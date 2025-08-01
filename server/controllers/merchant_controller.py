@@ -58,7 +58,7 @@ class Merchants(Resource):
         <p>Your Merchant account with MyDuka has been successfully created on MyDuka. You can now log in and create your profile
         and access our services.</p>
 
-        <a href="https://myduka-xylv.onrender.com/login" style="
+        <a href="https://my-duka-c8kn.onrender.com//login" style="
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
