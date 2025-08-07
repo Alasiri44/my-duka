@@ -5,6 +5,8 @@ import {LuPackagePlus} from "react-icons/lu"
 import { TbPackageExport } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
+import { clearUser } from "@/redux/slices/authSlice";
+import axios from "@/utils/axiosConfig";
 // import { logout } from "../../redux/slices/authSlice"; // Adjust path as needed
 
 const Sidebar = ({  store, business, user }) => {
@@ -43,8 +45,14 @@ const Sidebar = ({  store, business, user }) => {
   const role = user?.role || "clerk";
   const tabs = allTabs.filter((tab) => tab.roles.includes(role));
 
-  const handleLogout = () => {
-    navigate("/login");
+   const handleLogout = async () => {
+    try {
+      await axios.delete("/logout");
+      dispatch(clearUser());
+      navigate("/login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   return (

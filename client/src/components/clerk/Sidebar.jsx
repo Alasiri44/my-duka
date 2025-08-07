@@ -11,7 +11,8 @@ import {
   FaDolly,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import { clearUser } from "@/redux/slices/authSlice";
+import axios from "@/utils/axiosConfig";
 
 const Sidebar = ({ user, store }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -35,17 +36,15 @@ const Sidebar = ({ user, store }) => {
       isActive ? "bg-[#d7d0c8] font-semibold" : "text-[#011638]"
     }`;
 
-  const handleLogout = () => {
-    axios
-      .delete("http://localhost:5000/logout", { withCredentials: true })
-      .then((res) => {
-        console.log("Logged out:", res.data.message);
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.error("Logout failed:", err);
-        alert("Logout failed. Please try again.");
-      });
+
+   const handleLogout = async () => {
+    try {
+      await axios.delete("/logout");
+      dispatch(clearUser());
+      navigate("/login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   const toggleSidebar = () => {
