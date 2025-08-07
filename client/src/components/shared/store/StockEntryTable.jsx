@@ -1,4 +1,3 @@
-// components/store/StockEntryTable.jsx
 import React from "react";
 
 const StockEntryTable = ({
@@ -23,32 +22,49 @@ const StockEntryTable = ({
           </tr>
         </thead>
         <tbody>
-          {entries.map((entry) => (
-            <tr key={entry.id} className="border-t even:bg-[#fafafa]">
-              <td className="px-3 py-2">{getProductName(entry.product_id)}</td>
-              <td className="px-3 py-2">{entry.quantity_received}</td>
-              <td className="px-3 py-2">KES {entry.buying_price.toFixed(2)}</td>
-              <td className="px-3 py-2">
-                KES {(entry.buying_price * entry.quantity_received).toFixed(2)}
-              </td>
-              <td className="px-3 py-2">{getClerkName(entry.clerk_id)}</td>
-              <td className="px-3 py-2">{getSupplierName(entry.supplier_id)}</td>
-              <td className="px-3 py-2">
-                {new Date(entry.created_at).toLocaleDateString()}
-              </td>
-              <td className="px-3 py-2">
-                <span
-                  className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    entry.payment_status === "paid"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-700"
-                  }`}
-                >
-                  {entry.payment_status || "unpaid"}
-                </span>
+          {entries.length === 0 ? (
+            <tr>
+              <td colSpan="8" className="px-3 py-2 text-center text-[#5e574d]">
+                No valid stock entries found
               </td>
             </tr>
-          ))}
+          ) : (
+            entries.map((entry) => {
+              const qty = Number(entry.quantity_received);
+              const price = Number(entry.buying_price);
+              const total = qty * price;
+
+              // Use fallbacks for invalid values
+              const displayQty = !isNaN(qty) && qty > 0 ? qty : "N/A";
+              const displayPrice = !isNaN(price) && price > 0 ? price.toFixed(2) : "N/A";
+              const displayTotal = !isNaN(total) && total > 0 ? total.toFixed(2) : "N/A";
+
+              return (
+                <tr key={entry.id} className="border-t even:bg-[#fafafa]">
+                  <td className="px-3 py-2">{getProductName(entry.product_id)}</td>
+                  <td className="px-3 py-2">{displayQty}</td>
+                  <td className="px-3 py-2">{displayPrice !== "N/A" ? `KES ${displayPrice}` : "N/A"}</td>
+                  <td className="px-3 py-2">{displayTotal !== "N/A" ? `KES ${displayTotal}` : "N/A"}</td>
+                  <td className="px-3 py-2">{getClerkName(entry.clerk_id)}</td>
+                  <td className="px-3 py-2">{getSupplierName(entry.supplier_id)}</td>
+                  <td className="px-3 py-2">
+                    {entry.created_at ? new Date(entry.created_at).toLocaleDateString() : "N/A"}
+                  </td>
+                  <td className="px-3 py-2">
+                    <span
+                      className={`text-xs font-medium px-2 py-1 rounded-full ${
+                        entry.payment_status === "paid"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {(entry.payment_status || "unpaid").toUpperCase()}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
     </div>

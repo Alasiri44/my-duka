@@ -1,13 +1,6 @@
-// components/store/BatchDetailPanel.jsx
 import React from "react";
 
-const BatchDetailPanel = ({
-  selectedBatchId,
-  selectedBatchEntries,
-  getProductName,
-  getClerkName,
-  getSupplierName,
-}) => {
+const BatchDetailPanel = ({ selectedBatchId, selectedBatchEntries }) => {
   if (!selectedBatchId) {
     return (
       <div className="w-full md:w-2/3 border rounded-lg p-4 min-h-[200px]">
@@ -36,31 +29,43 @@ const BatchDetailPanel = ({
             </tr>
           </thead>
           <tbody>
-            {selectedBatchEntries.map((entry) => (
-              <tr key={entry.id} className="border-t even:bg-[#fafafa]">
-                <td className="px-2 py-2">{getProductName(entry.product_id)}</td>
-                <td className="px-2 py-2">{entry.quantity_sold ?? entry.quantity ?? 0}</td>
-                <td className="px-2 py-2">
-                  KES {typeof entry.selling_price === "number" ? entry.selling_price.toFixed(2) : "0.00"}
-                </td>
-                <td className="px-2 py-2">
-                  KES {typeof entry.selling_price === "number" && typeof (entry.quantity_sold ?? entry.quantity) === "number"
-                    ? (entry.selling_price * (entry.quantity_sold ?? entry.quantity)).toFixed(2)
-                    : "0.00"}
-                </td>
-                <td className="px-2 py-2">{getClerkName(entry.clerk_id)}</td>
-                <td className="px-2 py-2">{getSupplierName(entry.supplier_id)}</td>
-                <td className="px-2 py-2">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    entry.payment_status === "paid"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-700"
-                  }`}>
-                    {entry.payment_status || "unpaid"}
-                  </span>
-                </td>
-              </tr>
-            ))}
+            {selectedBatchEntries.map((entry) => {
+              const qty = entry.quantity_received ?? entry.quantity ?? 0;
+              const price = entry.buying_price ?? 0;
+              const total = Number(qty) * Number(price);
+
+              return (
+                <tr key={entry.id} className="border-t even:bg-[#fafafa]">
+                  <td className="px-2 py-2">{entry.product?.name || "Unknown Product"}</td>
+                  <td className="px-2 py-2">{qty}</td>
+                  <td className="px-2 py-2">
+                    KES {typeof price === "number" ? price.toFixed(2) : "0.00"}
+                  </td>
+                  <td className="px-2 py-2">
+                    KES {total.toFixed(2)}
+                  </td>
+                  <td className="px-2 py-2">
+                    {entry.clerk?.first_name
+                      ? `${entry.clerk.first_name} ${entry.clerk.last_name}`
+                      : "Unknown Clerk"}
+                  </td>
+                  <td className="px-2 py-2">
+                    {entry.supplier?.name || "Unknown Supplier"}
+                  </td>
+                  <td className="px-2 py-2">
+                    <span
+                      className={`text-xs font-medium px-2 py-1 rounded-full ${
+                        entry.payment_status === "paid"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {entry.payment_status || "unpaid"}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

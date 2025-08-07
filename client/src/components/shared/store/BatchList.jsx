@@ -1,4 +1,3 @@
-// components/merchant/store/BatchList.jsx
 import React from "react";
 
 const BatchList = ({
@@ -20,11 +19,21 @@ const BatchList = ({
             const first = getFirstEntry(batchEntries);
             const total = getBatchTotal(batchEntries);
 
-            // ✅ All entries must be paid to mark the batch as paid
+            // Skip batches with invalid totals
+            if (isNaN(total) || total <= 0) {
+              return null;
+            }
+
             const allPaid = batchEntries.every(
               (entry) => entry.payment_status === "paid"
             );
             const status = allPaid ? "paid" : "unpaid";
+
+            // Ensure valid date
+            const createdAt = first.created_at ? new Date(first.created_at) : null;
+            const displayDate = createdAt && !isNaN(createdAt)
+              ? createdAt.toLocaleDateString()
+              : "N/A";
 
             return (
               <li
@@ -40,7 +49,7 @@ const BatchList = ({
                   Batch: {batchId.startsWith("no-batch") ? "—" : batchId}
                 </p>
                 <p className="text-xs text-[#5e574d]">
-                  Date: {new Date(first.created_at).toLocaleDateString()}
+                  Date: {displayDate}
                 </p>
                 <p className="text-xs text-[#5e574d]">
                   Total: KES {total.toFixed(2)}
@@ -54,7 +63,8 @@ const BatchList = ({
                 </p>
               </li>
             );
-          })}
+          })
+          .filter(Boolean)} {/* Remove null entries */}
       </ul>
     </div>
   );
