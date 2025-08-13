@@ -111,7 +111,7 @@ function LandingPage() {
 
                 <section className="bg-gradient-to-tr from-green-50 to-teal-50 py-20 px-6 rounded-b-3xl">
                     <div className="max-w-5xl mx-auto text-center">
-                        <h4 className="text-4xl font-bold text-gray-900 mb-6">Why choose <span className="text-green-600">myDuka</span></h4>
+                        <h4 className="text-4xl font-bold text-gray-900 mb-6">Why choose <span className="text-green-600">MyDuka</span></h4>
                         <p className="text-lg text-gray-700 mb-10 max-w-3xl mx-auto">
                             Join hundreds of retailers who have transformed their inventory management with our comprehensive platform. Experience the future of retail with myDuka.
                         </p>
