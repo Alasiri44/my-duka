@@ -10,8 +10,6 @@ import dashScreenshot from "../assets/dashScreenshot.png";
 import screenshot2 from "../assets/screenshot2.png";
 import StockReportsDemo from "@/components/StockReportsDemo";
 
-
-
 function LandingPage() {
     return (
         <>
