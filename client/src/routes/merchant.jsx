@@ -26,6 +26,7 @@ import ProcurementPayments from "../components/merchant/reports/ProcurementPayme
 import SupplierReports from "../components/merchant/reports/SupplierReports";
 import StorePerformance from "../components/merchant/reports/StorePerformance";
 import UserActivity from "../components/merchant/reports/UserActivity";
+import BusinessProductsView from "../pages/dashboards/merchant/BusinessProductsView";
 import MerchantProfile from "../pages/dashboards/merchant/MerchantProfile";
 
 const merchantRoutes = [
@@ -51,6 +52,7 @@ const merchantRoutes = [
           { path: "staff", element: <BusinessStaffView /> },
           { path: "inventory", element: <BusinessInventoryView /> },
           { path: "suppliers", element: <BusinessSuppliersView /> },
+          { path: "products", element: <BusinessProductsView /> },
           { path: "payments", element: <BusinessPaymentsView />},
           { path: "reports",
               element: <BusinessReports />, 

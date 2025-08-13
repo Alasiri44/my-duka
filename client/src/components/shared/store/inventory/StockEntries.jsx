@@ -16,7 +16,6 @@ const StockEntries = () => {
   const [selectedBatchId, setSelectedBatchId] = useState(null);
   const [batchSearch, setBatchSearch] = useState("");
   const [filterBatchStatus, setFilterBatchStatus] = useState("");
-
   const [filterProduct, setFilterProduct] = useState("");
   const [filterSupplier, setFilterSupplier] = useState("");
   const [filterStartDate, setFilterStartDate] = useState("");
@@ -24,7 +23,7 @@ const StockEntries = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams();
-    queryParams.append("store_id", store.id); // always filter by store_id
+    queryParams.append("store_id", store.id);
     if (filterProduct) queryParams.append("product_id", filterProduct);
     if (filterSupplier) queryParams.append("supplier_id", filterSupplier);
     if (filterStartDate) queryParams.append("start_date", filterStartDate);
@@ -33,30 +32,41 @@ const StockEntries = () => {
     const queryString = queryParams.toString();
 
     Promise.all([
-      axios.get(`/store/${store.id}/stock_entries?${queryString}`),
+      axios.get(`/stock_entries?${queryString}`),
       axios.get(`/store/${store.id}/users`),
       axios.get(`/store/${store.id}/products`),
-      axios.get(`/business/${store.business_id}/suppliers`),
-    ]).then(([entryRes, userRes, productRes, supplierRes]) => {
-      setEntries(
-        entryRes.data.map((e) => ({
-          ...e,
-          id: Number(e.id),
-          quantity: Number(e.quantity),
-          buying_price: parseFloat(e.buying_price) || 0,
-        }))
-      );
-      setUsers(userRes.data.map((u) => ({ ...u, id: Number(u.id), store_id: Number(u.store_id) })));
-      setProducts(productRes.data.map((p) => ({ ...p, id: Number(p.id) })));
-      setSuppliers(supplierRes.data.map((s) => ({ ...s, id: Number(s.id) })));
-    });
+      axios.get(`/business/${store.business_id}/suppliers`)
+    ])
+      .then(([entryRes, userRes, productRes, supplierRes]) => {
+        const transformed = entryRes.data.map((e) => {
+          const qty = Number(e.quantity_received ?? 0);
+          const price = Number(e.buying_price ?? 0);
+          return {
+            ...e,
+            id: Number(e.id),
+            quantity_received: qty,
+            buying_price: price,
+            payment_status: e.payment_status || "unpaid",
+            created_at: e.created_at || new Date().toISOString(),
+            valid: qty > 0 && price > 0 && !!e.product_id
+          };
+        }).filter((e) => e.valid);
+
+        setEntries(transformed);
+        setUsers(userRes.data.map((u) => ({ ...u, id: Number(u.id) })));
+        setProducts(productRes.data.map((p) => ({ ...p, id: Number(p.id) })));
+        setSuppliers(supplierRes.data.map((s) => ({ ...s, id: Number(s.id) })));
+      })
+      .catch((error) => {
+        console.error("Error fetching stock data:", error);
+        setEntries([]);
+      });
   }, [store.id, store.business_id, filterProduct, filterSupplier, filterStartDate, filterEndDate]);
 
   const storeEntries = useMemo(
     () => entries.filter((e) => Number(e.store_id) === Number(store.id)),
     [entries, store.id]
   );
-  console.log("Current store ID:", store.id);
 
   const batches = useMemo(() => {
     const grouped = {};
@@ -83,16 +93,25 @@ const StockEntries = () => {
 
   const selectedBatchEntries = batches[selectedBatchId] || [];
 
-  const getProductName = (id) => products.find((p) => p.id === id)?.name || "—";
-  const getClerkName = (id) => users.find((u) => u.id === id)?.first_name || "—";
-  const getSupplierName = (id) => suppliers.find((s) => s.id === id)?.name || "—";
-  const getFirstEntry = (entries) => entries[0];
+  const getProductName = (id, entry) => entry?.product?.name || "Unknown Product";
+  const getClerkName = (id, entry) => entry?.clerk?.first_name ? `${entry.clerk.first_name} ${entry.clerk.last_name}` : "Unknown Clerk";
+  const getSupplierName = (id, entry) => entry?.supplier?.name || "Unknown Supplier";
+
+  const getFirstEntry = (entries) => entries[0] || {};
+
   const getBatchTotal = (entries) =>
-    entries.reduce((sum, e) => sum + e.buying_price * e.quantity_received, 0);
+    entries.reduce((sum, e) => {
+      const price = Number(e.buying_price) || 0;
+      const qty = Number(e.quantity_received) || 0;
+      return sum + price * qty;
+    }, 0);
 
   const totalValue = storeEntries.reduce(
-    (sum, e) => sum + e.buying_price * e.quantity_received,
-    0
+    (sum, e) => {
+      const price = Number(e.buying_price) || 0;
+      const qty = Number(e.quantity_received) || 0;
+      return sum + price * qty;
+    }, 0
   );
 
   return (

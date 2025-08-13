@@ -147,6 +147,9 @@ const Sidebar = ({  businesses, currentId, stores  }) => {
           <NavLink to="suppliers" className={({ isActive }) => linkClass(isActive)}>
             <FaTruck /> {!collapsed && "Suppliers"}
           </NavLink>
+          <NavLink to="products" className={({ isActive }) => linkClass(isActive)}>
+             <FaBoxes /> {!collapsed && "Products"}
+           </NavLink>
           <NavLink to="payments" className={({ isActive }) => linkClass(isActive)}>
             <FaMoneyBill /> {!collapsed && "Payments"}
           </NavLink>
